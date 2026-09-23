@@ -1,0 +1,489 @@
+\chapter{Optimisation avec contrainte}
+
+\section{Introduction}
+
+Soit $f : \R \to \R $ défini sur un ouvert $U \in \R$.
+Soit $S$ un sous-ensemble de $U$.
+\begin{definition}
+    \begin{enumerate}
+        \item Un point $a \in S$ est un minimum local de $f$ sur $S$
+        s'il existe $V_a$ un voisinage de $a$ tel que $\forall x \in V\cap S$,
+        $f(x) \ge f(a)$
+        \item Un point $a \in S$ est un maximum local de $f$ sur $S$
+        s'il existe $V_a$ un voisinage de $a$ tel que $\forall x \in V\cap S$,
+        $f(x) \le f(a)$
+    \end{enumerate}
+\end{definition}
+
+\begin{remarque}
+\begin{enumerate}
+    \item Si $S$ est compact et $f$ est continu,
+    alors il existe forcément un minimum local (et même global) de $f$ sur $S$ et un 
+    maximum local (et même global) de $f$ sur $S$
+    \item Si $a$ est un minimum local de $f$ sur $U$ alors $\forall S \subseteq U$ contenant $a$,$a$ 
+    est un minimum local de $f$ sur $S$
+    \item Si $a$ est un maximum local de $f$ sur $U$ alors $\forall S \subseteq U$ contenant $a$,$a$ 
+    est un maximum local de $f$ sur $S$
+    \item Si $a \in S^\circ$ alors 
+    $a$ est un minimum local de $f$ sur $S$ $\ssi$ $a$ est un minimum  local de $f$
+    \item Si $a \in S^\circ$ alors 
+    $a$ est un maximum local de $f$ sur $S$ $\ssi$ $a$ est un maximum  local de $f$
+    En effet, (pour le minimum) s'il existe $V_a$ un voisinage de $a$ tel que $\forall x \in V_a\cap S$,
+    $f(a) \le f(x)$
+    Alors en posant $W_a = V_a \cap S$, on a que $W_a$ est un voisinage de $a$ car 
+    $a\in V_a^\circ$ et $a\in S^\circ$ et $\forall x \in W_a$, $f(a) \le f(x)$
+\end{enumerate}
+\end{remarque}
+On considérera très souvent,
+$$S := {x\in U : g_1(x) = 0,..., g_p(x) = 0}$$ où $g_i : U \to \R$
+
+\begin{exemple}
+    Quel est le rectangle de périmètre fixé $p > 0$ ayant la plus grande aire ?
+    Soit $f : \R^2 \to \R$ tel que $f(x,y) = x.y$
+    Nous allons regarder $U = ]0,\infty[^2$
+    et $S = {(x,y)\in U : 2x + 2y = p}$
+    La condition $ 2x + 2y = p$ peut nous permettre de réécrire une variable en fonction de l'autre, $x = \frac{p-2y}{2}$ 
+    Les couples $(x,y) \in S$ sont tous de la forme $(\frac{p-2y}{2},y)$ et il nous suffit d'optimiser $f(\frac{p-2y}{2},y)$ pour les couples $(\frac{p-2y}{2},y) \in U$
+    On remarque de $(\frac{p-2y}{2},y) \in U$ ssi $0 < y <\frac{p}{2}$
+    Notre problème d'optimisation revient à optimiser :
+    $f(\frac{p-2y}{2},y) = \frac{(p-2y)y}{2}$ sur $]0,\frac{p}{2}[$
+    $\frac{(p-2y)y}{2} = -y^2 + \frac{py}{2}$
+    Cette fonction est maximale en $y = \frac{p}{4}$.
+    Donc, on trouve alors $x = \frac{p}{4}$ et le rectangle d'aire maximale est le carré.
+    \end{exemple}
+Notons qu'ici l'astuce est d'exprimer une variable en fonction de l'autre.
+
+\begin{exemple}
+    Déterminer les extrema globaux de $f(x,y) = x + 2y$ sur le disque fermé centré en $(0,0)$ de rayon $\sqrt5$.
+    Pour cette optimisation, on doit regarder $f$ sur ${(x,y) \in \R^2 : x^2 + y^2 - 5 \le 0}$
+    On va diviser ce problème en deux en regardant d'une part, le disque ouvert,
+    $D = B(0,\sqrt5) = {(x,y) \in \R^2 : x^2 + y^2 - 5 < 0}$ et le cercle 
+    $S = {(x,y) \in \R^2 : x^2 + y^2 - 5 = 0}$
+    \begin{enumerate}
+        \item Pour tout $a$ dans $D$, on a que,
+        $a$ est un extremum local de $f$ sur $Q := adh(D)$ ssi $a$ est un extremum local de $f$
+        Pour déterminer les extrema locaux de $f$, on calcule $D_f$.
+        $$ \frac{\partial f}{\partial x}(x,y) = 1 $$
+        $$ \frac{\partial f}{\partial y}(x,y) =  2 $$
+        Il n'y a pas de points critique pour $f$ Donc, il n'y a pas d'extrema locaux pour $f$.
+        Dès lors, aucun point de $D$ n'est extremum local pour $f$ sur $D$.
+        \item Comme $Q$ est compact et $f$ de classe $C^\infty$, on sait qu'il existe des extrema globaux de $f$ sur $Q$.
+        Comme ceux ci ne sont pas dans $D$, ils sont forcément dans $S = Q \setminus D$.
+        Les extrema globaux de $f$ sur $Q$ font partie des extrema locaux de $f$ sur $S$.
+        \item On cherche à optimiser $f(x,y) = x + 2y$ lorsque $x^2 + y^2 - 5 = 0$
+        Ici, la condition $x^2 + y^2 - 5 = 0$ ne peut pas se réécrire sous la forme
+        $x = \cdots$ $\forall (x,y) \in S $.
+        On a en réalité
+        \begin{enumerate}
+            \item $x = \sqrt{5-y^2}$ sur le demi-cercle à droite 
+            càd pour $y \in [-\sqrt5, \sqrt5]$
+            \item $x = -\sqrt{5-y^2}$ sur le demi-cercle à gauche
+            càd pour $y \in [-\sqrt5, \sqrt5]$
+        \end{enumerate}
+        Pour le demi-cercle à droite, il faut optimiser $f(\sqrt{5-y^2},y)$ pour $y \in [-\sqrt5, \sqrt5]$
+        $f(\sqrt{5-y^2},y) = \sqrt{5-y^2} + 2y$
+        Pour ce faire, on va considérer les points critiques de cette fonction sur $[-\sqrt5, \sqrt5]$ et les points au bord de l’intervalle.
+        Les points critiques : $(\sqrt{5-y^2} + 2y)' = -\frac{2y}{2\sqrt{5-y^2}} + 2$
+        $-\frac{2y}{2\sqrt{5-y^2}} + 2 = 0 $ ssi $ -y = -2\sqrt{5-y^2}$ ssi $y = 2\sqrt{5-y^2}$ donc, ça implique $y \ge 0$ donc, $y^2 = 4(5-y^2)$ ssi $y = 2$
+        Par exactement le même procédé, dans l'autre demi-cerlce, on trouve $y = -2$
+        On a donc $4$ candidats pour être extemum global de $f$ sur $Q$ : 
+        $(0,\sqrt5),(0,-\sqrt5),(1,2),(-1,-2)$
+        Après calcul, on trouve $f((0,\sqrt5) = 2\sqrt5, f((0,-\sqrt5) = -2\sqrt5$ 
+        $f(1,2) = 5, f(-1,-2) = -5$
+        Comme $\sqrt5 < 2.5$, $f(1,2)$ est le maximum global et $(-1,-2)$ le minimum global.
+    \end{enumerate}
+\end{exemple}
+\begin{remarque}
+    \begin{enumerate}
+        \item On a vu qu'il est intéressant :
+        \begin{enumerate}
+            \item de séparer le problème d'optimisation sur $S$ en $Int(S)$ et $S/ \ Int(S)$
+            \item de réussir au moins localement à exprimer une variable en fonction des autres dans $S$
+        \end{enumerate}
+    \end{enumerate}
+\end{remarque}
+
+\section{Inversion locale et fonctions implicites}
+Soit $f : U \to \R^n$ avec $U$ ouvert de $\R^n$
+On se demande sous quelles hypothèses, on peut inverser localement $f$ en un point $a \in U$. 
+Autrement dit, on cherche des hypothèses tel que, $\exists V$ voisinage de $a$ et $W$ un voisinage de $f(a)$ tel que $f:V \to W$ est bijective 
+\begin{enumerate}
+    \item Supposons $f : \R \to \R$ de classe $\mathcal C^1$
+    Soit $a \in \R$
+    \begin{enumerate}
+        \item Si $f'(a) \ne 0$ alors il existe $\epsilon > 0$ tel que $f'$ ne s’annule pas sur $]a-\epsilon, a + \epsilon[$ car $f'$ est continu. La fonction $f$ est alors strictement monotone et $f'$ est bijectif
+        de $V = ]a-\epsilon, a + \epsilon[$ dans $W = ]f(a-\epsilon,f(a+\epsilon)[$
+        \item Si $f'(a) = 0$ tout est possible.
+        \begin{exemple}
+            \begin{enumerate}
+                \item $f(x) = x^2$ n'est pas inversible localement en 0
+                \item $f(x) = x^3$ est inversible localement en 0 et même partout 
+            \end{enumerate}
+        \end{exemple}
+    \end{enumerate}
+    Notons cependant que $f^{-1}(x) = x^{1/3}$ n'est pas dérivable en 0
+    \item Supposons que $f$ est une application linéaire de $\R^n \to \R^n$
+    Alors, il existe une matrice $A$ de taille $n\times n$ tel que 
+    $$f(x) = Ax$$ et on peut dès lors inverser $f$ si $A$ est une matrice inversible i.e. $det(A) \ne 0$.
+\end{enumerate}
+
+\begin{theoreme}[Théorème d'inversion locale]
+    Soit $U \in \R^n$ ouvert, $f: U \to \R^n$ de classe $C^1$ et $a\in U$
+    \begin{enumerate}
+        \item Si $det(J_f(a) \ne 0$ alors $f$ est inversible localement en $a$,
+        càd il existe $V$ voisinage de $a$ et $W$ voisinage de $f(a)$ tel que $f$ est bijective de $V \to W$, et, de plus, $f^{-1}: W \to V$ est différentiable sur $W$ et $\forall y \in W$
+        $$ D_{f^{-1}}(y) = (D_f(f^{-1}(y)))^{-1}$$ ou encore 
+        $$ J_{f^{-1}}(y) = (J_f(f^{-1}(y)))^{-1}$$
+    \end{enumerate}
+\end{theoreme}
+
+Grâce à ce résultat, on peut localement avoir $f(x) - y = 0$ ssi $f(x) = y$ ssi $x = f^{-1}(y)$
+
+On aimerait aller plus loin et avoir localement :
+$F(x,y) = 0 \ssi x = \psi(y)$
+\begin{theoreme}[Théorème des fonctions implicites]
+    Soit $F:U\to\R^m$ où $U$ est un ouvert de $\R^n\times\R^m$
+    Supposons que $F$ soit de classe $\mathcal C ^1$ et notons les variables :
+    $x_1,\dotsc,x_n$ et $y_1,\dotsc,y_m$.
+    Si $(x^*,y^*)$ est un point de $U$ tel que $F(x^*,y^*)=0$
+    et tel que $$\det \begin{pmatrix}
+    \frac{\partial F_1}{\partial y_1}(x^*,y^*) & \cdots & \frac{\partial F_1}{\partial y _m}(x^*,y^*) \\
+    \cdots & \ddots& \cdots \\
+    \frac{\partial F_m}{\partial y_1}(x^*,y^*) & \cdots & \frac{\partial F_m}{\partial y_m}(x^*,y^*)
+    \end{pmatrix} \ne 0$$
+    Alors il existe $V$ un ouvert contenant $x^*$, $W$ un ouvert contenant $y^*$ tels que $V\times W\subseteq U$ et tels qu'il existe $\varphi:V\to W$ différentiable de sorte que pour tout $(x,y)\in V\times W$, on a $F(x,y) = 0$ ssi $\varphi(x) = y$
+\end{theoreme}
+\begin{proof}
+    Posons $G : U\to\R^n\times \R^m$ tel que $\forall(x,y)\in U,\ G(x,y) = (x,F(x,y))$
+    On a $J_G(x,y) = \begin{pmatrix}
+        1_n & 0_{n\times m}\\
+        A(x,y)&B(x,y)
+    \end{pmatrix}$ où $A(x,y):=\begin{pmatrix}
+     \frac{\partial F_1}{\partial x_1}(x,y) & \cdots & \frac{\partial F_1}{\partial x_n}(x,y) \\
+    \vdots & \ddots& \vdots \\
+    \frac{\partial F_m}{\partial x_1}(x,y) & \cdots & \frac{\partial F_m}{\partial x_n}(x,y)   
+    \end{pmatrix}$ \\et $B(x,y):=\begin{pmatrix}
+        \frac{\partial F_1}{\partial y_1}(x,y) & \cdots & \frac{\partial F_1}{\partial y _m}(x,y) \\
+    \cdots & \ddots& \cdots \\
+    \frac{\partial F_m}{\partial y_1}(x,y) & \cdots & \frac{\partial F_m}{\partial y_m}(x,y)
+    \end{pmatrix}$.
+    Par hypothèse, $\det J_G(x^*,y^*) =  \det B(x^*,y^*)\ne 0$
+    On peut donc utiliser le théorème d’inversion locale pour $G$ et $(x^*,y^*)$.
+    Il existe alors $O$ un ouvert contenant $(x^*,y^*)$ et $O'$ un ouvert contenant 
+    $G(x^*,y^*) = (x^*,0)$ et $G$ est bijective de $O$ dans $O'$ avec $G^{-1}$ différentiable 
+    $\forall (x,z) \in O'$, on aura 
+    $$ G^{-1} (x,z) = (x,H(x,z))$$ avec $H$ différentiable. 
+    On considère $V$ un ouvert contenant $x^*$ et $W$ un ouvert contenant $y^*$ tel que $V\times W \subseteq O$
+    Soit $(x,y)\in V\times W$. On a \begin{align*}
+        F(x,y) = 0 &\ssi G(x,y)=(x,0)\\
+        &\ssi G^{-1}(G(x,y)) = G^{-1}(x,0)\\
+        &\ssi(x,y) = (x,H(x,0))\\
+        &\ssi y = H(x,0)=:\varphi(x)
+    \end{align*}
+\end{proof}
+
+\begin{exemple}
+    Si on considère $F(x,y) = x^2 + y^2 - 5$ alors le théorème des fonctions implicites s'applique en $(x^*,y^*)$ si $F(x^*,y^*) = 0$ et $2 y^*=\dpart{F}{y}(x^*,y^*)\ne 0$ 
+    Autrement dit, il s'applique en tout point du cercle sauf $(\pm \sqrt5,0)$
+\end{exemple}
+\section{Multiplicateurs de Lagrange}
+Le but est de trouver les extrema locaux de $f$ sur $S$ où $f : \R^n \to \R$ et $S = \{x\in\R^n\mid g_1(x) = 0,\dotsc, g_p(x) = 0\} = S = \{x\in\R^n\mid g(x) = 0\}$
+où $g_1,\dots,g_p : \R^n \to \ \R$
+$g = (g_1,\dots,g_p): \R^n \to \R^p$
+\begin{theoreme}
+    Soient $f: U \to \R$ de classe $\mathcal C^1$ avec $U$ ouvert de $\R^n$
+    et $S = \{x\in U\mid g(x) = 0\}$ où $g:\R^n\to\R^p$, $n>p$, de classe $\mathcal C^1$ sur $U$. Soit $a\in S$. 
+Si $a$ est un extremum local de $f$ sur $S$ et si $D_g(a)$ et surjectif alors il existe $\lambda_1,\dotsc,\lambda_p\in\R$ tels que 
+$$ D_f(a) = \sum_{i = 1}^p  \lambda_iDg_i(a)$$
+\end{theoreme}
+
+\begin{remarque}
+    \begin{enumerate}
+        \item L'hypothèse \og $D_g(a)$ surjective\fg  est équivalente à \og rang de $J_g(a) = p$\fg. Le rang d'une matrice correspond au nombre de colonnes linéairement indépendantes dans cette matrice.
+        \begin{itemize}
+            \item $A:=\begin{pmatrix}
+                a & b & c
+            \end{pmatrix}$ est de rang $1$ ssi $(a,b,c)\ne (0,0,0)$
+            \item $A = \begin{pmatrix}
+                \lambda & 1 \\
+                \lambda^2 & 1
+            \end{pmatrix}$ est de rang $2$ ssi $\lambda\ne 0$ et $\lambda\ne 1$
+        \end{itemize}
+        
+        \item Ce théorème nous dit que les extrema locaux de $f$ sur $S$ sont parmi les points $a\in S$ tels que \begin{itemize}
+            \item $Dg(a)$ n'est pas surjectif
+            \item $Dg(a)$ est surjectif et pour lesquels il existe $\lambda_1,\dots,\lambda_p\in \R$ tel que $D_f(a) = \sum_{i = 1}^p = \lambda_iDg_i(a)$            
+        \end{itemize}
+    \end{enumerate}
+\end{remarque}
+\begin{proof}
+    La fonction $g : \R^n\to \R^p$ est telle que $Dg(a)$ est surjectif.
+    La matrice $J_g(a)$ est donc une matrice de taille $p\times n$ avec $p$ colonnes linéaires indépendantes. Quitte à réordonner les variables, on peut supposer qu'il s'agit des $p$ dernières colonnes. 
+    On va maintenant séparer tous nos vecteurs dans $\R^n$, en une première partie dans $\R^{n-p}$ et une deuxième dans $\R^p$. 
+    En particulier, on écrira $a := (x^*,y^*)$ avec $x^*\in\R^{n-p}$ et $y^*\in\R^p$. Ce faisant, on peut appliquer le théorème des fonctions implicites à $g$ au point $(x^*,y^*)$. En effet, $(x^*,y^*)\in S$ et les $p$ dernières colonnes forment une matrice inversible.
+    Il existe donc $V$ un ouvert contenant $x^*$ et $W$ un ouvert contenant $y^*$
+    ainsi qu'une fonction $\varphi : V \to W$ différentiable telle que $\forall (x,y)\in V \times W$ :
+    $$(x,y)\in S\ssi g(x,y) = 0\ssi \varphi(x) = y$$
+    Pour tout $x \in V$, on va poser 
+    $$u(x) = f(x,\varphi(x))$$
+    $$v(x) = g(x,\varphi(x))$$
+    On a alors \begin{itemize}
+        \item $v(x) = 0$ et donc $Dv(x^*) = 0$
+        \item $u(x^*) = f(x^*,y^*)$ et $x^*$ est un extremum local de $u$. En effet, $(x^*,y^*)$ est un extremum local de $f$ sur $S$ et $\varphi$ est continue puisqu'elle est différentiable. Cela implique que pour tout $x$ dans un voisinage de $x^*$ assez petit, $(x,\varphi(x))$ est dans un voisinage de $(x^*,y^*)$. Ainsi, $x^*$ est un extremum local d'où $D_u(x^*) = 0$. Posons $\fonction{\pi}{\R^{n-p}\to \R^n}{x\mapsto (x,\varphi(x))}$.
+        Alors, $u = f\circ\pi$ et $v = g\circ\pi$
+        On a alors 
+        $$J_u(x^*) = J_f(\pi(x^*))J_{\pi}(x^*)$$ par la Chain Rule et
+        $$ J_{\pi}(x^*) = \begin{pmatrix}
+            1_{n-p} \\
+            J_{\varphi}(x^*)
+        \end{pmatrix}\in M_{n\times (n-p)}(\R)$$
+        Écrivons $J_f(\pi(x^*)) = (J^1_f(\pi(x^*)),J^2_f(\pi(x^*)))$ où $J^1_f(\pi(x^*))\in M_{1\times (n-p)}(\R)$ et $ J^2_f(\pi(x^*))\in M_{1\times p}(\R)$
+        On a alors $0 = J_u(x^*) = J^1_f(\pi(x^*)) + J^2_f(\pi(x^*))J_{\varphi}(x^*) $
+        En faisant de même pour $v$, on obtient,
+        $$0 = J_v(x^*) = J^1_g(\pi(x^*)) + J^2_g(\pi(x^*))J_{\varphi}(x^*)$$
+        On en déduit que 
+        $$J_{\varphi}(x^*) = -(J_g^2(\pi(x^*))^{-1}\cdot J^1_g(\pi(x^*))$$
+        et donc, $J_f^1(\pi(x^*)) = -J_f^2(\pi(x^*))J_{\varphi}(x^*) = J_f^2(\pi(x^*))(J_g^2(\pi(x^*))^{-1}J^1_g(\pi(x^*))$. On pose $\Lambda:= J_f^2(\pi(x^*))(J_g^2(\pi(x^*))^{-1}\in M_{1\times p}(\R)$.
+        De même, 
+        $$J_f^2(\pi(x^*)) = \Lambda J^2_g(\pi(x^*))$$
+        En conclusion,
+        $J_f(\pi(x^*)) = \Lambda J_g(\pi(x^*))$ ou encore $J_f(a) = \Lambda J_g(a)=\sum_{i=1}^p\lambda_iJ_{g_i}(a)$ en posant $\Lambda = \begin{pmatrix}
+            \lambda_1&\dotsc&\lambda_p
+        \end{pmatrix}$
+        \end{itemize} 
+\end{proof}
+\begin{exemple}
+    Déterminer les extrema locaux de $f(x,y) = (x+2y)^2$ sur $S = \{(x,y)\in\R^2 \mid x^2 - y^2 - 25 = 0\}$
+\end{exemple}
+\begin{resolution}
+    Nommons notre contrainte $x^2 - y^2 - 25 = 0$  par $g(x,y) = 0$
+    On a alors $J_g(x,y) = \begin{pmatrix}
+        2x & -2y
+    \end{pmatrix}$ 
+    La différentielle de $g$ en $(x,y)$ est surjective ssi $(x,y) \ne (0,0)$.
+    $2$ types de candidats :
+    \begin{enumerate}
+        \item Ceux tel que $D_g(x,y)$ n'est pas surjectif avec $(x,y) \in S$
+        \item Ceux tel que $D_g(x,y)$ est surjectif avec $(x,y) \in S$
+        et tel que $\exists\lambda \in \R$ tel que $D_f(x,y) = \lambda D_g(x,y)$
+    \end{enumerate}
+    \begin{enumerate}
+        \item Le seul point $(x,y)$ tel que $D_g(x,y)$ n'est pas surjectif est $(0,0)$ mais celui-ci n'appartient pas à $S$
+        \item Dans le deuxième cas, il faut calculer $J_f$ $$J_f(x,y) = \begin{pmatrix}
+            2(x+2y) & 4(x+2y)
+        \end{pmatrix}$$
+        Il faut trouver les points $(x,y)\in S$ tels que $$J_f(x,y) = \begin{pmatrix}
+            2(x+2y) & 4(x+2y)
+        \end{pmatrix} = \lambda\begin{pmatrix}
+            2x & -2y
+        \end{pmatrix}$$
+    \end{enumerate}
+    On doit donc résoudre le système
+    \begin{align*}
+        \begin{cases}
+            x^2-y^2-25 = 0 & (1)\\
+            2(x+2y) = 2\lambda x & (2) \\
+            4(x+2y) = -2\lambda y & (3)
+        \end{cases}
+    \end{align*}
+    On en déduit $2\lambda x = -\lambda y$ i.e. $\lambda(y+2x) = 0$
+    \begin{itemize}
+    \item Si $\lambda = 0$, $(2)$ nous donne $x + 2y = 0$ i.e. $y = \frac{-x}{2}$
+    et $(1)$ devient alors $x^2 - (\frac{-x}{2})^2 - 25 = 0$ ce qui nous donne après calcul,
+    $x = \pm \frac{10}{\sqrt3}$
+    On vient de trouver deux candidats pour être extrema locaux.
+    $$(\frac{10}{\sqrt3},\frac{-5}{\sqrt3})$$ et $$(\frac{-10}{\sqrt3},\frac{5}{\sqrt3})$$
+     \item Si $\lambda\ne 0$, alors $y+2x = 0$ i.e. $y = -2x$
+     Par $(1)$, on a alors $x^2 - (-2x)^2 - 25 = 0$ qui n'a pas de solution réelles.
+     Il n'y a donc pas d'autres candidats pour être extrema locaux.
+     \end{itemize}
+     Comme $f(\frac{10}{\sqrt3},\frac{-5}{\sqrt3}) = f(\frac{-10}{\sqrt3},\frac{5}{\sqrt3}) = 0$
+     et comme $\forall (x,y) \in \R^2 f(x,y) \ge 0 $,
+     on en déduit que ces deux points sont des minima globaux de $f$ sur $S$.
+\end{resolution}
+\begin{exemple}
+    Déterminer les extrema locaux de $f(x,y,z)$ sur $S:=\{(x,y,z)\in\R^3\mid x^2+y^2+z^2= 2,\ x+y+z = 1\}$
+\end{exemple}
+\begin{resolution}
+    On a $g(x,y,z) = (x^2 + y^2 + z^2 - 2,x+y+z - 1)$ de sorte que $S=\{(x,y,z)\in\R^3\mid g(x,y,z) = 0\} $
+    et $J_g(x,y,z) = \begin{pmatrix}
+        2x & 2y & 2z\\
+        1&1&1
+    \end{pmatrix}$ est surjectif ssi $(x,y,z)\ne(x,x,x)$.
+    \begin{itemize}
+        \item Le premier type de candidats est donné par les triplets $(x,x,x)\in 
+        S$ mais il n'y en a pas, car $x+ y + z = 1\alors x=  \frac13 $ et $x^2+y^2+z^2 = 2\alors 3x^2 + 2 = 0$, ce qui est impossible
+       \item Les autres candidats sont ceux vérifiant pour certains $\lambda_1,\lambda_2$    
+    \begin{align*}
+    \begin{cases}
+        x^2+y^2+z^2 = 2 & (1)\\
+        x+y+z = 1 &(2)\\
+        0 = 2\lambda_1x + \lambda_2 & (3)\\
+        0 = 2\lambda_1y + \lambda_2 &(4)\\
+        1 = 2\lambda_1z + \lambda_2 &(5)
+    \end{cases} 
+    \end{align*}
+    Les trois dernières égalités viennent du fait que $J_f(x,y,z) = \begin{pmatrix}
+        0 & 0 & 1
+    \end{pmatrix} = \lambda_1J_{g_1}(x,y,z) + \lambda_2J_{g_2}(x,y,z)$ 
+    $(3) + (4) + (5) : 1 = 2\lambda_2(x+y+z) + 3\lambda_2$ ssi par $(2)$, $1 = 2\lambda_1 + 3\lambda_2$
+    On remarque par $(4)$ et $(5)$ que $\lambda_1$ ne peut pas être nulle.
+    Comme $\lambda_1 \ne 0$, on en déduit de $(3)$ et $(4)$ que $x = y$ 
+    Par $(2)$, on a alors $z = 1-2x$
+    Par $(1)$, on a alors $2x^2 + (1-2x)^2 = 6x^2 - 4x - 1 = 0\ssi x =\frac{4\pm\sqrt{10}}{12} $car $\triangle = 16+24 = 40$
+    Les points $p_1 :=(\frac{2+\sqrt10}{6},\frac{2+\sqrt10}{3},\frac{1-\sqrt10}{6},)$ et 
+    $p_2 :=(\frac{2-\sqrt10}{6},\frac{2-\sqrt10}{3},\frac{1+\sqrt10}{6},)$ vérifient $(1)-(5)$
+    pour $\lambda_1 = \frac{1}{2(z-y)}$ et $\lambda_2 = \frac{-y}{z-y}$.
+    \end{itemize}
+    Comme $f(x,y,z) = z$ et $S$ est compact, le premier point $p_1$ est le min global de $f$ sur $S$ et le deuxième point $p_2$ le maximum global de $f$ sur $S$.
+\end{resolution}
+\begin{theoreme}[Extrema liés - Lagrangien]
+    Soient $U$ un ouvert de $\R^n$, $f : U\to \R$ une fonction de classe $\mathcal C_1$, $g : U \to \R^p$ une fonction de classe $\mathcal C_1$ avec $p<n$ et $S:=\{x\in U\mid g(x) = 0\}$. Soit $a\in S$. Si $a$ est un extremum local de $f$ sur $S$ et si $Dg(a)$ est surjectif alors il existe $\lambda^*\in\R^p$ tel que le point $(a,\lambda^*)$ est un point critique du lagrangien : $$\fonction{L}{\R^n\times\R^p\to \R}{(x,\lambda) \mapsto f(x)-\sum_{i = 1}^p\lambda_ig_i(x)}$$
+    De plus, \begin{itemize}
+        \item si $a$ est un minimum local de la fonction $f(x) - \sum_{i=1}^{p} \lambda_i^*g_i(x)$ alors $a$ et un minimum local de $f$ sur $S$
+        \item si $a$ est un maximum local de la fonction $f(x) - \sum_{i=1}^{p} \lambda_i^*g_i(x)$ alors $a$ et un maximum local de $f$ sur $S$
+    \end{itemize}
+\end{theoreme}
+
+\begin{proof}
+    Par le théorème des multiplicateurs de Lagrange,
+    il existe $\lambda^* \in \R^p$ tel que $J_f(a) = \sum_{i = 1}^p\lambda_i^*J_{g_i}(a)$
+    On a $$J_L(x,\lambda)\begin{pmatrix}
+        \dpart{f}{x_1}(x)-\sum_{i=1}^p\lambda_i\dpart{g_i}{x_1}&\ldots 
+        &\dpart{f}{x_n}(x)-\sum_{i=1}^p\lambda_i\dpart{g_i}{x_n} & -g_1(x)&\ldots & -g_p(x)
+    \end{pmatrix}$$
+    et donc $J_L(a,\lambda^*) = 0$ ssi $J_f(a) = \sum_{i = 1}^p\lambda_i^*J_{g_i}(a)$ et $a\in S$
+    Le point $(a,\lambda^*)$ est donc bien un point critique de $L$.
+    Montrons maintenant l'autre partie du théorème
+    Si $a$ est un minimum local pour $f(x)-\sum_{i = 1}^p\lambda_i^*g_i(x)$ alors, $\exists U$ un ouvert contenant $a$ tel que 
+    $\forall a \in U$, $f(x)-\sum_{i = 1}^p\lambda_i^*g_i(x) \ge f(a)-\sum_{i = 1}^p\lambda_i^*g_i(a) = f(a)$
+On a alors, pour $x\in U\cap S$,
+$$ f(x) \ge f(a)$$
+On en déduit que $a$ est bien un minimum local de $f$ sur $S$.
+\end{proof}
+\begin{exemple}
+    Déterminez les extrema locaux de $f(x,y) = x^3+ y^3$ sur $S:=\{(x,y)\in\R^3\mid x^2 + y^2 - 1 = 0$
+    Notons que $S$ est le cercle de rayon $1$ qui est compact. 
+    Posons : $g(x,y) = x^2 + y^2 -1$.
+    On a :
+    $$J_g(x,y) = \begin{pmatrix}
+        2x & 2y
+    \end{pmatrix}$$
+    Et donc, $D_g(x,y)$ est surjective ssi $(x,y) \ne (0,0)$.
+    Comme $(0,0) \notin S$, les seuls candidats seront ceux pour qu'ils existent 
+    $\lambda^* \in \R$ tel que $L(x,y,\lambda) = f(x,y) - \lambda g(x,y)$
+    admet un point critique en $(x,y,\lambda^*)$
+    On cherche les points $(x,y)$ tel que 
+    \begin{align*}
+        \begin{cases}
+            x^2 + y^2 - 1 = 0  & (1)\\
+            3x^2 = 2\lambda^*x& (2)\\
+            3y^2 = 2\lambda^*y&(3)
+        \end{cases}
+    \end{align*}
+    \begin{itemize}
+        \item Si $x = 0$ alors $y = \pm 1$ par $(1)$ et $\lambda^* = \frac{3}{2}y$ par $(3)$. Ainsi, $(0,1,\frac{3}{2})$ et $ (0,-1,-\frac{3}{2})$ sont des extrema potentiels.
+        \item Si $x\ne 0$ alors $(2)$ devient $3x = 2\lambda^*$. 
+        \item Si $y = 0$ alors $x = \pm 1$ par $(1)$ et $\lambda^* = \frac32y$ par $(2)$.  Ainsi, $(1,0,\frac{3}{2})$ et $ (-1,0,-\frac{3}{2})$ sont des extrema potentiels.
+        \item Si $y\ne0$ alors nous avons $x = y$ et comme $x^2 + y^2 = 1$ cela nous donne deux autres candidats $(\frac{\sqrt2}{2},\frac{\sqrt2}{2},\frac{3\sqrt2}{4}$ et 
+        $(-\frac{\sqrt2}{2},-\frac{\sqrt2}{2},-\frac{3\sqrt2}{4}$
+        
+    \end{itemize}
+    Nous n'avons plus qu'à comparer $f$ évaluée a tous les points candidats et nous trouvons 
+    \begin{align*}
+        f(0,1) = 1 \\
+        f(0,-1)=-1 
+    \end{align*}
+    On en déduit que $(1,0) $ et $(0,1)$ sont des maximum globaux et 
+    $(-1,0)$ et $(0,-1)$ des minimums globaux
+
+    BUT : Déterminer la nature de sqrt(2)/2 .. 
+\end{exemple}
+
+
+\begin{exemple}
+    Soit $f(x,y) = x^3+y^3$, $S = \{(x,y)\in \R^2 : x^2 + y^2 -1 = 0$
+    Nous avons déjà trouvé $(1,0),(-1,0),(0,1),(0,-1)$ comme max global et min global, il reste à dire ce que sont $(\frac{\sqrt2}{2},\frac{\sqrt2}{2}),(\frac{-\sqrt2}{2},\frac{-\sqrt2}{2}),$
+    Pour $(\frac{\sqrt2}{2},\frac{\sqrt2}{2})$ on avait $\lambda = \frac{3\sqrt2}{4}$ et pour $(\frac{-\sqrt2}{2},\frac{-\sqrt2}{2})$ on avait $\lambda = \frac{3\sqrt2}{4}$
+    Déterminer la nature de $(\frac{-\sqrt2}{2},\frac{-\sqrt2}{2})$ pour $L(x,y,\lambda) = x^3+y^3-\lambda(x^2+y^2-1)$
+    Nous pouvons calculer sa hessienne :
+    $$H(x,y) = \begin{pmatrix}
+        6x+\lambda & 0\\
+        0 & 6y \pm \lambda
+    \end{pmatrix}$$
+    Nous remarquons qu'elle est définie positive pour $(\frac{\sqrt2}{2},\frac{\sqrt2}{2})$, c'est donc un max local, et définie négative pour $(\frac{-\sqrt2}{2},\frac{-\sqrt2}{2})$ c'est donc un min local.
+\end{exemple}
+
+\begin{exemple}\label{exo}
+    Déterminer les extrema locaux de : $f(x,y) = x^2$ avec $S = \{(x,y\in\R^2:y^4+3x^2y^2+x^2+x-2 = 0\}$
+    Nous posons $g(x,y) :=y^4+3x^2y^2+x^2+x-2$ 
+    Calculons sa Jacobienne ;
+    $$J_g(x,y) = \begin{pmatrix}
+        6xy^2+ 2x+1 & 4y^3 +6x^2y
+    \end{pmatrix}$$
+    Nous cherchons donc les points où la Jacobienne n'est pas surjective, nous cherchons donc les points où les 2 éléments de la matrice sont $0$
+    Pour $4y^3 +6x^2y$, nous pouvons le réécrire en $y(4y^2+6x^2)$ qui vaut $0$ quand $y = 0$, et donc pour le 1er membre, $x = \frac{-1}{2}$
+    Notons que $(\frac{-1}{2},0)\notin S$, donc la Jacobienne est surjective en tout point de $S$
+    On cherche dès lors les points critiques de 
+    $$L(x,y,\lambda) = x^2 + \lambda^2(y^4+3x^2y^2+x^2+x-2)$$
+    Nous cherchons donc les solutions de :
+    \begin{align*}
+        \begin{cases}
+            2x-\lambda(6xy^2+2x+1) = 0 (1)\\
+            -\lambda(4y^3+6x^2y) = 0(2)\\
+            y^4+3x^2y^2+x^2+x-2 = 0(3)
+        \end{cases}
+    \end{align*}
+    Par $(2)$, on a soit $\lambda = 0$ où $y = 0$
+    \begin{itemize}
+        \item Si $\lambda = 0$ alors par $(1)$, $x = 0$
+        On déduit alors de $(3)$ que $y = \pm2^{\frac{1}{4}}$
+        \item Si $y = 0$ alors le système devient :
+        \begin{align*}
+            \begin{cases}
+                2x-\lambda(2x+1) = 0 (1)\\
+                x^2 + x - 1 = 0 (2)
+            \end{cases}
+        \end{align*}
+        Par $(2)$, on a que $x = 1$ où $x = -2$
+        Finalement par $(1)$, 
+        \begin{itemize}
+            \item Si $x = -2$, on trouve $\lambda = \frac{4}{3}$
+            \item Si $x = 1$, on trouve $\lambda = \frac{2}{3}$
+        \end{itemize}
+    \end{itemize}
+    Le Lagrangien $L$ a 4 points critiques :
+    $$(0,2^{\frac{1}{4}},0),(0,-2^{\frac{1}{4}},0),(1,0,\frac{2}{3}),(-2,0,\frac{4}{3})$$
+    Les points $(0,2^{\frac{1}{4}}) $ et $(0,-2^{\frac{1}{4}})$ sont des minima globaux de $f$ sur $S$ car $f$ est une fonction positive et l'image de ces 2 points est $0$.
+    Essayons de déterminer la nature de $(1,0)$:
+    On regarde pour cela la fonction 
+    $$L(x,y,\frac{2}{3}) = x^2 -\frac{2}{3}(y^4+3x^2y^2+x^2+x-2)$$
+    Nous pouvons calculer la Hessienne :
+    $$H(x,y) = \begin{pmatrix}
+        2-\frac{2}{3}(6y^2+2) & -\frac{2}{3}(12xy)\\
+        -\frac{2}{3}(12xy)& -\frac{2}{3}(12y^2+6x^2)
+    \end{pmatrix}$$
+    Cela nous donne :
+    $$H(1,0) = \begin{pmatrix}
+        \frac{2}{3} & 0\\
+        0 & -4
+    \end{pmatrix}$$
+\end{exemple}
+\begin{exemple}[Suite de l'exercice \ref{exo}]
+    On en déduit que $(1,0)$ est un col pour $L(x,y,\frac{2}{3})$
+    On ne peut donc rien conclure concernant ce point pour l'optimisation de $f$ sur $S$ et on réalité, si nous faisons les calculs, l'autre point $(-2,0)$ sera également un col pour $L(x,y,\frac{4}{3})$.
+    Il faut donc faire les choses à la main.
+    On regarde pour quels valeurs de $x$, il existe $y$ tel que $(x,y) \in S$.
+    On pose pour cela, $Y = y^2$, et on regarde si l'équation :
+    $$Y^2+3x^2Y+x^2 + x -2$$ admet une solution $Y\ge 0$
+    On a $\Delta = 9x^4 - 4(x^2+x-2)$ et si $\Delta \ge 0$, on a :
+    $Y = \frac{-3x^3 \pm \sqrt{9x^4-4(x^2+x-2)}}{2}$
+    On remarque que
+    $$x^2+x-2 \le 0$$ ssi $x\in [-2,1]$ car c'est une parabole et $-2,1$ sont les 2 racines de cette parabole.
+    Dès lors, si $x\in [-2,1]$, alors $\Delta \ge 0$ et $Y = \frac{-3x^3 \pm \sqrt{\Delta}}{2} \ge 0$
+    De plus, si $x \notin[-2,1] $, alors $Y < 0$
+    On en conclut que :
+    $\forall (x,y) \in S$, on a $x\in [-2,1]$.
+    On en déduit que $(-2,0)$ est un max global et $(1,0)$ sera un max local de $f$ sur $S$
+    Morale : Si l'on obtient un col, nous devons faire les détail à la main, on ne peut rien conclure avec nos outils.
+\end{exemple}

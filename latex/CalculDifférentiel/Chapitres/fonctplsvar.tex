@@ -1,0 +1,57 @@
+\chapter{Introduction aux fonctions à plusieurs variables}
+\section{Domaine, image, graphe}
+Soit $f:\R^n\to\R^m$.
+\begin{itemize}
+    \item Le domaine de $f$ est donné par $\dom f := \{x\in\R^n\mid f(x) $ existe $\}$
+    \item L'image de $f$ est donnée par $\im f: = \{f(x)\in\R^m\mid x\in \R^n\}$
+    \item Le graphe de $f$ est donné par $\operatorname{graph}(f):=\{(x,f(x))\in\R^n\times \R^m\mid x\in \dom f\}$.
+    \item Contrairement aux cas des fonctions $f:\R\to\R$ , on ne peut représenter sur une feuille le graphe de $f$ si $n+m>2$.
+\end{itemize}
+\begin{remarque}
+    Dans la suite de ce cours, on confondra $\R^n\times\R^m$ et $\R^{n+m}$
+\end{remarque}
+\section{Représentation graphique}
+On va chercher à représenter graphiquement les fonctions à plusieurs variables. On devra se contenter de représentations partielles : les courbes de niveaux.
+\begin{definition}
+    Soit $f:\R^n\to \R ^n$
+    \begin{itemize}
+        \item Soit $y\in \im(f)$. La courbe de niveau $y$ est donné par $\{x\in \dom f\mid f(x)=y\}\subseteq \R^n$
+        \item Soient $x\in \dom (f)$ et $v\in \R ^n\setminus\{0\}$. On définit la fonction directionnelle $f_{x,v}(t)=f(x+tv)$ où $t\in \R$
+        \item Les fonctions composantes sont les fonctions $f_i:\R^n\to \R$ pour $1\leq i\leq m$ et qui vérifient $f(x)=(f_1(x),f_2(x),...,f_m(x))$
+    \end{itemize}
+\end{definition}
+\begin{remarque}
+    On peut mélanger ces deux dernières notions et considérer $$f_{i,x,v,t}(x)= f_i(x+tv)$$
+\end{remarque}
+    \begin{exemple}
+        Voici quelques exemples de fonctions :
+        \begin{enumerate}
+            \item $f:\R\to\R \quad x\mapsto x^2$
+            \item $f:\R^2\to \R \quad (x,y)\mapsto \sqrt{1-(x^2+y^2)}$ on a $\dom f = \{(x,y):x^2+y^2 \leq 1\}$et $\im f = [0,1]$\\
+            Soit $z\in [0,1]$, la courbe de niveau $z = \{(x,y)\mid \sqrt{1-(x^2+y^2)}=z\}$. On cherche à identifier les (x,y) tels que $(x^2+y^2)=1-z^2$. La courbe de niveau $z$ est un cercle centré en $(0,0)$ de rayon $\sqrt{1-z^2}$. On étudie maintenant deux fonctions directionnelles 
+            \begin{align*}
+                &f_{(0,0),(1,0)}(t)= f(t,0)=\sqrt{1-t^2}\\
+                &f_{(0,0),(0,1)}(t) = f(0,t)=\sqrt{1-t^2}
+            \end{align*}
+            Ce sont donc des demi cercle. et donc la fonction est un demi cercle.
+            \item Dans $\R^3$, une famille de lieux géométriques usuels est donnée par les plans. Les fonctions $f:\R^3\to \R$ dont le graphe est une plan sont données par $f(x,y)=ax+by+c$
+            \item $f:\R^3\to\R \quad (x,y,z)\mapsto z-\sqrt{x^2+y^2}$ on a $\dom f = \R^3$ et $\im f = \R$\\
+            Courbes de niveau $k\in\R$.
+            \[
+            \left\{(x,y,z)\in \R^3\mid z=k+\sqrt{x^2+y^2}\right\}
+            \]
+            égale graphe de la fonction $g_k(x,y)=k+\sqrt{x^
+            2+y^2}$. Le graphe de $g_k$ est une translation de $k$ vers le haut du graphe de $g_0$\\
+            Pour $g_0$: Courbe de niveau $w\geq 0$ : $\{(x,y):\sqrt{x^2+y^2}=w\}$ est le cercle centré en $(0,0)$ et de rayon $w$.
+            \begin{align*}
+                &g_0(t,0)=\sqrt{t^2}=|t|\\
+                &g_0(0,t)=\sqrt{t^2}=|t|
+            \end{align*}
+             \item $f:\R\to\R^2 \quad x\mapsto(\cos(x),\sin(x))$ on a $\dom f=\R$ et $\im f = \text{cercle unité}$
+        \item $f:\R^2\to\R^2\quad (x,y)\mapsto(\frac{-y}{x^2+y^2},\frac{x}{x^2+y^2})$ on a $\dom f=\R^2\setminus\{(0,0)\}$. Les coordonnées polaire : $\rho = \sqrt{x^2+y^2}$, $x=\rho\cos(\theta)$ et $y=\rho\sin(\theta)$. Notre fonction en coordonnées polaires devient
+        \begin{equation*}
+            f(\rho\cos(\theta),\rho\sin(\theta))=\left(\frac{-\rho\sin(\theta)}{\rho^2},\frac{\rho\cos(\theta)}{\rho^2}\right)
+        \end{equation*}
+        ou encore $f(\rho\cos(\theta),\rho\sin(\theta))=\left(\frac{-\sin(\theta)}{\rho},\frac{\cos(\theta)}{\rho}\right)$ donc $\im(f)=\R^2\setminus\{(0,0)\}$
+        \end{enumerate}
+    \end{exemple}

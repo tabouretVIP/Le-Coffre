@@ -1,0 +1,572 @@
+\chapter{Variables aléatoires}
+
+\section{Variables aléatoires et leur loi}
+
+Jusqu'à présent, nous avons décrit une expérience aléatoire de manière abstraite via un espace de probabilités $(\Omega, \A, P)$. En pratique, on s'intéresse rarement au résultat brut $\omega \in \Omega$ de l'expérience, mais plutôt à une grandeur numérique déduite de ce résultat (un gain à un jeu, le temps d'attente avant une panne, la somme de deux dés, etc.). 
+
+On modélise cette quantité d'intérêt par une fonction $X$ qui, à chaque issue possible $\omega$, associe un nombre réel :
+\[
+X : \Omega \longrightarrow \R
+\]
+
+\begin{definition}[Variable aléatoire]
+    Une \emph{variable aléatoire} (souvent abrégée en v.a.) sur un espace probabilisé $(\Omega, \A, P)$ est une application
+    \[
+    X : \Omega \longrightarrow \R
+    \]
+    qui est \emph{mesurable}, c'est-à-dire qui vérifie :
+    \[
+    \forall U \in \mathcal{B}(\R), \quad X^{-1}(U) \in \A
+    \]
+    où $\mathcal{B}(\R)$ est la tribu borélienne sur $\R$ (la plus petite $\sigma$-algèbre contenant tous les ouverts de $\R$).
+\end{definition}
+
+\begin{remarque}
+    La condition de mesurabilité sert de « filet de sécurité ». Elle garantit que pour n'importe quel ensemble de valeurs $U$ (par exemple un intervalle de $\R$), l'ensemble des issues originelles qui conduisent à ce résultat  noté $X^{-1}(U) = \{\omega \in \Omega \mid X(\omega) \in U\}$  est bien un événement de $\A$. On peut donc lui attribuer une probabilité.
+\end{remarque}
+
+\begin{notation}
+    Pour alléger l'écriture, au lieu d'écrire la probabilité de l'événement originel $P(\{\omega \in \Omega \mid X(\omega) \in U\})$, on notera simplement :
+    \[
+    P(X \in U) = P\!\left(X^{-1}(U)\right)
+    \]
+\end{notation}
+
+\begin{exemple}[Lancer de deux dés]
+    On lance deux dés à six faces parfaits. Le modèle naturel est :
+    \begin{itemize}
+        \item L'univers $\Omega = \{(i,j) \mid i,j \in \{1,\dotsc,6\}\}$ (les 36 couples de résultats possibles).
+        \item La tribu $\A = \partie(\Omega)$.
+        \item La probabilité uniforme $P(A) = \frac{\#A}{36}$.
+    \end{itemize}
+    On s'intéresse à la variable aléatoire $X$ représentant la \textbf{somme des deux dés}. Formellement :
+    \[
+    \fonction{X}{\Omega\to\R}{(\omega_1, \omega_2) \to \omega_1 + \omega_2}
+    \]
+    Quelle est la probabilité d'obtenir une somme égale à 5 ?
+    \begin{align*}
+        P(X = 5) &= P\!\left(X^{-1}(\{5\})\right) \\
+        &= P\!\left(\{(1,4), (4,1), (2,3), (3,2)\}\right) \\
+        &= \frac{4}{36} = \frac{1}{9}
+    \end{align*}
+\end{exemple}
+
+\begin{definition}[Loi d'une variable aléatoire]
+    Soit $X$ une variable aléatoire sur $(\Omega, \A, P)$. L'application $P_X : \mathcal{B}(\R) \longrightarrow [0,1]$ définie par :
+    \[
+    P_X(U) = P\!\left(X^{-1}(U)\right) = P(X \in U)
+    \]
+    est une mesure de probabilité sur l'espace mesurable $(\R, \mathcal{B}(\R))$. On l'appelle la \emph{loi de la variable aléatoire} $X$.
+\end{definition}
+
+L'intérêt majeur de la loi $P_X$ est qu'elle contient \textbf{toute l'information probabiliste} concernant la variable $X$.
+
+\begin{definition}[Égalité en loi]
+    Soient $X$ et $Y$ deux variables aléatoires (éventuellement définies sur des espaces de probabilité différents). Si elles ont la même loi, c'est-à-dire si $P_X = P_Y$, on dit qu'elles sont \emph{égales en loi} et on note :
+    \[
+    X \overset{d}{=} Y \quad \text{ou} \quad X \sim Y
+    \]
+    D'un point de vue probabiliste, deux variables égales en loi sont indiscernables, même si elles décrivent des phénomènes physiques totalement différents.
+\end{definition}
+
+\begin{exemple}[Deux variables de même loi sur des espaces différents]
+    Cet exemple illustre parfaitement le concept d'égalité en loi.
+    
+    \textbf{Expérience 1 :} On lance deux pièces de monnaie équilibrées. 
+    \begin{itemize}
+        \item $\Omega_1 = \{(P,P), (P,F), (F,P), (F,F)\}$. Probabilité uniforme ($1/4$ chaque).
+        \item On définit $X =$ « le nombre de piles obtenus ».
+        \item Les valeurs de $X$ sont $X(P,P) = 2$, $X(P,F) = 1$, $X(F,P) = 1$, $X(F,F) = 0$.
+    \end{itemize}
+    La loi de $X$ (notée $P_X$) est donnée par :
+    \[
+    P(X=0) = \frac{1}{4}, \quad P(X=1) = \frac{2}{4} = \frac{1}{2}, \quad P(X=2) = \frac{1}{4}
+    \]
+
+    \textbf{Expérience 2 :} On tire un numéro au hasard dans une urne contenant 4 boules numérotées $\{1, 2, 3, 4\}$.
+    \begin{itemize}
+        \item $\Omega_2 = \{1, 2, 3, 4\}$. Probabilité uniforme ($1/4$ chaque).
+        \item On définit la variable $Y : \Omega_2 \to \R$ par le tableau de valeurs suivant :
+        $Y(1) = 0$, $Y(2) = 1$, $Y(3) = 1$, $Y(4) = 2$.
+    \end{itemize}
+    La loi de $Y$ (notée $P_Y$) est donnée par :
+    \[
+    P(Y=0) = \frac{1}{4}, \quad P(Y=1) = \frac{2}{4} = \frac{1}{2}, \quad P(Y=2) = \frac{1}{4}
+    \]
+    
+     Bien que modélisant des situations très différentes (des pièces de monnaie contre des boules numérotées) et ayant des univers différents ($\Omega_1 \neq \Omega_2$), les lois coïncident parfaitement ($P_X = P_Y$). On a donc $X \overset{d}{=} Y$.
+\end{exemple}
+
+\begin{definition}[Fonction de répartition]
+    Soit $X$ une variable aléatoire sur $(\Omega, \A, P)$. La \emph{fonction de répartition} de $X$ est la fonction $F_X: \R \to [0,1]$ définie par :
+    \begin{align*}
+       F_X(x) &= P(X \leq x) \\
+       &= P_X(]-\infty, x]) \\
+       &= P\!\left(X^{-1}(]-\infty, x])\right)
+    \end{align*}
+\end{definition}
+
+\begin{remarque}
+    Tout comme la loi $P_X$, la fonction de répartition caractérise entièrement la variable aléatoire. Connaître $F_X$, c'est connaître la loi de $X$.
+\end{remarque}
+
+\begin{proposition}[Propriétés de la fonction de répartition]
+    La fonction de répartition $F_X$ d'une variable aléatoire vérifie toujours les trois propriétés fondamentales suivantes :
+    \begin{enumerate}
+        \item $F_X$ est croissante sur $\R$.
+        \item Les limites aux bornes sont : $\displaystyle\lim_{x\to -\infty} F_X(x)=0 \quad \text{et} \quad \lim_{x\to +\infty} F_X(x)=1$.
+        \item $F_X$ est continue à droite en tout point : $\displaystyle\lim_{x \searrow a} F_X(x) = F_X(a)$.
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    Ces propriétés découlent directement des axiomes des probabilités :
+    \begin{description}
+        \item[(1) Croissance :] Soient $x, y \in \R$ tels que $x \leq y$. Alors $]-\infty, x] \subseteq ]-\infty, y]$. Par monotonie de la mesure de probabilité, on a $P(X \leq x) \leq P(X \leq y)$, ce qui signifie exactement $F_X(x) \leq F_X(y)$.
+        
+        \item[(2) Limites aux bornes :] Considérons une suite croissante $(x_n)$ qui tend vers $+\infty$. La suite d'événements $A_n = \{X \leq x_n\}$ est croissante et son union vaut $\Omega$ (car $X$ prend des valeurs réelles finies). Par continuité croissante des probabilités :
+        \[
+        \lim_{n\to \infty} F_X(x_n) = \lim_{n\to \infty} P(A_n) = P\left(\bigcup_{n=1}^\infty A_n\right) = P(\Omega) = 1
+        \]
+        De même, si $(x_n)$ décroît vers $-\infty$, l'intersection des événements $\{X \leq x_n\}$ est vide. Par continuité décroissante, la limite vaut $P(\varnothing) = 0$.
+        
+        \item[(3) Continuité à droite :] Soit $a \in \R$ et une suite $(x_n)$ décroissant strictement vers $a$ ($x_n \searrow a$). La suite d'événements $B_n = \{X \leq x_n\}$ est décroissante et son intersection est l'événement $\{X \leq a\}$. Par continuité décroissante :
+        \[
+        \lim_{n\to \infty} F_X(x_n) = \lim_{n\to \infty} P(B_n) = P\left(\bigcap_{n=1}^\infty B_n\right) = P(X \leq a) = F_X(a)
+        \]
+    \end{description}
+\end{proof}
+
+\newpage
+
+\begin{proposition}[Calculs avec la fonction de répartition]
+    Pour tous réels $a < b$, nous avons :
+    \begin{enumerate}
+        \item $P(a < X \leq b) = F_X(b) - F_X(a)$
+        \item $P(X < a) = \displaystyle\lim_{x \nearrow a} F_X(x) = F_X(a^-)$ (limite à gauche)
+    \end{enumerate}
+\end{proposition}
+
+\begin{proof}
+    \begin{description}
+        \item[(1)] On peut écrire l'événement $\{X \leq b\}$ comme une union disjointe :
+        \[
+        \{X \leq b\} = \{X \leq a\} \sqcup \{a < X \leq b\}
+        \]
+        Par additivité de la probabilité, on obtient :
+        \[
+        P(X \leq b) = P(X \leq a) + P(a < X \leq b)
+        \]
+        Ce qui donne directement $F_X(b) = F_X(a) + P(a < X \leq b)$.
+        
+        \item[(2)] Considérons une suite $(a_n)$ croissant strictement vers $a$ ($a_n \nearrow a$). La suite d'événements $\{X \leq a_n\}$ est croissante, et son union (strictement avant d'atteindre $a$) est l'événement ouvert $\{X < a\}$. Par continuité des probabilités :
+        \[
+        P(X < a) = P\left(\bigcup_{n=1}^\infty \{X \leq a_n\}\right) = \lim_{n\to \infty} P(X \leq a_n) = \lim_{n\to \infty} F_X(a_n) = \lim_{x \nearrow a} F_X(x)
+        \]
+    \end{description} 
+\end{proof}
+
+\section{Variables aléatoires discrètes}
+
+\subsection{Définitions fondamentales}
+
+\begin{definition}[Variable aléatoire discrète]
+    Une variable aléatoire $X$ sur un espace probabilisé $(\Omega, \A, P)$ est dite \emph{discrète} si elle ne prend qu'un nombre fini ou au plus dénombrable de valeurs $\{x_1, x_2, \dots, x_n, \dots\}$.
+\end{definition}
+
+\begin{definition}[Fonction de masse]
+    La \emph{fonction de masse} (souvent appelée distribution de probabilité) de la variable discrète $X$ est l'ensemble des probabilités associées à chacune de ses valeurs possibles. On note :
+    \[
+    p_k = P(X = x_k)
+    \]
+\end{definition}
+
+\begin{remarque}
+    La somme de toutes les probabilités d'une fonction de masse vaut toujours $1$ :
+    \[
+    \sum_{k} P(X = x_k) = 1
+    \]
+    De plus, connaître la fonction de masse permet de déduire la fonction de répartition $F_X$, et inversement :
+    \begin{itemize}
+        \item \textbf{De la masse vers la répartition :} $F_X(x) = P(X \leq x) = \displaystyle\sum_{\{k \mid x_k \leq x\}} P(X = x_k)$
+        \item \textbf{De la répartition vers la masse :} $P(X = x_k) = F_X(x_k) - \displaystyle\lim_{x \nearrow x_k} F_X(x)$
+    \end{itemize}
+\end{remarque}
+
+\begin{exemple}[Somme de deux dés et représentations graphiques]
+    On lance deux dés équilibrés à 6 faces et on s'intéresse à $X$, la somme des deux résultats. L'ensemble des valeurs possibles pour $X$ est $\{2, 3, 4, \dots, 12\}$.
+    
+    En comptant le nombre de cas favorables sur les 36 combinaisons possibles, on obtient la \textbf{fonction de masse} suivante :
+    \begin{center}
+    \renewcommand{\arraystretch}{1.5}
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|c|}
+        \hline
+        $\boldsymbol{k}$ & $2$ & $3$ & $4$ & $5$ & $6$ & $7$ & $8$ & $9$ & $10$ & $11$ & $12$ \\
+        \hline
+        $\boldsymbol{P(X=k)}$ & $\frac{1}{36}$ & $\frac{2}{36}$ & $\frac{3}{36}$ & $\frac{4}{36}$ & $\frac{5}{36}$ & $\frac{6}{36}$ & $\frac{5}{36}$ & $\frac{4}{36}$ & $\frac{3}{36}$ & $\frac{2}{36}$ & $\frac{1}{36}$ \\
+        \hline
+    \end{tabular}
+    \end{center}
+    
+    \textbf{Visualisation graphique (Ce qu'il faut retenir) :}
+    \begin{itemize}
+        \item \textbf{Le diagramme en bâtons :} Si l'on trace $P(X=k)$ en fonction de $k$, on obtient des pics (bâtonnets) qui montent jusqu'à un maximum en $k=7$ (la valeur la plus probable), formant un profil en « triangle » symétrique.
+        \item \textbf{La fonction en escalier :} La fonction de répartition $F_X(x)$ se dessine comme un escalier. Elle vaut $0$ avant $x=2$, puis elle monte d'une « marche » à chaque valeur entière (la hauteur de la marche correspondant à $P(X=k)$), pour finalement atteindre le palier de $1$ à partir de $x=12$.
+    \end{itemize}
+\end{exemple}
+
+\subsection{Espérance et Variance}
+
+\begin{definition}[Espérance mathématique]
+    Soit $X$ une variable aléatoire discrète. L'\emph{espérance} de $X$ (ou moyenne), notée $E[X]$, est définie par :
+    \[
+    E[X] = \sum_{k} x_k P(X = x_k)
+    \]
+    sous réserve que cette série soit absolument convergente (dans le cas d'une infinité de valeurs).
+\end{definition}
+
+\begin{remarque}
+    L'espérance représente le « centre de gravité » de la distribution. C'est la moyenne des valeurs possibles, pondérées par leurs probabilités respectives. Si l'on répète l'expérience un très grand nombre de fois, la moyenne empirique des résultats convergera vers cette espérance (c'est la Loi des Grands Nombres).
+\end{remarque}
+
+\begin{proposition}[Linéarité]
+    Soient $X$ et $Y$ des variables aléatoires, $a, b \in \R$.
+
+     $$E[aX + bY] = aE[X] + bE[Y]$$
+    
+\end{proposition}
+
+\begin{theoreme}[théorème de transfert (LOTUS)]
+ Soient $X$ et une variables aléatoire et $g : \R \to \R$ une fonction.
+    $$\displaystyle E[g(X)] = \sum_{k} g(x_k) P(X = x_k)$$
+\end{theoreme}
+
+\begin{proof}[Démonstration du point 2]
+    Soit $X$ prenant ses valeurs dans $\{x_1, x_2, \dots\}$. Posons $Y = g(X)$, qui prend ses valeurs dans $\{y_1, y_2, \dots\}$. Par définition de l'espérance de $Y$ :
+    \begin{align*}
+        E[Y] &= \sum_{i} y_i P(Y = y_i) \\
+        &= \sum_i y_i \left( \sum_{\{j \mid g(x_j) = y_i\}} P(X = x_j) \right) \\
+        &= \sum_i \sum_{\{j \mid g(x_j) = y_i\}} g(x_j) P(X = x_j) \\
+        &= \sum_j g(x_j) P(X = x_j)
+    \end{align*}
+    Ce qui prouve bien la formule.
+\end{proof}
+
+\begin{definition}[Variance]
+    La \emph{variance} de $X$, qui mesure la dispersion des valeurs autour de l'espérance, est définie par :
+    \[
+    \operatorname{Var}(X) = E\left[(X - E[X])^2\right] = E[X^2] - (E[X])^2
+    \]
+\end{definition}
+
+\begin{proposition}[Propriétés de la variance]
+    Pour tout $a, b \in \R$, nous avons :
+    \[
+    \operatorname{Var}(aX + b) = a^2 \operatorname{Var}(X)
+    \]
+\end{proposition}
+
+\subsection{Lois usuelles (Modèles discrets)}
+
+\begin{description}
+    \item[Loi uniforme discrète $\operatorname{Unif}(\{x_1, \dots, x_N\})$ :]
+    Une variable $X$ suit une loi uniforme ($X\sim \operatorname{Unif}(\{x_1, \dots, x_N\})$) si chaque issue d'un ensemble fini de cardinal $N$ a la même probabilité d'apparaître :
+    \[
+    P(X = x_k) = \frac{1}{N} \quad \forall k \in \{1, \dots, N\}
+    \]
+    Son espérance est simplement la moyenne arithmétique : $E[X] = \frac{1}{N} \sum_{k=1}^N x_k$.
+
+    \item[Loi de Bernoulli $\operatorname{Bern}(p)$ :]
+    ($X\sim \operatorname{Bern}(p)$)Modélise une expérience n'ayant que deux issues : le succès ($X=1$) avec probabilité $p \in [0,1]$, et l'échec ($X=0$) avec probabilité $1-p$.
+    \[
+    P(X=1) = p \quad \text{et} \quad P(X=0) = 1-p
+    \]
+    Son espérance est $E[X] = 1\cdot p + 0\cdot(1-p) = p$. \\
+    Sa variance est $\operatorname{Var}(X) = E[X^2] - (E[X])^2 = (1^2\cdot p + 0^2\cdot(1-p)) - p^2 = p - p^2 = p(1-p)$.
+
+    \item[Loi binomiale $\operatorname{Bin}(n, p)$ :]
+    Modélise le nombre de succès obtenus lors de $n$ épreuves de Bernoulli indépendantes, de même paramètre $p$.
+    \[
+    P(X=k) = \binom{n}{k} p^k (1-p)^{n-k} \quad \text{pour } k \in \{0, 1, \dots, n\}
+    \]
+    C'est bien une distribution de probabilité (par la formule du binôme de Newton, la somme vaut $(p + 1-p)^n = 1$). 
+    \[
+    E[X] = np \quad \text{et} \quad \operatorname{Var}(X) = np(1-p)
+    \]
+
+    \item[Lois géométriques $\operatorname{Geom}(p)$ :]
+    Modélise le \textbf{nombre d'épreuves nécessaires} pour obtenir le premier succès (de probabilité $p \in ]0,1[$). La variable prend ses valeurs dans $\N_0 = \{1, 2, 3, \dots\}$.
+    \[
+    P(X=k) = (1-p)^{k-1}p \quad \text{pour } k \ge 1
+    \]
+    Vérification de la masse totale (série géométrique) : $\sum_{k=1}^{\infty} P(X=k) = p \frac{1}{1-(1-p)} = 1$.
+    
+    Pour trouver l'espérance, on utilise l'astuce de la dérivée :
+    \begin{align*}
+        E[X] &= \sum_{k=1}^\infty k(1-p)^{k-1}p \\
+        &= p \sum_{k=1}^\infty \frac{d}{dp} \left( -(1-p)^k \right) \\
+        &= -p \frac{d}{dp} \left( \sum_{k=1}^\infty (1-p)^k \right) \quad \text{(dérivation terme à terme)} \\
+        &= -p \frac{d}{dp} \left( \frac{1-p}{p} \right) = -p \left( -\frac{1}{p^2} \right) = \frac{1}{p}
+    \end{align*}
+    On démontre de façon similaire que $\operatorname{Var}(X) = \frac{1-p}{p^2}$.
+    
+    \textit{Remarque :} On peut aussi définir la loi géométrique $Y$ sur $\N = \{0, 1, 2, \dots\}$ comme le \textbf{nombre d'échecs avant} le premier succès. Dans ce cas, $P(Y=k) = (1-p)^kp$, $E[Y] = \frac{1}{p}-1 = \frac{1-p}{p}$, et la variance reste inchangée.
+
+    \item[Loi de Poisson $\mathcal{P}(\lambda)$ :]
+    Sert à modéliser le nombre d'événements se produisant dans un laps de temps donné (ou un espace donné), avec une intensité moyenne $\lambda > 0$.
+    \[
+    P(X=k) = e^{-\lambda} \frac{\lambda^k}{k!} \quad \text{pour } k \in \{0, 1, 2, \dots\}
+    \]
+    Pour trouver les moments de la loi de Poisson, on calcule le \textit{moment factoriel} d'ordre $r$ :
+    \begin{align*}
+        E[X(X-1)\dotsm(X-r+1)] &= \sum_{k=0}^\infty k(k-1)\dotsm(k-r+1) e^{-\lambda} \frac{\lambda^k}{k!} \\
+        &= \sum_{k=r}^\infty e^{-\lambda} \frac{\lambda^k}{(k-r)!} \\
+        &= e^{-\lambda} \lambda^r \sum_{k=r}^\infty \frac{\lambda^{k-r}}{(k-r)!} \\
+        &= e^{-\lambda} \lambda^r e^{\lambda} = \lambda^r
+    \end{align*}
+    En posant $r=1$, on obtient directement $E[X] = \lambda$. \\
+    En posant $r=2$, on obtient $E[X(X-1)] = \lambda^2$, ce qui implique $E[X^2] - E[X] = \lambda^2$. D'où $\operatorname{Var}(X) = (\lambda^2 + \lambda) - \lambda^2 = \lambda$.
+    
+    \textbf{Propriété remarquable :} Pour une loi de Poisson, $E[X] = \operatorname{Var}(X) = \lambda$.
+
+    \item[Loi des événements rares (Approximation de Poisson) :]
+    Si $(p_n)$ est une suite de probabilités telle que $\lim_{n\to\infty} n p_n = \lambda > 0$, et si $X_n \sim \operatorname{Bin}(n, p_n)$ et $X \sim \mathcal{P}(\lambda)$, alors :
+    \[
+    \lim_{n\to \infty} P(X_n = k) = P(X = k) \quad \forall k
+    \]
+    \textbf{Application pratique :} Lorsque $n$ est très grand et $p$ très petit (événement rare), on peut approcher une loi binomiale par une loi de Poisson : $\operatorname{Bin}(n,p) \approx \mathcal{P}(np)$. 
+    
+    \textit{Exemple :} Une compagnie d'assurances a $500$ clients. Chacun a une probabilité $p = 1/200$ d'avoir un accident dans l'année. 
+    \[
+    X \sim \operatorname{Bin}\left(500, \frac{1}{200}\right) \approx \mathcal{P}\left(500 \cdot \frac{1}{200}\right) = \mathcal{P}(2{,}5)
+    \]
+    Comparons les probabilités d'avoir exactement 2 accidents ($X=2$) :
+    \begin{itemize}
+        \item \textbf{Avec la loi Binomiale :} $P(X=2) = \binom{500}{2} \left(\frac{1}{200}\right)^2 \left(\frac{199}{200}\right)^{498} \approx 0{,}25697$
+        \item \textbf{Avec l'approximation de Poisson :} $P(Y=2) = e^{-2{,}5} \frac{(2{,}5)^2}{2!} \approx 0{,}25652$
+    \end{itemize}
+    L'approximation est excellente et bien plus simple à calculer à la main !
+\end{description}
+
+\begin{exemple}[Paradoxe de Saint-Pétersbourg]
+    On joue à pile ou face en série avec une pièce équilibrée. 
+    \begin{itemize}
+        \item Si « pile » sort au 1\up{er} lancer, on gagne $1$ €.
+        \item S'il sort pour la première fois au 2\up{e} lancer, on gagne $2$ €.
+        \item Plus généralement, si le premier « pile » sort au $k$-ième lancer, on gagne $2^{k-1}$ €.
+    \end{itemize}
+    Soit $X$ le gain à ce jeu. La probabilité que le jeu s'arrête au $k$-ième lancer (obtenir $k-1$ « face » puis $1$ « pile ») est :
+    \[
+    P(X = 2^{k-1}) = \left(\frac{1}{2}\right)^k \quad (k \ge 1)
+    \]
+    Quelle serait la mise équitable pour participer à ce jeu ? En théorie, la mise devrait être égale à l'espérance de gain :
+    \[
+    E[X] = \sum_{k=1}^\infty x_k P(X = x_k) = \sum_{k=1}^\infty 2^{k-1} \cdot \left(\frac{1}{2^k}\right) = \sum_{k=1}^\infty \frac{1}{2} = +\infty
+    \]
+    \textbf{Le paradoxe :} L'espérance mathématique du gain est infinie. Un joueur purement rationnel devrait donc être prêt à miser toute sa fortune pour jouer à ce jeu. Pourtant, dans la vraie vie, personne ne paierait $1000$ € pour jouer, car la probabilité de gagner très peu (1 € ou 2 €) est écrasante ($75\,\%$ de chances que le jeu s'arrête dans les deux premiers tours).
+\end{exemple}
+\section{Variables aléatoires continues}
+
+\subsection{Définitions et propriétés fondamentales}
+
+\begin{definition}[Variable aléatoire absolument continue]
+    Une variable aléatoire $X$ est dite \emph{absolument continue} s'il existe une fonction $f_X : \R \to \R^+$, appelée \emph{fonction de densité} de $X$, telle que pour tout borélien $E \in \mathcal{B}(\R)$ :
+    \[
+    P(X \in E) = \int_E f_X(x) \, dx
+    \]
+\end{definition}
+
+\begin{remarque}[Lien avec la fonction de répartition]
+    Si la densité $f_X$ est connue, la fonction de répartition $F_X$ l'est également, car on intègre simplement jusqu'à $x$ :
+    \[
+    F_X(x) = P(X \leq x) = \int_{-\infty}^{x} f_X(u) \, du
+    \]
+    Par le théorème fondamental de l'analyse, en tout point où $f_X$ est continue, on a $F_X'(x) = f_X(x)$.
+\end{remarque}
+
+\begin{proposition}[Propriétés de la densité]
+    Toute fonction de densité $f_X$ doit vérifier :
+    \begin{itemize}
+        \item L'aire totale sous la courbe vaut $1$ : $\displaystyle\int_{-\infty}^{+\infty} f_X(x) \, dx = 1$.
+        \item La probabilité de prendre une valeur \textbf{exacte} est nulle : pour tout réel $a$, 
+        \[
+        P(X = a) = \int_{a}^{a} f_X(x) \, dx = 0
+        \]
+    \end{itemize}
+\end{proposition}
+\textit{Conséquence directe : Pour une variable continue, les inégalités strictes ou larges ne changent rien aux probabilités : $P(a \le X \le b) = P(a < X < b)$.}
+
+\subsection{Espérance et Variance}
+
+\begin{definition}
+    Soit $X$ une variable aléatoire absolument continue de densité $f_X$. Son \emph{espérance} est donnée par :
+    \[
+    E[X] = \int_{-\infty}^{+\infty} x f_X(x) \, dx
+    \]
+    (à condition que l'intégrale $\int |x|f_X(x)dx$ converge).
+\end{definition}
+
+\begin{exemple}[Calcul heuristique : Le lien discret-continu]
+    \textit{D'où vient cette formule avec l'intégrale ?} On peut l'approcher par une variable discrète.
+    Soit $N \in \N_0$ un très grand entier. Découpons $\R$ en petits intervalles de largeur $\frac{1}{N}$.
+    On définit une variable discrète approchée $X'$ telle que $X' = \frac{k}{N}$ si $X \in \interfo{\frac{k}{N}, \frac{k+1}{N}}$. 
+    Calculons l'espérance de $X'$ avec la formule discrète :
+    \begin{align*}
+        E[X] \approx E[X'] &= \sum_{k \in \Z} \frac{k}{N} P\left(X' = \frac{k}{N}\right) \\
+        &= \sum_{k \in \Z} \frac{k}{N} P\left( \frac{k}{N} \le X < \frac{k+1}{N} \right) \\
+        &= \sum_{k \in \Z} \frac{k}{N} \int_{\frac{k}{N}}^{\frac{k+1}{N}} f_X(x) \, dx
+    \end{align*}
+    Sur un tout petit intervalle, $f_X(x)$ est presque constante et vaut $f_X\left(\frac{k}{N}\right)$. L'intégrale vaut donc la largeur $\frac{1}{N}$ fois la hauteur :
+    \[
+    E[X'] \approx \sum_{k \in \Z} \frac{k}{N} f_X\left(\frac{k}{N}\right) \frac{1}{N}
+    \]
+    On reconnaît une \textbf{somme de Riemann}. Lorsque $N \to +\infty$ (les intervalles deviennent infiniment petits), cette somme converge exactement vers l'intégrale $\int_{-\infty}^{+\infty} x f_X(x) \, dx$.
+\end{exemple}
+
+\begin{proposition}[Théorème de transfert et Variance]
+    \begin{itemize}
+        \item Pour une fonction $g$, on a : $\displaystyle E[g(X)] = \int_{-\infty}^{+\infty} g(x) f_X(x) \, dx$.
+        \item La variance reste définie par : $\operatorname{Var}(X) = E[(X-E[X])^2] = E[X^2] - (E[X])^2$.
+    \end{itemize}
+\end{proposition}
+
+\subsection{Lois continues usuelles}
+
+\begin{description}
+    \item[Loi uniforme:]  $X \sim \operatorname{Unif}([a,b])$ 
+    La variable prend ses valeurs uniformément sur l'intervalle $[a,b]$. Sa densité est constante :
+    \[
+    f_X(x) = \begin{cases}
+        \frac{1}{b-a} & \text{si } x \in [a,b] \\
+        0 & \text{sinon}
+    \end{cases}
+    \]
+    La fonction de répartition est une pente droite qui monte de $0$ à $1$ :
+    \[
+    F_X(x) = \begin{cases}
+        0 & \text{si } x \le a \\
+        \frac{x-a}{b-a} & \text{si } a < x < b \\
+        1 & \text{si } x \ge b
+    \end{cases}
+    \]
+    Calcul des moments (par intégration simple d'un polynôme) :
+    \[
+    E[X^n] = \int_{a}^{b} x^n \frac{1}{b-a} \, dx = \frac{b^{n+1}-a^{n+1}}{(n+1)(b-a)}
+    \]
+    En particulier : $E[X] = \frac{a+b}{2}$ (le milieu de l'intervalle) et $\operatorname{Var}(X) = \frac{(b-a)^2}{12}$.
+
+    \item[Loi exponentielle $X \sim \operatorname{Exp}(\lambda)$ :]
+    Très utilisée pour modéliser une durée de vie ou un temps d'attente. Paramètre $\lambda > 0$.
+    \[
+    f_X(x) = \lambda e^{-\lambda x} \mathds{1}_{\{x \ge 0\}}
+    \]
+    Fonction de répartition : $F_X(x) = (1 - e^{-\lambda x}) \mathds{1}_{\{x \ge 0\}}$. \\
+    Moments : $E[X] = \frac{1}{\lambda}$ et $\operatorname{Var}(X) = \frac{1}{\lambda^2}$.
+    
+    \textbf{Propriété d'absence de mémoire (Oubli) :}
+    \[
+    P(X \ge t + s \mid X \ge t) = P(X \ge s) \quad \forall s,t \ge 0
+    \]
+    \textit{Interprétation : L'usure n'a pas d'effet. La probabilité qu'une ampoule tienne encore $s$ heures, sachant qu'elle a déjà tenu $t$ heures, est la même que pour une ampoule neuve.}
+
+    \item[Loi d'Erlang $X \sim \operatorname{Erlang}(n, \lambda)$ :]
+    C'est la loi de la somme de $n$ variables exponentielles indépendantes de paramètre $\lambda$.
+    \[
+    f_X(x) = \frac{\lambda^n x^{n-1} e^{-\lambda x}}{(n-1)!} \mathds{1}_{\{x \ge 0\}}
+    \]
+    Moments : $E[X] = \frac{n}{\lambda}$ et $\operatorname{Var}(X) = \frac{n}{\lambda^2}$.
+
+    \item[Loi normale (ou de Gauss) $X \sim \mathcal{N}(\mu, \sigma^2)$ :]
+    C'est la fameuse courbe en cloche. Ses paramètres sont son centre $\mu \in \R$ et sa variance $\sigma^2$ (avec $\sigma > 0$).
+    \[
+    f_X(x) = \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}}
+    \]
+    La courbe est symétrique par rapport à l'axe $x = \mu$ et ses points d'inflexion (là où la courbe change de concavité) se situent en $\mu - \sigma$ et $\mu + \sigma$.
+    
+    Le cas particulier $X \sim \mathcal{N}(0, 1)$ est la \textbf{loi normale centrée réduite}.
+    
+    \textbf{Calcul de l'espérance :}
+    \begin{align*}
+        E[X] &= \int_{-\infty}^{+\infty} x \frac{1}{\sqrt{2\pi}\sigma} e^{-\frac{(x-\mu)^2}{2\sigma^2}} \, dx \\
+        &= \int_{-\infty}^{+\infty} (\mu + \sigma y) \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} \, dy \qquad \left(\text{Changement de variable } y = \frac{x-\mu}{\sigma}, \, dx = \sigma \, dy\right) \\
+        &= \mu \underbrace{\int_{-\infty}^{+\infty} \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} \, dy}_{=1 \text{ (densité de } \mathcal{N}(0,1))} + \frac{\sigma}{\sqrt{2\pi}} \underbrace{\int_{-\infty}^{+\infty} y e^{-\frac{y^2}{2}} \, dy}_{=0 \text{ (fonction impaire)}} \\
+        &= \mu
+    \end{align*}
+    
+    \textbf{Calcul de la variance (via $E[X^2]$) :}
+    En reprenant le même changement de variable $y = \frac{x-\mu}{\sigma}$ :
+    \begin{align*}
+        E[X^2] &= \int_{-\infty}^{+\infty} (\mu + \sigma y)^2 \frac{1}{\sqrt{2\pi}} e^{-\frac{y^2}{2}} \, dy \\
+        &= \mu^2 (1) + \frac{2\mu\sigma}{\sqrt{2\pi}} \underbrace{\int_{-\infty}^{+\infty} y e^{-\frac{y^2}{2}} \, dy}_{= 0} + \frac{\sigma^2}{\sqrt{2\pi}} \int_{-\infty}^{+\infty} y^2 e^{-\frac{y^2}{2}} \, dy
+    \end{align*}
+    Il reste à calculer la dernière intégrale par parties. Posons $u = y$ et $dv = y e^{-y^2/2}dy$. Alors $du = dy$ et $v = -e^{-y^2/2}$.
+    \begin{align*}
+        \int_{-\infty}^{+\infty} y \cdot \left( y e^{-\frac{y^2}{2}} \right) \, dy &= \left[ -y e^{-\frac{y^2}{2}} \right]_{-\infty}^{+\infty} + \int_{-\infty}^{+\infty} e^{-\frac{y^2}{2}} \, dy \\
+        &= 0 + \sqrt{2\pi}
+    \end{align*}
+    En réinjectant ce résultat, on obtient $E[X^2] = \mu^2 + \frac{\sigma^2}{\sqrt{2\pi}} (\sqrt{2\pi}) = \mu^2 + \sigma^2$. \\
+    Donc $\operatorname{Var}(X) = E[X^2] - \mu^2 = \sigma^2$.
+\end{description}
+
+\begin{proposition}[Transformation affine de la loi normale]
+    Si $X \sim \mathcal{N}(\mu, \sigma^2)$ et $a, b \in \R$ (avec $a \neq 0$), alors $Y = aX+b \sim \mathcal{N}(a\mu + b, a^2\sigma^2)$.
+\end{proposition}
+
+\begin{proof}
+    Calculons la fonction de répartition de $Y$. Supposons $a > 0$ :
+    \[
+    F_Y(x) = P(aX+b \le x) = P\left(X \le \frac{x-b}{a}\right) = F_X\left(\frac{x-b}{a}\right)
+    \]
+    (Si $a < 0$, le signe de l'inégalité changerait et on aurait $P(X \ge \frac{x-b}{a}) = 1 - F_X(\frac{x-b}{a})$).
+    
+    Dans le cas général, en dérivant par rapport à $x$ (et en appliquant la dérivation en chaîne), la valeur absolue $|a|$ apparaît au dénominateur :
+    \begin{align*}
+        f_Y(x) &= \frac{d}{dx} F_Y(x) = f_X\left(\frac{x-b}{a}\right) \cdot \frac{1}{|a|} \\
+        &= \frac{1}{\sqrt{2\pi}\sigma |a|} \exp\left( -\frac{\left( \frac{x-b}{a} - \mu \right)^2}{2\sigma^2} \right) \\
+        &= \frac{1}{\sqrt{2\pi}(|a|\sigma)} \exp\left( -\frac{(x - (a\mu + b))^2}{2(a^2\sigma^2)} \right)
+    \end{align*}
+    On reconnaît exactement la densité d'une loi normale de centre $(a\mu + b)$ et de variance $(a^2\sigma^2)$.
+\end{proof}
+
+\begin{remarque}[Standardisation]
+    Un cas particulier crucial est $a = \frac{1}{\sigma}$ et $b = -\frac{\mu}{\sigma}$. Si $X \sim \mathcal{N}(\mu, \sigma^2)$, alors :
+    \[
+    Z = \frac{X-\mu}{\sigma} \sim \mathcal{N}(0, 1)
+    \]
+    Cela permet de toujours se ramener à la loi normale centrée réduite pour lire dans les tables ou faire des calculs. 
+    \[
+    P(X \ge x) = P\left(\frac{X-\mu}{\sigma} \ge \frac{x-\mu}{\sigma}\right) = 1 - \Phi\left(\frac{x-\mu}{\sigma}\right)
+    \]
+    (où $\Phi$ est la notation classique pour la fonction de répartition de $\mathcal{N}(0,1)$).
+\end{remarque}
+
+\subsection{Variables aléatoires "générales" (Mixtes)}
+
+\begin{remarque}[Variables ni discrètes, ni continues]
+    Il existe des variables qui mélangent les deux comportements. Pour les étudier, l'outil roi est la \textbf{fonction de répartition} $F_X$.
+    
+    \textbf{Exemple classique de vos notes :} Considérons une durée de vie d'une machine $X \sim \operatorname{Exp}(\lambda)$. La garantie s'arrête au bout de $1$ an. Soit $Y$ le temps couvert par la garantie. On a $Y = \min(1, X)$.
+    \begin{itemize}
+        \item Si $y < 0$, $F_Y(y) = P(Y \le y) = 0$.
+        \item Si $0 \le y < 1$, l'événement $\{Y \le y\}$ est identique à $\{X \le y\}$. Donc $F_Y(y) = 1 - e^{-\lambda y}$.
+        \item Si $y \ge 1$, $Y$ ne pouvant dépasser $1$, on est sûr que $Y \le y$. Donc $F_Y(y) = 1$.
+    \end{itemize}
+    Graphiquement, $F_Y(y)$ est une courbe continue de $0$ à $1$ (exclusive), mais en $y=1$, la courbe fait \textbf{un saut brutal} (une discontinuité) pour atteindre la hauteur $1$. 
+    La hauteur de ce saut correspond à la masse de probabilité accumulée en ce point exact : 
+    \[
+    P(Y = 1) = P(X \ge 1) = e^{-\lambda} > 0
+    \]
+    Cette variable $Y$ a donc une partie continue et une "masse" discrète en $1$.
+\end{remarque}
+
+\subsection{Quelques propriétés supplémentaires sur l'espérance}
+
+\begin{proposition}
+    Soient $X$ et $Y$ des variables aléatoires (discrètes, continues ou mixtes).
+    \begin{enumerate}
+        \item \textbf{Linéarité :} $E[aX+Y] = aE[X] + E[Y]$
+        \item \textbf{Monotonie :} Si $X \le Y$ p.s., alors $E[X] \le E[Y]$. \\
+        \textit{(« p.s. » signifie "presque sûrement", c'est-à-dire que l'événement $\{X \le Y\}$ a une probabilité de $1$).}
+        \item \textbf{Existence des moments :} Si $E[X^r] < \infty$, alors tous les moments inférieurs existent : $E[X^s] < \infty \quad \forall s \in [0, r]$.
+    \end{enumerate}
+\end{proposition}

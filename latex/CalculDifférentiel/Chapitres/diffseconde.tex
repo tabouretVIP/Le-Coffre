@@ -1,0 +1,224 @@
+\chapter{Différentelle seconde et d'ordre suprérieur}
+\section{Différentielle seconde}
+\begin{definition}
+    Soit $f:\R^n\to \R^m$ et $a$ un point intérieur au domaine de $f$.
+    \begin{itemize}
+        \item La dérivée partielle seconde de $f_i$ par rapport à la $k$-ème et la $j$-ème variable est donnée par $$
+        \dpart{^2f_i}{x_k\partial x_j} := \dpart{}{x_k}\left(\dpart{f_i}
+        {x_j}\right) = \lim_{t\to 0}\frac{\dpart{f_i}{x_j}(a_1,\dotsc,a_{k-1},a_k+t,a_{k+1},\dotsc, a_n)-\dpart{f_i}{x_j}(a)}{t}$$ 
+        \item la dérivée directionnelle seconde de $f$ en $a$ par rapport aux directions $v_1,v_2\in \R^n\setminus\{0\}$ est donnée par
+        \begin{equation*}
+            \frac{\partial^2f}{\partial v_1 \partial v_2}(a)=\lim_{t\to 0}\frac{\frac{\partial f}{v_2}(a+tv_1)-\dpart{f}{v_2}(a)}{t}
+        \end{equation*}
+    \end{itemize}
+\end{definition}
+\begin{notation}
+    Si on dérive partiellement deux fois par rapport à $x_k$, on écrira $\dpart{^2f}{x^2_k}$.
+\end{notation}
+\begin{exemple}
+    Calculer les dérivées partielles secondes de
+    \begin{equation*}
+        f(x,y)=xye^x
+    \end{equation*}
+    on a $$\dpart{f}{x}(x,y)=y(\e^x+x\e^x)\quad \text{ et }\quad \dpart{f}{y}(x,y)=x\e^x$$ Donc
+    \begin{align*}
+        \dpart{^2f}{x^2}(x,y) =  y(2+x) \e^x \quad& \dpart{^2f}{y\partial x}(x,y) = (x+1)\e^x\\
+        \dpart{^2f}{x\partial y}(x,y) = (x+1)\e^x\quad & \dpart{^2f}{y^2}(x,y) = 0
+    \end{align*}
+    Soit $v=(2,3)$ on a $$\dpart{f}{v}(x,y) = 2\dpart{f}{x}(x,y)+3\dpart{f}{y}(x,y) = 2y(\e^x+x\e^x) + 3x\e^x$$
+    $$\dpart{^2f}{v^2}(x,y) = ???$$
+\end{exemple}
+Comment va-t-on définir la différentielle seconde d'une fonction $f:\R^n\to\R^m$ ? Le problème ici est que la différentielle de $f$ ne nous rend pas une fonction de $\R^n$ dans $\R^m$ mais une fonction $Df : \R^n\to L(\R^n,\R^m)$. Pour pouvoir parler de la différentielle de $Df$, nous allons étendre la notion de différentiabilité aux fonctions de $E$ dans $F$ où $E,F$ sont des espaces vectoriels normés.
+\begin{definition}
+    Soient $E$ et $F$ deux EVN. Soit $f:E\to F$ et $a\in(\dom f)^\circ$. $f$ est différentiable en $a$ s'il existe une application linéaire continue $L\in L(E,F)$ telle que $$f(a+h) = f(a) + L(h)+ o (h)$$
+\end{definition}
+
+\begin{theoreme}
+    Plusieurs résultats sur la différentiabilité restent vrais dans ce cadre plus général.
+    Soient $E$ et $F$ deux EVN et $f:E\to F$
+    \begin{itemize}
+        \item Si $f$ est différentiable en $a$ alors l'application linéaire continue $L\in L(E,F)$ vérifiant $f(a+h) = f(a) + L(h) + o(h)$ est unique. On notera cette application $L$ par $Df(a)$
+        \item Si $f$ est différentiable en $a$ alors $f$ est continue en $a$.
+        \item Si $f$ est linéaire alors $f$ est différentiable et $\forall a\in E,\ Df(a) = f$
+    \end{itemize}
+\end{theoreme}
+Si $f:\R^n\to \R^m$ est différentiable sur un ouvert $\ouvert$ alors $Df : \ouvert\to L(R^n,\R^m)$ et on peut donc s'intéresser à la différentiabilité de $Df$ en un point $x\in\ouvert$, qui reposera sur l'existence d'une application linéaire $L\in L(\R^n,L(\R^n,\R^m))$ telle que $$Df(x+h) = Df(x) + L(h) + o (h)$$. On notera par $D^2f(x)$ cette application $L$.
+\begin{definition}
+    Soit $f:\R^n\to \R^m$ et $x$ un point intérieur de $\dom f$. \begin{itemize}
+        \item $f$ est différentiable deux fois en $x$ si $f$ est différentiable sur un voisinage de $x$ et si $Df$ est différentiable en $x$.
+        \item $f$ est différentiable deux fois sur un ouvert $U$ si $f$ est différentiable sur $U$ et $Df$ est différentiable sur $U$, cela signifie qu'il existe $D^2f : U\to L(\R^n,L(\R^n,\R^m))$ 
+        telle que pour tout $x\in U$,
+        $$Df(x+h)=Df(x)+D^2f(x)(h)+ o(h)$$
+    \end{itemize}
+\end{definition}
+\begin{remarque}
+    Notons que $D^2f(x)(h)\in L(\R^n,\R^m)$. Cela signifie que l'on peut regarder $D^2f(x)(h)(k)$ pour $k\in \R^n$ avec $D^2f(x)\in L(\R^n,L(\R^n,\R^m))$.
+     On écrira $D^2f(x)(h,k)$ à la place de $D^2f(x)(h)(k)$.
+     De plus, on dira que $D^2f(x)$ est une application bilinéaire de $\R^n\times \R^n$ dans $\R^m$.
+\end{remarque}
+\begin{proposition}
+    Soit $f : \R^n\to\R^m$ une application linéaire. Alors $f$ est différentiable deux fois sur $\R^n$ et $D^2f(x) = 0 $
+\end{proposition}
+\begin{proof}
+    Soit $x\in\R^n$. On a $$Df(x+h) = Df(x) + 0 + o(h)$$ car $Df(x+h) = f = Df(x)$
+\end{proof}
+\begin{proposition}
+    Soit $f:\R^n\to\R^m$. $f$ est différentiable deux fois en $x$ ssi chaque fonction composante $f_i$ est différentiable deux fois en $x$.
+\end{proposition}
+On peut donc se restreindre à l'étude des fonctions $f: \R^n\to \R$. Si on considère $f:\R^n\to \R$ alors $D^2f(x)$ est une application bilinéaire de $\R^n\times \R ^ n$ dans $\R$. Soit $B$ une application bilinéaire de $\R^n\times \R^n$ dans $\R$. Soient $x,y\in\R^n$. Soit $(e_1,\dotsc,e_,)$ la base canonique de $\R^n$. Il vient  
+\begin{align*}
+    B(x,y)  &= B\left(\sum_{k = 1}^n x_ke_k, \sum_{j=1}^ny_je_j\right)\\
+            &= \sum_{k = 1}^n \sum_{j=1}^nx_ky_jB\left( e_k,e_j\right)\\
+            &= x^t \begin{pmatrix}
+                B(e_1,e_1) & \cdots & B(e_1,e_n) \\
+                \vdots & \ddots  & \vdots \\
+                B(e_n,e_1) & \cdots & B(e_n,e_m)
+            \end{pmatrix}y 
+\end{align*}
+
+\begin{theoreme}
+    Soit $f: \R ^n \to \R$. Soient $x$ un point intérieur à $\dom (f)$. Si $f$ est différentiable deux dois en $x$ alors toutes les dérivées directionnelle secondes existent en $x$ et pour tous $v_1,v_2 \in \R ^n \setminus \{0\}$, $$ \frac{\partial^2f}{\partial v_1 \partial v_2}(x) = D^2f(x)(v_1,v_2)$$ et
+\begin{align*}
+    D^2f(x)(h,k )=h^t
+    \begin{pmatrix}
+        \dpart{^2f(x)}{x_1^2} &  \dpart{^2f(x)}{x_1\partial x_2} & \cdots &  \dpart{^2f(x)}{x_1x_n}\\
+        \vdots & & & \vdots\\
+         \dpart{^2f(x)}{x_n\partial x_1} & \cdots & \cdots & \ \dpart{^2f(x)}{x_n^2}    \end{pmatrix}k
+\end{align*}
+\end{theoreme}
+
+\begin{proof}
+    Comme $f$ est différentiable deux fois en $x$ , on a 
+    \begin{align*}
+        \lim_{h\to 0} \frac{\norm{ Df(x+h) -Df(x) -D^2f(x)(h)}}{\norm{h}} = 0
+    \end{align*}
+    En particulier, en considérant $h = tv_1$, on a $$\lim_{t\to 0}\frac{\norm{ Df(x+tv_1) -Df(x) -D^2f(x)(tv_1)}}{\abs{t}} = 0$$
+    Par définition de la norme d'une application linéaire, on a pour tout $v_2\in\R^n\setminus\{0\}$,
+    \begin{align*}
+        \norm{ Df(x+tv_1) -Df(x) -D^2f(x)(tv_1)}\ge \abs{Df(x+ tv_1)(\frac{v_2}{\norm{v_2}}-Df(x)(\frac{v_2}{\norm{v_2} - D^2f(x)(tv_1,\frac{v_2}{\norm{v_2}}}}\ge 0
+    \end{align*}
+    On en déduit que 
+    \begin{align*}
+        &\lim_{t\to0}\frac{\abs{Df(x+ tv_1)(v_2)-Df(x)(v_2)} -D^2f(x)(tv_1, v_2)}{\abs t} = 0\\
+        \ssi &\lim_{t\to0}\abs{\frac{Df(x+ tv_1)(v_2)-Df(x)(v_2)}{t}-D^2f(x)(v_1, v_2)} = 0\\
+    \end{align*}
+    Cela signifie que 
+    $$\frac{\partial^2 f}{\partial v_1\partial v_2}(x)=\lim_{t\to  0}\frac{\frac{\partial f}{\partial v_2}(x+tv_1)-\frac{\partial f}{\partial v_2}(x)}{t}= D^2f(x)(v_1,v_2)$$
+    On a ainsi montré que pour tout $v_1, v_2\in\R^n\setminus\{0\},\ \frac{\partial^2 f}{\partial v_1\partial v_2}(x)$ existe et vaut $D^2f(x)(v_1,v_2)$. De plus, on sait que la matrice correspondante à l'application bilinéaire $D^2f(x)$ est donné par les éléments $D^2f(x)(e_i,e_j) = \dpart{^2f}{e_i\partial e_j}(x) = \dpart{^2f}{x_i\partial x_j}(x)$
+\end{proof}
+\begin{definition}
+    Soit $f:\R^n\to\R$. La matrice $$H_f(x) = \begin{pmatrix}
+        \dpart{^2f(x)}{x_1^2} &  \dpart{^2f(x)}{x_1\partial x_2} & \cdots &  \dpart{^2f(x)}{x_1x_n}\\
+        \vdots & & & \vdots\\
+         \dpart{^2f(x)}{x_n\partial x_1} & \cdots & \cdots & \ \dpart{^2f(x)}{x_n^2}    \end{pmatrix}$$ est appelée matrice Hessienne de $f$ en $x$.
+\end{definition}
+\begin{theoreme}[Théorème de Schwarz]
+    Soit $f= \R^n \to \R$. Si $f$ est différentiable deux fois en $x$ alors $D^2f(x)$ est une application bilinéaire symétrique et donc la matrice hessienne est symétrique càd $\dpart{^2f}{x_i\partial x_j}(x) = \dpart{^2f}{x_j\partial x_i}$
+\end{theoreme}
+\begin{exemple}
+    Soit $f(x,y) = x^2 + 3 xy + y^2$. Montrons que $f$ est différentiable deux fois. Remarquons que $f$ est différentiable car $\dpart{f}{x}(x,y) = 2x + 3y$ et $\dpart{f}{y}(3x+2y)$ sont continus.
+    De plus, on a
+    $$Df(x,y)(h)=\begin{pmatrix}
+        2x+ 3 y & 3x + 2y
+    \end{pmatrix}
+    \begin{pmatrix}
+        h_1\\h_2
+    \end{pmatrix}$$
+    On peut également calculer la matrice Hessienne
+    $$H_f(x,y)=
+    \begin{pmatrix}
+    2 & 3 \\
+    3 & 2
+    \end{pmatrix}$$
+     On doit maintenant regarder
+     $$Df(x+h_1, y+h_2)-Df(x,y)-h^t\begin{pmatrix}
+         2 & 3\\
+         2& 3
+     \end{pmatrix} = o(h)$$
+     ou encore 
+     \begin{multline*}
+         \begin{pmatrix}
+         2(x+h_1) + 3(y+h_2) & 3(x+h_1) + 2(y+h_2) 
+     \end{pmatrix}-
+     \begin{pmatrix}
+         2x + 3y & 3x + 2y  
+     \end{pmatrix}\\-
+     \begin{pmatrix}
+         2h_1 + 3h_2 & 3h_1 + 2h_2 
+     \end{pmatrix} = \begin{pmatrix}
+         0 & 0
+     \end{pmatrix} = 0 = o(h)
+     \end{multline*}
+\end{exemple}
+
+\begin{definition}
+    Soit $f:\R^n \to \R$. On dit que $f$ est de classe $C^2$ sur un ouvert $U$ si $f$ est différentiable deux fois sur $U$ et si $D^2f$ est continue de $U$ dans $L(\R^n, L(\R^n,\R))$
+\end{definition}
+
+ \begin{proposition}
+     Soit $f:\R^n\to \R$. $f$ est de classe $\mathcal C^2$ sur un ouvert $U$ ssi toutes les dérivées partielles secondes de $f$ existent et sont continues sur $U$.
+ \end{proposition}
+  \section{Différentielle d'ordre supérieur et Taylor}
+    Les dérivées partielles et directionnelles se généralisent naturellement à tout ordre.
+    \begin{exemple}
+        Calculer les dérivées partielles d'ordre $3$ de $f(x,y) = xy\e^x$
+        \begin{description}
+            \item[Ordre $1$ :]$$\dpart{f}{x}(x,y)=y(\e^x+x\e^x)\quad \text{ et }\quad \dpart{f}{y}(x,y)=x\e^x$$ Donc
+    \item[Ordre $2$ :] \begin{align*}
+        \dpart{^2f}{x^2}(x,y) =  y(2+x) \e^x \quad& \dpart{^2f}{y\partial x}(x,y) = (x+1)\e^x\\
+        \dpart{^2f}{x\partial y}(x,y) = (x+1)\e^x\quad & \dpart{^2f}{y^2}(x,y) = 0
+    \end{align*}
+    \item[Ordre $3$ : ]\begin{align*}
+        \dpart{^3f}{y^3}f(x,y) = 0 \quad & \dpart{^3}{y\partial x\partial y}f(x,y) = 0\\
+        \dpart{^3f}{x\partial y ^2}f(x,y) = 0 \quad & \dpart{^3}{y\partial y^2\partial x}f(x,y) = 0\\
+        \dpart{^3f}{y\partial x^2}f(x,y) = (x+2)\e^x \quad & \dpart{^3}{x^2\partial y}f(x,y) = (x+2)\e^x\\
+        \dpart{^3f}{x^3}f(x,y) = 0 \quad & \dpart{^3}{x\partial y\partial x}f(x,y) = (x+2)\e^x\\
+    \end{align*} 
+        \end{description}
+    \end{exemple}
+    \begin{definition}
+        Soit $d \ge 2$, on définit : $$L_d(\R^n , \R^m) = L(\R^n, L_{d-1}(\R^n, \R^m)) $$ et $$L_1(\R^n, \R^m) = L(\R^n, \R^m)$$
+    \end{definition}
+    \begin{definition}
+        Soit $f$ une fonction de $\R^n$ dans $\R^m$ et $a$ un point intérieur à $\dom f$.
+        \begin{itemize}
+            \item $f$ et $d$ fois différentiable en $a$ s'il existe un voisinage $U$ de $a$ tel que $f$ est $d-1$ fois différentiable sur $U$ et $$
+            D^{d-1}f : U\to L_{d-1}(\R^n,\R^m)$$ est différentiable en $a$
+            \item $f$ est $d$ fois différentiable sur un ouvert $U$ si $f$ est $d-1$ fois différentiable sur $U$ et $D^{d-1}f$ est différentiable sur $U$
+        \end{itemize}
+        On notera $D^df$ la différentielle de $D^{d-1}f$ sur $U$. On a donc $$D^df: U\to L_d(\R^n,\R^m)$$  et on notera 
+    \end{definition}
+    \begin{definition}
+        Soit $f$ une fonction de $\R^n\to\R^m$ définie sur un ouvert $U$
+        \begin{itemize}
+            \item $f$ est de classe $\mathcal C^d$ sur $U$ si $f$ est différentiable $d$ fois sur $U$ et $D^df$ est continue sur $U$.
+            \item $f$ est de classe $\mathcal C^\infty$ sur $U$ si $f$ est de classe $\mathcal C ^d$ sur $U$ pour tout $d\in\N$
+        \end{itemize}
+    \end{definition}
+    \begin{exemple}
+        Toute fonction linéaire de $\R^n$ dans $\R^m$ est de classe $\mathcal C^\infty$
+    \end{exemple}
+    \begin{proposition}
+        Soit $f:\R^n\to\R^m$. Soit $a$ un point intérieur de $\dom f$. $f$ est $d$ fois différentiable en $a$ ssi toutes les fonctions composantes $f_i$ sont $d$ fois différentiables en $a$.
+    \end{proposition}
+    \begin{proposition}
+        Soit $f:\R^n\to\R^m$. Si $f$ est $d$ fois différentiable en $a$ alors toutes les dérivées d'ordre $d$ existent en $a$ et $$D^df(h^{(1)},\dotsc, h^{(d)}) = \sum_{1\leq j_1,\dotsc ,j_d\leq n}\dpart{^df}{x_{j_1}\dots \partial x_{j_d}}(a)\cdot h^{(1)}_{j_1}\cdots h^{(d)}_{j_d}$$
+        De plus, si $h^{(1)},\dotsc,h^{(d)}$ sont tous non nuls alors $$D^df(a)(h^{(1)},\dotsc,h^{(d)}) = \dpart{^df}{h^{(1)}\ldots \partial h^{(d)}}$$
+    \end{proposition}
+    \begin{proposition}
+        Soit $f : \R^n\to\R$. Soit $U$ un ouvert inclus à $\dom f$. $f$ est de classe $\mathcal C^d$ ssi les dérivées partielles d'ordre $d$ existent et sont continues sur $U$
+    \end{proposition}
+    \begin{theoreme}[Théorème de Schwarz généralisé]
+        Soit $f : \R^n\to \R$. Si $f$ et $d$ fois différentiable en $a$ alors pour tous $h^{(1)},\dotsc,h^{(d)}\in\R^n$ et pour toute permutation $\sigma\in\Sg_d$, on a $D^df(a)(h^{(1)},\dotsc,h^{(d)}) = D^df(a)(h^{(\sigma(1))},\dotsc,h^{(\sigma(d))})$ et en particulier, pour tous $j_1,\dotsc,j_d$ $$\dpart{^df}{x_{j_1}\dots \partial x_{j_d}}(a) = \dpart{^df}{x_{j_{\sigma(1)}}\dots \partial x_{j_{\sigma(d)}}}(a)$$
+    \end{theoreme}
+    \begin{theoreme}[Théorème de Taylor-Young]
+        Soit $f : \R^n\to\R$. Soit $a$ un point intérieur à $\dom f$. Soit $d\geq 1$. Si $f$ est $d$ fois différentiable en $a$ alors $$f(a+h) = \sum_{i = 0}^{d} \frac{D^if(a)( h,\dotsc, h)}{i!} + o(\norm{h}^d)
+        $$
+    \end{theoreme}
+    \begin{notation}[Intervalles généralisés]
+        Soit $a,b\in \R^n$. On pose $\interff{a,b} = \{ta+(1-t)b\mid t \in\interff{}{0,1}\}$. On généralise de la même façon les autres types d'intervalles.
+    \end{notation}
+    \begin{theoreme}[Théorème de Taylor-Lagrange]
+        Soit $f:\R^n\to\R$. Soit $a$ un point intérieur à $\dom f$. Soit $d\geq 0$. Si $f$ est $d+1$ fois différentiable sur un ouvert $U$ contenant $a$ alors pour tout $h$ tel que $\interff{a,a+h}\subseteq U$, il existe $c\in\interoo{a,a+h}$ tel que $$f(a+h) = \sum_{i = 0}^{d} \frac{D^if(a)( h,\dotsc, h)}{i!} + \frac{D^{d+1}f(c)( h,\dotsc, h)}{(d+1)!}
+         $$
+    \end{theoreme}

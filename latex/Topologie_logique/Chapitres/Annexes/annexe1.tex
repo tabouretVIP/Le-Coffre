@@ -1,0 +1,34 @@
+\chapter*{Annexe 1: Groupes topologiques}
+\addcontentsline{toc}{chapter}{Annexe 1: Groupes topologiques}
+
+
+\begin{definition}
+    Un \emph{groupe topologique} est un triplet $(G,\cdot,\tau)$ où
+    \begin{itemize}
+        \item $(G,\cdot)$ est un groupe
+        \item $(G,\tau)$ est un espace topologique
+        \item L'application $\fonction{\varphi}{G\times G \to G}{(x,y)\mapsto xy^{-1}}$ est continue. 
+    \end{itemize}
+\end{definition}
+
+Soit $G$ un groupe topologique et soit $g\in G$. On définit la transfomation par $g$ à gauche et à droite respectivement par 
+\[
+\fonction{L_g}{G\to G}{x\mapsto gx} \quad \textbf{et} \quad  \fonction{R_g}{G\to G}{x\mapsto xg}
+\]
+\begin{proposition}
+    Pour tout $g\in G$ les trnaformations $L_g$ et $R_g$ sont des homéomorphismes.
+\end{proposition}
+
+\begin{proof}
+    Clairement ces applications sont bijectives. Elles sont continues puisque  pour tout $x\in G$ on a $ L_g(x)=\varphi(g,x^{-1})$ et que $\varphi $ est continue. Et enfin, on remarque $L_g^{-1}=L_{g^-1}$.
+\end{proof}
+
+On dit qu'un groupe topologique $G$ est homogène si $\forall x,y\in G$ il existe un homéomorphisme $f$ tel que $f(x)=y$.
+
+\begin{proposition}
+    Tout groupe topologique est homogène.
+\end{proposition}
+
+\begin{proof}
+    Il suffit de considérer $L_{yx^{-1}}$
+\end{proof}

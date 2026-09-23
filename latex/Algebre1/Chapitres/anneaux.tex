@@ -1,0 +1,578 @@
+\chapter{Anneaux}
+\section{Propriétés élémentaires}
+
+\
+\begin{definition}
+Un \textbf{anneau} est un triplet $(A, +, \cdot)$ où :  
+\begin{itemize}
+    \item $(A, +)$ est un groupe abélien (appelé groupe additif de l'anneau),
+    \item $(A, \cdot)$ est un monoïde, c'est-à-dire que $\cdot$ est une loi de composition interne associative possédant un élément neutre $1_A$ ,
+    \item La multiplication est distributive par rapport à l’addition :
+    \[
+        \forall a, b, c \in A, \quad a \cdot (b + c) = a \cdot b + a \cdot c \quad \text{et} \quad (a + b) \cdot c = a \cdot c + b \cdot c.
+    \]
+\end{itemize}
+
+Si la multiplication est commutative, on dit que l'anneau est \textbf{commutatif}. Et si $\forall a,b \in A\quad a\cdot b=0 \Rightarrow ((a=0)\lor(b=0)) $ alors on dit que l'anneau est \textbf{intègre}.
+\end{definition}
+
+\begin{lemme}
+    Soit $(A,+,\cdot)$ un anneau. Alors le neutre pour la multiplication est unique.
+\end{lemme}
+
+\begin{proof}
+    Soit $1'$ un neutre pour $\cdot$, alors on a
+    \[
+    1=1\cdot 1'=1'
+    \]
+    (car $1$ et $1'$ sont des neutres)
+\end{proof}
+
+\begin{lemme}
+    Soit $(A,+,\cdot)$ un anneau, quel que soit $a\in A$, on a que $0\cdot a=a\cdot0=0$.
+\end{lemme}
+\begin{proof}
+   soit $a\in A$ on a
+    \[
+    0\cdot a=(1-1)a=(1)a+(-1)a=a-a=0
+    \]
+    et
+    \[
+    a\cdot0=a(1-1)=a(1)+a(-1)=a-a=0
+    \]
+\end{proof}
+\section{Idéaux}
+
+\begin{definition}
+    Soit $(A,+,\cdot)$ un anneau et soit $I$ une partie de $A$. On dit que $I$ est un idéal à droite (resp. à gauche) de $A$ Si les conditions suivantes sont respectées:
+    \begin{enumerate}
+        \item $(I,+)$ est un sous groupe de $(A,+)$;
+        \item Pour tout $i$ dans $I$, pour tout $a$ dans $A$,$ia\in I$(resp.$ai\in I$).
+    \end{enumerate}
+    Si $I$ est un idéal à droite et à gauche, on dit que $I$ est un idéal bilatère ou plus simplement un idéal.
+    Si $A$ est commutatif, on a $aA=Aa$ on dit que cet idéal est principal. On le note également $ (a)$.
+\end{definition}
+
+\begin{definition}
+    Soit $(A,+,\cdot)$ un anneau; on dit que $A$ est principal si et seulement si $A$ est commutatif, intègre et tous ses idéaux sont principaux.
+\end{definition}
+
+\begin{lemme}
+    Soit $(A,+,\cdot)$ un anneau commutatif et $(I,+)$ un idéal de $(A,+,\cdot)$, alors $I$ est un sous groupe normal de $(A,+)$.
+\end{lemme}
+
+\begin{proof}
+    Nous devons montrer que $(I, +)$ est un sous-groupe de $(A, +)$ et que ce sous-groupe est normal.  
+
+\begin{itemize}
+    \item \textbf{Sous-groupe :}  
+    $(I, +)$ est un sous-groupe additif de $(A, +)$ si :
+    \begin{enumerate}
+        \item $0 \in I$ (car $I$ est un idéal, il contient l'élément neutre de l'addition de $A$).
+        \item $I$ est stable par addition : pour tous $x, y \in I$, on a $x + y \in I$.
+        \item $I$ est stable par passage à l'opposé : pour tout $x \in I$, on a $-x \in I$.  
+    \end{enumerate}
+    Ces propriétés sont satisfaites car $I$ est un sous-groupe additif de $(A, +)$ par définition d'un idéal.
+    
+    \item \textbf{Normalité :}  
+    Un sous-groupe $H$ d'un groupe $(G, +)$ est normal si pour tout $g \in G$ et tout $h \in H$, on a  
+    \[
+    g + h - g \in H.
+    \]
+    Ici, prenons $a \in A$ et $x \in I$.  
+    Comme $I$ est un idéal, nous avons $ax \in I$.  
+    De plus, comme $A$ est commutatif, nous avons également $xa \in I$.  
+    En prenant $h = x$ et $g = a$, nous obtenons :
+    \[
+    a + x - a = x \in I.
+    \]
+    Ainsi, $I$ est normal dans $(A, +)$.
+\end{itemize}
+\end{proof}
+\section{Sous anneau}
+\begin{definition}
+    Soit $(A, +, \cdot)$ un anneau. Un sous-ensemble $B \subseteq A$ est un \textbf{sous-anneau} de $A$ si :  
+\begin{itemize}
+    \item $(B, +)$ est un sous-groupe de $(A, +)$, c'est-à-dire :
+    \begin{enumerate}
+        \item $0 \in B$,
+        \item Pour tous $x, y \in B$, on a $x + y \in B$,
+        \item Pour tout $x \in B$, on a $-x \in B$.
+    \end{enumerate}
+    \item $B$ est stable par multiplication : pour tous $x, y \in B$, on a $x \cdot y \in B$.
+\end{itemize}
+
+Si l'anneau $A$ possède un élément neutre multiplicatif $1_A$, on impose en plus que $1_A \in B$.
+\end{definition}
+
+
+\begin{lemme}[Critère de sous anneau]
+
+Un sous-ensemble $B$ d’un anneau $A$ est un sous-anneau si et seulement si :
+\begin{enumerate}
+    \item possède le neutre:\[1\in B\]
+    \item $B$ est stable par soustraction :  
+    \[
+    \forall x, y \in B, \quad x - y \in B.
+    \]
+    \item $B$ est stable par multiplication :  
+    \[
+    \forall x, y \in B, \quad x \cdot y \in B.
+    \]
+\end{enumerate}
+\end{lemme}
+\begin{proof}
+($\Rightarrow$) Supposons que $B$ est un sous-anneau de $A$.  
+\begin{itemize}
+    \item Par définition d'un sous-anneau, il contient l’élément neutre multiplicatif de $A$, donc $1 \in B$.
+    \item Comme $B$ est un sous-anneau, il est un sous-groupe additif de $(A, +)$, donc stable par soustraction.
+    \item Par définition d’un sous-anneau, $B$ est aussi stable par multiplication.
+\end{itemize}
+
+($\Leftarrow$) Réciproquement, supposons que $B$ satisfait les trois conditions données.  
+\begin{itemize}
+    \item La stabilité par soustraction garantit que $(B, +)$ est un sous-groupe additif de $(A, +)$.
+    \item La stabilité par multiplication assure que $B$ est fermé pour la multiplication.
+    \item Enfin, la présence de $1$ assure que $(B,\cdot)$ est un monoïde.
+    
+\end{itemize}
+Ainsi, $B$ est bien un sous-anneau de $A$.
+\end{proof}
+
+\section{Morphisme d'anneaux}
+
+\begin{definition}
+    Soient $(A,+,\cdot)$ et $(B,+,\cdot)$ deux annaux; une application $f$ de $A$ dans $B$ est un morphisme d'annaux (ou homomorphisme d'annaux) si $f$ vérifie les conditions suivante
+    \begin{enumerate}
+        \item $f(a+a')=f(a)+f(a')$
+        \item $f(aa')=f(a)f(a')$
+        \item $ f(1)=1$
+    \end{enumerate}
+\end{definition}
+\begin{proposition}
+    Soient $(A,+,\cdot)$ et $(B,+,\cdot)$ deux annaux; une application $f$ de $A$ dans $B$ un morphisme d'annaux.\\
+    Si $J$ est un idéal de $B$ alors $f^{-1}(J)$ est un idéal de $A$
+\end{proposition}
+\begin{proof}
+    Définissons l’ensemble suivant :
+\[
+I = f^{-1}(J) = \{ a \in A \mid f(a) \in J \}.
+\]
+Nous allons vérifier que $I$ satisfait les propriétés d’un idéal de $A$.  
+
+\begin{itemize}
+    \item \textbf{1. $I$ est un sous-groupe additif de $(A, +)$.}  
+    \begin{itemize}
+        \item Comme $J$ est un idéal de $B$, il est un sous-groupe additif de $(B, +)$, donc il est stable par addition et passage à l’opposé.
+        \item Pour tous $a, a' \in I$, on a $f(a) \in J$ et $f(a') \in J$, donc comme $J$ est stable par addition :
+        \[
+        f(a + a') = f(a) + f(a') \in J.
+        \]
+        Ainsi, $a + a' \in I$.
+        \item De plus, comme $J$ est stable par passage à l’opposé, pour tout $a \in I$ :
+        \[
+        f(-a) = -f(a) \in J.
+        \]
+        Donc $-a \in I$.
+        \item Ainsi, $(I, +)$ est un sous-groupe de $(A, +)$.
+    \end{itemize}
+
+    \item \textbf{2. $I$ est stable par multiplication par $A$.}  
+    \begin{itemize}
+        \item Soit $a \in I$ et $x \in A$. On a $f(a) \in J$.
+        \item Comme $J$ est un idéal de $B$, il est stable par multiplication à gauche et à droite par les éléments de $B$.  
+        \item Or, $f$ est un morphisme d’anneaux, donc :
+        \[
+        f(xa) = f(x) f(a).
+        \]
+        \item Comme $J$ est un idéal, on a $f(x) f(a) \in J$, donc :
+        \[
+        f(xa) \in J.
+        \]
+        Ainsi, $xa \in I$.
+    \end{itemize}
+\end{itemize}
+
+Puisque $I$ est un sous-groupe additif de $(A, +)$ et stable par multiplication à gauche et à droite par les éléments de $A$, c’est un idéal de $A$
+\end{proof}
+
+\begin{remarque}
+    $f^{-1}((0))=ker\,f$: le noyau de $f$ est donc un idéal de $A$
+\end{remarque}
+
+\begin{proposition}
+Soient $(A,+,\cdot)$ et $(B,+,\cdot)$ deux annaux; une application $f$ de $A$ dans $B$ un morphisme d'annaux.\\
+$Im\,f$ est un sous anneau de $B$
+\end{proposition}
+\begin{proof}
+    Il suffit de vérifié la définition comme précédemment.
+\end{proof}
+
+\section{Anneaux quotients}
+Soit $(E,*,\mathcal{R})$ un ensemble muni d'une loi interne $*$ et d'une relation d'équivalence $\mathcal{R}$. Si on veut définir sur l'ensemble quotient $E/\mathcal{R}$ une loi quotient interne(qu'on note encore *) vérifiant $\pi(x,y)=\pi(x)\pi(y)$ où $\pi$ est la projection canonique de $E$ sur $E/\mathcal{R}$, il faut que la relation $\mathcal{R}$ soit compatible avec la loi $*$, c'est à dire que 
+\[
+\forall(x,y),(x',y')\in E\times E, [x\mathcal{R}x'\:\text{et} \; y\mathcal{R}y' \Rightarrow (x*y)\mathcal{R}(x'*y')]
+\]
+On a vu que, lorsque $H$ est un sous groupe normal d'un groupe $(G,*)$, c'est le cas pour la relation définie sur $G$ par $x\mathcal{R}y \Leftrightarrow x*y^{-1}\in H$, qui est compatible avec la loi du groupe $G$. Soient $(A,+,\cdot)$ un anneau commutatif et $I$ un idéal de $A$; Puisque $(A,+)$ est un groupe commutatif, $(I,+)$ est un sous groupe normal de $(A,+)$ et donc la relation sur $G$ définie par $x\mathcal{R}y\Leftrightarrow x-y\in I$ (ce que l'on note $x=y \mod I$) est compatible avec la loi $+$, et, comme on l'a vu, $(A/I,+)$ est un groupe commutatif. il se trouve que parce que $I$ est un idéal de $A$, la relation $\mathcal{R}$ est aussi compatible avec la loi $\cdot$. En effet, si $a=a'\mod I$ et $b=b' \mod I$, il existe $i$ et $j$ dans $I$ tels que $a=a'+i$ et $b=b'+j$; par suite, $ab=a'b' +ib+a'j+ij; $ or $ib'+a'j+ij\in I$ car $I$ est un idéal de $A$. On a donc $ab=a'b' \mod I$. Si $x \in A$ , on note $\overline{x}\in A/I$ la classe d'équivalence de $x$. On a
+\[
+\overline{x}=x+I=\{x+i\mid x\in I\}
+\]
+$\overline{x}$ est appelé la classe $x$ modulo $I$. Nous pouvons donc énoncer la proposition suivante.
+
+    \begin{proposition}
+        Si $A$ est un anneau commutatif et $I$ un idéal de $A$, alors $A/I$ muni des deux lois quotient $+$ et $\cdot$ définie ci-dessus est un anneau commutatif, appelé \textbf{anneau quotient}, et la projection canonique de $A$ sur $A/I$ est un morphisme d'anneaux dont le noyau est $I$.
+    \end{proposition}
+\begin{proof}
+    Les propriétés requises se déduisent immédiatement des propriétés des opérations sur $A$. L'élément neutre de $A/I$ est $\overline{0}_A=I$ pour l'addition et $\overline{1}_A $pour la multiplication.
+\end{proof}
+\begin{exemple}
+    L'exemple fondamental d'anneau quotient est le quotient $\mathbb{Z}$ par la relation de congruence modulo $n$:
+    \[
+    a=b \mod n \Leftrightarrow a-b\in n\mathbb{Z}
+    \]
+    où $n \geq 2.$ On rappelle que cet anneau est noté $\mathbb{Z}/n\mathbb{Z}$ qu'il est formé de $n$ éléments que l'on note souvent $\{\bar{0},\bar{1},..,\overline{n-1}\}$
+\end{exemple}
+\begin{mdframed}
+\begin{remarque}
+    Soit $(A,+,\cdot)$ un anneau commutatif muni de la relation d'équivalence $\mathcal{R}$ compatible avec $+$ et $\cdot$; Notons $I$ le noyau de la projection canonique $\pi$, c'est à dire $\pi (I)=\bar{0}_A$ ou $I=\pi^{-1}(\bar{0}_A)$. Soient $x,y\in A$; on a
+    \[
+    x\mathcal{R}y \Leftrightarrow \bar{x}=\bar{y}\Leftrightarrow \bar{x}-\bar{y}=\bar{0}_A\Leftrightarrow\overline{x-y}=\bar{0}_A
+\Leftrightarrow x-y \in I    \]
+donc $A/\mathcal{R}= A/I$
+\end{remarque}
+\end{mdframed}
+\section{Caractéristique d'un anneau}
+\begin{definition}
+Soient $(A,+,\cdot)$ un anneau et $a\in A$; s'il existe un entier $k$ non nul tel que $ka=0_A$, alors on dit que $a$ est un élément de $\mathbb{Z}\text{-torsion}$ de $A$ (ou plus simplement que $a$ est de torsion)
+\end{definition}
+\begin{mdframed}
+Reprenons notre anneau $(A,+,\cdot)$, notons tout d'abord que l'ensemble des éléments de torsion est un sous groupe de $(A,+)$. En effet, $0_A$ est de torsion si $x$ et $y$ le sont, alors notons $m$ et $n$ les entiers tels que $mx=0_A$ et $ny=0_A$. il est évident que $(mn)x=(mn)y=0_A$; par suite, $(mn)(x+y)=0_A$ et $x+Y$ est de torsion. De plus, si $x$ est de torsion, alors pour tout $a\in A$n on a $k(a\cdot x)=a\cdot(kx)$ pour tout entier $k$. Ainsi $kx=0_A$ implique $k(a\cdot x)=0_A$ et $a\cdot x$ est de torsion.
+Donc l'ensemble des élément de torsion de $A$ est un idéal de $A$//
+\end{mdframed}
+
+Considérons le morphisme $\psi$ de $\mathbb{Z}$ dans $A$ défini par $k\mapsto k1_A$; soit $ker \: \psi=(0)$ (si $1_A$ n'est pas de torsion), soit il existe un entier $n\neq0$ tel que $ker \: \psi=n\mathbb{Z}$
+
+
+    \begin{definition}
+        Soient $(A,+,\cdot)$ un anneau et $\psi$ le morphisme défini ci-dessus.
+        La \textbf{caractéristique} de $A$ est l'entier positif noté car$(A)$ vérifiant
+        \begin{itemize}
+            \item car$(A)=0$ si $ker\: \psi=\{0\}$
+            \item  car$(A)= |n|$ si $ker \: \psi=n\mathbb{Z}$ 
+        \end{itemize}
+    \end{definition}
+
+    \begin{exemple}
+    Exemples de caractéristique d'anneaux:
+        \begin{enumerate}
+            \item car$(\mathbb{Z})=0$
+            \item car$(\mathbb{Z}/n\mathbb{Z})=n$
+        \end{enumerate}
+    \end{exemple}
+
+
+\begin{proposition}
+    Soit $(A,+,\cdot)$ un anneau intègre; si la caractéristique de $A$ est non nulle, alors c'est un nombre premier.
+\end{proposition}
+\begin{proof}
+    Soit $n=\text{car}(A)$; par définition $n$ est le plus petit entier positif tel que $n1_A=0_A$. Supposons qu'il existe deux entiers positifs $k$ et $l$ tels que $n=kl$. On a $k1_A\cdot l1_A=n1_A=0_A;$ comme $A$ est intègre cela implique $k1_A=0_A$ ou $l1_A=0_A$, mais alors $k=n$ ou $l=n$ car $n$ est le plus petit entier $>0$ tel qu $n1_A=0_A$. donc $n$ est premier.
+\end{proof}
+\section{Étude des idéaux}
+Pour les groupes nous avons vu qu'il est très souvent utile d'étudier les sous groupe d'un groupe. En théorie des anneaux, les sous ensembles intéressant sont les idéaux et non les sous anneaux. On  peut s'en convaincre en examinant l anneau $\mathbb{Z}$ des entiers qui ne possède pas de sous anneau non trivial. On peut aussi rappeler qu'il est nécessaire que $I$ soit un idéal pour que le quotient $A/I$ soit un anneau.\\
+
+Soit $(A,+,\cdot)$ un anneau on note $A^\times$l'ensemble des éléments inversible de $A$ pour $\cdot$.
+
+
+    \begin{proposition}
+        Soit $(A,+,\cdot)$ un anneau commutatif et soit $I$ un idéal de $A$. On a
+        \[
+        I=A \Leftrightarrow I\cap A^\times \neq \emptyset \Leftrightarrow A/I = \{0_{A/I}\}
+        \]
+    \end{proposition}
+    
+
+
+\begin{proof}
+    Si $I=A$, alors $I$ contient $1_A$ qui est dans $A^\times$. Réciproquement supposons qu'il existe un élément inversible $a$ dans $I$. Comme $1_A=a.a^{-1}$, on voit que $1\in I$ mais alors, pour tout $x$ de $A$, on a $x=1_A\cdot x$ donc $x \in I$ donc $I=A$. Par ailleurs, $1_A\in I$ signifie que la classe de $1_A$ dans le quotient est $0_{A/I}$ et donc que $A/I=\{0_{A/I}\}$.
+\end{proof}
+
+\begin{definition}
+    Un idéal de $A$ est dit propre s'il est différent de $A$.
+\end{definition}
+La proposition précédente montre que les éléments inversibles de $A$ sont les éléments qui n'appartiennent à aucun idéal propre.
+\subsection{Opérations sur les idéaux}
+
+    \begin{definition}
+        Soit $(A,+,\cdot)$ un anneau commutatif et soient $I$ et $J$ deux idéaux de $A$. On définit la somme de $I$ et $J$ en posant 
+        \[
+        I+J=\{i+j\; |\:  i \in I, j\in J\}
+        \]
+        et le produit de $I$ et $J$ en posant
+        \[
+        IJ= \left\{\sum_{k=1}^m i_kj_k; \;m\in \mathbb{N}^*,\; \text{où}\; i_k\in I, j_k \in J \right\}
+        \]
+    \end{definition}
+    
+    \begin{remarque}
+        L'ensemble des produit $ij$ où $i\in I$ et $j\in J$, n'est pas un idéal car il n'est pa stable par addition.
+    \end{remarque}
+   
+        \begin{proposition}
+            La multiplication des idéaux des distributive par rapport a l'addition.\\
+            Soient $I$, $J$ et $K$ trois idéaux de $A$. On a
+            \[
+            (I+J)K=IK+JK
+            \]
+            \end{proposition}
+
+\begin{proof}
+    Si \( x \in (I+J)K \), alors 
+\[
+x = \sum_{l=1}^{m} (i_l + j_l) k_l
+\]
+avec \( i_l \in I \), \( j_l \in J \) et \( k_l \in K \). Alors 
+\[
+x = \sum_{l=1}^{m} i_l k_l + \sum_{l=1}^{m} j_l k_l \in IK + JK.
+\]
+Donc \( (I+J)K \subseteq IK + JK \).
+
+Réciproquement, si \( x \in IK + JK \), alors on a 
+\[
+x = \sum_{l=1}^{m} i_l k_l + \sum_{l=1}^{m'} j_l k_l'
+\]
+avec \( i_l \in I \), \( j_l \in J \) et \( (k_l, k_l') \in K^2 \), mais alors 
+\( i_l = i_l + 0_A \in I+J \) et \( j_l = j_l + 0_A \in I+J \), donc \( x \) est une somme de produits d'éléments de \( I+J \) par des éléments de \( K \) ; ainsi 
+\[
+x \in (I+J)K.
+\]
+Donc \( IK + JK \subseteq (I+J)K \), ce qui termine la démonstration.
+\end{proof}
+
+\subsection{Générateur d'un idéal}
+Soit $(A,+,\cdot)$ un anneau commutatif intègre.Si l'on se donne un idéal principal $I\subseteq A$, il existe $a\in A$ tel que $I=aA$. On dit que $a$ est un générateur de cet idéal, mais peut-on trouver d'autre générateur ? Supposons qu'il existe un élément $b\in A$ tel que \[
+aA=bA
+\]
+Alors $a\in bA$, donc il existe $\alpha \in A$ tel que $a=b\alpha$ et $b\in aA$ donc il existe $\beta\in A$ tel que $b=a\beta$ on en déduit $a=a\alpha\beta$. Comme $A$ est intègre, on déduit que $\alpha\beta=1$ et $\alpha$ et $\beta$ sont inversibles. Les deux générateurs de $I$ diffèrent donc multiplicativement d'un inversible d'où la définition suivante.
+
+
+\begin{definition}
+    Soit $(A,+,\cdot)$ un anneau commutatif; on dit que deux éléments de $a$ et $b$ de $A$ sont associés s'il existe un élément inversible $u$ tel que $a=ub$, on note \[
+    a \sim b
+    \]
+\end{definition}
+
+
+    \begin{proposition}
+        Soit $(A,+,\cdot)$ un anneau commutatif intègre et soient $a$ et $b$ dans $A$. \textit{Les propositions suivantes sont équivalentes} :
+\begin{enumerate}
+    \item $aA = bA$;
+    \item $a$ divise $b$ et $b$ divise $a$;
+    \item $a$ et $b$ sont associés.
+\end{enumerate}
+    \end{proposition}
+
+
+\begin{proof}
+     On vient de voir les implications $1 \Rightarrow 2 \Rightarrow 3$. Il suffit donc de montrer que le point 3 implique le point 1.
+
+S'il existe $u \in A^{\times}$ tel que $a = bu$ alors, pour tout $x \in A$, on a $ax = b(ux)$ ; donc $aA \subseteq bA$, et $bX = au^{-1}x$ donc $bA \subseteq aA$.
+\end{proof}
+\begin{exercice}
+    Montrer que $\sim$ est une relation d'équivalence.
+\end{exercice}
+
+
+    \begin{definition}
+        Soit $P \subset A$, on définit :
+\[
+\langle P \rangle = \left\{ \sum_{i=1}^{j} x_i p_i \mid j \in \mathbb{N}, i = 1, \dots, j; x_i \in A; p_i \in P \right\}.
+\]
+    \end{definition}
+
+Il est aisé de vérifier que $\langle P \rangle$ est un idéal que l'on appelle \textit{idéal engendré par} $P$.
+L'idéal $\langle P \rangle$ est le plus petit idéal de $A$ contenant $P$.
+
+Soient $a_1, a_2, \dots, a_k$ des éléments distincts de $A$ ; dans le cas particulier où $P = \{a_1, a_2, \dots, a_k\}$, on obtient :
+\[
+\langle a_1, a_2, \dots, a_k \rangle = \left\{ \sum_{i=1}^{k} x_i a_i \mid i = 1, \dots, k; x_i \in A \right\}.
+\]
+
+Il est aisé de montrer que :
+\[
+\langle a_1, a_2, \dots, a_k \rangle = \langle a_1 \rangle + \langle a_2 \rangle + \dots + \langle a_k \rangle.
+\]
+
+    \begin{definition}
+        Soit $(A,+,\cdot)$ un anneau commutatif et soit $I$ un idéal de $A$. On a dit que $I$ est un idéal de type fini s'il existe des éléments $a_1,a_2,..,a_k$ de $A$ tels que $I=\langle a_1,a_2,..,a_k\rangle$. On dit alors alors ces éléments sont des générateurs de l'idéal $I$.
+    \end{definition}
+
+\subsection{Arithmétique des idéaux}
+
+
+    \begin{definition}
+        Soit $(A;+,\cdot)$ un anneau commutatif; soient $I$ et $J$ deux idéaux de $A$. On dit que $I$ et $J$ sont \textbf{comaximaux} ou étrangers si $I+J=A$
+    \end{definition}
+
+    \begin{exemple}
+        Soient $a,b\in \mathbb{Z}$; les idéaux $a\mathbb{Z}$ et $b\mathbb{Z}$ sont comaximaux si et seulement si $a\mathbb{Z}+b\mathbb{Z}=\mathbb{Z}$, ce qui signifie qu'il existe deux entiers $u$ et $v$ tels que $au+bv=1$ et qui est équivalent, d'après le théorème de Bézout que $a$ et $b$ sont premiers entre eux. 
+        \end{exemple}
+
+    \begin{proposition}
+        Soit $(A,+,\cdot)$ un anneau commutatif et soient $I$ et $J$ deux idéaux de $A$. Si $I$ et $J$ sont comaximaux, on a $IJ=I\cap J$
+    \end{proposition}
+
+\begin{proof}
+    Comme $IJ \subseteq I\cap J$, il suffit de montrer que $I\cap J \subseteq IJ$. Soit $x\in I\cap J$; comme $I$ et $J$ sont Comaximaux, il existe $u,v\in A, i\in I$ et $j\in J$ tels que $ui+vj=1_A$ et donc 
+    \[
+    uix+vjx=x
+    \]
+    mais $ui\in I$ et $x\in J$ donc $uix\in IJ$, $vj \in J$ et$x\in I$, donc $vjx \in IJ$ et donc l'égalité montre $x\in IJ$
+\end{proof}
+
+    \begin{proposition}
+        Soit $(A,+,\cdot)$ un \textit{anneau principal} ; soient $I$ et $J$ deux idéaux de $A$ vérifiant $IJ = I \cap J$. Alors on a $I + J = A$.
+    \end{proposition}
+
+\begin{proof}
+    Comme $A$ est principal, on peut écrire $I = iA$ et $J = jA$ ; alors $IJ = ijA = I \cap J$. Par ailleurs, soit $d \in A$ tel que $I + J = dA$. Il faut montrer que $d$ est inversible pour conclure (dans ce cas $dA = A$).
+
+$d$ est inversible donc il existe $i' \in A$ tel que $i = di'$. De même, comme $jA \subset dA$, il existe $j' \in A$ tel que $j = dj'$. Considérons alors $di'j'$. C'est un élément de $I$ car $di' \in I$, mais c'est aussi un élément de $J$ car $dj' \in J$. Cela implique que $di'j'$ est un élément de $I \cap J = ijA$ et, par suite, un multiple de $ij$. 
+
+Donc il existe $k \in A$ tel que :
+\[
+di'j' = kij = kd^2 i'j'.
+\]
+
+Comme $A$ est intègre, l'élément $di'j'$ est régulier et on obtient par simplification :
+\[
+1_A = kd,
+\]
+et $d$ est inversible.
+\end{proof}
+
+
+    \begin{lemme}
+         Dans $(A,+,\cdot)$ \textit{un anneau commutatif}, si un idéal $I$ est comaximal avec des idéaux $I_1, I_2, \dots, I_l$, alors il est comaximal avec leur produit.
+    \end{lemme}
+
+\begin{proof}
+    On note $J = I_1 I_2 \dots I_l$. Pour $i = 1, \dots, l$, les idéaux $I$ et $I_i$ sont comaximaux donc il existe $x_i \in I$ et $a_i \in I_i$ tel que :
+\[
+x_i + a_i = 1_A.
+\]
+
+Donc :
+\[
+\prod_{i=1}^{l} (x_i + a_i) = 1_A.
+\]
+
+En développant ce produit, on obtient :
+\[
+b + \sum_{i=1}^{l} a_i = 1_A,
+\]
+où $b$ est une somme de termes ayant tous au moins un élément $x_i$ en facteur, donc $b \in I$. Comme $\prod_{i=1}^{l} a_i \in J$, on déduit de l'égalité précédente que $I$ et $J$ sont comaximaux.
+\end{proof}
+\subsection{Théorème des restes chinois}
+
+
+    \begin{theoreme}[Théorème des restes chinois]
+        Soit $(A,+,\cdot)$ un \textit{anneau commutatif} et soient $I_1, I_2, \dots, I_k$ des \textit{idéraux deux à deux comaximaux}. Posons 
+\[
+P = I_1 I_2 \dots I_k.
+\]
+L'application 
+\[
+\varphi : A/P \longrightarrow A/I_1 \times A/I_2 \times \dots \times A/I_k
+\]
+\[
+x + P \longmapsto (x + I_1, x + I_2, \dots, x + I_k)
+\]
+est un isomorphisme d'anneaux.
+    \end{theoreme}
+
+\begin{proof}
+    La définition des anneaux quotients induit que $\varphi$ est un morphisme d’anneaux. Il suffit de montrer que $\varphi$ est bijectif. Tout d’abord montrons que $\varphi$ est injectif.
+
+Soient $x, y \in A$ tels que $\varphi(x + P) = \varphi(y + P)$. Alors, pour $i = 1, \dots, k$, $x - y \in I_i$, donc $x - y \in I_1 \cap I_2 \cap \dots \cap I_k$. Or $I_1 \cap I_2 \cap \dots \cap I_k = I_1 I_2 \dots I_k = P$ d’après la proposition 3.15, donc $x - y \in P$ et $x + P = y + P$.
+
+Montrons maintenant que $\varphi$ est surjectif. Notons que dans le cas de $\mathbb{Z}$, la surjectivité se déduit de l’injectivité, puisque $\mathbb{Z}/n\mathbb{Z}$ et $\mathbb{Z}/m\mathbb{Z} \times \dots \times \mathbb{Z}/n_k\mathbb{Z}$ ont le même nombre d’éléments. Soient $x_1, x_2, \dots, x_k \in A$ ; il suffit de montrer qu’il existe $x \in A$ tel que, pour $i = 1, \dots, k$, on ait $x - x_i \in I_i$. En effet, $x + P$ est alors un antécédent de $(x_1 + I_1, x_2 + I_2, \dots, x_k + I_k)$.
+
+Fixons un entier $r$ compris entre $1$ et $k$ et posons
+\[
+J_r = \bigcap_{\substack{i=1 \\ i \neq r}}^{k} I_i = \prod_{\substack{i=1 \\ i \neq r}}^{k} I_i.
+\]
+
+Les idéaux $I_r$ et $J_r$ sont comaximaux d’après le lemme 3.14. Donc il existe $a_r \in I_r$ et $c_r \in J_r$ tels que $a_r + c_r = 1_A$.
+
+Les éléments $(c_r)_{1 \leq r \leq k}$ vérifient alors :
+\[
+\forall i \neq r, \quad c_r \in I_i.
+\]
+\[
+c_r-1_A \in I_r
+\]
+Posons
+\[
+x = \sum_{r=1}^{k} c_r x_r.
+\]
+
+Montrons que $x$ est l’élément recherché, c’est-à-dire que pour $i = 1, \dots, k$ on a $x - x_i \in I_i$.
+
+\[
+x - x_i = \sum_{\substack{r=1 \\ r \neq i}}^{k} c_r x_r + (c_i - 1_A)x_i.
+\]
+
+Comme pour $i \neq r$, $c_r \in I_i$, le terme $\sum_{\substack{r=1 \\ r \neq i}}^{k} c_r x_r$ est un élément de $I_i$. Par ailleurs, $c_i - 1_A \in I_i$, donc $(c_i - 1_A)x_i \in I_i$ et $x \in I_i$. 
+
+\end{proof}
+\subsection{Idéaux maximaux}
+Dans $\mathbb{Z}$, on peut exhiber des chaînes d'idéaux emboîtés comme ci-dessous:
+\[
+36\mathbb{Z}\subseteq18\mathbb{Z}\subseteq 6\mathbb{Z}\subseteq3\mathbb{Z}
+\]
+Cette chaîne s'arrête là, on ne peux pas trouver un idéal de $\mathbb{Z}$ contenant $3\mathbb{Z}$ à part $\mathbb{Z}$ tout entier. Dans un annaux commutatif $(A,+,\cdot)$, Les idéaux maximaux sont les idéaux propres les plus \og grand \fg pour la relation d'inclusion.
+
+    \begin{definition}
+        Soient $(A,+,\cdot)$ un anneau commutatif et $I$ un idéal propre de $A$. On dit que $I$ est maximal si les seuls idéaux qui le contiennent sont lui même et $A$.
+    \end{definition}
+
+\begin{theoreme}[Lemme de Zorn]
+    \textit{Soit $X$ un ensemble ordonné. Si tout sous-ensemble totalement ordonné $Y$ de $X$ admet un majorant dans $X$, alors $X$ admet un élément maximal.}
+
+Les idéaux maximaux sont en fait les éléments maximaux dans l’ensemble des idéaux propres de $A$ ordonné par l’inclusion.
+\end{theoreme}
+
+Le théorème suivant est une conséquence du lemme de Zorn
+
+\begin{theoreme}
+    Soit $A$ un anneau ; tout idéal propre de $A$ est inclus dans un idéal maximal.
+\end{theoreme}
+
+\begin{proof}
+    Soit $I$ un idéal propre de $A$. Prenons pour $X$ l’ensemble des idéaux propres de $A$ contenant $I$, ordonné par l’inclusion. Soit $Y$ un sous-ensemble totalement ordonné de $X$, c’est-à-dire un sous-ensemble sur lequel l’inclusion définit un ordre total.
+
+    Alors la réunion des éléments de $Y$, soit $K = \bigcup_{J \in Y} J$, est encore un idéal propre de $A$. En effet, si $x \in K$ et $a \in A$, il existe un idéal $J \in Y$ tel que $x \in J$. On a donc $ax \in J$ et ainsi $ax \in K$. 
+    
+    Soient $x_1, x_2$ deux éléments de $K$. Il existe deux idéaux $J_1 \in Y$ et $J_2 \in Y$ tels que $x_1 \in J_1$ et $x_2 \in J_2$. Or, comme $Y$ est un ensemble totalement ordonné par l’inclusion, on a soit $J_1 \subseteq J_2$, soit $J_2 \subseteq J_1$. Dans le premier cas $x_1 + x_2 \in J_2$, et dans le second cas $x_1 + x_2 \in J_1$. Dans tous les cas, $x_1 + x_2 \in K$, ce qui montre que $K$ est un idéal de $A$.
+    
+    Enfin, $K$ est un idéal propre puisque aucun élément de $Y$ ne contient $1$, ce qui implique que $K$ ne contient pas $1$. L’idéal $K$ est donc un majorant (pour l’inclusion) de $Y$.
+    
+    On applique le lemme de Zorn : l’ensemble $X$ admet un élément maximal $M$. L’idéal $M$ est donc a priori maximal dans l’ensemble des idéaux propres contenant $I$, mais il est clair qu’il est aussi maximal dans l’ensemble de tous les idéaux maximaux. Vu la définition, c’est donc un idéal maximal.
+\end{proof}
+
+\begin{definition}
+    Soient $(A,+,\cdot)$ un anneau et $a\in A$. On dit que $a$ est irréductible si $a\notin A^\times$ ($a$ n'est pas inversible) et, pour tout $x$ et pour tout $y$ dans $A$,
+    \[
+    xy=a \Rightarrow (x\in A^\times \: \text{ou} \: y \in A^\times)
+    \]
+\end{definition}
+
+\begin{proposition}
+    Soient $(A, +, \cdot)$ un anneau principal et $a \in A$ ; alors l’idéal $aA$ est maximal si et seulement si $a$ est irréductible.
+\end{proposition}
+
+\begin{proof}
+    Reformulons la définition des éléments irréductibles. Un élément $a$ de $A$ est irréductible si tout diviseur de $a$ est soit inversible, soit associé à $a$ (c’est-à-dire produit de $a$ et d’un élément inversible).
+
+    Revenons à la démonstration de la proposition 3.27. Comme $A$ est principal, dire que l’idéal $aA$ est maximal, c’est dire que, si $dA$ contient $aA$, alors $dA = aA$ ou $dA = A$. Ce qui se réécrit sous la forme : dire que $aA$ est maximal, c’est dire que, si $d$ est un diviseur de $a$, alors $dA = aA$ ou $dA = A$ (car $dA$ contient $aA$ si et seulement si $d$ est un diviseur de $a$). Mais $dA = aA$ si et seulement si $d$ et $a$ sont associés (proposition 3.5, p. 36) ; et $dA = A$ si et seulement si $d$ est inversible, car $dA = A$ si et seulement si $1 \in dA$. Donc l’idéal $aA$ est maximal si et seulement si $a$ est irréductible.
+\end{proof}

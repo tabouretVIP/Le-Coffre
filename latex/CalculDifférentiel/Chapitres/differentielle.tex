@@ -1,0 +1,580 @@
+\chapter{Dérivabilité et différentiabilité}
+     \section{Dérivabilité des fonctions $f:\R\to\R^m$}
+     Commençons par rappeler les propriétés des dérivées dans le cas des fonctions $f:\R\to\R$
+     \begin{definition}
+         Soit $f:\R\to\R$.
+         \begin{itemize}
+             \item Si a est un point intérieur de $\dom f$, on dit que $f$ est dérivable en $a$ s'il existe un réel noté $f'(a)$ tel que $\lim_{x\to a}\dfrac{f(x)-f(a)}{x-a} = f'(a)$
+             \item $f$ est dérivable si son $\dom f$ est ouvert et si $f$ est dérivable en tout point de $\dom f$
+         \end{itemize}
+     \end{definition}
+     \begin{exemple}
+         \begin{itemize}
+             \item $f(x) = x^2, f(x) = \tan x$ sont dérivables
+             \item $f(x) = |x|$ est continue mais pas dérivables (en $0$)
+         \end{itemize}
+         
+     \end{exemple}
+     \begin{proposition}
+         Toute fonction $f:\R\to\R$ dérivable est continue.
+     \end{proposition}
+     Équation de la tangente : $y = f'(a)(x-a) + f(a)$
+     \begin{exemple}
+         La tangente de $f(x)= x^2$ en $2$ a pour équation $y =4(x-2)+4 $
+     \end{exemple}
+     \begin{proposition}
+         Soit $f:\R\to\R$. Soit $a$ un point intérieur de $\dom f$. Alors lasse (les assertions suivantes sont équivalentes, tfae en anglais)
+         \begin{enumerate}
+             \item $f$ est dérivable en $a$
+             \item il existe $c\in\R$ tel que $\lim\limits_{h\to0}\dfrac{f(a+h)-f(a)}{h} = c$
+             \item il existe $c\in\R$ tel que $f(x) = f(a) + c(x-a) + o(x-a)$
+             \item il existe $c\in\R$ tel que $f(a+h)=f(a) + c h + o(h)$
+         \end{enumerate}
+         De plus, si ces assertions sont vérifiées, le réel $c$ est unique et vaut $f'(a)$
+     \end{proposition}
+     Si on a une fonction $f:\R\to\R^m$, on peut étendre la notion de dérivabilité comme suit :
+     \begin{definition}
+         Soit $f:\R\to\R^m$.
+         \begin{itemize}
+             \item Si a est un point intérieur de $\dom f$, on dit que $f$ est dérivable en $a$ s'il existe un vecteur dans $\R^m$ noté $f'(a)$ tel que $\lim\limits_{x\to a}\dfrac{f(x)-f(a)}{x-a} = f'(a)$
+             \item $f$ est dérivable si son $\dom f$ est ouvert et si $f$ est dérivable en tout point de $\dom f$.
+         \end{itemize}
+     \end{definition}
+     \begin{remarque}
+         Une fonction $f:\R\to\R^m$ est dérivable en $f$ ssi pour tout $1\leq i\leq m, f_i:\R\to\R$ est dérivable en $a$.
+     \end{remarque}
+     \begin{exemple}
+         Soit $f:\R\to\R^2: x\mapsto (\cos x, \sin x)$ est dérivable sur $\R$ car $f_1(x) = \cos x$ et $f_2(x) = \sin x$ sont dérivables.
+         Équation de la tangente : \begin{align}
+             (y,z) &= f(a) + f'(a)(x-a)\\
+             &= (\cos a,\sin a) + (x-a)(f'_1(a),f'_2(a))\\
+             &= (\cos a,\sin a) + (x-a)(-\sin a, \cos a)
+         \end{align} 
+         Il s'agit d'une droite.
+     \end{exemple}
+     \section{Différentiabilité des fonctions $f:\R^n\to\R^m$} 
+     Contrairement au cas précédent, le quotient $\dfrac{f(x)-f(a)}{x-a}$ n'a plus de sens si $n\geq 2$.
+     La notion de différentiabilité sera basée sur la relation $f(a+h) = f(a)+ L(h)+ o(h)$ où $L$ est une application linéaire de $\R^n$ dans $\R^m$.
+     Notons que les applications linéaires de $\R$ dans $\R^m$ sont données par $L(h) = ch$ pour un certain $c\in\R$.
+     De manière générale, la famille des applications linéaires de $\R^n$ dans $\R^m$ est bien plus riche:
+     $$L(h) = \begin{pmatrix}
+         a_{1,1} & \dots & a_{1,n}\\
+         \dots & \dots & \dots\\
+         a_{m,1} & \dots & a_{m,n}
+     \end{pmatrix}h$$
+     Il faut donc qu'on généralise également la notion de petit $o$.
+     \begin{definition}
+         Soient $(X,\norm{\cdot}_X),(E,\norm{\cdot}_E),(F,\norm{\cdot}_F)$. Soient $f:X\to E$ et $g:X\to F$. Soit $x_0$ un point intérieur à $\dom(f)$ et à $\dom(g)$.
+         On dit que $f$ est négligeable par rapport à $g$ au voisinage de $x_0$ si $$\forall \varepsilon>0, \exists r >0, \forall x\in B_{\norm{\cdot}_X}(x_0, r), \norm{f(x)}_E\leq \varepsilon\norm{g(x)}_F$$
+         On écrira alors $f=o(g)$ au voisinage de $x_0$.
+    \end{definition}
+    \begin{remarque}
+        La propriété \og $f$ est négligeable par rapport à $g$ \fg n'est pas impactée par le remplacement d'une norme par une norme équivalente.
+    \end{remarque}
+     \begin{proposition}
+         Soient $(X,\norm{\cdot}_X),(E,\norm{\cdot}_E),(F,\norm{\cdot}_F)$. Soient $f:X\to E$ et $g:X\to F$.  Si il existe $R>0$ tel que $g$ ne s'annule pas sur $B(x_0, 
+         R)\setminus\{x_0\}$ alors $f=o(g)$ au voisinage de $x_0$ est équivalent à $f(x_0)=0$ et $\lim_{x\to x_0} \frac{\norm{f(x)}_E}{\norm{g(x)}_F}=0$ 
+     \end{proposition}
+     \begin{proof}
+             $\Rightarrow$ : Par hypothèse, pour tout $\varepsilon>0$, il existe $r>0$ tel que pour tout $x\in B_{\norm{\cdot}_X}(x_0, r), \norm{f(x)}_E\leq \varepsilon\norm{g(x)}_F$. Notons qu'alors, on a $\norm{f(x_0)}_E\leq \varepsilon\norm{g(x_0)}_F$ \textit{i.e.} $f(x_0)=0$. De plus, si on considère $x\in B_{\norm{\cdot}_X}(x_0, r)\cap B_{\norm{\cdot}_X}(x_0, R)$, alors si $x\ne x_0$, on a $\frac{\norm{f(x)}_E}{\norm{g(x)}_F}\leq \varepsilon$, autrement dit 
+             $\lim_{x\to x_0}\dfrac{\norm{f(x)}_E}{\norm{g(x)}_F} = 0\\$
+             $\Leftarrow$ : Par hypothèse, on a que $\forall \varepsilon>0,\exists r >0, \forall x \in B_{\norm{\cdot}_X}(x_0, r)\setminus\{x_0\}\leq \dfrac{\norm{f(x)}_E}{\norm{g(x)}_F}\leq \varepsilon$ et de plus $f(x_0)=0$. Combiner ces deux hypothèses donne $\forall \varepsilon>0,\exists r >0, \forall x \in B_{\norm{\cdot}_X}(x_0, r), \norm{f(x)}_E\\leq\norm{g(x)}_F \varepsilon\norm{g(x)}_F$
+         \end{proof}
+         \begin{exemple}
+             Soit $\fonction{f}{\R^2\to \R}{(x,y)\mapsto x^2+y^2}$ $f$ est négligeable devant $g(h)=h$ au voisinage de $0$ c'est à dire $f(h)=o(h)$. Par la proposition précédentes, il suffit de remarquer que $f((0,0))=0$ et $\limi_{h\to 0}\frac{|f(h)|}{\norm{h}_2}=\limi_{h\to 0}\frac{h_1^2+h_2^2}{\norm{h_2}_2}=\limi_{h\to 0}\frac{h_1^2+h_2^2}{\sqrt{h_1^2+h_2^2}}= \limi_{h\to 0}\sqrt{h_1^2+h_2^2}=0$
+         \end{exemple}
+         \begin{definition}
+             Soit $f:\R^n\to \R^n$, soit $a\in (\dom f)^\circ$
+             \begin{itemize}
+                 \item On dit que $f$ est différentiable en $a$ s'il existe une application linéaire $L\in L(\R^n,\R^n)$ tel que $f(a+h)= f(a)+L(h)+o(h)$
+                 \item $f$ est différentiable en tout point de son domaine.
+             \end{itemize}
+         \end{definition}
+         \begin{exemple}
+             on a :
+             \begin{enumerate}
+                 \item $\fonction{f}{\R\to \R}{x\mapsto \sin(x)}$ est différentiable car pour tout $a\in \R$. Si on pose $L(h)=\cos(a)h$, on a $\sin(a+h)=\sin(a)+L(h) +o(h)$
+                 \item $\fonction{f}{\R^2\to \R}{x\mapsto(x,x^2)}$ est différentiable car pour tout $a\in \R$, si on pose $L(h)=(h,2ah)=(1,2a)h$, on a 
+                 \begin{equation*}
+                    (a+h,(a+h)^2)=(a,a^2)+L(h) +o(h) 
+                 \end{equation*}
+                 En effet,
+                 \begin{equation*}
+                     \limi_{h\to 0}\frac{\norm{(a+h,(a+h)^2)-(a,a^2)-(1,2a)h}_1}{|h|}=\limi_{h\to 0}\frac{\norm{(0,h^2)}_1}{|h|}=\lim_{h\to 0}\frac{h^2}{|h|}=0
+                 \end{equation*}
+                 \item $\fonction{f}{\R^2\to \R}{(x,y)\mapsto x^2+y^2}$ est différentiable car pour tout $a=(a_1,a_2)\in \R^2$, il existe une application linéaire $L(h)=2a_1h_1+2a_2h_2$ tel que 
+                 \begin{equation*}
+                     f(a+h)=f(a)+L(h)+o(h)
+                 \end{equation*}
+                 On a 
+                 \begin{align*}
+                    f(a+h)-f(a) -L(h) &= (a_1+h_1)^2+(a_2+h_2)^2-a_1^2-a_2^2-L(h)\\
+                    &= 2a_1h_1+h_1^2+2a_2h_2+h_2^2-L(h)\\
+                    &= h_1^2+h_2^2=o(h)
+                 \end{align*}
+             \end{enumerate}
+         \end{exemple}
+         Dans chacun, de ces exemples, on n'aurait pas pu considérer i,e autre application linéaire.
+         \begin{proposition}
+             Soit $f:\R^n\to \R^m$ différentiable en $a$ un point intérieur du domaine. Alors il existe une unique application linéaire $L\in L(\R^n,\R^m)$ tel que 
+             \begin{equation*}
+                 f(a+h)=f(a)+L(h)+o(h)
+             \end{equation*}
+         \end{proposition}
+         \begin{proof}
+             Supposons qu'il existe $L_1\neq L_2$ des applications linéaires telles que 
+             \begin{equation*}
+                 f(a+h)=f(a)+L_1(h)+o(h)=f(a)+L_2(h)+o(h)
+             \end{equation*}
+             On déduit de ces deux égalités (en les soustrayant) que
+             \begin{equation*}
+                 L_1(h)-L_2(h)=o(h)
+             \end{equation*}
+             Comme $L_1\neq L_2$. Il existe $h\neq 0$ tel que 
+             \begin{equation*}
+                 L_1(h)-L_2(h)\neq 0
+             \end{equation*}
+             Soit $\varepsilon>0$. On sait qu'il existe un $r>0$ tel que si $\norm{x}<r$ alors $\norm{L_1(x)-L_2(x)}<\varepsilon\norm{x}$ En considérant $x= \frac{r}{2\norm{h}}h$, on a
+             \begin{equation*}
+                 \norm{L_1\left(\frac{r}{2\norm{h}}h\right)-L_2\left(\frac{r}{2\norm{h}}h\right)}\leq \varepsilon\norm{\frac{r}{2\norm{h}}h}
+             \end{equation*}
+             Autrement dit,
+             \begin{equation*}
+                 \frac{r}{2\norm{h}}\norm{L_1(h)-L_2(h)}\leq \varepsilon\frac{r}{2}
+             \end{equation*}
+             ou encore $\norm{L_1(h)-L_2(h)}\leq \varepsilon\norm{h}$. Comme cela tient pour tout $\varepsilon>0$, on en déduit que $L_1(h)-L_2(h)=0$. Contradiction
+         \end{proof}
+         \begin{definition}
+             Soit $f:\R^n\to \R^m$ et soit $U$ un ouvert du domaine de $f$.\\
+                 $f$ est différentiable sur $U$ si pour tout $a\in U$, il existe une application linéaire notée $Df(a)\in L(\R^n,\R^m)$ tel que 
+                 \begin{equation*}
+                     f(a+h)=f(a)+Df(a)(h)+o(h)
+                 \end{equation*}
+                 L'application $\fonction{Df}{U\to L(\R^n,\R^m)}{a\mapsto Df(a) }$ est appelé la différentielle de $f$.
+         \end{definition} 
+         \begin{remarque}
+             Faites attention à la nature des objets qu'on manipule 
+         \end{remarque}
+         \begin{remarque}
+             $Df(a)(h)$ traduit la manière dont $f$ varie au voisinage de $a$ dans la direction $h$
+         \end{remarque}
+         \begin{exemple}
+             on a :
+             \begin{enumerate}
+                 \item $f(x)=\sin(x)$ avec $Df(a)(h)=\cos(a)h$
+                 \item $f(x)=(x,x^2)$ avec $Df(a)(h)=(1,2a)h$
+                 \item $f(x,y)=x^2+y^2$ avec $Df(a)(h)= 2a_1h_1+2a_2h_2$\\
+                 On a $f(a+h)=f(a)+Df(a)(h)+o(h)$ ou encore 
+                 \begin{equation*}
+                     f(x)=f(a)+Df(a)(x-a)+o(x-a)
+                 \end{equation*}
+                 Le plan tangent de $f$ en $a=(a_1,a_2)$ est donné par 
+                 \begin{align*}
+                     z&=f(a)+Df(a)(x-a)\\
+                     &=a_1^2+a_2^2+2a_1(x_1-a_1)+2a_2(x_2-a_2)
+                 \end{align*}
+                 Qui avec les lettres usuelles s'écrirait
+                 \begin{equation*}
+                     z = a_1^2+a_2^2+2a_1(x-a_1)+2a_2(y-a_2)
+                 \end{equation*}
+             \end{enumerate}
+         \end{exemple}
+         \section{Propriétés de la différentielle}
+         Regardons quelles propriétés de la dérivée passent à la différentielle.
+         \begin{proposition}
+             Soit $f:\R^n\to \R ^m$ une fonction constante alors $f$ est différentiable et pour tout $a\in \R ^n, Df(a)=0$ 
+         \end{proposition}
+         \begin{proof}
+             Il suffit de remarquer que 
+             \begin{equation}
+                 f(a+h)=f(a)+Df(a)(h)+o(h)\quad  \text{ avec }Df(a)(h)=0
+             \end{equation}
+             Car $f(a+h)=f(a)$
+         \end{proof}
+         \begin{proposition}
+             Soit $f:\R ^n\to \R^m$ une application linéaire. Alors $f$ est différentiable et $Df(a)=f$
+         \end{proposition}
+         \begin{proof}
+             Si $Df(a) =f$ on a bien 
+             \begin{equation*}
+                 f(a+h)=f(a)+Df(a)(h)+o(h)
+             \end{equation*}
+             car
+             \begin{equation*}
+                 f(a+h)=f(a)+f(h)
+             \end{equation*}
+         \end{proof}
+         \begin{proposition}
+             Soit $f:\R^n\to \R^m$ une fonction différentiable en $a$. Alors $f$ est continu en $a$ et même localement lipschitzien en $a$. \textit{i.e.} 
+             \begin{equation*}
+             \exists r>0, \exists M>0, \forall x\in B(a,r) \quad \norm{f(x)-f(a)}\leq M\norm{x-a}
+             \end{equation*}
+        \end{proposition}
+             \begin{proof}
+                 Remarquons tout d'abord que si $\forall x\in B(a,r)$, $\norm{f(x)-f(a)}\leq M\norm{x-a}$ alors $f$ est continu en $a$ en prenant $\delta:= \min\{\frac{\varepsilon}{M},r\}$ Comme $f$ est différentiable en $a$, 
+                 \begin{equation*}
+                     f(a+h)-f(a)-Df(a)(h)=o(h)
+                 \end{equation*}
+                 Par définition de $o(h)$ pour $\varepsilon=1$, il existe $r>0$ tel que pour tout $h\in B(0,r),$
+                 \begin{equation*}
+                     \norm{f(a+h)-f(a)-Df(a)(h)}\leq \norm{h}
+                 \end{equation*}
+                 Par inégalité triangulaire inverse, on a
+                 \begin{equation*}
+                     \norm{f(a+h)-f(a)}-\norm{Df(a)(h)}\leq \norm{h}
+                 \end{equation*}
+                 ou encore,
+                 \begin{align*}
+                     \norm{f(a+h)-f(a)} &\leq \norm{h}+\norm{Df(a)(h)}\\
+                     &\leq \norm{h}+\norm{Df(a)}_{L(\R^n,\R^n)}\cdot\norm{h}
+                 \end{align*}
+                 
+                 On en déduit que pour $x\in B(a,r)$, on a 
+                 \begin{equation*}
+                     \norm{f(x)-f(a)}\leq (1+\norm{Df(a)})\cdot\norm{x-a}
+                 \end{equation*}
+                 On prend donc $M:= 1+\norm{Df(a)}$
+             \end{proof}
+                On montre maintenant que $f$ est différentiable ssi ses fonctions composantes le sont.
+                \begin{proposition}
+                    Soit $f:\R^n\to \R^m$ et et soit $a$ un point intérieur à $\dom f$. La fonction $f$ est différentiable en $a$ ssi pour tout $1\leq i\leq m$ $f_i$ est différentiable en $a$. Dans ce cas, on a 
+                    \begin{equation*}
+                        Df(a)(h)= (Df_1(a)(h),Df_2(a)(h),...,Df_m(a)(h))
+                    \end{equation*}
+                \end{proposition}
+                \begin{proof}
+                Montrons l'équivalence :
+                    \begin{description}
+                        \item[$(\Rightarrow)$ :] Supposons que $f$ est différentiable en $a$. On a donc 
+                        \begin{equation*}
+                            f(a+h)=f(a)+Df(a)(h)+o(h)
+                        \end{equation*}
+                        Posons $L_i(h)=(\pi_i\circ Df(a))(h)$ où $\fonction{\pi_i}{\R^m\to \R}{(x_1,...,x_m)\mapsto x_i}$. Il s'agit bien d'une application linéaire de $\R^m$ dans $\R$ car $\pi_i\in L(\R^m,R)$ et $Df(a)\in L(\R^n,\R^m)$. De plus, comme 
+                        \begin{equation*}
+                            |f_i(a+h)-f_i(a)-L_i(h)|\leq \norm{f(a+h)-f(a)-Df(a)(h)}_{\infty}
+                        \end{equation*}
+                        On en déduit que $f_i(a+h)-f_i(a)-L_{i}(h)=o(h)$
+                        \item[$(\Leftarrow)$ :] Supposons que pour tout $1\leq i\leq m$, $f_i$ est différentiable en $a$. On a alors, pour tout $i$
+                        \begin{equation*}
+                            f_i(a+h)-f_i(a)-Df_i(a)(h)=o(h)
+                        \end{equation*}
+                        On pose $L(h)=(Df_1(a)(h),...,Df_m(a)(h))$ et on remarque que $L\in L(\R^n,\R^m)$. On a alors
+                        \begin{equation}
+                            \norm{f(a+h)-f(a)-L(h)}_{\infty}=\max_{1\leq i\leq m}|f_i(a+h)-f_i(a)-Df_i(a)(h)|
+                        \end{equation}
+                    Donc,  pour tout $\varepsilon>0$, pour tout $1\leq i\leq m$ comme il existe $r_i>0$ tel que pour tout $h\in B(0,r_i),\ |f_i(a+h)-f_i(a)-Df_i(a)(h)|\leq \varepsilon||h||$ et on aura l'inégalité en prenant  $r= min\{r_i\}$.
+                    \end{description}
+                \end{proof}
+
+\begin{proposition}
+    Soient $f,g:\R^n\to \R^m$. Soit $a$ un point intérieur au $\dom f$ et au $\dom g$.
+    \begin{enumerate}
+        \item Si $f$ et $g$ sont différentiables en $a$ alors $f+g$ est différentiable en $a$ et 
+        \begin{equation*}
+            D(f+g)(a)=Df(a)+Dg(a)
+        \end{equation*}
+        \item Si $f$ est différentiable en $a$ et $\lambda\in\R$ alors $\lambda f$ est différentiable en $a$ et $$D(\lambda f)(a) = \lambda Df(a)$$
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Repose sur le fait que $o(h)+o(h)=o(h)=\lambda o(h)$
+\end{proof}
+\begin{theoreme}[Chain Rule]
+    Soient $f:\R^n\to \R^m$ et $g:\R^m\to \R^p$, si $a$ est un point intérieur du $\dom f$ tel que $f(a)$ est un point intérieur de $\dom g$ et si de plus $f$ est différentiable en $a$ et $g$ différentiable en $f(a)$ alors $g\circ f$ est différentiable en $a$ et
+    \begin{equation*}
+        D(g\circ f)(a)= Dg(f(a)) \circ Df(a)
+    \end{equation*}
+\end{theoreme}
+\begin{proof}
+    On doit montrer que pour tout $\varepsilon>0$, il existe $r>0$ tel que si $\norm{h}<r$ alors 
+    \begin{equation*}
+        \norm{g\circ f(a+h)-g\circ f(a)-Dg(f(a))\circ Df(a)(h)}\leq \varepsilon\cdot\norm h
+    \end{equation*}
+    Soit $\varepsilon>0$. Comme $f$ est différentiable en $a$, on sait qu'il existe $\delta>0$ et $M>0$ tels que pour tout $h\in \R^n$ si $\norm{h}<\delta$ alors $\norm{f(a+h)-f(a)}\leq M\norm{h}.$ Comme $g$ est différentiable en $f(a)$, il existe $0<R<\delta$ tel que si $\norm{t}<R$ alors
+    $$
+    \norm{g(f(a)+t)-g(f(a)-Dg(f(a)(t))}\leq \frac{\varepsilon}{2}\norm{t}
+    $$
+    On en déduit que si $\norm{h}<\min\left(\frac{R}{m},\frac \delta 2\right)$, alors $\norm{f(a+h)-f(a)}\leq M\norm{h}<R$ et donc pour $t= f(a+h)-f(a)$, on obtient 
+    \begin{align*}
+        \norm{g(f(a+h)-g(f(a))-Dg(f(a))(f(a+h)-f(a))}
+        &\leq \frac{\varepsilon}{2M}\norm{f(a+h)-f(a)}\\
+        &\leq \frac{\varepsilon}{2M}M\norm{h}=\frac{\varepsilon}{2}\norm{h}
+    \end{align*}
+    il nous reste à montrer que pour $h$ suffisamment petit, 
+    \begin{equation*}
+        \norm{Dg(f(a))\circ Df(a)(h)-Dg(f(a))(f(a+h)-f(a))}\leq \frac{\varepsilon}{2}\norm{h}
+    \end{equation*}
+    Notons que, comme $Dg(f(a))$ est une application linéaire, on a
+    \begin{align*}
+        &\norm{Dg(f(a))\circ Df(a)(h)-Dg(f(a))(f(a+h)-f(a)}\\
+        =&\norm{Dg(f(a))(Df(a)(h)-f(a+h)+f(a)}\\
+        \le&\norm{Dg(f(a))}_{L(\R^m,\R^p)}\cdot\norm{Df(a)(h)-f(a+h)+f(a)}
+    \end{align*}
+  Vu que $\norm{Df(a)-f(a+h)+f(a)}=o(h)$, on en déduit en utilisant $o(h)$ avec la constante $\frac{\varepsilon}{2\norm{Dg(f(a))}+1}$ l'existence d'un $r>0$ tel que pour tout $h\in\R^n$, si $\norm{h}<r$ alors  $$\norm{Df(a)(h)-f(a+h)-f(a)}\leq \frac{\varepsilon}{2\norm{Dg(f(a))}+1}\le\frac\varepsilon2$$. On peut donc conclure.
+\end{proof}
+\begin{exemple}
+    Soit $\fonction{f}{\R^2\to \R}{(x,y)\mapsto x^2+ y^2}$.
+    Soit $\fonction{g}{\R\to\R^2}{x\mapsto (x,x^2)}$
+    Ces deux fonctions sont différentiables et on a vu que 
+    \begin{equation*}
+        Df(x,y)(h_1,h_2)=2x(h_1)+2y(h_2)=\begin{pmatrix}
+            2x &2y
+        \end{pmatrix}
+        \begin{pmatrix}
+            h_1\\h_2
+        \end{pmatrix}
+    \end{equation*}
+    \begin{equation*}
+        Dg(x)(h) = (1, 2x)\cdot h = \begin{pmatrix}
+            1\\ 2x
+        \end{pmatrix}\cdot h
+    \end{equation*}
+    Posons $u=g\circ f:\R^2\to\R^2$ on a
+    \begin{equation*}
+        u(x,y)=(x^2+y^2,(x^2+ y^2)^2)=(x^2+y^2, x^4+2x^2y^2+y^4)
+    \end{equation*}
+    et 
+    \begin{align*}
+        Du(x,y)(h_1,h_2)&= Dg(f(x,y))\circ (Df(x,y)(h_1,h_2)\\
+        &=Dg(f(x,y))(2xh_1+2yh_2)\\
+        &=(1,2f(x,y))(2xh_1+2yh_2)\\
+        &= \big(2xh_1+2yh_2,2(x^2+y^2)(2xh_12yh_2)\big)\\
+        &= \begin{pmatrix}
+            2x & 2y\\
+            4x(x^2+y^2) & 4y(x^2+y^2)
+        \end{pmatrix}\cdot
+        \begin{pmatrix}
+            h_1\\
+            h_2
+        \end{pmatrix}\\
+        &=\begin{pmatrix}
+            1\\
+            2f(x,y)
+        \end{pmatrix}\cdot
+        \begin{pmatrix}
+            2x & 2y
+        \end{pmatrix}\cdot
+        \begin{pmatrix}
+            h_1\\
+            h_2
+        \end{pmatrix}
+    \end{align*}
+\end{exemple}
+\section{Liens entre différentielle et dérivées partielles}
+\begin{definition}
+    Soit $f:\R^n\to \R^m$. Soit $1\leq i\leq m$. 
+    \begin{itemize}
+        \item Soit $(e_1,\dotsc,e_n)$ la base canonique de $\R^n$. La dérivée partielle de $f_i$ par rapport à la $j^{\text{ème}}$ variable est donnée par 
+        \begin{equation*}
+            \frac{\partial f_i}{\partial x_j}(x)=\lim_{t\to 0}\frac{f_i(x+te_j)-f_i(x)}{t}=f_{i,x,e_j}'(0)
+        \end{equation*}
+        \item Pour $v\in \R^m\setminus\{0\}$, la dérivée directionnelle de $f_i$ par rapport à $v$ est donnée par 
+        \begin{equation*}
+            \frac{\partial f_i}{\partial v}(x)=\lim_{t\to 0}\frac{f_i(x+tv)-f_i(x)}{t}=f'_{i,x,v}(0)
+        \end{equation*}
+    \end{itemize}
+\end{definition}
+\begin{exemple}
+    Pour $u(x,y)= (x^2+y^2,(x^2+y^2)^2)$, on a 
+    \begin{align*}
+        \frac{\partial u_1}{\partial x}(x,y)=2x\quad & \frac{\partial u_1}{\partial y}(x,y)=2y\\
+        \frac{\partial u_2}{\partial x}(x,y)=4x(x^2+y^2)\quad & \frac{\partial u_2}{\partial y}(x,y)=4y(x^2+y^2)
+    \end{align*}
+    Posons $v=(2,3)$, on a 
+    \begin{align*}
+        &u_{1,(x,y),v}(t)=u_1((x,y)+tv)=u_1(x+2t,y+3t)=(x+2t)^2+(y+3t)^2\\
+        &u_{2,(x,y),v}(t)= u_2((x+2t,y+3t))=((x+2t)^2+(y+3t)^2)^2
+    \end{align*}
+    et donc 
+    \begin{align*}
+        \frac{\partial u_1}{\partial v}(x,y)&=u'_{1,(x,y),v}(0)= 4x+6y=2\\
+        &=2\frac{\partial u_1}{\partial x}(x,y)+3\frac{\partial u_1}{\partial y}(x,y)\\
+        \frac{\partial u_2}{\partial v}(x,y)&=u'_{2,(x,y),v}(0)=(u^2_{1,(x,y),v}(t))'\\
+        &=2u'_{1,(x,y),v}(0)u_{1,(x,y),v}(0)=2(x^2+y^2)(4x+6y)=8x(x^2+y^2)+12y(x^2+y^2)\\
+        &= 2\frac{\partial u_2}{\partial x}+3\frac{\partial u_2}{\partial y}
+    \end{align*}
+\end{exemple}
+\begin{theoreme}
+Soit $f:\R^n \to \R^m$ si $f$ est différentiable en $a$ alors toutes les dérivées directionnelles en $a$ existent et on a
+\begin{equation*}
+    Df(a)(h)=
+    \begin{pmatrix}
+        \frac{\partial f_1(a)}{\partial x_1} & \dots & \frac{\partial f_1(a)}{\partial x_n}\\
+        \vdots & \ddots & \vdots\\ 
+        \frac{\partial f_m(a)}{\partial x_1} & \dots & \frac{\partial f_m(a)}{\partial x_n}       
+    \end{pmatrix}
+    \cdot h
+\end{equation*}
+et $\frac{\partial f_i(a)}{\partial v} = v_1\frac{\partial f_i(a)}{\partial x_1}+\ldots+v_n\frac{\partial f_i(a)}{\partial x_n}$
+\end{theoreme}
+\begin{proof}
+    Soit $f:\R^n\to \R^m$ différentiable en $a$ on sait déjà que chaque $f_i$ est différentiable en $a$ et que la $i$ ème ligne de la matrice correspondante à $Df(a)$ est donné par $Df_i(a)$
+    Il suffit de montrer que pour $i$ fixé, en posant $b_1,\dotsc,b_n\in\R$ tels que $Df_i(a)(h)=\sum_{j=1}^nb_jh_j$, on a $b_j= \frac{\partial f_i}{\partial x_j}$.
+    Comme $f_i$ est différentiable en $a$, on a 
+    \begin{equation*}
+        \lim_{h\to 0}\frac{\abs{f_i(a+h)-f_i(a)-Df_i(a)(h)}}{\norm h}=0
+    \end{equation*}
+    et donc pour tout $v\in \R ^n\setminus\{0\},$ 
+    \begin{equation*}
+        \lim_{t\to 0}\frac{\abs{f_i(a+tv)-f_i(a)-Df_i(a)(tv)}}{\norm{tv}}=0
+    \end{equation*}   
+    Il en découle que pour tout $1\le j\le n$,
+    \begin{align*}
+         \lim_{t\to 0}&\frac{\abs{f_i(a+te_j)-f_i(a)-Df_i(a)(te_j)}}{\abs t}=0\\
+         &=\lim _{t\to 0}\abs{\frac{f_i(a+te_j)-f_i(a)}{t}-b_j} =0 \textit{ i.e. } \frac{\partial f_i}{\partial x_j}=b_j
+    \end{align*}
+    Par conséquent, avec $v\in \R^n\setminus\{0\}$, on a
+    \begin{align*}
+        &\lim_{h\to 0}\frac{\abs{f_i(a+tv)-f_i(a)-Df_i(a)(tv)}}{\norm{t}}=0\\
+        =& \lim_{t\to 0}\abs{\frac{f_i(a+tv)-f_i(a)}{t}-Df_i(a)(v)}\\
+        =& \lim_{t\to0}\abs{\frac{f_i(a+tv)-f_i(a)}{t}-\sum_{j=1}^nv_j\frac{\partial f_i}{x_j}(a)}
+    \end{align*}
+    Autrement dit, $\frac{\partial f_i}{\partial v}(a)=\sum_{j=1}^nv_j\frac{\partial f_i}{x_j}(a)$
+\end{proof}
+\begin{remarque}
+    Nous pouvons faire la distinction :
+    \begin{itemize}
+        \item Il arrive que notre notion de différentiabilité soit appelé dérivabilité au sens de Fréchet.
+        \item Par contre, une fonction $f:\R^n\to\R^m$ est dite différentiable au sens de Gâteaux en $a$ ssi toutes les dérivées directionnelles existent en $a$ et si pour tout $v\ne0,\ \frac{\partial f_i}{v}(a)=\sum_{j=1}^nv_j\frac{\partial f_i}{x_j}(a)$.
+        Notez que $f$ est différentiable au sens de Gâteaux en $a$ n'implique même pas la continuité en $a$.
+    \end{itemize}    
+\end{remarque}
+\begin{exemple}
+\begin{itemize}
+    \item 
+
+    $$f:=\begin{cases}
+        1 &\text{ si } y =x^2\land x\ne 0\\
+        0 &\text{ sinon}
+    \end{cases}$$
+
+    \item Fonction continue dont toutes les dérivées directionnelles existent en $(0,0)$ mais qui n'est pas différentiable en $(0,0)$ : 
+    $$\fonction{f}{\R^2\to \R}{(x,y)\mapsto \operatorname{sign}(y)\sqrt{\abs{xy}}}$$. Soit $v=(v_1,v_2)\in\R^2\setminus\{(0,0)\}$, on a \begin{align*}
+        f(tv_1,tv_2) &= \operatorname{sign}(tv_2)\sqrt{\abs{tv_1tv_2}}\\
+        &=\operatorname{sign}(t)\operatorname{sign}(v_2)\abs t \sqrt{\abs{v_1v_2}}\\
+        &= t\operatorname{sign}(v_2)\sqrt{\abs{v_1v_2}}
+    \end{align*}
+    Donc $\frac{\partial f}{\partial v}(0,0) = \lim_{t\to 0}\frac{f(tv_1,tv_2) - f(0,0)}t = \operatorname{sign}(v_2)\sqrt{\abs{v_1v_2}}$, en particulier $\frac{\partial f}{\partial x}(0,0) = 0$ et $\frac{\partial f}{\partial y}(0,0) = 0$. Si $f$ était différentiable en $(0,0)$, on aurait $\frac{\partial f}{\partial v}(0,0) = v_1\frac{\partial f}{\partial x}(0,0) + v_2 \frac{\partial f}{\partial y}(0,0)= 0$. Or ce n'est pas le cas (par ex. $v=(1,1)$) et donc $f$ n'est pas différentiable en $(0,0)$
+    \item Fonction continue dont les dérivées partielles existent en $(0,0)$ mais pas les autres dérivées directionnelles : $$
+    f(x,y) = \sqrt{\abs{xy}}$$.
+    On aura $f(tv_1,tv_2) = \abs{t}\sqrt{\abs{v_1v_2}}$
+    donc $\frac{\partial f}{\partial x}(0,0)=0=\frac{\partial f}{\partial y}(0,0)$ mais si $v_1\neq 0\neq v_2$, $\frac{\partial f}{\partial v}(0,0)$ , n'existe pas.
+    \item Par contre $f(x,y)=\abs{xy}$ différentiable en $(0,0)$. Montrons que 
+    \begin{equation*}
+        \abs{f(h_1,h_2)-f(0,0)-Df(0,0)(h_1,h_2)}=o(h)
+    \end{equation*}
+    Considérons $Df(0,0)(h_1,h_2)=0$
+    \begin{equation*}
+        \abs{f(h_1,h_2)-f(0,0)}=\abs{\abs{h_1}\abs{h_2}-0}=\abs{h_1}\abs{h_2}
+    \end{equation*}
+    On a
+    $$
+    0\leq\lim_{h\to 0}\frac{\abs{h_1h_2}}{\norm{h}_\infty}\leq \lim_{h\to 0}\frac{\norm{h}^2_\infty}{\norm{h}_\infty} = 0
+    $$
+\end{itemize}
+\end{exemple}
+\begin{proposition}
+    Soit $f:\R^n\to \R^m$. Soit $a$ un point intérieur du $\dom f$. S'il existe $r>0$ tel que $B(a,r)\subseteq\dom f$ et tel que les dérivées partielles des fonctions composantes $f_i$ existent et sont continues sur $B(a,r)$, alors $f$ est différentiable en $a$.
+\end{proposition}
+\begin{proof}
+    On sait que $f$ est différentiable en $a$ ssi chaque fonction composante est différentiable en $a$.
+    Soit $1\leq i\leq m$. Il suffit donc de montrer que $f_i:\R^n\to \R$ est différentiable en $a$.
+    On va rédiger la preuve pour $n=2$: Soit $\varepsilon >0$. On va montrer qu'il existe $0<\delta<r$ tel que pour tout $h\in \R^2$, $\norm{h}<\delta$ alors 
+    \begin{equation*}
+        \abs{f_i(a+h)-f_i(a)-\frac{\partial f}{\partial x_1}\cdot h_1-\frac{\partial f}{\partial x_2}\cdot h_2}\leq  \varepsilon\norm{h}
+    \end{equation*}
+    On a 
+    \begin{align*}
+       &\abs{f_i(a+h)-f_i(a)-\frac{\partial f}{\partial x_1}\cdot h_1-\frac{\partial f}{\partial x_2}\cdot h_2}
+       =\abs{f_i(a_1+h_1,a_2+h_2)-f_i(a_1,a_2)-\frac{\partial f_i}{\partial x_1}(a)\cdot h _1-\frac{\partial f_i}{\partial x_2}(a)\cdot h _2}\\
+       &= \abs{f_i(a_1+h_1,a_2+h_2)-f_i(a+h_1,a_2)+f_i(a+h_1,a_2)-f_i(a_1,a_2)-\frac{\partial f_i}{\partial x_1}(a)\cdot h _1-\frac{\partial f_i}{\partial x_2}(a)\cdot h _2} = (*)
+    \end{align*}
+    Posons $g_1(t)=f_i(a_1+t,a_2) - f_i(a_1,a_2),\quad g_2(t) = f_i(a_1+h_1, a_2+ t)-f_i(a_1+h_1, a_2)$. En appliquant le théorème des accroissements finis à $g_1$ sur $\interff{0,h_1}$ et à $g_2$ sur $\interff{0,h_2}$, on obtient l'existence de $t_1\in\interoo{0,h_1},\ t_2\in\interoo{0,h_2}$ tel que $h_1g_1'(t_1) = g_1(h_1)-g_1(0)= g_1(h_1),\quad h_2g_2'(t_2) = g_2(h_2)-g_2(0)= g_2(h_2)$
+    On doit vérifier, pour pouvoir utiliser ce résultat, que $g_1, g_2$ sont dérivables respectivement sur $\interoo{0,h_1},\ \interoo{0,h_2}$. Pour cela notons que 
+    \begin{align*}
+    g_1'(t)&=\lim_{s\to 0}\frac{g_1(t+s)-g_1(t)}{s}\\
+    &=\lim_{s\to 0} \frac{f_i(a_1+t+s,a_2)-f_i(a_1+t,a_2)}{s}\\
+    &=\frac{\partial f_i}{\partial x_1}(a_1+t,a_2)
+    \end{align*}
+    et
+    \begin{align*}
+    g'_2(t)&=\lim_{s\to  0}\frac{g_2(t+s)-g_2(t)}{s}\\
+    &=\lim_{s\to 0}\frac{f_i(a_1+h_1,a_2+t+s)-f_i(a_1+h_1,a_2+t)}{s}\\
+    &= \frac{\partial f_i}{\partial x_2}(a_1+h_1,a_2+t)
+    \end{align*}
+    Ainsi, \begin{align*}
+        (*) &= \abs{h_2\frac{\partial f_i}{\partial x_2}(a_1+h_1,  a_2+t_2)-h_2\frac{\partial f_i}{\partial x_2}(a)+h_1\frac{\partial f_i}{\partial x_1}(a_1+t_1,  a_2)-h_1\frac{\partial f_i}{\partial x_1}(a)}\\
+        &\leq \abs{h_2}\abs{\frac{\partial f_i}{\partial x_2}(a_1+h_1,  a_2+t_2)-\frac{\partial f_i}{\partial x_2}(a)}+\abs{h_1}\abs{\frac{\partial f_i}{\partial x_1}(a_1+t_1,  a_2)-h_1\frac{\partial f_i}{\partial x_1}(a)}
+    \end{align*}
+    Par continuité des dérivées partielles, il existe $\delta<r$ tel que pour tout $k$ avec $\norm{h}<k$.
+    \begin{equation*}\
+        \abs{\frac{\partial f_i}{\partial x_2}(a_1+k_1,a_2+k_2)-\frac{\partial f_i}{\partial x_2}(a)}<\varepsilon
+    \end{equation*}
+    et
+     \begin{equation*}\
+        \abs{\frac{\partial f_i}{\partial x_1}(a_1+k_1,a_2+k_2)-\frac{\partial f_i}{\partial x_1}(a)}<\varepsilon
+    \end{equation*}
+    Donc si $\norm{h}<\delta$, on a 
+    $$
+        \abs{f_i(a+h)-f_i(a)-\frac{\partial f}{\partial x_1}\cdot h_1-\frac{\partial f}{\partial x_2}\cdot h_2}\leq \abs{h_2}\varepsilon+\abs{h_1}\varepsilon=\varepsilon\norm h _1
+    $$
+\end{proof}
+La continuité des dérivées partielles implique plus que la différentiabilité.
+\begin{definition}
+    Soit $f:\R^n\to\R^m$. Soit $\ouvert$ un ouvert dans $\dom f$. On dit que $f$ est de classe $C^1$ sur $\ouvert$ si $f$ est différentiable sur $\ouvert$ et $Df$ est continue sur $\ouvert$.
+\end{definition}
+\begin{remarque}
+    $Df$ est continu sur $\ouvert$ signifie que pour tout $a\in \ouvert$, pour tout $\varepsilon>0$, il existe $\delta >0$ tel que pour tout $b\in\ouvert$, si $\norm{b-a}_{\R^n}<\delta$ alors $\norm{Df(b)-Df(a)}_{L(\R^n,\R^m)}$
+\end{remarque}
+\begin{theoreme}
+    Soit $f: \R^n\to\R^m$. Soit $\ouvert$ un ouvert dans $\dom f$. $f$ est de classe $C^1$ sur $\ouvert$ ssi toutes les dérivées partielles des fonctions composantes $f_i$ existent et sont continues sur $\ouvert$.
+\end{theoreme}
+\begin{proof}
+    \begin{description}
+        \item[$\si$ : ]Sous nos hypothèses, on sait déjà que $f$ est différentiable sur $\ouvert$. Il nous reste à montrer que $Df$ est continue sur $\ouvert$. Soient $a,b\in\ouvert$. Alors 
+        \begin{align*}
+            \norm{Df(b)-Df(a)}&=\sup_{\norm{h}\leq 1}\norm{Df(b)(h)-Df(a)(h)}_\infty\\
+            &=\sup_{\norm{h}\leq 1}\norm{\left( \sum_{j=1}^n\bigg(\dpart{f_i}{x_j}(b)\cdot h_j-\dpart{f_i}{x_j}(a)\cdot h_j\bigg)\right)_{1\leq i \leq m}}_\infty\\
+            &= \sup_{\norm{h}\leq 1}\max_{1\leq i\leq m}\abs{\sum_{j=1}^n\bigg(\dpart{f_i}{x_j}(b)\cdot h_j-\dpart{f_i}{x_j}(a)\cdot h_j\bigg)}\\
+            &\leq \sup_{\norm{h}_1\leq 1}\max_{1\leq i\leq m}\abs{\sum_{j=1}^n\abs{h_j}\max_{1\leq i\leq m}\abs{\sum_{j=1}^n\bigg(\dpart{f_i}{x_j}(b)-\dpart{f_i}{x_j}(a)\bigg)}}\\
+            &= \max_{1\leq i\leq m, 1\leq j \leq n}\abs{\sum_{j=1}^n\bigg(\dpart{f_i}{x_j}(b)-\dpart{f_i}{x_j}(a)\bigg)} <\varepsilon  
+        \end{align*} 
+        si $b$ est suffisamment proche de $a$ par continuité des dérivées partielles $\dpart{f_i}{x_j}$
+        \item[$\alors$ : ] Par hypothèse, $Df$ est continue sur $\ouvert$. Soient $1\leq i\leq m$ et $1\leq j\leq n$
+        \begin{align*}
+            \dpart{f_ i}{x_ j}=\pi_i\circ \operatorname{eval}_{e_j}\circ Df
+        \end{align*}
+        où $\operatorname{eval}_{e_j}(T)=T(e_j)$ et $\pi_i(x_1,\dotsc,x_i)$. 
+        Or $Df$ est continue, $\pi_i$ est linéaire sur $\R^m$ (donc continue) et $\operatorname{eval}_{e_j}$ est continue car $\norm{\operatorname{eval}_{e_j}(T)-\operatorname{eval}_{e_j}(S)} = \norm{T(e_j)-S(e_j)}\leq \norm{T-S}\norm{e_j}$
+    \end{description}
+\end{proof}
+\begin{exemple}
+    Un exemple de fonction 
+\end{exemple}
+\section{Un peu de vocabulaire}
+\begin{definition}
+   Soit $f : \R^n\to\R^m$. Soit $a\in(\dom f)^\circ$. \begin{itemize}
+       \item La matrice jacobienne de $f$ en $a$ est 
+   \begin{equation*}
+       J_f(a)=
+       \begin{pmatrix}
+           \dpart{f_1}{x_1}(a)&\dots& \dpart{f_1}{x_n}(a)\\
+           \vdots& \ddots& \vdots\\
+           \dpart{f_m}{x_1}(a)&\dots&\dpart{f_m}{x_n}(a)
+       \end{pmatrix}
+   \end{equation*}
+   \item Si $n=m$ alors le jacobien de $f$ en $a$ est le déterminant de $J_f(a)$. 
+   \item Si $f$ est différentiable en $a$ alors $Df(a)(h) = J_f(a)\cdot h$
+   \end{itemize}
+   Le jacobien apparaît, quant à lui, lorsqu'on fait un changement de variable dans une intégrale multiple.
+\end{definition}
+\begin{definition}
+\begin{itemize}
+    \item  Soit $f:\R^n\to\R$. Le gradient de $f$ en $a$ est $$\nabla f(a) = \left(\dpart{f}{x_1}(a),\dotsc, \dpart{f}{x_n}(a)\right)$$
+    \item Si $f$ est différentiable en $a$ alors $Df(a)(h) = \langle \nabla f(a), h\rangle$. Il en découle que le gradient $\nabla f(a)$ est la direction de la plus grande pente en $a$ et le gradient est orthogonal à la tangente à la courbe de niveau passant par $(a,f(a))$.
+\end{itemize}
+   
+\end{definition}
+\begin{exemple}
+    Considérons la fonction $f(x,y)=xy$, on a $\dpart{f}{x}(x,y)=y$ et $\dpart{f}{y}(x,y)=x$. Ces fonctions sont continues sur $\R^2$, donc $f$ est différentiable sur $\R^2$. Le gradient est donné par $\nabla f(x,y) = (y,x)$
+\end{exemple}

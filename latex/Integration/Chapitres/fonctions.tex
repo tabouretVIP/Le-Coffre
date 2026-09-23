@@ -1,0 +1,438 @@
+\chapter{Convergence des suites de fonctions}
+
+\section{Convergence simple}
+    \begin{definition}
+        Soient $X$ un ensemble et $(Y,d_Y)$ un espace métrique.
+        Soit $f_n : X \to Y $ avec $n \ge 0$. 
+        On dit que la suite $f_n$ converge simplement vers $f$ si 
+        $$ \forall x \in X, \lim_{n\to \infty} d_Y(f_n(x),f(x)) = 0$$
+    \end{definition}
+
+    \begin{remarque}
+        La convergence simple correspond à la convergence dans l'ensemble des fonctions de $X \to Y$ muni de la topologie engendrée par les voisinages suivants 
+        $$ V_{f,x_1...x_n, \varepsilon} = \{ g : X \to Y \; |\; d(f(x_i), g(x_i)) \le \varepsilon, \forall 1\ge i \ge n \}$$
+
+        Où $f : X\to Y$ et $x_1,...,x_n \in X$, $\varepsilon > 0$.
+    \end{remarque}
+
+
+    \begin{remarque}
+            Si une suite $(f_n)_{n\ge0}$ converge simplement vers $f$, alors ce $f$ est unique, car $(Y,d_Y)$ est un espace métrique 
+    \end{remarque}
+
+    \begin{exemple}
+        Soit $f_n [0,1] \to \R$ définie par :
+        $$ \forall n \in \N, f_n(x) = x^n$$ 
+       
+        Soit $x \in [0,1]$, calculons :
+        $\lim_{n \to \infty} x^n$
+        Cette limite vaut $0$ si $x \in [0,1[$ et vaut $1$ si $x = 1$.
+        En conclusion, $(f_n)$ converge simplement vers :
+        $f = $ $1$ si $x = 1$ et $0$ si $x \in [0,1[$
+
+        Notons qu'ici, la continuité des $f_n$ n'est pas préséservée à la limite.
+    \end{exemple}
+
+
+    \begin{exemple}
+        Soit $f_n : [0,1] \to \R$ où $f_n(x) = nxe^{-nx^2}$
+        \begin{enumerate}
+            \item Si $x = 0$, $f_n(x) = 0$ donc $\lim_{n \to \infty} f_n(x) = 0$
+            \item Si $x \in ]0,1]$, on a une limite de la forme : 
+            $\lim_{n \to \infty} \frac{nx}{e^{nx^2}} = 0$ 
+        \end{enumerate}
+        Donc, $f_n \to f = 0$ quand $ n\to \infty$
+    \end{exemple}
+
+    \begin{exemple}
+        Soit $f_n : [0,+\infty[ \to \R$ où $f_n(x) = \frac{n}{1+n(x+1)}$
+        Nous pouvons réecrire, $f_n(x) = \frac{1}{\frac{1}{n} +(x+1)}$
+        Donc, $\lim_{n\to \infty} f_n(x) = \frac{1}{0+(x+1)} =\frac{1}{x+1}$
+        Nous avons donc que notre suite $(f_n)$ converge simplement vers 
+        $f$ tel que $f(x) = \frac{1}{x+1}$.
+    \end{exemple}
+\section{Convergence uniforme}
+    \begin{definition}
+        Soit $X$ un ensemble et $(Y,d_Y)$ un espace métrique.
+        Soit $(f_n)_{n\ge0}$ une suite de fonctions $X \to Y$
+
+        On dit que la suite $(f_n)_{n\ge0}$ converge uniformément vers $f$ si 
+        $\sup_{x\in X} d_Y(f_n(x),f(x)) \to \ 0$ quand $n\to \infty$
+    \end{definition}
+
+    Cette notion de convergence correspond à celle engendrée par les voisinages 
+    $V_{f, \,\varepsilon} = \{g : X \to Y \;|\; \sup_{x\in X}d_Y(g(x),f(x)) < \varepsilon \}$.
+    C'est en fait, un espace métrique pour la distance : 
+    $d(f,g) = \min\{1,\sup_{x\in X}d_Y(g(x),f(x))\}$ 
+    
+\begin{exercice}
+    Vérifier que $d$ est bien une distance.
+\end{exercice}
+
+    --> Illustration à faire 
+
+
+    Reprenons nos 3 exemples et regardons cette fois si les suites convergent uniformément.
+
+    \begin{exemple}
+        Étant donné $f_n : [0,1] \to \R : x\mapsto x^n$, nous nous demandons si elle converge uniformément ? 
+        Notons que si $(f_n)$ converge uniformément vers une fonction, alors elle comverge simplement vers cette même fonction. Ce qui veut dire que si notre suite converge uniformément, ça sera forcement vers 
+        $f(x) = 0$ si $x \in \interff{0,1}$ et $1$ si $x = 1$
+
+        Regardons donc $\sup_{x\in [0,1]}(|f_n(x) - f(x)|)$
+        On a que $\abs{f_n(x)-f(x)}$ vaut $0$ si $x = 1$ et que $x \in \interfo{0,1}$, 
+        $\sup_{x\in\interfo{0,1}}(|f_n(x) - f(x)|) = \sup_{x\in \interfo{0,1}} x^n = 1$ qui ne tend pas vers $0$  quand $n \to +\infty$. Donc notre suite ne converge pas absolument sur $[0,1]$.
+        
+    \end{exemple}
+
+\begin{exemple}
+    $f_n : [0,1] \to \R$ où $f_n(x) = nxe^{-nx^2}$
+    Nous savons déjà que $f_n \to 0$ simplement.
+    Il nous suffit donc de regarder $\sup_{x\in [0,1]} |f_n(x)| =\sup_{x\in [0,1]} nxe^{-nx^2} $
+    La dérivée de $nxe^{-nx^2} = ne^{-nx^2}(1-2nx^2)$ comme $ne^{-nx^2}$ est différent de $0$ $ \forall x \in [0,1]$, la dérivée s'annule forcémenet en $x = \frac{1}{\sqrt{2n}}$ car $x\ge 0$.
+    De plus, $f_n$ est strictement décroissante après $\frac{1}{\sqrt{2n}}$ et croissante avant. On en déduit que c'est le maximum de $f_n$ sur $[0,1]$.
+    Nous avons donc que, $\sup_{x\in [0,1]} |f_n(x)| = f(\frac{1}{\sqrt{2n}}) = \frac{n}{\sqrt{2n}}e^{\frac{-n}{2n}} = \sqrt{\frac{n}{2}}e^\frac{-1}{2}$ qui tend vers $+\infty$ quand $n \to \infty$.
+    On en déduit que $(f_n)$ ne converge pas uniformément.
+
+    --> Dessins à faire pour montrer l'évolution des $f_n$
+\end{exemple}
+
+\begin{exemple}
+    $f_n : [0,+\infty[ \to \R$ où $f_n(x) = \frac{n}{1+n(1+x)}$.
+    Nous savons déjà que $(f_n)$ converge simplement vers $f(x) = \frac{1}{1+x}$.
+    Regardons donc, $\sup_{x\in [0,\infty[} | \frac{n}{1+n(1+x)} -\frac{1}{1+x}|$.
+    En mettant tout sous le même dénominateur nous obtenons 
+    $\frac{n}{1+n(1+x)} -\frac{1}{1+x} = \frac{-1}{(1+x) +n(1+x)^2}$
+    Nous avons donc $\sup_{x\in [0,\infty[} |f_n(x) - f(x)| = \sup_{x\in [0,\infty[}\frac{1}{(1+x) +n(1+x)^2} = \frac{1}{1+n}$ car nous avons un maximum en $x = 0$.
+    Comme nous avons $\frac{1}{1+n} \to 0$ quand $n\to +\infty$, nous avons que $(f_n)$ converge bien uniformément vers $f$.
+    
+\end{exemple}
+
+Contrairement à la convergence simple, la convergence uniforme préserve bien la continuité.
+
+\begin{proposition}
+    Soit $(X,\mathcal{T})$ un espace topologique, et $(Y,d_Y)$ un espace métrique.
+    Si $(f_n)_{n\ge0}$, une suite de fonctions continues, converge uniformément vers une fonction $f$, alors $f$ est continue. 
+\end{proposition}
+
+\begin{proof}
+    Soit $a \in X$.
+    Soit $\varepsilon > 0$, nous cherchons un voisinage $V_a$ de $a$ tel que $\forall x \in V_a \quad d_Y(f(x),f(a)) \le \varepsilon$.
+    Notons que  $\forall x \in X \quad d_Y(f(x),f(a)) \le d_Y(f(x),f_n(x)) + d_Y(f_n(x),f_n(a)) + d_Y(f_n(a),f(a))$ par inégalité triangulaire.
+    De plus, comme $(f_n)$ converge uniformément vers $f$, 
+    $\exists n_0 \in \N$ tel que $\forall n \ge n_0 \quad \sup_{x\in X} d_Y(f_n(x),f(x)) \le \frac{\varepsilon}{3}$.
+    De plus, par continuité de $f_{n_0}$, $\exists V'_a$ voisinage de $a$ tel que $\forall x \in V'_a  \quad d_Y(f_{n_0}(x),f_{n_0}(a)) \le \frac{\varepsilon}{3}$
+    On en déduit que $\forall x \in V'_a \quad d_Y(f(x),f(a)\le \frac{\varepsilon}{3}+\frac{\varepsilon}{3}+\frac{\varepsilon}{3} = \varepsilon $. 
+    
+\end{proof}
+
+//////// -> 17/02
+
+Afin de pouvoir utiliser la convergence absolue pour déterminer la convergence d'une série de fonctions, on a besoin d'identifier un espace vectoriel normé complet de fonctions.
+
+
+On travaillera avec $2$ espaces vectoriels normés complets.
+
+\begin{definition}
+    Soit $X$ un ensemble et $(Y,\norm\cdot _Y)$ un espace vectoriel normé complet. On peut alors considérer : 
+
+    $B(X,Y) = \{f:X \to Y : \sup_{x\in X}\left\lVert f(x)\right\rVert_Y < \infty\}$
+
+
+l'espace des fonctions que l'on munit de la norme $\norm f_\infty = \sup_{x\in X}\left\lVert f(x)\right\rVert_Y$.
+La convergence pour la norme infinie $\norm\cdot_\infty$ est la convergence uniforme.
+\end{definition}
+\begin{definition}
+    Soient $(X,\topologie)$ un espace topologique compact et $(Y,\norm\cdot_Y)$ un espace vectoriel normé complet. On définit $$C(X,Y):=\{f:X\to Y\mid f \text{ est continue}\}$$ que l'on munit de la même manière de $\norm f _{\infty}:=\sup_{x\in X}\norm{f(x)}_Y$. 
+\end{definition}
+
+\begin{remarque}
+\begin{itemize}
+    \item Comme $X$ est compact, $C(X,Y)\subseteq B(X,Y)$
+    \item $B(X,Y)$ et $C(X,Y)$ sont biens des espaces vectoriels.
+    \item $\norm{\cdot}_\infty$ est bien une norme sur $B$ et $C$.
+\end{itemize}
+\end{remarque}
+\begin{proposition}
+    Soit $X$ un ensemble et $(Y,\norm\cdot _Y)$ un espace vectoriel normé complet. Alors $(B(X,Y),\norm\cdot_\infty)$ est un espace vectoriel normé complet.
+\end{proposition}
+\begin{proof}
+    Soit $(f_n)_{n\ge 1}$ une suite de Cauchy dans $(B(X,Y), \norm\cdot_\infty)$. Cela signifie que $$\forall \varepsilon>0, \exists n_0\in \N, \forall m,n\ge n_0,\ \norm{f_m-f_n}\le \varepsilon$$
+    \ie $\forall x\in X, \norm{f_m(x)-f_n(x)}\le \varepsilon$. En prenant, pour tout $x$, la valeur de $n_0$ donnée, cela implique que $$\forall x\in X,\forall \varepsilon >0,\exists n_0\in \N,\forall n,m\ge n_0,\ \norm{f_m(x) - f_n(x)}_Y\le \varepsilon$$
+    Autrement dit, pour tout $x\in X$, la suite $(f_n(x))_{n\ge 1}$ est de Cauchy dans $(Y,\norm\cdot_Y)$ qui converge car $(Y,\norm{\cdot}_Y)$ est complet. On pose donc $f(x) :=\lim_{n\to\infty}f_n(x)$. Puisque $(f_n)$ est de Cauchy, on a que $$\forall \varepsilon >0,\exists n_0\in \N,\forall n,m\ge n_0,\forall x\in X \ \norm{f_m(x) - f_n(x)}_Y\le \frac\varepsilon2$$ d'où $\norm{f(x)-f_n(x)}\le \varepsilon$ en prenant $m\ge n_0$ tel que $\norm{f(x)-f_m(x)}_Y\le\varepsilon$. Il vient $\norm{f-f_n}_\infty\le \varepsilon$. On en déduit que $f_n\to f$ pour la norme $\norm\cdot_\infty$
+\end{proof}
+
+\begin{proposition}
+    Soient $(X,\topologie)$ un espace topologique compact et $(Y,\norm\cdot_Y)$ un espace vectoriel normé complet. Alors l'espace $(C(X,Y),\norm\cdot_\infty)$ est un espace vectoriel complet. 
+\end{proposition}
+\begin{proof}
+    Soit $(f_n)$ une suite de fonctions continues $X\to Y$. On sait, par la proposition précédente et le fait que $C(X,Y)\subseteq B(X,Y)$, que $(f_n)$ converge vers $f$ pour la norme $\norm\cdot_\infty$ \ie cette suite converge uniformément vers $f$. Or on sait qu'une suites de fonctions continues ne peut converger uniformément que vers une fonction continue. Donc $f\in C(X,Y)$.
+\end{proof}
+\section{Convergence uniforme sur tout compact}
+On a vu que la convergence uniforme préserve la continuité (contrairement à la convergence simple). Cependant, la continuité est une propriété locale, contrairement à la convergence uniforme. On peut donc se demander si on ne pourrait pas affaiblir la convergence uniforme tout en préservant la continuité.
+\begin{definition}
+     Soient $(X,\topologie)$ un espace topologique compact et $(Y,\norm\cdot_Y)$ un espace vectoriel normé complet. Une suite de fonction $(f_n)\subseteq Y^X$ converge uniformément sur tout compact vers $f$ si pour tout $K$ compact de $X$, on a que $(f_n)$ converge uniformément vers $f$ sur $K$ \ie $\sup_{x\in K}d_Y(f_n(x),f(x))\to 0$
+\end{definition}
+\begin{remarque}
+    Si $(f_n)$ converge uniformément vers $f$, elle converge uniformément sur tout compact vers $f$. La réciproque n'es pas vraie, montrons-le.
+\end{remarque}
+\begin{proof}
+    Considérons $$\fonction{f_n}{\interoo{0,1}\to \R}{x\mapsto x^n}$$On peut commencer par remarquer que $(f_n)$ converge simplement, mais pas uniformément, vers $f=0$. Il reste à montrer que $(f_n)$ converge uniformément sur tout compact vers $f$. Soit $K$ un compact. Il existe $\frac{1}{2}>\varepsilon>0$ tel que $K\subseteq\interff{\varepsilon,1-\varepsilon}$. Il vient $$\sup_{x\in K}\abs{f_n(x)-f}\le \sup_{x\in\interff{\varepsilon,1-\varepsilon}}x^n = (1-\varepsilon)^n\to 0$$ car $1-\varepsilon<1$. En conclusion, la suite $(f_n)$ converge uniformément vers $f = 0$ sur tout compact, mais ne converge pas uniformément vers $f$.
+\end{proof}
+Afin de montrer que la convergence uniforme pour tout compact préserve la continuité, on aura besoin d'une hypothèse de plus sur $X$.
+\begin{definition}
+    Soit $(X,\topologie)$ un espace topologique. On dit que $X$ \emph{localement compact} ssi \begin{itemize}
+        \item $X$ est séparé
+        \item $\forall a\in X,$ il existe $V_a$ un voisinage compact de $a$.
+    \end{itemize}
+\end{definition}
+\begin{remarque}
+    \begin{itemize}
+        \item Les espaces vectoriels $(\R^n,\norm\cdot)$ sont localement compacts (idem pour $(\C^n,\norm\cdot)$)
+        \item Tout ouvert de $\R^n$ (ou $\C^n$) muni da la topologie induite est localement compact.
+    \end{itemize}
+\end{remarque}
+\begin{proposition}
+    Soient $(X,\topologie)$ un espace localement compact et $(Y,d)$ un espace métrique. Si $(f_n)$ est une suite de fonctions continues de $X\to Y$ qui converge uniformément sur tout compact de $X$ vers $f$, alors $f$ est continue.
+\end{proposition}
+\begin{proof}
+    Soit $(f_n)\subseteq \cont(X,Y)$. Montrons que $f$ est continue sur $X$. Soit $a\in X$. Par compacité locale, il existe $V_a$, un voisinage compact de $a$. $(f_n)$ converge uniformément vers $f$ sur $V_a$. Donc $f$ est continue sur $V_a$, et donc elle est continue en $a$ par localité de la convergence. Donc $f$ est continue sur $X$.
+\end{proof}
+\chapter{Convergence de série de fonctions}
+\section{Convergence simple et uniforme}
+Des résultats précédents, on déduit la proposition suivante.
+\begin{proposition}
+    Soient $(X,\topologie)$ un espace topologique localement compact et $(Y\norm\cdot_Y)$ un espace vectoriel normé. Si $(\sum_{n=0}^Nf_n)$ converge uniformément sur tout compact vers $f$ et si chaque fonction $f_n$ est continue alors $f$ est continue.
+\end{proposition}
+
+\begin{proposition}[Critère de Weiserstrass]
+    Soient $X$ un ensemble et $(Y,\norm\cdot_Y)$ un espace vectoriel normé complet. Soit $(f_n)$ une suite de fonctinos $X\to Y$. S'il existe une suite $(M_n)$ de réels positifs tels que $\sup_{x\in X}\norm{f_n(x)}_Y\le M_n$ et $\sum_{n\in\N}M_n$ converge, alors la série des $f_n$ converge uniformément.
+\end{proposition}
+\begin{proof}
+    Par hypothèse, on a $$\sum_{n=0}^\infty \norm {f_n}_\infty\le \sum M_n <+\infty$$
+    Donc, par critère de comparaison, la série des $f_n$ converge absolument vers un certain $f$. De plus, les sommes partielles appartiennent à $B(X,Y)$ car leurs suprema sont majorés par $\sum M_n<+\infty$. Comme $(B(X,Y),\norm\cdot_\infty)$ est complet et $\sum_{n=0}^\infty f_n$ converge absolument, cette série converge.
+\end{proof}
+\begin{proposition}
+Soient $X$ un ensemble, $(Y,\norm\cdot)$ un espace vectoriel normé complet. Soient $(f_n)_{n\ge0}$ une suite de fonctions de $X$ dans $Y$. S'il existe une suite $(M_n)_{n\ge1}$ de réels positifs telle que pour tout $n\ge1$, $\norm{f_n-f_{n-1}}_\infty\le M_n$ et $\sum_{n=1}^\infty M_n<+\infty$ alors la suite $(f_n)$ converge uniformément.
+\end{proposition}
+\begin{proof}
+    Par le critère de Weiserstrass, on déduit que $\sum_{n=1}^\infty (f_n-f_{n-1})$ converge uniformément vers une fonction $f$ \ie la série $\left(\sum_{n=1}^N(f_n-f_{n-
+    1})\right)_{N\ge 1} = (f_N-f_0)$ converge uniformément vers $f$ donc $(f_N)_{N\ge1}$ converge uniformément vers $f+f_0$.
+\end{proof}
+\begin{exemple}[Premier monstre]
+    Il existe des fonctions $f:\R\to\R$ continues partout sur $\R$ mais dérivables en aucun point de $\R$. On va donner un exemple d'une telle fonction. \\
+    Soit $\varphi$ une fonction de $\R$ dans $\R$ périodique de péride $2 $ donnée par $$\varphi(x) = \begin{cases}
+        x &\text{si $x\in [0,1]$}\\
+        2 - x&\text{si $x\in[1,2]$}
+    \end{cases}$$
+    On pose, pour tout $n\ge0$, $f_n(x) = \left(\frac34\right)^n\varphi(4^n\cdot x)$. La suite $(f_n)$ converge uniformément vers $0$. On considère $f(x) = \sum_{n=0}^\infty f_n(x)$. Par le critère de Weierstrass, comme $\norm{f_n}_\infty\le\left(\frac34\right)^n$ et $\sum_{n=0}^\infty\left(\frac34\right)^n<\infty$, on sait que la série $\sum_{n=0}^\infty f_n$ converge uniformément vers $f$. De plus, comme chaque fonction $f_n$ est continue, la fonction $f$ est continue grâce à la convergence uniforme. Il nous reste à montrer que $f$ est dérivable nulle part. Il nous reste à montrer que $f$ est dérivable nulle part. Soit $x\in\R$. On va montrer qu'il existe une suite $h_n$ de réels tendant vers $0$ telle que $\abs{\frac{f(x+h_n)-f(x)}{h_n}}\to+\infty$. On pose $h_n = \frac{\varepsilon_n}{4^n}$ où $\varepsilon_n = \pm\frac{1}{2}$ est pris de sorte que $4^nx$ et $4^nx+\varepsilon_n$ soient dans le même intervalle $[N;N+1]$ avec $N\in\Z$. Notons que $h_n\to 0$ et que pour tout $k>n,\ 4^kh_n = \frac{4^k}{4^n}\varepsilon_n$ est un multiple de $2$. On a alors 
+    \begin{align*}
+        &\abs{\frac{f(x+h_n)-f(x)}{h_n}}= 2\cdot 4^n\abs{\sum_{k=0}^\infty\left(\frac34\right)^k\left(\varphi(4^k(x+h_n)-\varphi(4^kx)\right)}\\
+        &\ge 2\cdot 4^n\left(\left(\frac34\right)^n\abs{\varphi(4^n(x+h_n)-\varphi(4^nx)}-2\cdot 4^n-\sum_{k=0}^{n-1}\left(\frac34\right)^k\abs{\varphi(4^k(x+h_n)-\varphi(4^kx)}- \sum_{k=n+1}^{\infty}\left(\frac34\right)^k\abs{\varphi(4^k(x+h_n)-\varphi(4^kx)}\right)\\
+        &=2\cdot 4^n\left(\left(\frac34\right)^n\abs{\varphi(4^n(x+h_n)-\varphi(4^nx)}-2\cdot 4^n-\sum_{k=0}^{n-1}\left(\frac34\right)^k\abs{\varphi(4^k(x+h_n)-\varphi(4^kx)}\right)\text{car $4^kh_n$ est un multiple de $2$ et $\varphi$ est $2$-périodique}\\
+       &\ge2\cdot4\left(\left(\frac34\right)\abs{\varepsilon_n}-\sum_{k=0}^{n-1}\left(\frac34\right)^k4^k\abs{h_n}\right) \text{ car $\abs{\varphi(4^nx+\varepsilon_n)-\varphi(4^n)} = \abs{\varepsilon}$ par le choix de notre $\varepsilon_n$ et par construction de $\varphi$}\\
+       &= 24^n\left(\left(\frac{3}{4}\right)^n\frac{1}{2} - \sum_{k=0}^{n-1}\frac{3^k}{2\cdot4^n}\right)\\
+       &= 3^n-\sum_{k=0}^{n-1}3^k = 3^n-\frac{1-3^n}{1-3} = \frac{3^n+1}2\to +\infty
+    \end{align*}
+\end{exemple}
+\begin{exemple}[La fonction $\zeta$ de Riemann sur $\R$]
+On considère $\zeta(x) = \sum_{n=1}^\infty\frac1{n^x}$. Cette série converge simplemenet sur $\interoo{1,+\infty}$. On peut montrer que cette série converge uniformément sur tout compact de $\interoo{1,+\infty}$. Soit $K$ un compact dans $\interoo{1,+\infty}$. Il existe alors $\varepsilon>0$ tel que $K\subseteq\interfo{1+\varepsilon,+\infty}$. On a alors $\sup_{x\in K}\frac{1}{n^x}\le\sup_{x\in \interoo{1,+\infty}} \frac{1}{n^x} = \frac{1}{n^{1+\varepsilon}}$ et $\sum_{n=1}^\infty\frac{1}{n^{1+\varepsilon}}<\varepsilon$. Par le critère de Weieserstrass, la série converge uniformément sur tout compact, et donc la fonction est continue.
+\end{exemple}
+\section{Séries entières}
+\begin{definition}
+    Une \emph{série entière} (ou série de puissances) est une série de la forme $$\sum_{n=0}^\infty c_n(z-z_0)^n$$ où $(c_n)_{n\ge0}$ est une suite de complexes, $z_0\in\C$ et $z$ est la variable.
+\end{definition}
+\begin{proposition}
+Soit $\sum_{n=0}^\infty c_n(z-z_0)^n$ une série entière. On pose $R$, appelé le rayon de convergence, $R:=\frac{1}{\limsup_n\sqrt[n]{\abs{c_n}}}$ où $R = 0$ si $\limsup_n\sqrt[n]{\abs{c_n}} = +\infty$ et $R=+\infty$ si $\limsup_n\sqrt[n]{\abs{c_n}} = 0$. Alors \begin{enumerate}
+        \item Si $z\in D(z_0,R) \ie \abs{z-z_0}<R$ alors $\sum_{n=0}^\infty c_n(z-z_0)^n$ converge absolument.
+        \item  Si $z\notin \overline{D(z_0,R)} \ie \abs{z-z_0}>R$ alors $\sum_{n=0}^\infty c_n(z-z_0)^n$ ne converge pas.
+        \item Si $\abs{z-z_0} = R$, on ne peut rien dire
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+    \item Par le critère de Cauchy, la série $\sum_{n=0}^\infty c_n(z-z_0)^n$ converge absolument si $\limsup_n\sqrt[n]{c_n(z-z_0)^n}<1$ \ie $\abs{z-z_0}<R$, sauf dans le cas $R=0$. 
+    \item Si $\abs{z-z_0}>R$ alors on a $\limsup_{n}{\sqrt[n]{\abs{c_n(z-z_0)^n}}} = \limsup_n\sqrt[n]{\abs{c_n}\abs{z-z_0}}>\frac{1}{R}R = 1$. Donc, pour une infinité de $n$, $\sqrt[n]{\abs{c_n}\abs{z-z_0}}\ge 1$ et donc ${\abs{c_n}\abs{z-z_0}}\ge 1$ donc $\abs{c_n}\abs{z-z_0}$ ne converge pas vers $0$. Par la propriété très importante, $\sum_{n=0}^\infty c_n(z-z_0)^n$ ne converge pas.
+\end{enumerate}
+\end{proof}
+\begin{remarque}
+    En utilisant d'Alembert à la place de Cauchy, on a également $R = \frac{1}{\lim_{n\to + \infty\frac{\abs{c_{n+1}}}{\abs{c_n}}}}$ si $\lim_{n\to + \infty\frac{\abs{c_{n+1}}}{\abs{c_n}}}$ existe dans $[0,+\infty]$
+\end{remarque}
+\begin{exemple}Étudions les séries entières suivantes.
+    \begin{enumerate}
+        \item $\sum_{n=0}n^n(z-i)^n$. On a $R = \frac{1}{\limsup_n n} = 0$. On en déduit que cette sérien converge uniquement en $z=i$ où elle vaut $1$.
+        \item $\sum_{n = 0}^{+\infty}\frac{z^n}{n!}$. On trouve $$R = \frac{1}{\lim_{n\to\infty}\frac{\frac{1}{(n+1)!}}{\frac{1}{n!}}} = \left(\lim_{n\to+\infty}\frac{1}{n+1}\right)^{-1} = +\infty$$
+        La série $\sum_{n = 0}^{+\infty}\frac{z^n}{n!}$ converge donc pour tout $z\in\C$.
+    \end{enumerate}
+\end{exemple}
+\begin{exemple}
+    La série $\sum_{n = 0}^{+\infty}\frac{z^n}{2^n}$ a pour rayon de convergence $R = \frac{1}{\limsup\sqrt[n]{\abs{c_n}}}=2$. La série converge si $\abs{z}<2$ et diverge si $\abs{z}> 2$. Si $\abs{z}=  2$, la série diverge également car $\abs{\frac {z^n}{2^n}}=1\not\to 0$.
+\end{exemple}
+\begin{exemple}
+    La série $\sum_{n = 1}^\infty \frac{z+1}{n^2}$ a pour rayon de convergence $R = \frac{1}{\lim_n\frac{\abs{c_{n+1}}}{\abs{c_n}}} = \frac{1}{\lim_n\frac{n^2}{(n+1)^2}} = 1$. La série converge si $\abs{z+1}<1$ et diverge si $\abs{z+1}>1$. Si $\abs{z+1} = 1$, alors la série converge absolument et donc en particulier converge car $\sum_{n=1}^\infty\frac1{n^2}<+\infty$.
+\end{exemple}
+\begin{exemple}
+    La série $\sum_{n=1}^\infty\frac{(-1)^{n+1}z^n}{n}$ a pour rayon de convergence $R = \frac{1}{\lim_n\frac{n}{n+1} }= 1$. La série converge si $\abs{z}<1$ et converge si $\abs{z}>1$. Notons que si $z = 1$ laors la série converge par le critère des séries alternées. Si $z = -1$ alors la série diverge car elle vaut $\sum_{n=1}^\infty\frac{-1}{n}$. Pour déterminer la convergence pour les autres points du cercle unité, on va utiliser le critère d'Abel avec une suite $(b_n)$ de complexes telles que $B_N = \sum_{n=1}^Nb_n$ est une suite bornée. Soit $\abs{z} = 1$. On considère $a_n = \frac{1}{n}$ et $b_n = (-1)^{n+1}z^n$. $(a_n)$ est bien décroissante, et tend vers $0$. Montrons que si $z\ne -1$ alors $(B_N)$ est bornée et donc la série converge. \begin{align*}
+        B_N &= \sum_{n=1}^N(-1)^{n+1}z^n = -\sum_{n=1}^N(-z)^n = -\sum_{n = 0}^N(-z)^n +1\\
+        &= -\left(\frac{1 - (-z)^{N+1}}{1-(-z)}\right)
+    \end{align*}
+    On en déduit, en utilisant l'inégalité triangulaire, que 
+    \begin{align*}
+        B_N\le 1 + \abs{\frac{1 - (-z)^{N+1}}{1-(-z)}}\le 1 +\frac{1 + \abs{z}^{N+1}}{\abs{1+ z}} = 1 + \frac{2}{\abs{1 + z}}<+\infty 
+    \end{align*}
+    Ainsi, si $\abs z = 1$ et $z\ne 1$, alors la série converge.
+    \end{exemple}
+    On a en fait mieux que la convergencesimple sur $D(z_0,R)$. On a en réalité la convergence uniforme sur tout compact de $D(z_0,R)$.
+    \begin{proposition}
+        Soit $f(z) = \sum_{ n = 0}^\infty c_n(z-z_0)^n$. Si son rayon de convergence est $R>0$, alors la série converge uniformément sur tout compact de $D(z_0,R)$ et donc $f$ est continue sur $D(z_0,R)$.
+    \end{proposition}
+\begin{proof}
+        Soit $K\subseteq D(z_0,R)$ compact. Il existe alors $0<r<R$ tel que $K\subseteq \overline{D(z_0,r)}$. Notons que $$\sup_{z\in\overline{D(z_0,r)}}\abs{c_n(z-z_0)^n} = \abs{c_n} r^n$$ et $\sum_{n=0}^\infty\abs{c_n}r^n<\infty$ par Cauchy car $\limsup_n\sqrt[n]{\abs{c_n}r^n} = r\limsup_n\sqrt[n]{\abs{c_n}} = \frac{r}{R}<1$. Si $R = +\infty$, la preuve est similaire. Par le critère de Weierstrass, la série $\sum_{n=0}(z-z_0)^n$ converge uniformément sur $\overline{D(z_0,r)}$ et donc sur $K$. De plus, comme $D(z_0,R)$ est un ouvert de $\C$ et pour chaque $n\in\N_0,\ f_n(z) = c_n(z-z_0)^n$ est continue, la fonction $f$ est alors continue sur $D(z_0, R)$.
+\end{proof}
+On va maintenant montrer, dans le cas réel, qu'une série entière est de classe $\mathcal C^\infty$ sur $\interoo{x_0 - R, x_0 + R}$. 
+\begin{proposition}
+    Soit $f(x) = \sum_{n = 0}^\infty c_n(x-x_0)^n$ avec $c_n\in\R,x_0\in \R$. Si son rayon de convergence $R$ vérifie $R>0$, alors $f$ est dérivale sur  $\interoo{x_0 - R, x_0 + R}$ et pour tout $x\in\interoo{x_0 - R, x_0 + R}$ $$f'(x) = \sum_{n = 1}^\infty c_n\cdot n(x-x_0)^{n-1}$$
+\end{proposition}
+\begin{proof}
+    Montrons tout d'abord que la série $\sum_{n=1}^\infty c_n n (x-x_0)^{n-1}$ converge. Notons que $\sum_{n=1}^\infty c_n n (x-x_0)^{n-1}$ converge si et seulement si $\sum_{n=1}^\infty c_n n (x-x_0)^{n}$ converge. Pour cette dernière série, le rayon de convergence est donné par $\frac{1}{\limsup_n\sqrt[n]{\abs{c_n}n}} = \frac{1}{\limsup_n\sqrt[n]{\abs{c_n}}} = R$
+    car $\sqrt[n]{n} = e^{\frac{\ln n}n} \to 1$.
+    Montrons que $f'(x) = \sum_{ n = 1}^\infty c_n n (x-x_0)^{n-1}$ \ie $$(*):=\lim_{h\to 0}\abs{\frac{f(x+h) - f(x)}{h} - \sum_{ n = 1}^\infty c_n n (x-x_0)^{n-1}} = 0$$
+    On va montrer que pour tout $\varepsilon>0$, il existe $\delta >0$ tel que pour tout $\abs{h}\le \delta,\ (*)\le \varepsilon$.
+    Soit $\varepsilon > 0$. Soit $N\ge 1$.
+    On a \begin{align*}
+        (*) &:=\abs{\frac{ \sum_{n = 0}^N c_n[(x+h-x_0)^n - (x-x_0)^n]}{h} - \sum_{ n =1}^N c_n n (x-x_0)^{n-1} + \frac{ \sum_{n = N + 1}^\infty c_n[(x+h-x_0)^n - (x-x_0)^n]}{h} - \sum_{ n =N+1}^\infty c_n n (x-x_0)^{n-1}}\\
+        &\le \abs{\frac{ \sum_{n = 0}^N c_n[(x+h-x_0)^n - (x-x_0)^n]}{h} - \sum_{ n =1}^N c_n n (x-x_0)^{n-1}} + \abs{\frac{ \sum_{n = N + 1}^\infty c_n[(x+h-x_0)^n - (x-x_0)^n]}{h}} - \abs{\sum_{ n =N+1}^\infty c_n n (x-x_0)^{n-1}}
+    \end{align*}
+    Or, le premier terme tend vers $0$ lorsque $h$ tend vers $0$. Le troisième aussi. Pour le deuxième terme, rappelons que $a^n - b^n = (a-b)\sum_{i = 0}^{n-1}a^ib^{n-1-i}$. On a ainsi que \begin{align*}
+        \frac{ \sum_{n = N + 1}^\infty c_n[(x+h-x_0)^n - (x-x_0)^n]}{h} = \sum_{n = N+1}^\infty c_n\sum_{i = 0}^{n-1}(x+h-x_0)^i(x-x_0)^{n-1-i} =: (**)
+    \end{align*}
+    On choisit $\delta > 0$ tel qu'il existe $r<R$ vérifiant $\interff{x-\delta,x + \delta}\subseteq \interff{x_0-r, x_0+r}$. On a ainsi 
+    \begin{align*}
+        \abs{(**)}\le \sum_{n  = N+1}^\infty\abs{c_n} n r^{n-1}
+    \end{align*}
+    car $\forall 0\le i\le n-1$, on a $(x+h-x_0)^i(x-x_0)^{n-1-i}\le r^{n-1}$. Par le critère de Cauchy, la série $\sum_{n  = 0}^\infty\abs{c_n} n r^{n-1}$ est convergente et donc $\sum_{n  = N+1}^\infty\abs{c_n} n r^{n-1}$ est aussi petit que l'on veut pour $N$ assez grand.
+\end{proof}
+\begin{corollaire}
+    Soit $f(x) = \sum_{n = 0}^\infty c_n(x-x_0)^n$. Si le rayon de convergence $r$ est strictemenet positif alors $f$ est de classe $\mathcal C^\infty$ sur $\interoo{x_0 - R, x_0 + R}$ et pour tout $k\ge 1$ $$f^{(k)}(x) = \sum_{ n = k}c_n\frac{n!}{(n-k)!}(x-x_0)^{n-k}$$
+    Donc, on a pour tout $n\ge 0,\ c_n = \frac{f^{(n)}(x_0)}{n!}$
+\end{corollaire}
+\begin{proof}
+    Le résultat s'obtient par récurrence immédiate. De plus, quand $n = 0$, on a $f(x_0) = c_0$. 
+    Pour $k\ge 1$, on a $f^{(k)}(x_0) = c_k \frac{k!}{(k-k)!}$ d'où $c_k = \frac{f^{(k)}(x_0)}{k!}$
+\end{proof}
+\begin{remarque}
+    \begin{itemize}
+        \item Si $f(x)= \sum_{ n = 0}^\infty c_n(x-x_0)^n$, alors les coefficients sont uniques
+        \item Si $f$ est de classe $\mathcal C^\infty$ sur $\interoo{x_0 - R, x_0 + R}$, on peut considérer $g(x) = \sum_{n = 0}^\infty c_n(x-x_0)^n$ avec $c_n =  \frac{f^{(n)}(x_0)}{n!}$. 
+        Néanmoins, il se peut que $g$ et $f$ ne coïncident qu'en $x_0$.
+    \end{itemize}
+\end{remarque}
+\begin{exemple}
+    Considérons $f(x) = \begin{cases}
+        \e ^{\frac{1}{x^2}} & \text{si $x\ne 0$}\\
+        0 &\text{ si $x=0$}
+    \end{cases}$
+    On peut montrer que $f$ est $\mathcal C^\infty$ sur $\R$ car $$f^{(n)}(x) = \begin{cases}
+       P_n(\frac{1}{x}) \e ^{\frac{1}{x^2}} & \text{si $x\ne 0$}\\
+        0 &\text{ si $x=0$}
+        \end{cases}$$
+        Notons que $f^{(n)}(0) = 0$ pour tout $n\ge 0$ et donc $g(xx) = 0$ pour $x_0$.
+\end{exemple}
+\begin{remarque}
+    Dans le cas complexe, si $f:\C\to \C$ est $\mathcal C^\infty$, alors $f = g$.
+\end{remarque}
+\chapter{Régularité des fonctions}
+On va étudier deux notions fortes des continuité :
+\begin{itemize}
+    \item continuité uniforme
+    \item caractère lipschitzien
+\end{itemize}
+\section{Continuité uniforme}
+On va travailler avec des espaces métriques $(E,d_E), (F,d_F)$ et des fonctions $f : E\to F$. Pour rappel, $f$ est continue si $\forall x\in E,\forall \varepsilon>0,\exists \delta > 0$ tel que pour tout $y\in E$ avec $d_E(x,y)\le \delta$, on a $d_F(f(x),f(y))\le \varepsilon$
+\begin{definition}
+    $f$ est \emph{uniformément continue} si $\forall \varepsilon>0, \exists\delta>0$ tel que pour tous $x,y\in E$ avec $d_E(x,y)< \delta$, on a $d_F(f(x),f(y))<\varepsilon$
+\end{definition}
+\begin{remarque}
+    Si $f$ est uniformément continue, alors $f$ est continue
+\end{remarque}
+\begin{exemple}
+    \begin{itemize}
+        \item Si on considère $f : E\to E : x\mapsto x$ alors $f$ est uniformément continue en prenant $\delta = \varepsilon$.
+        \item Considérons $$\fonction{f}{\interfo{1,+\infty}\to \interfo{1,+\infty}}{x\mapsto \frac1x}$$
+        Dans ce cas,$$\abs{f(x)-f(y)} = \abs{\frac1x - \frac1y} = \abs{\frac{y-x}{xy}}$$
+        La fonction $f$est uniforméménet continue sur $\interfo{1,+\infty}$ en prenant $\delta = \varepsilon$.
+        \item Considérons $$\fonction{f}{\interoo{0,+\infty}\to\interoo{0,+\infty}}{x\mapsto\frac{1}{x}}$$
+        Pour montrer que $f$ n'est pas uniformément continue, il faut trouver $\varepsilon>0$ tel que $\forall\delta >0, \exists x,y\in \interoo{0,+\infty}$ tels que $\abs{x-y}\le \delta$ et $\abs{f(x)-f(y)}>\varepsilon$.
+        Prenons $\varepsilon = 1$. Soit $\delta >0$. On va poser $y = x+\delta$. On a alors 
+        \begin{align*}
+            \abs{f(x)-f(y)} = \abs{\frac{1}{x}-\frac{1}{x+\delta}} = \abs{\frac{\delta}{x(x+\delta)}}
+        \end{align*}
+        Prenons $x = \frac{\delta}{M}$ alors $\abs{\frac{\delta}{x(x+\delta)}} = \frac{M}{(1 + \frac{1}{M})\delta}$
+        On cherche donc $M>0$ tel que $M>(1+\frac1M)\delta$ \ie $M^2> (M+1)\delta$. En prenant $M = \max(1,2\delta + 1)$, on a $$M^2 > 2M\delta \ge (M+1)\delta$$
+        Ainsi, on a $\abs{f(x)-f(x+\delta)}>1$
+        \item La fonction $$\fonction{f}{\R\to\R}{x\mapsto x^2}$$ n'est pas uniformément continue.
+        \item La fonction $$\fonction{f}{\interff{-M,M}\to \R}{x\mapsto x^2}$$ est uniformément continue.
+        \item La fonction $$\fonction{f}{\interfo{0,+\infty}\to \interfo{0,+\infty}}{x\mapsto \sqrt x}$$ est uniformément continue. 
+        \begin{proof}
+            Soit $\varepsilon >0$. Prenons $\delta =\varepsilon^2$.
+            Soient $x,y\in \interfo{0,+\infty}$ tels que $\abs{x-y}\le \delta$. Sans perte de généralité, on peut supposer que $y = x+\delta $ car $f$ est strictement croissante.
+            On a alors 
+            \begin{align*}
+                \abs{f(x)-f(y)} = \sqrt{x+\delta} -\sqrt{x}&\le \varepsilon\\
+                \ssi \sqrt{x+\delta}&\le \varepsilon + \sqrt{x}\\
+                \ssi x + \delta&\le \varepsilon^2 + x + 2\varepsilon\sqrt{x}
+            \end{align*}
+            Ce qui est le cas car $\delta = \varepsilon^2$
+        \end{proof}
+    \end{itemize}
+\end{exemple}
+\begin{remarque}
+\begin{itemize}
+    \item  Si $f$ est dérivable, ou continue, alors $f$ n'est pas forcément uniformément continue.
+    \item Il existe aussi des fonctinos dérivables dont la dérivées n'est pas bornée qui sont uniformément continue, par exemple la racine carrée.
+\end{itemize}
+\end{remarque}
+\begin{proposition}[Heine]
+    Soient $(E,d_E), (F,d_F)$ et $f : E\to F$. Si $E$ est compact et $f$ continue alors $f$ est uniformément continue.
+\end{proposition}
+\begin{proof}
+    Supposons que $E$ est compact et que $f$ est continue mais que $f$ n'est pas uniformément continue. Cela signifie qu'il existe $\varepsilon>0$ tel que $\forall\delta>0$, il existe $x,y\in E $ tels que $d_E(x,y)\le \delta$ et $d_F(f(x),f(y))>\varepsilon$. En considérant $\delta = \frac1n$, on se retrouve avec deux suites $(x_n),(y_n)$ telles que $d_E(x_n,y_n)\le \frac1n$ et $d_F(f(x_n),f(y_n))>\varepsilon$. Par compacité de $E$, il existe une sous-suite $(x_{n_k})$ de $(x_n)$ telle que $(x_{n_k})_k$ converge vers un certain $a\in E$. Comme $d_E(x_n,y_n)\le\frac1n$, on a $d_E(y_{n_k},a)\le d_E(y_{n_k}, x_{n_k}) + d_E(x_{n_k}, a)\to 0$ car les deux termes sont aussi petits qu'on le veut pour $k$, donc $n_k$ assez grand.
+    On en déduit que $y_{n_k}\to a$ et par continuité de $f$, $f(x_{n_k})\to f(a)$ et $f(y_{n_k})\to f(a)$. On aurait alors $$d_F(f(x_{n_k},f(y_{n_k})\le d_F(f(x_{n_k}),f(a)) + d_F(f(a),f(y_{n_k}))$$
+    ce qui contredit $d_F(f(x),f(y))>\varepsilon$.
+\end{proof}
+On peut, avec des idées similaires, montrer le résultat suivant.
+\begin{proposition}[Exercice]
+    Soient $(E,d_E), (F,d_F)$ et $f : E\to F$. $f$ est uniformément continue si et seulement si, pour toutes suites $(x_n),(y_n)$ dans $E$, si $d_E(x_n,y_n)\to 0$, alors $d(f(x_n),f(y_n))\to 0$.
+\end{proposition}
+\begin{exemple}
+    La fonction $$\fonction{f}{\R\to\R}{x\mapsto x^2}$$
+    n'est pas uniformément continue car si on considère $x_n = n$ et $y_n = n+\frac1n$ alors $\abs{x_n-y_n}\to 0$ et $\abs{x_n^2-y_n^2} = (n+\frac{1}{n})^2-n^2 = 2 + \frac{1}{n^2} \not\to 0$
+\end{exemple}
+On peut montrer que la continuité uniforme est préservée par la convergence uniforme.
+\begin{proposition}
+    Soient $(E,d_E), (F,d_F)$. Si $(f_n)$ est une suite de fonctions uniformément continues de $E$ dans $F$ et si $(f_n)$ converge uniformément vers $f$ alors $f$ est uniformément continue
+\end{proposition}
+\begin{proof}
+    Soit $\varepsilon>0$. Comme $(f_n)$ converge uniformément vers $f$, il existe $n_0\ge 1$ tel que $\sup_{x\in E}d_f(f_{n_0}(x),f(x))\le \varepsilon$. Comme $f_{n_0}$ est uniformément continue, il existe $\delta>0$ tel que $\forall x,y\in E,\ d_E(x,y)\le\delta\alors d_F(f_{n_0}(x),f_{n_0}(y))\le \varepsilon$. On a alors pour tout $x,y\in E$ avec $d_E(x,y)\le \delta$, \begin{align*}
+        d_F(f(x),f(y))\le d_F(f(x),f_{n_0}(x))  + d_F(f_{n_0}(x),f_{n_0}(y))+d_F(f_{n_0}(y),f(y))\le 3\varepsilon
+    \end{align*}
+\end{proof}
+\section{Fonctions lipschitziennes}
+\begin{definition}
+    Soient $(E,d_E),(F,d_F)$. La fonction $f:E\to F$ est lipschitzienne s'il existe $c>0$ tel que pour tout $x,y\in E,\ d_F(f(x),f(y))\le c\cdot d_E(x,y)$.
+    La plus petite constante $c$ vérifiant ces inégalités est appelée la constante de Lipschitz, $\operatorname{Lip} (f) = \sup_{x\ne y}\frac{d_F(f(x),f(y))}{d_E(x,y)}$
+\end{definition}
+\begin{proposition}
+    Si $f:E\to F$ et lipschitzienne alors $f$ est uniformément continue.
+\end{proposition}
+\begin{proof}
+    Comme $f$ est lipschitzienne, il existe $c>0$ tel que $\forall x,y\in E,\ d_F(f(x),f(y))\le c\cdot d_E(x,y)$. Dès lors, pour tout $\varepsilon>0$, en posant $\delta = \frac{\varepsilon}{c}$, on a bien que pour tous $x,y\in E$, si $d_E(x,y)\le \delta$ alors $d_F(f(x),f(y))\le c \cdot d_E(x,y)\le \varepsilon$
+\end{proof}
+\begin{exemple}
+    \begin{itemize}
+        \item La fonction $$\fonction{f}{E\to E}{x\mapsto x}$$ est lischitzienne en prenant, par exemple, $c=1$.
+        \item La fonction $$\fonction{f}{\interfo{1,+\infty}\to \interfo{1,+\infty}}{x\mapsto \frac1x}$$ est lipschitzienne car pour tous $x,y\in \interfo{1,+\infty},\ \abs{f(x)-f(y)}\le \abs{x-y}$, donc prendre $c = 1$ suffit.
+        \item La fonction $$\fonction{f}{\interoo{0,+\infty}\to\interoo{0,+\infty}}{x\mapsto\frac{1}{x}}$$ n'est pas lischitzienne puisqu'elle n'est pas uniformément continue.
+        \item La fonction $$\fonction{f}{\interoo{0,+\infty}\to\interoo{0,+\infty}}{x\mapsto\sqrt{ x}}$$ est uniformément continue mais pas lischitzienne. En effet, $$\sup_{x\ne y}\frac{\abs{\sqrt{x}-\sqrt{y}}}{\abs{x-y}}\ge \sup_{x\ne 0} \frac{\sqrt{x}}{x} = \sup_{x\ne 0} \frac{1}{\sqrt{x}} = +\infty$$
+    \end{itemize}
+\end{exemple}

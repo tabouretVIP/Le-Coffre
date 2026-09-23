@@ -1,0 +1,514 @@
+\chapter{Intégrale de Riemann}
+\section{Définition à partir des sommes de Darboux}
+% -> trucs que je dois mettre 
+On considère des fonctions $f:[a,b]\to \R$ bornées avec $a,b\in\R$. L'idée de l'intégration est d'approximer l'aire signée sous la courbe. L'intégration de Riemann fait cela en approximant, ou en encadrant, cette surface par plusieurs rectangles. Une autre théorie de l'intégration existe, l'intégration de Lebesgue. Elle se base sur la théorie de la mesure, et dépasse donc le cadre de ce cours.
+\begin{definition}
+\begin{itemize}
+    \item Une subdivision $P$ de $[a,b]$ est un ensemble fini $\{x_0,\dotsc, x_n\}$ vérifiant $x_0<x_1<\dots<x_n,\ x_0 = a$ et $x_n = b$.
+    \item Étant donné $P=\{x_0,\dotsc,x_n\}$ une subdivision de $[a,b]$, on pose \begin{align*}
+        \forall 1\le i \le n &: M_i = \sup_{[x_{i-1},x_i]}f(x)\\
+        &: m_i = \inf_{[x_{i-1},x_i]}f(x)
+    \end{align*} Il s'agit de réels car $f$ est bornée.
+    \item Les sommes de Darboux supérieures et inférieures de $f$ par rapport à $P$ sont données par 
+    \begin{align*}
+        S(f,P) &= \sum_{i=1}^nM_i(x_i-x_{i-1})\\
+        s(f,P) &= \sum_{i=1}^nm_i(x_i-x_{i-1})
+    \end{align*}
+\end{itemize}
+\end{definition}
+\begin{remarque}
+    On a ainsi que l'aire signée $A(f,[a,b])$ vérifie $$s(f,P)\le A(f,[a,b])\le S(f,P)$$
+pour toute subdivision $P$ de $[a,b]$
+\end{remarque}
+
+% Début du cours 2 : 
+
+
+On aimerait mieux comprendre les fonctions intégrables sur $[a,b]$.
+\begin{proposition}
+  Notons qu'on a toujours 
+\begin{align*}
+    \intinf_{[a,b]}f  \ge \intsup_{[a,b]}f
+\end{align*}  
+\end{proposition}
+\begin{proof}
+    On veut montrer que 
+    \begin{align*}
+        \sup_Ps(f,P) \le \inf_P S(f,P)
+    \end{align*}
+    Il suffit de vérifier que pour toutes subdivisions $P,P'$ de $[a,b]$, on a 
+    \begin{align*}
+        s(f,P) \le S(f,P')
+    \end{align*}
+Posons $Q = P\cup P'$. Par un résultat précédent, on a \begin{align*}
+    s(f,P)&\le s(f,Q) \text{ car $P\subseteq Q$}\\
+    &\le S(f,Q)\text{ par définition}\\
+    &\le S(f,P')\text{ car $P'\subseteq Q$}
+\end{align*}
+\end{proof}
+\begin{corollaire}
+    Une fonction $f$ est donc intégrable au sens de Riemann ssi 
+\begin{align*}
+    \intsup_{[a,b]}f \le \intinf_{[a,b]}f.
+\end{align*}
+\end{corollaire}
+\begin{proposition}[Critère de Riemann]
+    Soit $f:[a,b]\to\R$ une application bornée. Alors $f$ est intégrable sur $[a,b]$ ssi $\forall \varepsilon>0$, il existe $P$ une subdivision de $[a,b]$ telle que $S(f,P)-s(f,P)\le \varepsilon$
+\end{proposition}
+
+\begin{proof}
+    \begin{enumerate}
+        \item [$\alors :$] Supposons que $f$ est intégrable sur $[a,b]$.
+
+        Soit $\varepsilon > 0$ il existe $P$ une subdivision de $[a,b]$ telle que $\intsup_{[a,b]}\le S(f,P)\le \intsup_{[a,b]}+\frac{\varepsilon}{2}$. De même, il existe $P'$ une subdivision de $[a,b]$ telle que $\intinf_{[a,b]} f -\frac{\varepsilon}{2}\le s(f,P)\le \intinf_{[a,b]}f$ Considérons $Q = P\cup P'$. On a ainsi :
+        \begin{align*}
+            S(f,Q) - s(f,Q) \le S(f,P) - s(f,P')\le \intsup_{[a,b]}f + \frac{\varepsilon}{2} - \left(\intinf_{[a,b]}-\frac{\varepsilon}{2}\right) = \varepsilon
+        \end{align*} car $f$ est intégrable.
+        \item [$\si :$]
+        Soit $\varepsilon>0$. On considère $P$ une subdivision de $[a,b]$ telle que $S(f,P)-s(f,P)\le \varepsilon$. Puisque $S(f,P)\ge \intsup_{[a,b]}f$ et $s(f,P)\le \intinf_{[a,b]}f$, on a alors $\intsup_{[a,b]}f - \intinf{[a,b]}f \le \varepsilon$ pour tout $\varepsilon > 0$.
+        On en déduit que $$\intsup_{[a,b]} f \le \intinf_{[a,b]}f$$
+    \end{enumerate}
+\end{proof}
+\begin{remarque}
+ On peut reformuler cette équivalence en :
+ $f$ intégrable si et seulement si il existe $(P_n)_n$ une suite de subdivision telle que $S(f,P_n)-s(f,P_n)\le 0$. On a en plus pour une telle suite $(P_n)$ que $$\int_{[a,b]}f(x)dx = \lim_{n\to \infty} S(f,P_n) = \lim_{n\to \infty} s(f,P_n)$$
+\end{remarque}
+\begin{exemple}
+\begin{enumerate}
+    \item Soit $$\fonction{f}{[0,1]\to \R}{x\mapsto x}$$
+    Montrons que $f$ est intégrable sur $[0,1]$ et déterminons $\int_0^1 x\intd x$.
+    COnsidérons $P_n = \{0,\frac{1}{n},\frac{2}{n},...,1\}$ On a 
+    $$ S(f,P_n) - s(f,P_n) =\sum_{i=0}^n M_i(x_i-x_{i-1}) - \sum_{i=0}^n m_i(x_i-x_{i-1})  = \sum_{i = 0}^n \frac{i}{n}\frac{1}{n} - \sum_{i = 0}^n \frac{i-1}{n} \frac{1}{n} = \frac{n}{n^2} = \frac{1}{n} \to 0$$. On en déduit que $f$ est intégrable et que $$\int_0^1x\intd x = \lim_{n\to+\infty} \sum_{i = 1}^n \frac{i}{n^2} =\lim_{n\to+\infty} \frac{1}{n^2}\frac{n(n+1)}{2} = \frac{1}{2}$$
+    \item Soit $$\fonction{f}{[0,1]\to \R}{x\mapsto 1_Q(x)}$$.
+    La fonction $f$ n'est pas intégrable (au sens de Riemann) car pour tout subdivision $P$ de $[0,1]$, on a que $S(f,P) - s(f,P) = \sum_{i = 1}^n1(x_i-x_{i-1}) -\sum_{i=1}^n0(x_i-x_{i-1}  = x_n - x_0  - 0= 1 - 0 = 1$ 
+    \end{enumerate}
+\end{exemple}
+\begin{remarque}
+    Au sens de Lebesgue, on aurait en fait $\int_0^1x\intd \lambda = 1\cdot\lambda(\Q\cap[0,1]) + 0\lambda([0,1]\setminus \Q) = 1\cdot 0 + 0\cdot 1$
+\end{remarque}
+\begin{remarque}
+    Si $ a = b$ alors toute fonction $f : [a,b] \to \R $ est intégrable et $\int_{[a,b]}f(x)\intd x$
+\end{remarque}
+\section{Définition à partir des sommes de Riemann}
+L'inconvénient des sommes de Darboux est que l'on ne sait pas, \textit{a priori}, quelles subdivisions vont nous permettre de déterminer l'intégrabilité de $f$. Grâce aux sommmes de Riemann, on va pouvoir montrer que si $f$ est intégrable alors n'importe quel choix de subdivisions $(P_n)$ vérifiera $S(f,P_n)-s(f,P_n)\to 0$ pour peux que l'épaisseur (ou le pas) de $(P_n)$ tende vers $O$ où l'épaisseur de $P_n$ est donnée par $\sup_{1\le i\le N} x_i-x_{i-1}$ avec $P_n = \{x_0,x_1,\ldots , x_N\}$. Pour définir les sommes de Riemann, on a besoin de la notion de subdivisions pointées.
+\begin{definition}
+    Soit $[a,b]$ un intervalle borné. Une \emph{subdivision pointée} de $[a,b]$ est un couple $(P,E)$ où $P = \{x_0,\ldots, x_n\}$ est une subdivision de $[a,b]$ et $E =\{\xi_1,\ldots \xi_n\}$ vérifie $\xi_i\in [x_{i-1}, x_i]$ pour tout $1\le i\le n$.
+\end{definition}
+%-> y'a un dessin là (en gros c'est un graphique avec des indices dessus pour montrer le truc d'au dessus) (en gros)(genre t'as capté)
+\begin{definition}
+    Soit $f : [a,b] \to \R$ bornée.
+    Soit $(P,E)$ une subdivision pointée de $[a,b]$.
+    La \emph{somme de Riemann} de $f$ par rapport à $(P,E)$ est données par :
+    $$ R(f,P,E) = \sum_{i = 0}^nf(\xi_i)(x_i - x_{i-1})$$
+\end{definition}
+\begin{remarque}
+    Pour toute subdivision pointée $(P,E),$ on a que $s(f,P)\le R(f,P,E)\le S(f,P)$ car pour tout $i$, $m_i\le f(\xi)\le M_i$
+\end{remarque}
+\begin{definition}
+    Soit $f: [a,b]\to \R$ bornée. La fonction $f$ est dite \emph{intégrable au sens de Riemann} sur $[a,b]$ s'il existe $I\in \R$ tel que $\forall \varepsilon>0,\exists\delta>0$ tels que si $(P,E)$ est une subdivision pointée de $[a,b]$ d'épaisseur plus petite que $\delta$. alors $\abs{R(f,P,E)-I}\le \varepsilon$. Dans ce cas, on pose $\int_{a}^bf(x)\intd x = I$.
+\end{definition}
+ Cette nouvelle définition de fonctions intégrables au sens de Riemann coïncide avec la précédente
+\begin{theoreme}
+Soit $f:[a,b]\to \R$ bornée.
+\begin{enumerate}
+    \item S'il existe une suite $(P_n)$ de subdivision de $[a,b]$ telle que $S(f,P_n)-s(f,P_n) \to 0$ alors pour $I = \lim_nS(f,P_n)$, on a $\forall \varepsilon>0,\exists\delta>0 \forall (P,E)$ d'épaisseur $\le\delta$, on aie $\abs{R(f,P,E)-I}\le\varepsilon$.
+    \item S'il existe $I \in \R$ tel que $\forall \varepsilon>0,\exists\delta>0 \forall (P,E)$ d'épaisseur $\le \delta$, $$|I - R(f,P,E)| \le \varepsilon$$ alors il existe $(P_n)$ tel que $S(f,P_n)-s(f,P_n) \to 0$ et $I = \lim_{n \to \infty} S(f,P)$.
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+\begin{enumerate}
+    \item   Soit $\varepsilon > 0$.
+    Par hypothèse, il existe $n$ tel que $S(f,P_n)-s(f,P_n) \le \varepsilon$. Posons $\delta = \frac{\varepsilon}{c\abs{P_n}}$ où $\abs{f(x)}\le c$ pour tout $x\in[a,b]$. 
+    Soit $(P,E)$ une subdivision pointée de $[a,b]$ d'épaisseur $\le \delta$. Notons $P_n = \{x_0,\ldots,x_N\}$, $P = \{y_0,\ldots,y_M\}$ et $E = \{\xi_1,\ldots,\xi_M\}$
+    % Y a un dessin :(
+    On divise $\{1,\ldots M\}$ en deux 
+    \begin{itemize}
+        \item $A_1$ l'ensemble es indices $i$ tels que $[y_{i-1},y_i]\subseteq [x_{k-1},x_k]$ pour un certain $k$.
+        \item $A_2$ les autres 
+    \end{itemize}
+    On a ainsi
+    \begin{align*}
+        s(f,P_n) &= \sum_{k = 1}^N m_k(x_{k} - x_{k-1})\\
+        &\le  \sum_{i \in A_1}f(\xi_i)(y_i - y_{i-1})
+        +  c\sum_{i\in A_2} (y_{i} - y_{i-1})\\
+        &\le \sum_{i = 1}^Mf(\xi_i)(y_i - y_{i-1}) + 2c\sum_{i\in A_2} (y_{i} - y_{i-1})\\
+        &\le R(f,P,E) + 2c |A_2|\delta \le R(f,P,E)+ c\abs{P_n} \delta\le R(f,P,E)+ 2\varepsilon
+    \end{align*}
+
+    En procédant de la même manière avec $S(f,P_n)$, on obtient $S(f,P_n) \ge R(f,P,E) - 2\varepsilon$.
+    On a alors \begin{align*}
+        -3\varepsilon&\le R(f,P,E)-s(f,P_n)-\varepsilon\\&\le R(f,P,E) - S(f,P_n) \\
+        &\le R(f,P,E) + I \\
+        &\le R(f,P,E) - s(f,P_n)
+    \end{align*}
+    Nous avons donc $|R(f,P,E) - I| \le 3\varepsilon$
+    \item Par hypothèse, en prenant $\varepsilon = \frac1n$, on obtient $\delta_n>0$ tel que pour toute subdivision pointée $(P,E)$ d'épaisseur $\le\delta_n$, $$\abs{R(f,P,E)-I}\le\frac 1 n$$. Considérons $P_n$ une subdivision d'épaisseur $\le\delta_n$. On a le choix de l'ensemble de points $E$. On peut donc considérer $(P_n,E_n)$ où on aura $$\abs{f(\xi_i)-\sup_{x\in[x_{i-1},x_i]}f(x)}\le \frac 1n\text{ pour tout $\xi_i\in E_n$}$$ et de même, on peut considérer $(P_n,E'_n)$ tel que $$\abs{f(\xi_i')-\inf_{x\in[x_{i-1},x_i]}f(x)}\le\frac 1n \text{ pour tout $\xi_i'\in E'_n$}$$
+    On aura ainsi
+    \begin{align*}
+        \abs{R(f,P_n,E_n)-S(f,P_n)}&\le \abs{\sum_{i=1}^Nf(\xi_i)(x_i-x_{i-1})-M_i(x_i-x_{i-1})}\\
+        &\le \sum_{i=1}^N\abs{f(\xi_i)-M_i}(x_i-x_{i-1})\\
+        &\le\frac 1n(b-a)
+    \end{align*}
+    De même $$ \abs{R(f,P_n,E_n)-s(f,P_n)}\le \frac 1n(b-a)$$
+    On en déduit que \begin{align*}
+        \abs{S(f,P_n)-s(f,P_n)}\le \abs{S(f,P_n)-R(f,P_n,E_n)} + \abs{R(f,P_n,E_n)-I} + \abs{I-R(f,P_n,E_n')} + \abs{R(f,P_n,E_n') - s(f,P_n)}\\
+        &\le 2\frac{b-a}{n} + \frac{2}{n}\to 0
+    \end{align*}
+    De plus, $$\abs{S(f,P_n)-I}\le \abs{S(f,P_n)-R(f,P_n,E_n)} + \abs{R(f,P_n,E_n)-I}\le \frac{b-a}{n} + \frac{1}{n}\to 0$$
+\end{enumerate} 
+\end{proof}
+\section{Fonctions intégrables et propriétés de l'intégrale}
+Le but de cette section est de déterminer une collection de fonctions intégrables.
+\begin{proposition}
+    Toute fonction continue sur $[a,b]$ est intégrable.
+\end{proposition}
+\begin{proof}
+    Rappelons que toute fonction continue $f$ sur $[a,b]$ est bornée, par le théorème des bornes atteintes. De plus, $f$ sera uniformément continue sur $[a,b]$ car $[a,b]$ est compact, par Heine. Soit $\varepsilon>0$. Il existe $\delta>0$ tel que pour tout $x,y\in[a,b]$ avec $\abs{x-y}\le\delta$, on a $\abs{x-y}\le \varepsilon$. Considérons $P$ une subdivision d'épaisseur $\le\delta$. On aura ainsi si $P = \{x_0,\ldots, x_n\}$ que pour tout $1\le i \le n,\ \abs{M_i-m_i}\le \varepsilon$. On en conclut que $\abs{S(f,P)-s(f,P)}\le \varepsilon(b-a)$.
+    Par le critère de Riemann, $f$ est donc intégrable.
+\end{proof}
+Cela nous donne une grande famille de fonctions intégrables mais ne couvre pas des fonctions telles que $f(x) = 2 \cdot1_{\interff{0,\frac12}} - 1_{\interof{\frac12,1}}$.
+On va montrer que toute fonction bornée sur $[a,b]$ avec un nombre fini de discontinuités est intégrables.
+Pour cela, on commence par prouver la relation de Chasles.
+\begin{proposition}[Relation de Chasles]
+    Soit $f$ une fonction bornée sur $[a,b]$. Soit $c\in[a,b]$. $f$ est intégrable sur $[a,b]$ si et seulement si $f$ est intégrable sur $[a,c]$ et sur $[c,b]$. De plus, si $f$ est intégrable sur $[a,b]$, on a $$\int_a^bf(x)\intd x = \int_a^cf(x)\intd x + \int_c^bf(x)\intd x$$
+\end{proposition}
+\begin{proof}
+    \begin{itemize}
+        \item Si $f$ est intégrable sur $[a,c]$ et sur $[c,b]$ alors il existe une suite $(P_n)$ de subdivisions de $[a,c]$ telle que $S(f,P_n)-s(f,P_n)\to 0$ et il existe une suite $(P'_n)$ de subdivisions de $[c,b]$ telle que $S(f,P'_n)-s(f,P'_n)\to 0$. Posons $Q_n = P_n\cup P'_n$. On a alors $S(f,Q_n)-s(f,Q_n) = S(f,P_n)+ S(f,P'_n) - s(f,P_n)-s(f,P'_n)\to 0$.
+        Notons de plus que \begin{align*}
+            \int_a^bf(x)\intd x &= \lim_n S(f,Q_n) = \lim_n S(f,P_n) + S(f,P_n') \\
+            &= \int_a^cf(x)\intd x + \int_c^bf(x)\intd x
+        \end{align*}
+        \item Si $f$ est intégrable sur $[a,b]$, alors il existe $(P_n)$ une subdivision de $[a,b]$ telle que $S(f,P_n) - s(f,P_n)\to 0$. Notons que si on pose $P_n' = P_n\cup\{c\}$ on aura $$0\le S(f,P_n')-s(f,P_n')\le S(f,P_n)-s(f,P_n)\to 0$$. Posons $Q_n = P_n'\cap[a,c]$ une subdivision de $[a,c]$ et $\Tilde{Q}_n = P'_n\cap [c,b]$ une subdivision de $[c,b]$.
+        On a ainsi \begin{align*}
+            0&\le S(f,Q_n)-s(f,Q_n) = (S(f,P_n')-S(f,\Tilde{Q}_n))- (s(f,P_n')-s(f,\Tilde{Q}_n))\\
+            &= S(f,P_n')-s(f,P_n') -( S(f,\Tilde Q _n) - s(f,\Tilde Q_n))\\
+            &\le S(f,P_n')-s(f,P_n')\to 0
+        \end{align*}
+        Ainsi $f$ est intégrable sur $[a,c]$. De la même façon, on montre que $f$ est intégrable sur $[c,b]$.
+    \end{itemize}
+\end{proof}
+\begin{proposition}
+    Toute fonction bornée sur $[a,b]$ admettant uniquement un nombre fini de discontinuité est intégrable sur $[a,b]$.
+\end{proposition}
+\begin{proof}
+    Quitte à couper l'intervalle $[a,b]$ en chaque point de discontinuité, on peut se ramener via la relation de Chasles au cas au $f$ est continu sur $]a,b[$. On supose donc que $f$ est borné sur $[a,b]$ et continu sur $\interoo{a,b}$. Soit $\varepsilon>0$. On va considérer $0<\delta < \varepsilon$ tel que $a+\delta < b-\delta$. Comme $f$ est continue sur $\interoo{a,b}$, $f$ est continue sur $[a+\delta, b-\delta]$. On a vu que $f$ est alors intégrable sur $[a+\delta, b-\delta]$ et il existe donc $P$ une subdivision de $[a+\delta, b-\delta]$ telle que $S(f,P)-s(f,P)\le\varepsilon$. Posons $P' = \{a\}\cup P\cup \{ b\}$. On a ainsi \begin{align*}
+        S(f,P') - s(f,P') &= \sup_{x\in [a,a+\delta]}f(x)\cdot \delta  + S(f,P) + \sup_{x\in [b-\delta,b]}f(x)\cdot \delta \\
+        &- \left(\inf_{x\in [a,a+\delta]}f(x)\cdot \delta  + s(f,P) + \inf_{x\in [b-\delta,b]}f(x)\cdot \delta \right)\\
+        &\le 4\norm f_{\infty}\cdot \delta + S(f,P)-s(f,P)\le (4\norm f_{\infty} + 1)\varepsilon
+    \end{align*}
+\end{proof}
+\begin{remarque}
+    Les fonctions en escalier sur $[a,b]$ sont intégrables où $f$ est une fonction en escalier s'il existe une subdivision $P = \{ x_0,\ldots, x_n\}$ de $[a,b]$ telle que pour tout $1\le i \le n$, $f$ est constante sur $\interoo{x_{i-1}, x_i}$. On aurait aussi pu dire qu'une fonction bornée $f$ sur $[a,b]$ est intégrable aus sens de Riemann si et seulement si 
+    \begin{align*}
+        \sup&\left\{\int_a^bg(x)\intd x \mid\text{$g$ est une fontion en escalier avec $g\le f$}\right\}\\
+         = \inf\left\{\int_a^bg(x)\intd x \mid\text{$g$ est une fontion en escalier avec $g\ge f$}\right\}
+    \end{align*}
+    où pour tout fonctin en escalier $g$ donnée par $g(x) = c_i$ si $x\in\interoo{x_{i-1},x_i}$, on pose $$\int_a^bg(x)\intd x = \sum_{i = 1}^n c_i(x_i-x_{i-1})$$
+\end{remarque}
+\begin{proposition}
+    Soit $f$ une fonction bornée sur $[a,b]$. Si $f$ est monotone sur $[a,b]$ alors $f$ est intégrable sur $[a,b]$.
+\end{proposition}
+\begin{proof}
+    Supposons que $f$ est croissante sur $[a,b]$, la preuve est similaire si $f$ est décroissante. Soit $P$ une subdivision de $[a,b]$. On a \begin{align*}
+        S(f,P) - s(f,P)&= \sum_{i = 1}^n f(x_i)(x_i - x_{i-1}) - \sum_{i = 1}^nf(x_{i-1})(x_i - x_{i-1})\\
+        &= \sum_{i = 1}^n \big(f(x_i)-f(x_{i-1})\big)(x_i-{x_{i-1}})\\
+        &\le \max_{1\le i\le n}(x_i-x_{i-1}) \sum_{i = 1}^n \big(f(x_i)-f(x_{i-1})\big)\\
+        & = \max_{1\le i\le n}(x_i-x_{i-1})\big( f(b) - f(a)\big)
+    \end{align*}
+    Quitte à choisir une subdivision $P$ d'épaisseur $\le\varepsilon$, on aura donc $S(f,P)-s(f,P)\le\varepsilon\big(f(b)-f(a)\big)$. Donc $f$ est intégrable sur $[a,b]$.
+\end{proof}
+
+
+% Le cours du 25/03
+
+\begin{remarque}
+    Soit $f$ une fonction bornée sur $[a,b]$, s'il existe une subdivision $P = \{x_0,...,x_n\}$ de $[a,b]$ tel que $f$ est monotone sur chaque interval $[x_{i-1},x_i]$, alors, par la relation de Chasles, $f$ est intégrable sur $[a,b]$.
+\end{remarque}
+
+% Remarque du dernier cours (truc au dessus) 
+
+Voyons sous quel type de transformations une fonction intégrable reste intégrable. 
+
+\begin{proposition}
+    Soient $f,g$ deux fonctions bornées et intégrables sur $[a,b]$. Soit, $\lambda \in \R$. Alors, $\lambda f + g$ est intégrable sur $[a,b]$ et nous avons : 
+    $$\int_a^b\lambda f(x) + g(x) \intd x =\lambda \int_a^bf(x) \intd x + \int_a^bg(x)\intd x$$
+\end{proposition}
+
+\begin{proof}
+    Par hypothèse, il existe une suite $(P_n)$ de subdivision de $[a,b]$ tel que $S(f,P_n)-s(f,P_n) \to 0$ et une suite $(P'_n)$ de subdivision de $[a,b]$ tel que $S(g,P'_n)-s(g,P'_n) \to 0$.
+
+Posons $Q_n = P_n \cup P'_n$, nous avons donc bien, 
+    \begin{enumerate}
+        \item $S(f,Q_n)-s(f,Q_n) \to 0$
+        \item $S(g,Q_n)-s(g,Q_n) \to 0$
+    \end{enumerate}
+
+    Supposons que $\lambda \ge 0$.
+\begin{align*}
+    S(\lambda f + g,Q_n) =& \sum_{i=1}^N\sup\{\lambda f(x) + g(x) \;| \; x\in [x_{i-1},x_i]\}(x_i-x_{i-1})\\ \le & \sum_{i=1}^N (\sup\{\lambda f(x) \;| \; x\in [x_{i-1},x_i]\} + \sup\{g(x) \;| \; x\in [x_{i-1},x_i]\})(x_i-x_{i-1})\\ 
+    =& \lambda S(f,Q_n) + S(g,Q_n)
+\end{align*}
+    De même, on aura 
+    \begin{align*}
+        s(\lambda f + g,Q_n) \ge \lambda s(f,Q_n) + s(g,Q_n)
+    \end{align*}
+    On a donc
+    \begin{align*}
+        0 \le& \;S(\lambda f + g,Q_n) - s(\lambda f + g,Q_n) \\
+        \le&\;\lambda S(f,Q_n) + S(g,Q_n) -\lambda s(f,Q_n) - s(g,Q_n) \to 0
+    \end{align*}
+    La fonction $\lambda f + g$ est bien intégrable sur $[a,b]$, et $ \lambda s(f,Q_n) + s(g,Q_n) \le s(\lambda f + g,Q_n) \le S(\lambda f + g,Q_n) \le \lambda S(f,Q_n) + S(g,Q_n)$
+    Par convergence dominée, nous avons donc 
+    \begin{align*}
+        \int_a^b\lambda f(x) + g(x) \intd x =\lambda \int_a^bf(x) \intd x + \int_a^bg(x)\intd x
+    \end{align*}
+
+    Pour les $\lambda < 0$, il suffit de montrer, que si $f$ est intégrable, alors $-f$ est intégrable et $\int_a^b-f(x)\intd x = -\int_a^b-f(x)\intd x$.
+
+    On a en fait, pour toute subdivision $P$,
+    \begin{align*}
+        S(-f,P) = -s(f,P) \\
+        s(-f,P) = -S(f,P)
+    \end{align*}
+    On aura donc, en considérant $(P_n)$ telle que, $S(f,P_n)-s(f,P_n) \to 0$ que $S(-f,P_n)-s(-f,P_n) \to 0$.
+
+    De plus, $\int_a^b-f(x)\intd x = \lim_n S(-f,P_n) = \lim_n-s(f,P_n) = -\int_a^bf(x)\intd x$.
+\end{proof}
+
+L'intégrale est donc une application linéaire qui est de plus croissante.
+
+\begin{proposition}
+    Soient $f,g$ bornées et intégrables sur $[a,b]$, $f(x)\le g(x)$ alors 
+    \begin{align*}
+        \int_a^bf(x)\intd x \le \int_a^bg(x)\intd x
+    \end{align*}
+\end{proposition}
+
+\begin{proof}
+    Par la proposition précédente, on a 
+    \begin{align*}
+        \int_a^bf(x)\intd x \le \int_a^bg(x)\intd x <=> %jsp faire éuivalent
+        0 \le \int_a^bg(x)-f(x)\intd x
+    \end{align*}
+    Or, comme $f(x)\le g(x)$ pour tout $x \in [a,b]$, on aura
+    $S(g-f,P)\ge 0$ pour toute subdivision $P$ et donc, $\int_a^bg(x)-f(x)\intd x$
+\end{proof}
+
+\begin{proposition}
+    Soit $f$ une fonction intégrable de $[a,b]$ dans $[m,M]$.
+    Soit $\phi$ une fonction continue sur $[m,M]$. Alors,$\phi\circ f$ est intégrable sur $[a,b]$.
+\end{proposition}
+
+\begin{proof}
+    Soit $\varepsilon >0$
+
+    Comme $\phi$ est continue sur $[m,M]$ et donc uniformement continue,$\exists\delta >0$ tel que pour tout $x,y \in[m,M]$ avec $|x,y| \le \delta$
+\end{proof}
+
+
+% Cours du 31/01
+
+\begin{section}{6.4 Théorème fondamental de l'analyse}
+OMGGGGG ENFINNNN
+
+On sait depuis longtemps que le calcul d'une intégrale peut se faire à l'aide d'une primitive.
+
+\begin{definition}
+    Soit $f$ une fonction de $[a,b]$ dans $\mathbb{R}$.
+
+    Une fonction $F$ est une primitive de $f$ sur $[a,b]$ si
+    \begin{align*}
+       \forall x\in ]a,b[  \quad F'(x) = f(x)
+    \end{align*}
+    et si $F$ est continue en $a$ et en $b$.
+\end{definition}
+    On dit que $f$ est primitivable si $f$ possède une primitive.
+\end{section}
+
+\begin{theoreme}
+    Soit $f : [a,b]\to \mathbb{R}$ une fonction continue.
+    Alors, la fonction 
+    \begin{align*}
+        F(x) = \int_a^xf(t)dt
+    \end{align*}
+    est une primitive de $f$ sur $[a,b]$ et donc en particulier, $f$ est primitivable.
+\end{theoreme}
+
+\begin{proof}
+    On peut tout d'abord montrer que $F$ est Lipschitzien sur $[a,b]$.
+
+    Soient $x,y \in [a,b]$. Supposons que $x < y$.
+
+    \begin{align*}
+        |F(y) - F(x)| &= |\int_a^yf(t)\intd t -  \int_a^xf(t)\intd t|\\
+        &=|\int_x^yf(t)\intd t| \\
+        &\le||f||_{\infty}(y-x)
+    \end{align*}
+
+    Soit $x\in ]a,b[$, il faut montrer que 
+
+    \begin{align*}
+        \lim_{h\to0}|\frac{F(x+h)-F(x)}{h}-f(x)| = 0
+    \end{align*}
+
+    \begin{enumerate}
+        \item Si $h > 0$, On a 
+        \begin{align*}
+            & |\frac{F(x+h)-F(x)}{h}-f(x)|\\
+            &= |\frac{\int_a^{x+h}f(t)\intd t - \int_a^{x}f(t)\intd t}{h}-f(x)\\
+            &=|\frac{1}{h}\int_x^{x+h} f(t)\intd t - f(x)|\\
+            &=|\frac{1}{h}\int_x^{x+h} f(t)-f(x)\intd t |\\
+            &\le \sup_{t\in[x,x+h]}|f(t)-f(x)| \to 0
+        \end{align*}
+        car $f$ est continue.
+        \item Si $h <0$, on arrive à la même égalité avec $\sup_{t\in [x+h,x]}|f(t)-f(x)|$
+    \end{enumerate}
+\end{proof}
+
+On a donc bien que $F$ est dérivalbe sur $]a,b[$ et que $F'=f$ sur $]a,b[$.
+
+\begin{theoreme}{Théorème fondamental de l'analyse (Version continue).}
+    Soit $f : [a,b] \to \mathbb{R}$ continue.
+
+    Alors $f$ est intégrable et primitivable sur $[a,b]$ et pour toute primitive $F$ de $f$, on a 
+
+    \begin{align*}
+        \int_a^bf(x)\intd x = F(b) - F(a).
+    \end{align*}
+\end{theoreme}
+
+\begin{proof}
+    On sait déjà que toute fonction continue sur $[a,b]$ est intégrable et primitivable.
+
+    Soit $F$ une primitive de $f$ sur $[a,b]$
+    Posons $G(x) = F(x) - \int_a^xf(x)\intd x $. La fonction $G$ est donc continue et même dérivable sur $]a,b[$. De plus, pour tout $x\in ]a,b[ \quad G'(x) = f(x) - f(x) = 0$.
+    On en déduit que $G$ est constant sur $[a,b]$.
+
+    On a donc $G(a) = G(b) = F(b) -\int_a^bf(x)\intd x  =F(a) -\int_a^af(x)\intd x$.
+    Comme $\int_a^af(t)\intd t = 0$, nous prouvons donc notre résultat.
+    
+\end{proof}
+
+\begin{theoreme}{(Version Bornée + primitivable + intégrable)}
+    Soit $f : [a,b] \to \mathbb{R}$ 
+
+    Si $f$ est primitivable et intégrable sur $[a,b]$, alors pour tout primitive $F$ de $f$, on a 
+    
+    \begin{align*}
+        \int_a^bf(x)\intd x = F(b) - F(a).
+    \end{align*}
+\end{theoreme}
+
+\begin{proof}
+    Soit $P = \{ x_0,\cdots x_n\}$ une subdivision de $[a,b]$.
+
+    On a alors 
+    \begin{align*}
+        F(b) - F(a) &= \sum_{i=1}^n (F(x_i)-F(x_{i-1}))\\
+        &=\sum_{i=1}^n \frac{F(x_i)-F(x_{i-1})}{(x_i-x_{i-1})}(x_i-x_{i-1}) \\
+        &= \sum_{i=1}^nf(\xi_i)(x_i-x_{i-1}) \quad \xi_i \in ]x_i-x_{i-1}[ \\
+        &= R(f,P,E) 
+    \end{align*}
+    Où $E = \{\xi_1\cdots \xi_n\}$.
+
+    Comme $f$ est intégrable, on sait que si on considère $(P_n)$ une subdivision dont l'épaisseur tend vers $0$, alors, pour tout choix de $E_n$, on a 
+
+    \begin{align*}
+        R(f,P_n,E_n) \to \int_a^b f(x) \intd x
+    \end{align*}
+    Or, on peut choisir $E_n$ tel que 
+    \begin{align*}
+        R(f,P_n,E_n) = F(b) - F(a)
+    \end{align*}
+    et on en déduit que 
+    \begin{align*}
+        \int_a^bf(x)\intd x = F(b) -F(a)
+    \end{align*}
+\end{proof}
+
+Liens entre dérivable (0), continue (1) , intégrable (2) et primitivable (3)
+On a :
+(0) implique (1)
+(1) n'implique pas (0)
+(1) implique (2)
+(2) n'implique pas (1)
+(1) implique (3)
+(3) n'implique pas (1)
+Il n'y a aucune autre implication. 
+
+\begin{description}
+    \item[Fonction intégrables mais pas continues :] $f(x) = 1 $ si $x \in [0,1]$ et $0$ sur $x \in ]1,2]$
+    
+    \item [Fonction intégrable mais pas primitivable :] On reprend la même fonction $f(x)= 1 $ si $x \in [0,1]$ et $0$ sur $x \in ]1,2]$.
+
+    Supposons que $F$ soit une primitive de $f$.
+    On aurait alors qu'il existe une constante $c_1$ tel que $F(x) = x+ c_1$ sur $]0,1[$ et il existerait $c_2$ tel que $F(x) = c_2$ sur $]1,2[$.
+
+    Comme $F$ est continu sur $[0,2]$ on doit avoir $1 + c_1 = c_2$ et donc, $F(x) = x+c_1$ si $x \in [0,1]$ et $1 + c_1$ si $x \in ]1,2]$. Hors cette fonction n'est pas dérivable en $1$ pour tout choix de $c_1$.
+
+    \item [Fonction primitivable qui n'est pas continue :] $F(x) = x^2 \sin(\frac{1}{x})$ si $x \ne0$ et $0$ si $x = 0$. 
+    (Problème en 0)
+
+    On dérive $F$, on voir qu'il y a un terme $\cos(\frac{1}{x})$ qui fait en sorte que ça soit pas continu en $0$ mais faut faire les détails proprement etc... donc la défivée de $F$ est primitivable mais pas continue.
+
+    Notons cependant que $f = F'$ est intégrable car $0$ est le seul point de discontinuité.
+
+    \item[Fonction primitivable mais pas intégrable :]
+
+    Pour cela, on aura besoin de notre 2e MONSTRE : La fonction de Voltera (Faire beaucoup de dessins)
+\end{description}
+
+Deux règles de calcul à bien connaître.
+
+\begin{theoreme}{Intégration par parties}
+
+    Soient $f,g : [a,b] \to \mathbb{R}$ de calsse $C^1$.
+
+    On a alors :
+    \begin{align*}
+        \int_a^bf(x)g'(x)\intd x = [f(x)g(x)]_a^b -\int_a^bf'(x)g(x)\intd x 
+    \end{align*}
+\end{theoreme}
+
+\begin{proof}
+    Comme $f$ et $g$ sont de classe $C^1$, les fonctions $fg'$ et $gf'$ sont continues, et même la fonction $f'g'$.
+
+    On sait que $(fg)' = f'g + fg'$ est continu sur $[a,b]$ et admet comme primitive $fg$
+
+    Par le TFA, appliqué à $(fg)'$, on a 
+    \begin{align*}
+        \int_a^bf'(x)g'(x)\intd x = [f(x)g(x)]_a^b
+    \end{align*}
+
+    Par la linéarité de l'intégrale, on a de plus 
+    \begin{align*}
+        \int_a^bf'(x)g'(x)\intd x = \int_a^bf'(x)g(x) + f(x)g'(x) \intd x = \int_a^b f'(x)g(x)dx + \int_a^bf(x)g'(x)dx
+    \end{align*}
+    En combinant toutes ces égalités, on trouve le résultat voulu
+\end{proof}
+
+\begin{theoreme}{Changement de variable}
+
+    Soit $f : [a,b] \to \mathbb{R}$ continu
+
+    Soit $\varphi : [c,d] \to [a,b]$ de classe $C^1$
+
+    Alors 
+    \begin{align*}
+        \int_{\varphi(c)}^{\varphi(d)}f(x)dx = \int_c^df(\varphi(x))\varphi'(x)dx
+    \end{align*}
+\end{theoreme}
+
+\begin{proof}
+
+    Comme $f$ est continu, il existe $F$ une primitive de $f$
+
+    et on en déduit que 
+    \begin{align*}
+        \int_{\varphi(c)}^{\varphi(d)}f(x)dx=F(\varphi(d)) - F(\varphi(d))
+    \end{align*}
+
+    De plus, $F\circ\varphi$ est une primitive de $(f\circ \varphi)\varphi'$
+\end{proof}(Faire la fin)

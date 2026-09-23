@@ -1,0 +1,2233 @@
+\chapter{Éléments de théorie des ensembles}
+
+\section{Théorie des ensembles Zermolo Fraenkel (ZF)}
+
+\subsection{Paradoxe de Russel}
+Jusqu'au début du XX\,\textsuperscript{e}~siècle, les mathématiciens manipulaient les ensembles de manière dite \emph{naïve}.
+On les concevait d’abord comme des objets géométriques (points, droites, cercles, etc.), puis comme de simples collections d’objets partageant une propriété commune.
+
+C’est le mathématicien allemand \textsc{Georg Cantor} (1845–1918) qui, à partir de 1874, posa les bases de la \emph{théorie naïve des ensembles}.
+Cette approche intuitive permit à Cantor de développer la notion de \emph{cardinalité} et d’étudier différents « types d’infini » par des travaux qui révolutionnèrent les fondements des mathématiques modernes.
+Cependant, cette théorie, bien que féconde, se révéla insuffisamment rigoureuse.
+
+\medskip
+
+En 1901, le philosophe et logicien britannique \textsc{Bertrand Russell} (1872–1970) mit en évidence une contradiction au cœur même de la théorie naïve : le \emph{paradoxe de Russell}.
+Considérons l’ensemble suivant :
+\[
+	R := \{\,x \text{ ensemble} \mid x \notin x\,\}.
+\]
+Autrement dit, $R$ désigne l’ensemble de tous les ensembles qui ne se contiennent pas eux-mêmes.
+La question est alors : $R$ appartient-il à lui-même~?
+
+\medskip
+
+\noindent
+Deux cas se présentent :
+\begin{itemize}
+	\item Si $R \in R$, alors par définition de $R$, on doit avoir $R \notin R$.
+	\item Si $R \notin R$, alors, toujours par définition, $R$ satisfait la condition pour appartenir à $R$ ; donc $R \in R$.
+\end{itemize}
+ On aboutit à la contradiction suivante :
+\begin{equation*}
+	R \in R \;\Longleftrightarrow\; R \notin R.
+\end{equation*}
+
+Cette impossibilité logique révèle une faille fondamentale de la théorie naïve : certaines définitions « trop générales » engendrent des paradoxes.
+
+\medskip
+
+Pour surmonter cette difficulté, les mathématiciens entreprirent de fonder la théorie des ensembles sur une base axiomatique rigoureuse.
+En 1908, \textsc{Ernst Zermelo} (1871–1953) proposa une première axiomatisation visant à éviter les paradoxes.
+Cette théorie fut ensuite enrichie en 1922 par \textsc{Abraham Fraenkel} (1891–1965) et, indépendamment, par \textsc{Thoralf Skolem} (1887–1963).
+L’ensemble de ces axiomes constitue la théorie des ensembles \textbf{ZF} (\emph{Zermelo–Fraenkel}).
+Lorsqu’on y ajoute l’axiome du choix (dont nous parlerons plus tard), on obtient la théorie \textbf{ZFC}, aujourd’hui la base de la plupart des mathématiques formelles.
+
+\medskip
+
+Cependant, même la théorie ZF ne permet pas de manipuler des « collections trop grandes » comme la collection de tous les ensembles, car celle-ci n'est pas un ensemble.
+Pour traiter de telles collections, d’autres systèmes ont été développés, notamment la théorie \textbf{NBG} (\emph{von Neumann–Bernays–Gödel}), qui étend ZF en introduisant une distinction explicite entre ensembles et classes.
+Dans ce chapitre, nous allons réaliser une brève introduction à la théorie ZF, théorie qui sera, sans doute, approfondie lors d'une présentation au Q2. Le but de ce document est simplement d'établir des propriétés ensemblistes nécéssaires pour les chapitres suivants, ainsi que d'introduire la notion de cardinalité qui sera également détaillée lors d'une présentation.
+
+\subsection{Axiomatique et conséquences}
+
+Dans la section suivante, nous énoncerons les axiomes qui constituent la théorie ZF et nous allons brièvement constater leurs conséquences directes. Il faut noter que cette section a été légèrement plus détaillée que ce que nous avons pu étudier pendant le cours.
+Commençons par donner cinq axiomes dont les énoncés sont relativement aisés à comprendre et qui sont en accord avec l'intuition commune.
+
+\section*{Axiomes élémentaires}
+
+\begin{axiome}[d'extensionnalité]\label{ens : axiome : ext}
+	Deux ensembles possédant les mêmes éléments sont égaux :
+	\begin{equation*}
+		\forall A,\forall B, \quad [\forall x, \: (x\in A \Leftrightarrow x\in B)] \: \Leftrightarrow \:A=B
+	\end{equation*}
+\end{axiome}
+\begin{proposition}\label{ens : axiome : transi_égalité}
+    Soient $A,B,C$ des ensembles. Si $A = B$ et $B=C$, alors $A=C$.
+\end{proposition}
+\begin{proof}
+Soit $x$.
+Considérons les expressions logiques $P\equiv x\in A, Q\equiv x\in B$ et $R\equiv x\in C$.
+ Par table de vérité, on a $(P\ssi Q)\land(Q\ssi R)\alors P\ssi R$.
+\end{proof}
+\begin{axiome}[de l'ensemble vide]\label{ens : axiome ; vide}
+	Il existe un ensemble qui ne contient aucun éléments :
+	\begin{equation*}
+		\exists E,\: \forall x,\: x\notin E
+	\end{equation*}
+\end{axiome}
+
+\begin{proposition}
+	Il n'y a qu'un seul ensemble qui ne possède aucun élément.
+	On l'appelle ensemble vide et on le note $\varnothing$.
+\end{proposition}
+
+\begin{proof}
+	Cela résulte des deux axiomes précédents.
+\end{proof}
+\begin{proposition}[Axiome de la paire]\label{ens : axiome : paire}
+	Pour tous ensembles $a$ et $b$, il existe un ensemble, noté $\{a,b\}$
+	, admettant comme éléments $a$ et $b$ et rien d'autre.
+	\begin{equation*}
+		\forall a,\forall b,\quad \exists E,\forall x, [x\in E \Leftrightarrow (x=a \lor x=b)]
+	\end{equation*}
+\end{proposition}
+\begin{remarque}
+Lorsque la théorie des ensembles était à ses débuts, cette proposition constituait un axiome. Puis, lorsque l'axiome de remplacement \ref{ens : axiome : remplacement} a été adopté, il n'était plus nécessaire. La preuve de cette proposition se trouve au point \ref{ens : axiome : preuve_paire}.
+\end{remarque}
+
+\begin{proposition}\label{ens: singleton}
+	Pour tout ensemble $a$, il existe un ensemble et un seul dont $a$ est le seul élément. Cet ensemble est noté $\{a\}$
+\end{proposition}
+
+\begin{proof}
+	Il s'agit d'un cas particulier de l'axiome de la paire avec $a=b$.
+\end{proof}
+
+
+\begin{axiome}[de la réunion]\label{ens : axiome : réunion}
+	Pour tout ensemble $I$, il existe un ensemble $U$ dont les éléments sont les éléments des éléments $I$.
+	\begin{equation*}
+		\forall I,\exists U,\forall x, [x\in U \Leftrightarrow \exists i,(i\in I\land x\in i)]
+	\end{equation*}
+	L'ensemble $U$ est appelé la réunion des éléments de $I$, et on le note $\bigcup I$
+\end{axiome}
+Par exemple, si $I=\{\{a,b\}, \{c,d\},\{d\}\}$ alors $U= \{a,b,c,d\}$. 
+\begin{definition}
+	Soient $A$ et $B$ deux ensembles, on définit l'union de $A$ et $B$, que l'on note $A\cup B$, par l'ensemble $\bigcup I$ où $I=\{A,B\}$.
+\end{definition}
+\begin{definition}
+	On dit qu'un ensemble $A$ est contenu dans un ensemble $B$, ou que $A$ est une partie de $B$ si tout élément de $A$ est élément de $B$.
+	\begin{equation*}
+		\forall x,[x\in A \Rightarrow x\in B]
+	\end{equation*}
+	On écrit alors $A\subseteq B$
+\end{definition}
+
+\begin{remarque}
+	Il vient naturellement de cette définition que deux ensembles $A$ et $B$ sont égaux si et seulement si il sont inclus l'un a l'autre, c'est à dire
+	$A=B \Leftrightarrow (A\subseteq B) \land ( B\subseteq A)$
+\end{remarque}
+
+\begin{axiome}[de l'ensemble des parties]\label{ens : axiome : parties}
+	Pour tout ensemble $A$, il existe un ensemble $P$ dont les éléments sont les ensembles contenus dans $A$.
+	\begin{equation*}
+		\forall A,\exists P, \forall x, [x\in P\Leftrightarrow \forall y, (y\in x \Rightarrow y\in A)]
+	\end{equation*}
+	Cet ensembles est noté $\mathscr{P}(A)$.
+\end{axiome}
+\begin{remarque}
+	Notons que l'ensemble vide, appartient toujours à $\mathscr{P}(A)$ pour tout $A$.
+\end{remarque}
+\begin{axiome}[de l'infini]
+	Il existe un ensemble $N$ qui vérifie
+	\begin{equation*}
+		\exists N, (\varnothing \in N\land \forall n,(n\in N\Rightarrow  n\cup \{n\}\in N))
+	\end{equation*}
+\end{axiome}
+Ce qui veut dire qu'il existe un ensemble $N$ qui admet notamment comme éléments
+$\varnothing,\{\varnothing\},\{\varnothing,\{\varnothing\}\},\dotsc$.
+
+\section*{Les axiomes techniques}
+
+D'autres axiomes sont donc nécessaires pour que la théorie puisse être utilisée. Voici donc, en plus des cinq précédents, les axiomes de séparation (aussi appelés axiomes de compréhension),
+les axiomes de substitution et l'axiome de fondation. Ces axiomes constituent la théorie ZF, pour Zermelo-Fraenkel. Et lorsque nous ajouterons l'axiome du choix, nous obtiendrons la théorie ZFC.
+On considère les expressions logiques $\mathscr{C}(x,x_1,\dotsc ,x_k)$ en des variables $x,x_1,\dotsc ,x_k$
+dans le langage de ZF. Pour chaque expression de ce type, on a un axiome de séparation.
+Notez que si les termes de langages et de formules vous semblent flous, nous vous recommandons d'en prendre connaissance pour une meilleure compréhension.
+\textbf{À RELIRE}
+\begin{axiome}[de substitution ou de remplacement]\label{ens : axiome : remplacement}
+	Pour chaque expression logique de type $\mathscr{C}(x, y,x_1,\dotsc , x_k)$, il y a un axiome de substitution dont voici l'énoncé :
+	\begin{align*}
+		 \forall x_1,\dots, x_k,\ &\forall X, \ [(\forall x\in X), \forall y_1, \forall y_2 (\mathscr{C}(x, y_1,x_1,\dotsc, x_k)\land \mathscr{C}(x, y_2, x_1, \dotsc , x_k)\alors y_2 = y_1)\\
+        & \alors \exists Y, \forall y (y\in Y \Leftrightarrow \exists x\in X, \mathscr{C}(x, y,x_1, \dotsc ,x_k))]
+	\end{align*}
+\end{axiome}
+\begin{notation}
+    Si une expression logique du type $\mathscr{C}(x, y,x_1,\dotsc , x_k)$ et un ensemble $X$ vérifient $$(\forall x\in X), \forall y_1, \forall y_2 (\mathscr{C}(x, y_1,x_1,\dotsc, x_k)\land \mathscr{C}(x, y_2, x_1, \dotsc , x_k)\Rightarrow y_2 = y_1)$$ on dira que $\mathscr{C}$ est fonctionnelle sur $X$. 
+\end{notation}
+\begin{proposition}[Axiome de séparation ou de compréhension]\label{ens : axiome : séparation}
+	Pour chaque expression logique $\mathscr{C}(x,x_1,\dotsc ,x_k),$ en des variables $x,x_1,\dotsc ,x_k$, la proposition suivante est vraie :
+	\begin{equation*}
+		\forall x,\forall x_1,\dotsc, x_k,\forall X,\exists Z, \quad [x\in Z \Leftrightarrow (x\in X \land \mathscr{C}(x,x_1,\dotsc , x_k) )]
+	\end{equation*}
+	L'ensemble $Z$ est appelé l'ensemble des $x\in X$ tels que $\mathscr{C}(x,x_1,\dotsc , x_k)$ et il est noté $\{x\in X \mid \mathscr{C}(x,x_1,\dots, x_k)\}$
+\end{proposition}
+\begin{proof}
+    Considérons l'expression logique $\mathscr{C}'(x,y,x_1,\dotsc ,x_k)\equiv x=y\land \mathscr{C}(x,x_1,\dotsc ,x_k)$. Elle est bien fonctionnelle sur tout ensemble $X$ car si $\mathscr{C}'(x,y_1,x_1,\dotsc ,x_k)$ et $\mathscr{C}'(x,y_2,x_1,\dotsc ,x_k)$ alors en particulier $x=y_1$ et $x=y_2$ d'où $y_1 = y_2$ par transitivité de l'égalité \ref{ens : axiome : transi_égalité}. Soient $x,x_1,\dots, x_k, X$. Par l'axiome de substitution \ref{ens : axiome : remplacement}, il existe $Z$ tel que pour tout $z$, $z\in Z\ssi \exists x\in X,  \mathscr C'(x,z,x_1,\dots, x_k)$ \ie $x = z $ et $\mathscr C(x,x_1,\dots, x_k)$.
+\end{proof}
+Nous pouvons donc séparer les éléments d'un ensemble existant à l'aide d'une formule dans le langage de ZF.
+\begin{remarque}
+    Au début du dévellopement de la théorie des ensembles ZF, cette proposition remplaçait l'axiome de substitution \ref{ens : axiome : remplacement}. C'est la raison pour laquelle cette proposition porte le nom d'axiome de compréhension, bien qu'elle ne soit techniquement pas un axiome. L'axiome de substitution est plus fort, et nécessaire pour la construction de la théorie des ensembles.
+\end{remarque}
+
+
+\begin{axiome}[de fondation]\label{ens : axiome : fondation}
+	Tout ensemble non vide $A$ possède un élément $a$ tel que $a\cap A = \varnothing$
+\end{axiome}
+L’axiome de fondation assure que la relation d’appartenance est bien fondée, excluant toute boucle du type 
+$A\in A$ ou chaînes infinies d’appartenance. Il garantit ainsi une hiérarchie claire des ensembles et permet les raisonnements par récurrence sur leur structure.
+
+\section*{Conséquences}
+\begin{proposition}\label{ens : axiome : preuve_paire}
+
+    L'axiome de la paire \ref{ens : axiome : paire} est vrai.
+\end{proposition}
+\begin{proof}
+    Montrons que $\partie(\partie(\varnothing)) = \{\varnothing,\{\varnothing\}\}$. Soit $S\subseteq\varnothing$. Soit $x$. On a $x\notin S$ car sinon $x\in \varnothing$. Donc $S = \varnothing$. Réciproquement, on a bien $\varnothing\subseteq\varnothing$. Ainsi $\partie(\varnothing) = \{\varnothing\}$. Soit $S\subseteq \{\varnothing\}$. Supposons $S$ non vide. Alors soit $x\in S$. On a alors $x\in \{\varnothing\}$ d'où 
+\end{proof}
+\begin{proposition}
+	Si on a un nombre fini d'ensembles $x_1, \dotsc , x_k$, il existe un unique ensemble dont les éléments sont $x_1, \dotsc, x_k$, et eux seulement. Cet ensemble est noté $\{x_1, \dotsc , x_k\}$
+\end{proposition}
+
+\begin{proof}
+	Le résultat se construit par itération finie à l’aide des axiomes de la paire et de la réunion.  
+	
+	En effet, l’axiome de la paire assure que, pour tout couple d’ensembles $x, y$, l’ensemble $\{x, y\}$ existe.  
+	En supposant construit un ensemble $Y = \{x_1, \dotsc, x_{k-1}\}$, on applique l’axiome de la paire à $Y$ et $x_k$, ce qui donne $\{Y, x_k\}$.  
+	L’axiome de la réunion fournit alors
+	\[
+		\bigcup \{Y, x_k\} = Y \cup \{x_k\} = \{x_1, \dotsc, x_k\}.
+	\]
+	L’unicité découle de l’axiome d’extensionnalité.
+\end{proof}
+\textbf{À COMPLÉTER}
+\begin{remarque}
+    Pour une définition plus formelle de ce qu'est un ensemble fini ou une itération finie, vous pouvez vous référer aux sections sur les cardinaux 
+\end{remarque}
+\begin{proposition}
+	Il n’existe pas d’ensemble $A$ tel que $A \in A$.
+\end{proposition}
+\begin{proof}
+	Soit, par l'absurde, $A$ un tel ensemble. L’axiome de fondation appliqué à $\{A\}$ fournirait un élément $a\in A$ tel que $a\cap \{A\} = \varnothing$, ce qui contredit $A\in A$.
+\end{proof}
+
+\begin{definition}[Complémentaire]
+	Soit $E$ un ensemble et $A\subseteq E$.  
+	On appelle \emph{complémentaire} de $A$ dans $E$ l’ensemble des éléments de $E$ qui n’appartiennent pas à $A$, noté $\complement_E A$ ou $E\setminus A$ :
+	\[
+	\complement_E A = \{x\in E \mid x\notin A\}.
+	\]
+\end{definition}
+
+\begin{proposition}[Lois de De Morgan]
+	Soient $A,B\subseteq E$. On a les égalités suivantes :
+	\[
+	\complement_E (A\cup B) = (\complement_E A)\cap(\complement_E B)
+	\quad\text{et}\quad
+	\complement_E (A\cap B) = (\complement_E A)\cup(\complement_E B).
+	\]
+\end{proposition}
+
+\begin{proof}
+	Soit $x\in E$.  
+	\begin{align*}
+		x\in \complement_E (A\cup B)
+		&\Leftrightarrow x\notin A\cup B \\
+		&\Leftrightarrow (x\notin A)\land(x\notin B) \\
+		&\Leftrightarrow x\in (\complement_E A)\cap(\complement_E B),
+	\end{align*}
+	ce qui prouve la première égalité.  
+	La seconde s’obtient de façon analogue en remplaçant $\lor$ par $\land$ dans les équivalences logiques.
+\end{proof}
+
+\begin{remarque}
+	Ces lois traduisent en langage ensembliste les lois de De Morgan de la logique propositionnelle :
+	\[
+	\neg(P\lor Q)\equiv (\neg P)\land(\neg Q),
+	\quad
+	\neg(P\land Q)\equiv (\neg P)\lor(\neg Q).
+	\]
+	Elles illustrent le parallèle étroit entre logique et théorie des ensembles.
+    Lorsque le contexte est clair, on note $A^c$ le complémentaire de $A$ dans $E$
+\end{remarque}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Constructions axiomatiques diverses}
+
+\subsection{Familles et produits cartésiens quelconques}
+Dans cette section, nous formaliserons les notions de familles et de produits cartésiens quelconques.
+
+\begin{definition}[couple]
+    Soient $a$ et $b$ deux ensembles, on définit le \emph{couple} de $a$ et $b$ comme
+    \[
+    (a,b):= \{\{a\},\{a,b\}\}
+    \]
+\end{definition}
+
+\begin{proposition}\label{ens : couple : existence}
+    Le couple de $a$ et $b$ existe.
+\end{proposition}
+
+\begin{proof}
+    Par \ref{ens: singleton}, $\{a\}$ existe. Dès lors, on applique l'axiome de la paire sur $a$ et $b$, ce qui nous garantit l'existence de $\{a,b\}$. Et enfin, on applique une nouvelle fois l'axiome de la paire sur $\{a\}$ et $\{a,b\}$ ce qui nous donne l'existence de $(a,b)$
+\end{proof}
+
+\begin{remarque}
+    Remarquons que cette définition permet la non commutativité. C'est à dire que $(a,b)\neq (b, a)$. Cette manière de définir les couples est due à Kazimierz Kuratowski en 1921.
+\end{remarque}
+
+\begin{proposition}
+    Soient $(a,b)$ et $(c,d)$ deux couples. On a
+    \[
+    (a,b)=(c,d) \ssi (a=c)\land(b=d)
+    \]
+\end{proposition}
+
+\begin{proof}
+    Si $a=c$ et $b=d$, alors on a trivialement que $(a,b)=(c,d)$. Supposons maintenant que $(a,b)=(c,d)$ et montrons que $a=c$ et que $b=d$. On a $\{a\}\in \{\{c\},\{c,d\}\}$ si $\{a\}=\{c\}$ alors $a=c$. Si $\{a\}=\{c,d\}$, nous devons distinguer deux cas. D'abord si $c=d$, alors $\{a\}=\{c\}$ et donc $a=c$. Maintenant, si $c\neq d$ alors $\{c,d\}$ contient deux éléments distincts. Il ne peut donc pas être égal à $\{a\}$ qui ne contient qu'un élément. Cela contredit donc notre hypothèse. Ainsi, si $\{a\}=\{c,d\}$ alors $d=c$ et donc $a=c$ dans tous les cas. Il reste à montrer que $b=d$. on a $\{a,b\}\in \{\{c\},\{c,d\}\}$ donc $\{a,b\}=\{c\}$ ou $\{a,b\}=\{c,d\}$. Si $\{a,b\}=\{c,d\}$ alors $b=c$ ou $b=d$. Et si $c=b$ on a $b=c=a$ et donc $c=d$ sinon on aurait $\{a,b\} \neq \{c,d\}$ ainsi $b=d$. Et enfin, si $\{a,b\}=\{c\}$ alors $b=a=c$. Et $\{a\}=\{c,d\}$ donc $c=d$ et on trouve bien $b=d$.
+\end{proof}
+
+\begin{definition}[Produit cartésien]
+Soient $A$ et $B$ deux ensembles. On définit le \emph{produit cartésien} de $A$ et $B$ par
+\[
+A\times B := \{z\in \mathscr P( \mathscr P(A\cup B)) \mid \exists a\in A, \exists b\in B \: z=(a,b)\}
+\]
+\end{definition}
+\begin{proposition}
+    Le produit $A\times B$ existe 
+\end{proposition}
+\begin{proof}
+    On sait par l'axiome de la réunion que $A\cup B$ existe. En appliquant deux fois l’axiome des parties, on déduit l'existence de $\mathscr P( \mathscr P(A\cup B))$. Cet argument, combiné à l'existence des couples, nous conduit à affirmer que la formule suivante est une formule du langage de ZF:
+    \[
+    \mathscr C(z,A,B)\equiv  \exists a\in A, \exists b\in B \: z=(a,b)
+    \]
+    Ainsi, par l'axiome de séparation \ref{ens : axiome : séparation} $A\times B$ existe.
+\end{proof}
+
+\begin{remarque}
+    Le lecteur pourrait se questionner quant à la raison d'une telle définition de $A\times B$. En effet, il peut sembler naturel de plutôt tenter de définir ce produit comme
+    \[
+    A\times B =\{(a,b)\in \mathscr P( \mathscr P(A\cup B)) \mid a\in A, b\in B \}.
+    \]
+    Cependant cette définition est trop informel pour pouvoir démontrer que cet ensemble existe à partir des axiomes. Il s'agit d'une définition naïve, on peut néanmoins, une fois après l'avoir définit formellement, utiliser cette approche comme une notation de l'ensemble $A\times B$. 
+\end{remarque}
+
+
+Pour la suite, nous supposons, bien entendu, que le lecteur soit familier avec les notions de fonctions et de relations. Pour des constructions axiomatiques de ces notions, nous vous recommandons celles introduites par Bourbaki dans \emph{
+Théorie des ensembles
+}.
+\begin{definition}
+    On définit
+    $$B^A := \{F \in \mathcal{P}(A \times B) : F \text{ est un graphe fonctionnel de } A \text{ dans } B\}$$
+\end{definition}
+
+
+\begin{proposition}
+    Soient $A$ et $B$ deux ensembles, $B^A$ existe.
+\end{proposition}
+
+\begin{proof}
+On a
+    \begin{enumerate}
+\item $A \times B$ existe
+\item $\mathcal{P}(A \times B)$ existe (axiome des parties)
+\item La formule "$\forall x \in A \, \exists! y \in B \, (( x, y ) \in F)$" est une formule de $\mathcal{L}_{\text{ZF}}$
+\item Par compréhension : $B^A = \{F \in \mathcal{P}(A \times B) \mid \forall x \in A ,\ \exists! y \in B ,\ ( x, y ) \in F\}$ existe.
+\end{enumerate}
+\end{proof}
+
+\begin{definition}
+        Soit $I$ un ensemble. Une \emph{famille} indexée par $I$ est un couple $(E,A)$ où $E$ est un ensemble et $A$ une fonction de $I$ dans $E$.
+    Pour tout $i \in I$, on note $A_i$ l'unique élément tel que $(i, A_i) \in A$, c'est-à-dire $A_i := A(i)$. On note souvent une telle famille $(A_i)_{i\in I}$.
+\end{definition}
+
+Par abus de langage, on confond souvent la famille avec la fonction $A$ elle-même, mais formellement, c'est le couple $(E, A)$.
+
+\begin{definition}
+        Soit $I$ un ensemble non vide et $(E, A)$ une famille
+ indexée par $I$. On définit le produit cartésien de cette famille par :
+        \[
+        \prod_{i\in I}A_i:=\{f\in E^I \mid \forall i \in I, f(i)\in A_i\}
+        \]
+    \end{definition}
+
+    \begin{proposition}
+        Pour tout ensemble $I$ non vide et toute famille $(E, A)$ d'ensembles indexée par $I$, l'ensemble $\prod_{i\in I} A_i$ existe.
+    \end{proposition}
+
+    \begin{proof}
+    Posons $E = \bigcup_{i \in I} A_i$. Par ce qui précède, l'ensemble $E^I$ des fonctions de $I$ dans $E$ existe. Considérons la propriété
+    $$P(f) \equiv \forall i \in I, f(i) \in A_i.$$
+    Cette propriété définit une formule du langage de ZF. Par l'axiome de séparation, l'ensemble
+    $$\prod_{i \in I} A_i = \{f \in E^I \mid P(f)\}$$
+    existe.
+\end{proof}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\subsection{Opérations ensemblistes}
+Rappelons certaines règles élémentaires sur les opérations ensemblistes :
+\begin{enumerate}
+    \item $(A\cap B)^c=A^c\cup B^c$
+    \item $(A \cup B)^c = A^c \cap B^c$
+    \item $A\cap(B\cup C)=(A\cap B)\cup (A\cap C)$
+    \item $A\cup(B\cap C)=(A\cup B)\cap (A\cup C)$
+\end{enumerate}
+\begin{remarque}
+    On dira qu'une famille $(a_i)_{i\in I}$ est une \emph{suite} si $I$ est un ensemble de naturels de la forme $\N ^{\geq n_0}$ pour un certain $n_0\in \N$.
+\end{remarque}
+
+\begin{definition}
+Soit $(A_i)_{i\in I}$ une famille telle que pour tout $i\in I$, $A_i\in \partie(X)$.
+
+On peut généraliser l'union et l'intersection d'ensembles sur les familles par :
+    \begin{enumerate}
+    \item $\bigcup_{i\in I}A_i=\{x\in X \mid \exists i\in I, x\in A_i\}$
+    \item $\bigcap_{i\in I}A_i=\{x\in X\mid \forall i\in I , x\in A_i\}$
+    \end{enumerate}  
+\end{definition}
+\begin{remarque}
+    Avec $I = \{1,2\}$, on prouve facilement $\bigcup_{i\in I}A_i = A_1\cup A_2$ et $\bigcap_{i\in I}A_i = A_1\cap A_2$. Donc il s'agit bien d'une généralisation de l'union et de l'intersection de $2$ ensembles.
+\end{remarque}
+\begin{proposition}\label{ens : opérations : propriétés}
+    Les égalités suivantes sont vraies :
+    \begin{enumerate}
+        \item $\left(\bigcup_{i\in I}A_i\right)^c =\bigcap_{i\in I}A_i^c$
+        \item $\left(\bigcap_{i\in I}A_i\right)^c =\bigcup_{i\in I}A_i^c$
+        \item $A\cap\left(\bigcup _{i\in I}A_i\right)=\bigcup _{i\in I}(A_i\cap A)$
+        \item $\left(\bigcup _{i\in I}A_i\right)\cap\left(\bigcup _{j\in J}B_j\right) =\bigcup _{(i,j)\in I\times J}A_i\cap B_j$
+        \item $\left(\bigcap _{i\in I}A_i\right)\cup\left(\bigcap _{j\in J}B_j\right) =\bigcap _{(i,j)\in I\times J}A_i\cup B_j$
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Montrons les $5$ points précédents :
+    \begin{enumerate}
+        \item Soit $x$ dans notre ensemble ambiant. On a
+        \[
+        x\in\left(\bigcup_{i\in I}A_i\right)^c\ssi\neg(\exists i\in I,x\in A_i)\ssi \forall i\in I, x\not\in A_i\ssi x\in\bigcap_{i\in I}A_i^c
+        \]
+        \item La preuve est similaire au point précédent.
+        \item Clairement, les propositions $(x\in A \text{ et }\forall i\in I, x\in A_i)$ et $(\forall i\in I, x\in A_i\text{ et } x\in A)$ sont équivalentes si $I\ne\varnothing$. Si $I = \varnothing$, on a la convention $\bigcup_{i\in I}B_i = \varnothing$, donc l'égalité est vraie.
+        \item Par le point précédent, en posant $B:=\left(\bigcup _{j\in J}B_j\right)$, on a : \begin{align*}
+            \left(\bigcup _{i\in I}A_i\right)\cap\left(\bigcup _{j\in J}B_j\right) &=   \left(\bigcup _{i\in I}A_i\right)\cap B\\
+             = \left(\bigcup _{i\in I}A_i\cap B\right) &= \bigcup_{i\in I}\left(A_i\cap\left(\bigcup _{j\in J}B_j\right)\right)\\
+    =\bigcup _{i\in I}\bigcup _{j\in J}A_i\cap B_j&=\bigcup _{(i,j)\in I\times J}A_i\cap B_j
+        \end{align*}
+        \item Par le point précédent, on a
+        \begin{align*}
+            \left(\bigcap _{i\in I}A_i\right)&\cup\left(\bigcap _{j\in J}B_j\right) = \left(\bigcup _{i\in I}A_i^c\right)^c\cup\left(\bigcup _{j\in J}B_j^c\right) ^c = \left(\left(\bigcup _{i\in I}A_i^c\right)\cap\left(\bigcup _{j\in J}B_j^c\right) \right)^c \\
+            &= \left(\bigcup _{(i,j)\in I\times J}A_i^c\cap B_j^c\right)^c = \left(\bigcup _{(i,j)\in I\times J}(A_i\cup B_j)^c\right)^c=\bigcap _{(i,j)\in I\times J}A_i\cup B_j
+        \end{align*}
+    \end{enumerate}
+\end{proof}
+\begin{remarque}
+    On peut généraliser le point $4$ au cas des intersections finies d'unions quelconques. La preuve se fait facilement par récurrence. Nous ne le faisons pas ici, car cela nécessiterait d'introduire de lourdes notations. De même pour le point $5$.
+\end{remarque}
+\begin{definition}[Union disjointe]\label{ens : opérations : unions_disjointes}
+    Soit $(A_i)_{i\in I}$ une famille d'ensembles. On dira que les $A_i$ sont en \emph{union disjointe} si $$\forall i\ne j\in I,\ A_{i}\cap A_{j} =\varnothing $$Dans ce cas, on note $\bigcup_{i\in I} A_i$ par $\bigsqcup_{i\in I}A_i$
+\end{definition}
+\begin{remarque}
+    L'interêt des unions disjointes est que l'on a alors $\forall x\in\bigsqcup_{i\in I}A_i,\ \exists ! j\in I, x\in A_j$.
+\end{remarque}
+\subsection{Entiers de Von Neumann}
+
+Les axiomes de la théorie des ensembles que nous avons introduits suffisent pour construire les entiers naturels de manière rigoureuse. La construction que nous présentons, due à John von Neumann, identifie chaque entier naturel à l'ensemble de ses prédécesseurs.
+
+\begin{definition}
+    On note $0 := \emptyset$ l'ensemble vide.
+\end{definition}
+
+\begin{definition}
+    Soit $n$ un ensemble. On définit le \emph{successeur} de $n$ par
+    \[
+    n^+:= n\cup\{n\}
+    \]
+    On peut aussi le noter $S(n)$ ou $n+1$ (une fois l'addition définie).
+\end{definition}
+
+\begin{remarque}
+    Le successeur d'un ensemble existe par application de l'axiome de la paire pour former $\{n\}$, puis de l'axiome de l'union pour obtenir $n \cup \{n\}$. Intuitivement, $n^+$ contient tout ce que $n$ contient, plus $n$ lui-même.
+\end{remarque}
+
+\begin{definition}
+    Un ensemble $N$ est dit \emph{inductif} s'il satisfait :
+    \begin{enumerate}
+        \item $0 \in N$ (il contient zéro)
+        \item $\forall n \in N, \: n^+ \in N$ (il est stable par successeur)
+    \end{enumerate}
+\end{definition}
+
+\begin{remarque}
+    L'axiome de l'infini garantit l'existence d'au moins un ensemble inductif. L'idée est maintenant de prendre le "plus petit" ensemble inductif pour obtenir exactement les naturels.
+\end{remarque}
+
+\begin{lemme}\label{ens : naturels : inter_inductif}
+    L'intersection d'une famille d'ensembles inductifs est inductive.
+\end{lemme}
+
+\begin{proof}
+    Soit $(A_i)_{i\in I}$ une famille d'ensembles inductifs et posons $A := \bigcap_{i\in I}A_i$. 
+    
+    Pour tout $i \in I$, on a $0 \in A_i$ car $A_i$ est inductif. Donc $0$ appartient à l'intersection $A$.
+    
+    Si $n \in A$, alors $n \in A_i$ pour tout $i \in I$. La stabilité par successeur de chaque $A_i$ donne $n^+ \in A_i$ pour tout $i$, donc $n^+ \in A$.
+    Ainsi $A$ est inductif.
+\end{proof}
+
+\begin{definition}\label{ens : naturels : def}
+	Soit $N$ un ensemble inductif. On définit
+    \[
+    \N := \bigcap \{I \subseteq N \mid I \text{ est inductif}\}
+    \]
+	Les éléments de $\N$ sont appelés \emph{entiers naturels} ou simplement \emph{naturels}.
+\end{definition}
+
+\begin{remarque}
+    Cette définition capture l'idée que $\N$ est le plus petit ensemble inductif : c'est l'intersection de tous les ensembles inductifs, donc il ne contient que ce qui est absolument nécessaire ($0$ et ses successeurs itérés).
+\end{remarque}
+
+\begin{proposition}
+	La définition de $\N$ ne dépend pas du choix de l'ensemble inductif $N$.
+\end{proposition}
+
+\begin{proof}
+	Soient $N$ et $N'$ deux ensembles inductifs. Notons 
+    \[
+    \N_N :=\bigcap\{I\subseteq N \mid I \text{ est inductif}\}
+    \quad \text{et} \quad
+    \N_{N'} :=\bigcap\{I\subseteq N' \mid I \text{ est inductif}\}
+    \]
+	
+    L'ensemble $K := \N_{N'} \cap N$ est inductif : il contient $0$ (qui appartient à $\N_{N'}$ et à $N$), et si $n \in K$ alors $n^+$ appartient à $\N_{N'}$ et à $N$ par inductivité, donc $n^+ \in K$. Ainsi $K$ est un sous-ensemble inductif de $N$, d'où $\N_N \subseteq K \subseteq \N_{N'}$.
+	
+    Le raisonnement symétrique donne $\N_{N'} \subseteq \N_N$, d'où l'égalité.
+\end{proof}
+
+\begin{corollaire}
+    $\N$ est lui-même un ensemble inductif.
+\end{corollaire}
+
+\begin{proof}
+    Par le lemme \ref{ens : naturels : inter_inductif}, l'intersection d'ensembles inductifs est inductive.
+\end{proof}
+
+\begin{exemple}
+	Les premiers naturels prennent une forme particulièrement simple :
+	\begin{align*}
+		0 &= \emptyset\\
+        1 &= \{0\} = \{\emptyset\}\\
+        2 &= \{0, 1\} = \{\emptyset, \{\emptyset\}\}\\
+        3 &= \{0, 1, 2\} = \{\emptyset, \{\emptyset\}, \{\emptyset, \{\emptyset\}\}\}
+	\end{align*}
+    On observe que chaque naturel $n$ est précisément l'ensemble $\{0, 1, \ldots, n-1\}$ de ses prédécesseurs.
+\end{exemple}
+\section*{Compatibilité avec l'axiomatique de Peano}
+
+Giuseppe Peano a axiomatisé les entiers naturels au moyen de cinq axiomes fondamentaux. Vérifions que notre construction satisfait ces axiomes.
+
+\begin{theoreme}[Axiomes de Peano]
+Les entiers naturels $\N$ munis de $0$ et de l'opération successeur vérifient :
+\begin{enumerate}
+	\item $0\in \N$
+	\item $\forall n \in \N, \: n^+\in \N$
+	\item $\forall n\in \N, \: n^+\neq 0$
+	\item $\forall m, n \in \N, \: (m^+=n^+ \Rightarrow m=n)$ (injectivité du successeur)
+	\item Si $S \subseteq \N$ avec $0\in S$ et $\forall n\in S, \: n^+\in S$, alors $S= \N$
+\end{enumerate}
+\end{theoreme}
+
+\begin{proof}
+Les trois premiers axiomes sont immédiats : $\N$ est inductif par construction, donc contient $0$ et est stable par successeur. De plus, $n^+ = n \cup \{n\}$ contient $n$, donc est non vide, donc distinct de $0 = \emptyset$.
+
+Pour le cinquième axiome, remarquons qu'un sous-ensemble $S$ de $\N$ contenant $0$ et stable par successeur est précisément un sous-ensemble inductif de $\N$. Par définition de $\N$ comme intersection de tous les sous-ensembles inductifs, on a $\N \subseteq S$, d'où $S = \N$.
+
+Reste l'axiome d'injectivité, qui nécessite une préparation.
+\end{proof}
+
+\begin{lemme}\label{ens : naturels : ordre}
+	Pour tous $m,n\in \N$, si $m\in n$ alors $m\subseteq n$.
+\end{lemme}
+
+\begin{proof}
+	Soit $S:=\{n\in \N \mid \forall m\in \N, \: (m \in n \Rightarrow m\subseteq n)\}$. Montrons que $S = \N$ par induction.
+    
+    Pour $n = 0 = \emptyset$, l'implication $m \in 0 \Rightarrow m \subseteq 0$ est vacuement vraie, donc $0 \in S$.
+	
+    Supposons $k\in S$ et soit $m \in k^+ = k\cup \{k\}$. Alors $m \in k$ ou $m = k$. Dans le premier cas, $m\subseteq k$ par définition de $S$, donc $m\subseteq k^+$. Dans le second, $m = k \subseteq k^+$ directement. Ainsi $k^+\in S$.
+    
+	Par le cinquième axiome de Peano (déjà vérifié), $S = \N$.
+\end{proof}
+
+\begin{corollaire}\label{ens : naturels : transitivité}
+    Tout entier naturel est un ensemble transitif : $\forall n \in \N, \: \forall x \in n, \: x \subseteq n$.
+\end{corollaire}
+
+\begin{lemme}[Injectivité du successeur]
+	Pour tous $m, n \in \N$, si $m^+=n^+$ alors $m=n$.
+\end{lemme}
+
+\begin{proof}
+	Supposons $m^+=n^+$ et par l'absurde $m\neq n$. Alors $m \in m^+ = n^+ = n\cup\{n\}$, donc $m \in n$ ou $m = n$. L'égalité étant exclue, on a $m \in n$, d'où $m \subseteq n$ par le lemme précédent.
+    
+    Par symétrie, $n \in n^+ = m^+$ donne $n \in m$ (car $n \neq m$), d'où $n \subseteq m$.
+    
+    La double inclusion $m \subseteq n$ et $n \subseteq m$ impose $m = n$, contradiction.
+\end{proof}
+
+\begin{remarque}
+Cette vérification montre que la construction de von Neumann réalise fidèlement l'arithmétique de Peano dans le cadre de la théorie des ensembles.
+\end{remarque}
+\section{Théorie des ordres}
+Dans cette section, nous allons formaliser la notion d'ordre qui est essentielle pour aborder l'axiome du choix.
+\begin{definition}
+    Soit $A$ un ensemble. Un ordre est une relation binaire $R\subseteq A^2$ qui vérifie \begin{itemize}
+        \item $\forall x \in A, (x,x)\in R$
+        \item $\forall x,y,z\in A,\ [(x,y)\in R\land (y,z)\in R\alors(x,z)\in R]$
+        \item $\forall x,y\in A,\ [(x,y)\in R\land (y,x)\in R\alors x=y] $
+    \end{itemize}
+    On dira que $R$ est \emph{total} si $\forall x, y \in A,\ (x,y)\in R \lor (y,x)\in R$ et on dira que $R$ est \emph{partiel} s'il n'est pas total.
+\end{definition}
+\begin{exemple}[Ordre partiel]
+    $\subseteq$ sur $\partie(X)$ avec $X:= \{\varnothing,\{\varnothing\}\}$. En effet, on n'a ni $\{\varnothing\}\subseteq\{\{\varnothing\}\}$, ni $\{\varnothing\}\supseteq\{\{\varnothing\}\}$.
+\end{exemple}
+\begin{proposition}
+    Soit $(A,R)$ un ensemble ordonné. Soit $C\subseteq R$. $R\cap C^2$ la \emph{restriction de $R$ à $C$} est un ordre sur $C$.
+\end{proposition}
+\begin{definition}[Chaîne]
+    Soit $(X,R)$ un ensemble ordonné. On dit que une chaîne de $X$ est est un sous-ensemble $C\subseteq X$ totalement ordonné par $R\cap C^2$.
+\end{definition}
+\begin{exemple}
+    Considérons $E:=\partie\Q\setminus \{\Q\}$. Cet ensemble est partiellement ordonné car $\{1\}$ et $\Q\setminus \{1\}$ sont incomparables. Considérons $C:=\{2^k\N\mid k\in\Z\}\subseteq E$. C'est une chaîne, et elle possède un majorant dans $E$, $m:=\bigcup C$.
+\end{exemple}
+
+\begin{definition}
+    On dit qu'un ordre sur $X$ est un \emph{bon ordre} sur $X$ si tout sous-ensemble non-vide de $X$ admet un plus petit élément, càd $$\forall A\in\partie(X)\setminus\{\varnothing\},\exists a \in A,\forall a'\in A,\ (a,a')\in R$$
+\end{definition}
+
+\begin{lemme}
+    Tout bon ordre sur $X$ est total 
+\end{lemme}
+\begin{proof}
+    $\forall a_1,a_2\in X$, $\{a_1,a_2\}$ a un plus petit élément.
+\end{proof}
+\begin{remarque}
+    Il y a des ordres totaux qui ne sont pas des bons ordres. Pour obtenir une preuve ou une construction de ces exemples, veuillez vous référer à une autorité compétente. (merci)
+    \begin{itemize}
+        \item $(\Z,\leq_\Z)$
+        \item $(\R^{\ge 0},\leq_{\R})$
+    \end{itemize}
+\end{remarque}
+\begin{definition}
+    Soit $X$ un ensemble. Un \emph{ordre strict} est une relation binaire $S$ sur $X$ vérifiant :
+    \begin{itemize}
+        \item $\forall x,y\in X,\ (x,y)\notin S \lor (y,x)\notin S$
+        \item $\forall x,y,z\in X,\ (x,y)\in S\land (y,z)\in S\alors (x,z)\in S$
+    \end{itemize}
+\end{definition}
+\begin{notation}
+    On note souvent $x<y$ pour $(x,y)\in S$.
+\end{notation}
+\begin{proposition}
+    Soient $X$ un ensemble et $R$ un ordre sur $X$. Alors $R\setminus\{(x,y)\in X^2\mid x=y\}$ est un ordre strict.
+\end{proposition}
+\begin{proof}
+
+Soit $x, y, z \in X$.
+Pour l'asymétrie, supposons $(x,y) \in S$. Alors $(x,y) \in R$ et $x \neq y$. Par antisymétrie de $R$, on a $(y,x) \notin R$, donc $(y,x) \notin S$.
+Pour la transitivité, supposons $(x,y) \in S$ et $(y,z) \in S$. Alors $(x,y), (y,z) \in R$ avec $x \neq y$ et $y \neq z$. Par transitivité de $R$, on a $(x,z) \in R$. Si $x = z$, alors $(z,y) \in R$ et $(y,z) \in R$, donc $y = z$ par antisymétrie de $R$, contradiction. Ainsi $x \neq z$ et $(x,z) \in S$.
+\end{proof}
+\begin{proposition}
+    Soient $X$ un ensemble et $S$ un ordre strict sur $X$. Alors $S\cup\{(x,y)\in X^2\mid x=y\}$ est un ordre.
+\end{proposition}
+\begin{proof}
+Posons $R = S \cup \{(x,y) \in X^2 \mid x = y\}$. 
+Pour la réflexivité, on a $(x,x) \in R$ pour tout $x \in X$ par construction. 
+Pour l'antisymétrie, si $(x,y) \in R$ et $(y,x) \in R$ avec $x \neq y$, alors $(x,y), (y,x) \in S$, contredisant l'asymétrie de $S$, donc $x = y$. 
+Pour la transitivité, soient $x, y, z \in X$ tels que $(x,y) \in R$ et $(y,z) \in R$. Si $x = y$, $y = z$ ou $x = z$, le résultat est immédiat. Sinon $(x,y), (y,z) \in S$ avec $x, y, z$ distincts deux à deux, donc $(x,z) \in S \subseteq R$ par transitivité de $S$.
+\end{proof}
+\begin{definition}[Isomorphisme d'ordre]
+    Soit $(A,\le_A)$ et $(B,\le_B)$. Un \emph{isomorphisme d'ordre} est une bijection $\sigma : A\to B$ vérifiant $$\forall x,y\in A, x\le_A y\ssi \sigma(x)\le_B \sigma(y)$$ 
+\end{definition}
+\begin{remarque}
+    De façon équivalente, $\sigma$ est un isomorphisme d'ordre si et seulement si $\sigma$ est une bijection strictement croissante \ie $\forall x,y\in A,\ x<_Ay\alors \sigma(x)<_B\sigma(y)$.
+\end{remarque}
+
+\begin{proposition}\label{ens : ordre : inverse_iso}
+    Soient $(A,\le_A)$ et $(B,\le_B)$ des ensembles ordonnés. Soit $\sigma : (A,\le_A)\to (B,\le_B)$ un isomorphisme d'ordre. $\sigma^{-1}$ est un isomorphisme d'ordre.
+\end{proposition}
+\begin{proof}
+    Puisque $\sigma$ est bijective, $\sigma^{-1}$ existe et est bijective.
+    Soit $x,y\in B$. Puisque $\sigma^{-1}(x),\sigma^{-1}(y)\in A$, on a $$\sigma^{-1}(x)\le_A\sigma^{-1}(y)\ssi x = \sigma(\sigma^{-1}(x))\le_B \sigma(\sigma^{-1}(y)) = y$$ car $\sigma$ est un isomorphisme d'ordre.
+\end{proof}
+
+\begin{proposition}\label{ens : ordre : iso_entre_totaux}
+    Soient $(A,\le_A)$ et $(B,\le_B)$ des ensembles ordonnés. Soit $\sigma : (A,\le_A)\to (B,\le_B)$ un isomorphisme d'ordre. $\leq_A$ est un ordre total sur $A$ si et seulement si $\leq _B$ est un ordre total sur $B$. 
+\end{proposition}
+\begin{proof}
+    Supposons que $B$ soit totalement ordonné par $\le_B$. Soit $x,y\in A$. Alors $\sigma(x)\le_B\sigma(y)$ ou $\sigma(y)\le_B\sigma(x)$ d'où $x\le_Ay$ ou $y\le_A x$, respectivement.
+    Réciproquement, $\sigma^{-1}:(B,\le_B)\mapsto(A,\le_A)$ est un isomorphisme d'ordre.
+\end{proof}
+
+\begin{proposition}\label{ens : ordre : iso_entre_bo}
+    Soit $\sigma$ un isomorphisme d'ensembles ordonnés de $(A,\leq_A)\to (B,\leq_B)$. $(A,\leq_A)$ est un bon ordre si et seulement si $(B,\leq _B)$ est un bon ordre. 
+\end{proposition}
+\begin{proof}
+    Supposons que $B$ soit bien ordonné par $\le_B$. Soit $X\subseteq A$. Alors il existe $b\in \sigma(X),\forall y\in\sigma(
+    X),\ b\le_B y$ \ie $\exists a \in X,\forall x\in X,\ \sigma(a)\le_B\sigma(x)$ d'où $\exists a\in X,\forall x\in X,\ a\le_A x$ car $\sigma$ est un isomorphisme d'ordre. Réciproquement, $\sigma^{-1}$ est aussi un isomorphisme d'ordre.
+\end{proof}
+
+\begin{proposition}\label{ens : ordre : composée_iso}
+    Soient $(A,\le_A), (B,\le_B)$ et $(C\le_C)$ des ensembles ordonnés. Soient $\sigma : A\to B$ et $\psi : B\to C$ deux isomorphismes d'ordre. Alors $\psi \circ \sigma$ est un isomorphisme d'ordre.
+\end{proposition}
+\begin{proof}
+    La composée de bijection est une bijection. De plus, on a $$\forall x,y\in A,\ x\le_Ay\ssi \sigma(x)\le_B \sigma(y)\ssi \psi(\sigma(x))\le_C\psi(\sigma(y)))$$
+\end{proof}
+\begin{definition}
+    Soient $(I,\le_I)$ un ensemble bien ordonné et $((A_i,\le_i))_{i\in I}$ une famille d'ensembles ordonnés. On définit l'ordre lexicographique strict sur $A:=\prod_{i\in I}A_i$ par $\forall a\ne b\in A, a<b$ ssi $a_{i_0}<b_{i_0}$ où $i_0$ est le minimum de $\{ i\in I\mid a_i\ne b_i\}$.
+\end{definition}
+\begin{proposition}
+    L'ordre lexicographique strict est un ordre strict.
+\end{proposition}
+\begin{proof}
+    Soit $A = \prod_{i \in I} A_i$ muni de l'ordre lexicographique strict $<$. Montrons l'asymétrie et la transitivité.
+Pour l'asymétrie, soient $a, b \in A$ tels que $a < b$. Alors $a_{i_0} < b_{i_0}$ où $i_0$ est le minimum de $\{i \in I \mid a_i \neq b_i\}$. Si on avait $b < a$, il existerait $j_0 = \min\{j \in I \mid b_j \neq a_j\}$ tel que $b_{j_0} < a_{j_0}$. Or $i_0 = j_0$ car $\{i \in I \mid a_i \neq b_i\} = \{j \in I \mid b_j \neq a_j\}$, donc on aurait $a_{i_0} < b_{i_0}$ et $b_{i_0} < a_{i_0}$, contredisant l'asymétrie de $<_{i_0}$.
+
+Pour la transitivité, soient $a, b, c \in A$ tels que $a < b$ et $b < c$. Posons $i_0 = \min\{i \in I \mid a_i \neq b_i\}$ et $j_0 = \min\{j \in I \mid b_j \neq c_j\}$. Nous avons $a_{i_0} < b_{i_0}$ et $b_{j_0} < c_{j_0}$. Si $i_0 < j_0$, alors  $a_{i_0} < b_{i_0} = c_{i_0}$, donc $a < c$. Si $i_0 = j_0$, alors $a_{i_0} < b_{i_0} < c_{i_0}$ par transitivité de $<_{i_0}$, donc $a < c$.
+\end{proof}
+\begin{proposition}
+    L'ordre lexicographique sur un produit d'ensembles totalement ordonnés est un ordre total.
+\end{proposition}
+\begin{proof}
+    Soit $A = \prod_{i \in I} A_i$ où chaque $(A_i, \leq_i)$ est totalement ordonné, et notons $<$ l'ordre lexicographique sur $A$. Montrons que $<$ est total. Soient $a, b \in A$ distincts. L'ensemble $J = \{i \in I \mid a_i \neq b_i\}$ est non vide car $a \neq b$. Puisque $(I, \leq_I)$ est bien ordonné, $J$ admet un minimum $i_0$. Comme $(A_{i_0}, \leq_{i_0})$ est totalement ordonné et $a_{i_0} \neq b_{i_0}$, on a $a_{i_0} <_{i_0} b_{i_0}$ ou $b_{i_0} <_{i_0} a_{i_0}$. Par définition de l'ordre lexicographique, cela donne $a < b$ ou $b < a$.
+\end{proof}
+\begin{proposition}
+    L'ordre lexicographique sur un produit d'ensembles bien ordonnés est un bon ordre.
+\end{proposition}
+\begin{proof}
+   Soit $A = \prod_{i \in I} A_i$ où chaque $(A_i, \leq_i)$ est bien ordonné. Montrons que toute partie non vide admet un plus petit élément. Soit $X \subseteq A$ non vide. Pour chaque $i \in I$, posons $X_i = \{x_i \mid x \in X\} \subseteq A_i$. Comme $(A_i, \leq_i)$ est bien ordonné, $X_i$ admet un plus petit élément $m_i$. Soit $i_0 = \min\{i \in I \mid \exists x \in X, x_i = m_i \text{ et } x_j = m_j \text{ pour tout } j < i\}$. Un tel $i_0$ existe car l'ensemble est non vide (il contient tous les indices) et $(I, \leq_I)$ est bien ordonné. Soit $b \in X$ tel que $b_j = m_j$ pour tout $j \leq i_0$ et $b_{i_0} = m_{i_0}$. Alors $b$ est le plus petit élément de $X$. En effet, pour tout $x \in X$, soit $x = b$ et alors $b \leq x$, soit $x \neq b$ et il existe $k = \min\{i \in I \mid x_i \neq b_i\}$. Par construction de $b$, on a $k \geq i_0$ et $b_k = m_k \leq_k x_k$, donc $b < x$. 
+\end{proof}
+
+\subsection{Structure d'un bon ordre}
+
+\begin{lemme}
+    Soit $(A,\le)$ un ensemble totalement ordonné. $\le$ est un bon ordre si et seulement toute suite strictement décroissante d'éléments de l'ensemble $A$ est finie.
+\end{lemme}
+
+\begin{proof}
+Montrons les deux implications.
+    \begin{description}
+        \item[($\alors$)] Soit $u_n$ une suite stricement décroissante d'éléments de $A$. Supposons par l'absurde que $\dom u$ soit infini\textit{ i.e. }$\dom u$ est de la forme $\N^{\ge k}$ pour un certain $k\in \N$  Soit $u_m$ le minimum de $\im u$, qui existe par hypothèse. Or $u_{m+1}<u_m$, donc $u_m$ n'est pas le minimum de $\im u$, c'est absurde.
+        \item[($\si$)] 
+        Supposons que toute suite strictement décroissante d'éléments de $A$ est finie. Soit $X \subseteq A$ non vide. Montrons que $X$ admet un plus petit élément. Choisissons $x_0 \in X$ quelconque. Si $x_0$ est minimal dans $X$, nous avons terminé. Sinon, il existe $x_1 \in X$ tel que $x_1 < x_0$. Si $x_1$ est minimal dans $X$, nous avons terminé. Sinon, on continue et on construit une suite strictement décroissante $(x_n)_{n \in \mathbb{N}}$ d'éléments de $X$. Par hypothèse, cette suite est finie, donc le processus s'arrête après un nombre fini d'étapes, et on obtient un élément minimal de $X$, qui est le plus petit élément de $X$ car $(A, \leq)$ est totalement ordonné.
+    \end{description}
+\end{proof}.
+ 
+
+
+\begin{definition}[Segment initial]
+    Soit $A$ un ensemble ordonné. On dit que $B\subseteq A$ est un préfixe ou encore un \emph{segment initial} de $A$, si
+    \begin{equation*}
+        \forall b\in B, \forall a\in A, \quad (a<b\Rightarrow a\in B)
+    \end{equation*}
+\end{definition}
+\begin{remarque}
+    L'ensemble vide est un segment initial de n'importe quel ensemble.  
+\end{remarque}
+\begin{lemme}\label{ens : bo : segments_initiaux}
+    Soit $A$ un ensemble ordonné. Alors $A$ et les ensembles de la forme $I_a:=\{a'\in A \mid a'<a\}$ avec $a\in A$ sont segments initiaux de $A$.
+\end{lemme}
+\begin{proof}
+    Clairement, $A$ est segment initial de $A$. Soit $a\in A$. Soient $a'\in I_a$ et $a^*\in A$. Supposons que $a^*<a'$. Alors $a^*<a$ par transitivité, d'où $a^*\in I_a$. 
+\end{proof}
+\begin{lemme}\label{ens : bo : segm_init_bo}
+    Soit $I$ un segment initial de $A$, un bon ordre avec $A\neq \varnothing$. Alors $I=A$ ou il existe $a\in A\setminus I$ tel que $I=\{a'\in A \mid a'<a\}$.
+\end{lemme}
+
+\begin{proof}
+ 
+Supposons que $A \setminus I \neq \emptyset$. Par bon ordre, $A \setminus I$ admet un plus petit élément $a$. Montrons que $I = \{b \in A \mid b < a\}$. 
+D'une part, si $b \in I$, alors $b \in A$ et $b \notin A \setminus I$, donc $b$ n'est pas le plus petit élément de $A \setminus I$. Comme $a$ est le plus petit élément de $A \setminus I$ et $b \in A$, on a nécessairement $b < a$. Ainsi $I \subseteq \{b \in A \mid b < a\}$.
+D'autre part, soit $b \in A$ tel que $b < a$. Alors $b \notin A \setminus I$ car $a$ est le plus petit élément de $A \setminus I$ et $b < a$. Donc $b \in I$. Ainsi $\{b \in A \mid b < a\} \subseteq I$.
+Par double inclusion, $I = \{b \in A \mid b < a\}$.
+\end{proof}
+
+\begin{notation}
+    Soit $A\ne\varnothing$ muni d'un bon ordre. Soit  $I$ une segment initial.  Le plus petit élément de $A\setminus I$ où $(I\neq A)$ $I$ segment initial est noté $\operatorname{succ}(I)$. 
+\end{notation}
+
+\begin{proposition}\label{ens : bo : induction}
+    Soit $A$ un bon ordre non vide. Soit $P(a)$ une propriété qui vérifie la condition suivante :
+\begin{equation*}
+\forall I\subsetneq A,\ (P(I)\Rightarrow P(\operatorname{succ}(I))
+\end{equation*}
+où $P(I)$ est une notation pour $\forall i \in I,\ P(i)$. Alors $P(A)$.
+\end{proposition}
+
+
+\begin{proof}
+    Par contraposition, si $P(A)$ est fausse, alors il existe $x\in A$ tel que $\neg P(x)$. Prenons $y$ le minimum de l'ensemble $\{x\in A\mid \neg P(x)\}$, ensemble non vide. Alors posons $I:=\{a\in A\mid a < y\}$, c'est un segment initial par transitivité de l'ordre strict, et on a $\operatorname{succ}(I) = y$. De plus, par minimalité de $y$, on a $P(I)$. Donc, par hypothèse, on a $P(y)$, c'est absurde.
+\end{proof}
+
+\section{Axiome du choix}
+Les axiomes précédents forment la théorie ZF,
+à laquelle nous pouvons ajouter l'axiome du choix, constituant ainsi la théorie ZFC.
+
+\begin{axiome}[du choix]\label{ens : choix : fonction}
+	Pour tout ensemble $A$, il existe une application $\gamma: \mathcal{P}(A)\setminus\{\varnothing\}\to A$ (dite fonction de choix) telle que
+	\begin{equation*}
+		\gamma(B)\in B
+	\end{equation*}
+	pour toute partie $B$ non vide de $A$.
+\end{axiome}
+
+\begin{axiome}[équivalent à l'axiome du choix]\label{ens : choix : produit}
+	Si $(X_i)_{i\in I}$ est une famille non vide d'ensembles non vides, alors le produit cartésien $\prod_{i\in I}X_i$ est non vide.
+\end{axiome}
+
+\begin{theoreme}\label{ens : choix : équivalence fonction-produit}
+	Les axiomes \ref{ens : choix : fonction} et \ref{ens : choix : produit} sont équivalents.
+\end{theoreme}
+
+\begin{proof}
+	Soient $I$ un ensemble non vide et $(X_i)_{i\in I}$ une famille d'ensembles non vides. Posons $A = \bigcup_{i \in I} X_i$. L'axiome \ref{ens : choix : fonction} affirme l'existence d'une fonction de choix $\gamma$ pour $A$. En particulier, $\gamma$ est définie en chaque $X_i$. On obtient alors une fonction $f\in\prod_{i\in I}X_i$ voulue par l'axiome \ref{ens : choix : produit} en posant $f(i) := \gamma(X_i)$, pour chaque $i \in I$.
+	Réciproquement, soit $A$ un ensemble. Si $A=\varnothing$, la fonction vide (définie nulle part) est une fonction de choix pour $A$. On peut donc supposer $A\neq \varnothing$ et poser
+	$X=\prod_{\underset{B\neq \varnothing}{B\subseteq A}}B$, l'axiome \ref{ens : choix : produit} affirme que $X\neq \varnothing$,
+	C'est à dire  qu'il existe une fonction $x$ définie sur $\partie(A)\setminus \{\varnothing\}$ et telle que $x(B)\in B$ pour tout $B\in \partie(A)\setminus\{\varnothing\}$. C'est donc une
+	fonction de choix pour $A$.
+\end{proof}
+
+\subsection{Énoncés équivalents à l'axiome du choix}
+
+Le théorème suivant est vrai si on adopte l'axiome du choix (et seulement si on l'adopte, comme on le verra bientôt).
+
+\begin{definition}[Lemme de Zorn]\label{ens : choix : zorn}
+	Soit $X$ un ensemble ordonné non vide. Si toute chaîne (\ie tout sous-ensemble totalement ordonné) de $X$ admet un majorant dans $X$, alors $X$ contient un élément maximal.
+    
+\end{definition}
+
+\begin{remarque}
+	On peut remplacer « chaîne » par « sous-ensemble bien ordonné » dans l'énoncé. car tout ensemble bien ordonné est en particulier totalement ordonné. L'énoncé avec « chaîne » est plus courant et légèrement plus fort, car tout ensemble bien ordonné est en particulier totalement ordonné. Les deux versions sont équivalentes à l'axiome du choix.
+\end{remarque}
+\begin{proposition}
+    L'axiome du choix \ref{ens : choix : produit} implique le lemme de Zorn \ref{ens : choix : zorn}
+\end{proposition}
+   
+\begin{lemme}\label{ens : bo : segment_initial}
+	Soit $\mathcal{F}$ une famille de parties bien ordonnées de $X$ telle que pour tous $F, G \in \mathcal{F}$, on ait  $F$ est un segment initial de $G$, ou bien $G$ est un segment initial de $F$. Alors la réunion $Y = \bigcup_{F \in \mathcal{F}} F$ est bien ordonnée, et chaque $F \in \mathcal{F}$ est un segment initial de $Y$.
+\end{lemme}
+\begin{proof}
+	Montrons d'abord que chaque $F \in \mathcal{F}$ est un segment initial de $Y$. Soient $F \in \mathcal{F}$, $x \in F$ et $y \in Y$ tels que $y \leqslant x$. Puisque $y \in Y = \bigcup_{G \in \mathcal{F}} G$, il existe $G \in \mathcal{F}$ tel que $y \in G$. Par hypothèse sur $\mathcal{F}$, l'un des deux ensembles $F$ et $G$ est un segment initial de l'autre. Si $G$ est un segment initial de $F$, alors $G \subseteq F$, donc $y \in F$. Si au contraire $F$ est un segment initial de $G$, alors puisque $x \in F$ et $y \leqslant x$ avec $y \in G$, on a nécessairement $y \in F$ par définition d'un segment initial. Dans tous les cas, $y \in F$, ce qui prouve que $F$ est un segment initial de $Y$.
+
+	Montrons maintenant que $Y$ est bien ordonné. Soit $Z \subseteq Y$ une partie non vide. Il existe au moins un $F \in \mathcal{F}$ tel que $F \cap Z \neq \varnothing$. Fixons un tel $F$, et soit $m$ le plus petit élément de $F \cap Z$ (qui existe car $F$ est bien ordonné). Montrons que $m$ est le plus petit élément de $Z$ tout entier. Soit $z \in Z$ quelconque. Il existe $G \in \mathcal{F}$ tel que $z \in G$. L'un des deux ensembles est un segment initial de l'autre. Si $G$ est un segment initial de $F$, alors $z \in G \subseteq F$, donc $z \in F \cap Z$, et par minimalité de $m$ dans $F \cap Z$, on a $m \leqslant z$. Si, au contraire, $F$ est un segment initial de $G$, alors soit $z \in F$ auquel cas $m \leqslant z$ par minimalité, soit $z \notin F$ auquel cas, comme $m \in F$ et $F$ est un segment initial de $G$, on doit avoir $m < z$ dans $G$ (sinon $z \leqslant m$ impliquerait $z \in F$). Dans tous les cas, $m \leqslant z$. Donc $m$ est le plus petit élément de $Z$, ce qui prouve que $Y$ est bien ordonné.
+\end{proof}
+\textbf{À RELIRE, JE NE COMPRENDS PAS BIEN À QUOI SERT L'AXIOME DU CHOIX}
+\begin{proof}[Démonstration de la proposition]
+	Supposons par l'absurde que $X$ satisfasse l'hypothèse mais n'ait pas d'élément maximal. Nous allons construire une chaîne dans $X$ qui n'a pas de majorant, ce qui donnera une contradiction.
+
+	Par l'axiome du choix, il existe une fonction de choix $\gamma$ pour $X$. Pour toute partie bien ordonnée $Z$ de $X$, l'ensemble des majorants stricts de $Z$ défini par
+	$$S(Z) = \{x \in X \mid \forall z \in Z, \, z < x\}$$
+	est non vide : en effet, $Z$ admet un majorant $m$ par hypothèse, et puisque $X$ n'a pas d'élément maximal, il existe $x > m$, donc $x \in S(Z)$. On peut alors poser $\Gamma(Z) = \gamma(S(Z))$.
+
+	Considérons la collection $\mathcal{F}$ de toutes les parties bien ordonnées $F$ de $X$ satisfaisant : pour tout $x \in F$, on a $\Gamma(\mathrm{seg}_F(x)) = x$, où $\mathrm{seg}_F(x) = \{y \in F \mid y < x\}$ désigne le segment initial strict de $F$ déterminé par $x$. Pour appliquer le lemme précédent, il faut montrer que pour tous $F, G \in \mathcal{F}$, l'un est un segment initial de l'autre.
+
+	Soient donc $F, G \in \mathcal{F}$. Posons
+	$$H = \bigcup \{I \subseteq X \mid I \text{ est segment initial de } F \text{ et de } G\}$$
+	Alors $H$ est le plus grand segment initial commun à $F$ et $G$ (car une réunion de segments initiaux est un segment initial). Supposons par l'absurde que $H \neq F$ et $H \neq G$. Alors $F \setminus H$ et $G \setminus H$ sont non vides, et on peut considérer leurs plus petits éléments respectifs $f$ et $g$. Par construction, on a $H = \mathrm{seg}_F(f) = \mathrm{seg}_G(g)$. Puisque $F$ et $G$ appartiennent à $\mathcal{F}$, on obtient
+	$$f = \Gamma(\mathrm{seg}_F(f)) = \Gamma(H) = \Gamma(\mathrm{seg}_G(g)) = g$$
+	Mais alors $H \cup \{f\}$ est à la fois un segment initial de $F$ et de $G$, et est strictement plus grand que $H$, ce qui contredit la maximalité de $H$. Donc nécessairement $H = F$ ou $H = G$, c'est-à-dire que l'un est un segment initial de l'autre.
+
+	Par le lemme \ref{ens : bo : segment_initial}, la réunion $Y = \bigcup_{F \in \mathcal{F}} F$ est bien ordonnée et satisfait : pour tout $x \in Y$, on a $\Gamma(\mathrm{seg}_Y(x)) = x$. Par hypothèse, $Y$ admet un majorant dans $X$. Considérons alors $Y' = Y \cup \{\Gamma(Y)\}$. Cet ensemble est bien ordonné (on ajoute simplement un élément strictement plus grand que tous ceux de $Y$), et il satisfait la propriété caractéristique de $\mathcal{F}$ : pour tout $x \in Y$, on a $\mathrm{seg}_{Y'}(x) = \mathrm{seg}_Y(x)$, donc $\Gamma(\mathrm{seg}_{Y'}(x)) = x$, et pour $x = \Gamma(Y)$, on a $\mathrm{seg}_{Y'}(x) = Y$, donc $\Gamma(\mathrm{seg}_{Y'}(x)) = \Gamma(Y) = x$. Ainsi $Y' \in \mathcal{F}$.
+
+	Or $Y'$ contient strictement $Y$, mais $Y = \bigcup_{F \in \mathcal{F}} F$ contient par définition tous les éléments de $\mathcal{F}$, donc en particulier $Y'$. Ceci est contradictoire. Cette contradiction prouve que notre hypothèse de départ était fausse : $X$ possède nécessairement un élément maximal.
+\end{proof}
+
+\begin{remarque}
+	\begin{enumerate}
+		\item On utilise fréquemment le lemme de Zorn lorsque $X$ est un ensemble d'ensembles muni de la relation d'ordre $\subseteq$. Dans ce cas, pour appliquer le lemme, il suffit de vérifier que pour toute chaîne $\mathcal{C} \subseteq X$ (i.e. toute famille totalement ordonnée par inclusion), la réunion $\bigcup \mathcal{C}$ appartient à $X$. En effet, $\bigcup \mathcal{C}$ est alors un majorant de $\mathcal{C}$ dans $X$.
+
+		\item Le lemme de Zorn permet de démontrer de nombreux résultats fondamentaux en mathématiques que nous serons ammené à rencontrer plus tard:
+		      \begin{description}
+			      \item[Algèbre linéaire] Tout espace vectoriel sur un corps admet une base.
+			      \item[Algèbre commutative] Tout idéal propre d'un anneau commutatif unitaire est contenu dans un idéal maximal.
+			      \item[Théorie des corps] Tout corps est contenu dans un corps algébriquement clos (clôture algébrique).
+			      \item[Topologie] Tout filtre sur un ensemble peut être étendu en un ultrafiltre.
+		      \end{description}
+
+		\item La preuve ci-dessus montre clairement pourquoi l'axiome du choix est essentiel : on utilise une fonction de choix $\gamma$ pour « étendre » progressivement une partie bien ordonnée en choisant à chaque étape un élément strictement plus grand.
+	\end{enumerate}
+\end{remarque}
+
+
+\begin{definition}[Principe de Zermelo]\label{ens : choix : zermelo}
+	Tout ensemble possède un bon ordre. 
+\end{definition}
+\begin{proposition}
+    
+    Le lemme de Zorn implique le principe de Zermelo.
+\end{proposition}
+\begin{proof}
+	Soit $A$ un ensemble, que l'on peut supposer non vide (sinon, l'énoncé est trivialement un bon ordre). On désigne par $X$ la collection des paires $(B, \leqslant)$ où $B$ est une partie de $A$ et $\leqslant$ un bon ordre sur $B$. Alors $X$ est non vide (il contient la partie vide). De plus, on obtient une relation d'ordre sur $X$ en posant $(B_1, \leqslant_1) \leqslant (B_2, \leqslant_2)$ lorsque $B_1$ est un segment initial de $B_2$ (pour $\leqslant_2$) et que la relation induite par $\leqslant_2$ sur $B_1$ est $\leqslant_1$.
+
+	Si $Y$ est une famille bien (donc totalement) ordonnée d'éléments $(B_i, \leqslant_i)$ de $X$, alors $\bigcup_i B_i$ est bien ordonnée par la relation $\bigcup_i \leqslant_i$. Or, cette réunion est un majorant de $Y$. Par le lemme de Zorn, $X$ contient un élément maximal $(M, \leqslant_M)$.
+
+	Si $M$ était distinct de $A$, il existerait $a \in A \setminus M$ et on obtiendrait un bon ordre sur $M \cup \{a\}$ en posant $m \leqslant a$ pour tout $m \in M$. Cela contredirait la maximalité de $(M, \leqslant_M)$. Donc $M = A$ et $\leqslant_M$ est un bon ordre sur $A$.
+\end{proof}
+
+Sous l'axiome du choix, les deux théorèmes précédents montrent que tout ensemble possède un bon ordre. Voici maintenant la réciproque de ce résultat.
+
+\begin{theoreme}\label{ens : choix :zermelo_implique_choix}
+	Le principe de Zermelo implique l'axiome du choix.
+\end{theoreme}
+
+\begin{proof}
+	Soit $A$ un ensemble. Par hypothèse, il existe un bon ordre $\leqslant$ sur $A$. Toute partie non vide $B$ de $A$ possède un plus petit élément $\gamma(B)$. L'application
+	\begin{equation*}
+		\gamma : \begin{cases}
+			\mathcal{P}(A) \setminus \{\varnothing\} & \longrightarrow A     \\
+			B                                        & \longmapsto \gamma(B)
+		\end{cases}
+	\end{equation*}
+	est une fonction de choix pour $A$.
+\end{proof}
+
+\begin{theoreme}
+    L'axiome du choix \ref{ens : choix : produit}, le lemme de Zorn \ref{ens : choix : zorn} et le principe de Zermelo \ref{ens : choix : zermelo} sont équivalents.
+\end{theoreme}
+\begin{proof}
+    Découle des trois propositions précédentes.
+\end{proof}
+\begin{remarque}
+	Néanmoins, lorsque cela nous est possible, nous préférerons ne pas l'utiliser. En effet, bien que largement accepté et indispensable en mathématiques, cet axiome conduit à des résultats contre-intuitifs comme le paradoxe de Banach-Tarski, qui affirme qu'on peut découper une boule en un nombre fini de morceaux et les réassembler pour obtenir deux boules identiques à l'originale.
+\end{remarque}
+
+
+\section{Ordinaux}
+Les ordinaux généralisent la notion de nombre entier naturel en permettant de compter au-delà de l'infini. Ils fournissent un cadre rigoureux pour étendre le principe de récurrence aux processus infinis et jouent un rôle central dans la théorie des ensembles.
+\subsection{Ensembles transitifs}
+
+\begin{definition}[Ensemble transitif]
+	Un ensemble $x$ est \emph{transitif} si tout élément d'un élément de $x$ est encore élément de $x$ :
+	$$\forall y \in x, \forall z \in y,\quad  z \in x$$
+	Autrement dit : $\forall y \in x, y \subseteq x$.
+\end{definition}
+
+\begin{exemple}
+	Pour illustrer la définition ci-dessus voici quelques exemples :
+	\begin{itemize}
+		\item $\varnothing$ est transitif (vacuité)
+		\item $\{\varnothing\}$ est transitif
+		\item $\{\varnothing, \{\varnothing\}\}$ est transitif
+		\item Les naturels de Von Neumann sont transitifs : $0 = \varnothing$, $1 = \{\varnothing\}$, $2 = \{\varnothing, \{\varnothing\}\}$, etc.
+		\item $\{\{\varnothing\}\}$ n'est pas transitif car $\varnothing \in \{\varnothing\} \in \{\{\varnothing\}\}$ mais $\varnothing \notin \{\{\varnothing\}\}$
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:trans_reunion}
+	Si $\mathcal{F}$ est une famille d'ensembles transitifs, alors $\bigcup \mathcal{F}$ est transitif.
+\end{proposition}
+
+\begin{proof}
+	Soient $z \in y \in \bigcup \mathcal{F}$. Il existe $t \in \mathcal{F}$ tel que $y \in t$. Puisque $t$ est transitif, on a $y \subseteq t$, donc $z \in t \subseteq \bigcup \mathcal{F}$.
+\end{proof}
+
+\begin{proposition}\label{prop:trans_intersection}
+	Si $\mathcal{F}$ est une famille non vide d'ensembles transitifs, alors $\bigcap \mathcal{F}$ est transitif.
+\end{proposition}
+
+\begin{proof}
+	Soient $z \in y \in \bigcap \mathcal{F}$. Pour tout $t \in \mathcal{F}$, on a $y \in t$, donc $z \in t$ par transitivité de $t$. Ainsi $z \in \bigcap \mathcal{F}$.
+\end{proof}
+
+\subsubsection{Définition des ordinaux}
+
+\begin{definition}[Ordinal]
+	Un ensemble $\alpha$ est un \emph{ordinal} si :
+	\begin{enumerate}
+		\item $\alpha$ est transitif
+		\item $\alpha$ est totalement ordonné par $\in$
+	\end{enumerate}
+	On note $\mathrm{Ord}$ la collection de tous les ordinaux.
+\end{definition}
+
+\begin{remarque}
+	La condition « totalement ordonné par $\in$ » signifie que pour tous $x, y \in \alpha$, on a $x \in y$ ou $y \in x$ ou $x = y$.
+\end{remarque}
+
+\begin{exemple}
+	Nous avons que :
+	\begin{itemize}
+		\item $\varnothing = 0$ est un ordinal
+		\item $\{\varnothing\} = 1$ est un ordinal
+		\item $\{\varnothing, \{\varnothing\}\} = 2$ est un ordinal
+		\item Tous les naturels de Von Neumann $n \in \mathbb{N}$ sont des ordinaux
+		\item $\mathbb{N} = \omega$ est un ordinal (le premier ordinal infini)
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:ordinal_bien_ordonne}
+	Si $\alpha$ est un ordinal, alors $(\alpha, \in)$ est bien ordonné.
+\end{proposition}
+
+\begin{proof}
+	Nous savons déjà que $\in$ est un ordre total sur $\alpha$. Soit $A \subseteq \alpha$ non vide. Par l'axiome de fondation, $A$ possède un élément $\in$-minimal $m$, c'est-à-dire qu'il n'existe pas $x \in A$ tel que $x \in m$.
+
+	Montrons que $m$ est le minimum de $A$ pour l'ordre $\in$. Soit $a \in A$ quelconque. Puisque $\alpha$ est totalement ordonné par $\in$, on a $m \in a$, $a \in m$, ou $m = a$. Si $a \in m$, cela contredirait la minimalité $\in$-minimale de $m$ dans $A$. Donc nécessairement $m \in a$ ou $m = a$, ce qui signifie $m \leqslant a$ pour tout $a \in A$. Ainsi $m$ est le plus petit élément de $A$.
+\end{proof}
+
+La proposition précédente et le théorème qui suit sont d'une importance capitale. Ils permettent d'une part de saisir la structure des ordinaux et d'une autre part, ils premettent des constructions importantes.
+
+\begin{theoreme}\label{thm:ordinal_caracterisation}
+	Un ensemble $\alpha$ est un ordinal si et seulement si $\alpha$ est transitif et bien ordonné par $\in$.
+\end{theoreme}
+
+\begin{proof}
+	Le sens direct découle de la proposition \ref{prop:ordinal_bien_ordonne}. Réciproquement, si $\alpha$ est bien ordonné par $\in$, alors $\in$ est en particulier un ordre total sur $\alpha$.
+\end{proof}
+
+\subsection{Propriétés fondamentales des ordinaux}
+
+\begin{lemme}\label{lem:ordinal_element}
+	Si $\alpha$ est un ordinal et $\beta \in \alpha$, alors $\beta$ est un ordinal et $\beta = \{x \in \alpha \mid x \in \beta\}$.
+\end{lemme}
+
+\begin{proof}
+	Puisque $\alpha$ est transitif et $\beta \in \alpha$, on a $\beta \subseteq \alpha$.
+
+	Montrons que $\beta$ est transitif. Soit $\gamma \in \delta \in \beta$. Alors $\delta \in \alpha$, donc par transitivité de $\alpha$, on a $\gamma \in \alpha$. Puisque l'ordre sur $\alpha$ est total et que $\gamma \in \delta \in \beta \subseteq \alpha$, avec la transitivité de $\alpha$, on obtient $\gamma \in \beta$. Donc $\beta$ est transitif.
+
+	L'ordre induit par $\in$ sur $\beta$ est total car $\beta \subseteq \alpha$ et $\in$ est total sur $\alpha$. Donc $\beta$ est un ordinal.
+
+	Enfin, $\beta = \{x \in \alpha \mid x \in \beta\}$ découle de $\beta \subseteq \alpha$.
+\end{proof}
+
+\begin{theoreme}[Trichotomie des ordinaux]\label{thm:comparaison_ordinaux}
+	Soient $\alpha$ et $\beta$ deux ordinaux. Alors exactement une des trois relations suivantes est vraie :
+	$$\alpha \in \beta \quad \text{ou} \quad \alpha = \beta \quad \text{ou} \quad \beta \in \alpha$$
+\end{theoreme}
+
+\begin{proof}
+	Considérons $\gamma = \alpha \cap \beta$.
+
+	Montrons d'abord que $\gamma$ est un ordinal. Si $x \in y \in \gamma$, alors $y \in \alpha$ et $y \in \beta$, donc par transitivité de $\alpha$ et $\beta$, on a $x \in \alpha$ et $x \in \beta$, d'où $x \in \gamma$. Donc $\gamma$ est transitif. De plus, pour tous $x, y \in \gamma$, puisque $x, y \in \alpha$ et $\alpha$ est totalement ordonné par $\in$, les éléments $x$ et $y$ sont comparables. Donc $\gamma$ est un ordinal.
+
+	Par définition, $\gamma \subseteq \alpha$ et $\gamma \subseteq \beta$. Supposons que $\gamma \neq \alpha$. Alors $\alpha \setminus \gamma \neq \varnothing$. Soit $\delta$ le plus petit élément de $\alpha \setminus \gamma$ (qui existe car $\alpha$ est bien ordonné).
+
+	Montrons que $\delta = \gamma$. Pour tout $x \in \delta$, on a $x \in \alpha$. De plus, $x < \delta$ dans $\alpha$, donc $x \notin \alpha \setminus \gamma$ par minimalité de $\delta$. Ainsi $x \in \gamma$, ce qui prouve $\delta \subseteq \gamma$. Réciproquement, pour tout $x \in \gamma$, on a $x \in \alpha$. Si $\delta < x$ dans $\alpha$, alors $\delta \in x$, et puisque $x \in \beta$ (car $x \in \gamma \subseteq \beta$) et $\beta$ est transitif, on aurait $\delta \in \beta$, donc $\delta \in \gamma$, contradiction. Si $x < \delta$, c'est bon. Si $x = \delta$, alors $\delta \in \gamma$, contradiction. Donc $x \in \delta$ pour tout $x \in \gamma$, d'où $\gamma \subseteq \delta$. Par double inclusion, $\gamma = \delta \in \alpha$.
+
+	Par un raisonnement symétrique, si $\gamma \neq \beta$, alors $\gamma \in \beta$.
+
+	Ainsi, soit $\gamma = \alpha = \beta$, soit $\gamma = \alpha \in \beta$, soit $\gamma = \beta \in \alpha$. Ces trois cas sont mutuellement exclusifs par l'axiome de fondation (qui interdit $\alpha \in \alpha$ et $\alpha \in \beta \in \alpha$).
+\end{proof}
+
+\begin{remarque}
+    En particulier, ce théorème implique une propriété fort naturelle qui est :
+    \[
+    \forall n,m \in \N \quad (n<m) \lor (n=m) \lor (m<n)
+    \]
+    Bien que nous n'avons pas détaillé la construction des différents ensembles de nombres usuels vu les propriétés sur les ordinaux il est facile de concevoir $<$ et $>$ dans $\N$.
+\end{remarque}
+
+\begin{corollaire}\label{cor:ordinal_sous_ensemble}
+	Si $\alpha$ et $\beta$ sont des ordinaux avec $\alpha \subseteq \beta$, alors $\alpha \in \beta$ ou $\alpha = \beta$.
+\end{corollaire}
+
+\begin{proof}
+	Par trichotomie, on a $\alpha \in \beta$, $\alpha = \beta$, ou $\beta \in \alpha$. Si $\beta \in \alpha$ et $\alpha \subseteq \beta$, alors $\beta \in \beta$, ce qui contredit l'axiome de fondation.
+\end{proof}
+
+\subsection{Successeur et ordinaux limites}
+
+
+\begin{definition}[Successeur]
+	Pour tout ordinal $\alpha$, on définit son \emph{successeur} par :
+	$$\alpha^+ = \alpha \cup \{\alpha\}$$
+	On note aussi $\alpha + 1 = \alpha^+$.
+\end{definition}
+
+\begin{proposition}\label{prop:successeur_ordinal}
+	Si $\alpha$ est un ordinal, alors $\alpha^+$ est un ordinal, et c'est le plus petit ordinal strictement plus grand que $\alpha$.
+\end{proposition}
+
+\begin{proof}
+	Montrons que $\alpha^+$ est transitif. Soit $x \in y \in \alpha^+$. Si $y \in \alpha$, alors par transitivité de $\alpha$, on a $y \subseteq \alpha \subseteq \alpha^+$, donc $x \in \alpha^+$. Si $y = \alpha$, alors $x \in \alpha \subseteq \alpha^+$.
+
+	Pour l'ordre total, soient $x, y \in \alpha^+$. Si $x, y \in \alpha$, ils sont comparables car $\alpha$ est totalement ordonné. Si $x = \alpha$, alors pour tout $y \in \alpha$, on a $y \in \alpha = x$. Le cas $y = \alpha$ est symétrique.
+
+	Donc $\alpha^+$ est un ordinal. De plus, $\alpha \in \alpha^+$ par définition. Si $\beta$ est un ordinal avec $\alpha \in \beta$, alors $\alpha \subseteq \beta$ (car $\beta$ est transitif), donc $\alpha^+ = \alpha \cup \{\alpha\} \subseteq \beta$, d'où $\alpha^+ \subseteq \beta$, et par le corollaire \ref{cor:ordinal_sous_ensemble}, $\alpha^+ \in \beta$ ou $\alpha^+ = \beta$. Ainsi $\alpha^+$ est le plus petit ordinal strictement plus grand que $\alpha$.
+\end{proof}
+
+\begin{remarque}
+    Les ordinaux sont donc des ensembles construits pas à pas. C'est à dire que nous commençons à $0$, nous prennons son successeur $0^+=1$, auquel nous prennons le successeur et ainsi de suite. Et lorsque, tous les naturels sont atteints ils forment l'ensemble $\N$ qui est également un ordinal, selon nos définition, que nous notons $\omega$. Donc on recommence on considère son successeur $\omega^+=\omega+1$, jusqu'a virtuellement atteindre $\omega +\omega= \omega2$. Or vu ces constructions, nous avons deux types d'ordinaux: ceux qui peuvent être atteint via l'opération successeur et ceux qui sont atteints à la "limite". 
+\end{remarque}
+
+\begin{definition}[Ordinal successeur et ordinal limite]
+	Un ordinal $\lambda \neq 0$ est appelé :
+	\begin{itemize}
+		\item \emph{Ordinal successeur} s'il existe un ordinal $\beta$ tel que $\lambda = \beta^+$
+		\item \emph{Ordinal limite} s'il n'est pas un successeur, i.e. $\lambda = \bigcup \lambda = \bigcup_{\alpha \in \lambda} \alpha$
+	\end{itemize}
+\end{definition}
+
+\begin{exemple}
+    Voici quelques exemples:
+	\begin{itemize}
+		\item $1 = 0^+$, $2 = 1^+$, $3 = 2^+$, \ldots sont des ordinaux successeurs
+		\item $\omega = \mathbb{N}$ est un ordinal limite (le plus petit ordinal limite non nul)
+		\item $\omega + \omega = \omega \cdot 2$ est un ordinal limite
+		\item $\omega^2$, $\omega^\omega$, sont des ordinaux limites
+	\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:limite_reunion}
+	Un ordinal $\lambda \neq 0$ est limite si et seulement si pour tout $\alpha \in \lambda$, on a: $\alpha^+ \in \lambda$.
+\end{proposition}
+
+\begin{proof}
+	Si $\lambda$ est limite et $\alpha \in \lambda$, supposons $\alpha^+ \notin \lambda$. Par trichotomie, $\lambda \in \alpha^+$ ou $\lambda = \alpha^+$. Si $\lambda = \alpha^+$, alors $\lambda$ est un successeur, contradiction. Si $\lambda \in \alpha^+$, alors $\lambda \in \alpha$ ou $\lambda = \alpha$. Dans les deux cas, $\alpha \in \lambda$ et $\lambda \in \alpha^+$ avec $\alpha \in \alpha^+$ donnent une contradiction avec la fondation ou la transitivité. Donc $\alpha^+ \in \lambda$.
+
+	Réciproquement, si pour tout $\alpha \in \lambda$, on a $\alpha^+ \in \lambda$, et si $\lambda = \beta^+$ pour un certain $\beta$, alors $\beta \in \lambda$, donc $\beta^+ \in \lambda$, i.e. $\lambda \in \lambda$, contradiction.
+\end{proof}
+
+
+
+\subsection{Principe de récurrence et d'induction transfinie}
+
+Nous allons maintenant généraliser le principe l'induction aux ordinaux. Cela permet de montrer des résultats forts pratiques.
+
+\begin{theoreme}[Principe de récurrence transfinie]\label{thm:recurrence_transfinie}
+	Soit $P(\alpha)$ une propriété définie pour les ordinaux (donnée par une formule du langage de ZFC). Si :
+	\begin{enumerate}
+		\item $P(0)$ est vraie
+		\item Pour tout ordinal $\alpha$, si $P(\alpha)$ est vraie, alors $P(\alpha^+)$ est vraie
+		\item Pour tout ordinal limite $\lambda$, si $P(\beta)$ est vraie pour tout $\beta < \lambda$, alors $P(\lambda)$ est vraie
+	\end{enumerate}
+	Alors $P(\alpha)$ est vraie pour tout ordinal $\alpha$.
+\end{theoreme}
+\begin{proof}
+	Supposons par l'absurde qu'il existe un ordinal $\gamma$ pour lequel $P$ est faux. L'ensemble $A = \{\alpha \in \gamma^+ \mid \neg P(\alpha)\}$ est non vide (car il contient un ordinal $\leqslant \gamma$ ne satisfaisant pas $P$, si ce n'est $\gamma$ lui-même). Puisque $\gamma^+$ est bien ordonné, $A$ possède un plus petit élément $\delta$.
+
+	On a $\neg P(\delta)$, mais $P(\beta)$ est vraie pour tout $\beta < \delta$ (par minimalité de $\delta$ dans $A$).
+
+	Si $\delta = 0$, cela contredit l'hypothèse $(i)$.
+	Si $\delta = \beta^+$ pour un certain $\beta < \delta$, alors $P(\beta)$ est vraie, donc $P(\delta) = P(\beta^+)$ est vraie par $(ii)$, contradiction.
+	Si $\delta$ est un ordinal limite, alors $P(\beta)$ est vraie pour tout $\beta < \delta$, donc $P(\delta)$ est vraie par (3), contradiction.
+
+	Ainsi, aucun ordinal ne satisfait $\neg P$, donc $P(\alpha)$ est vraie pour tout ordinal $\alpha$.
+\end{proof}
+
+\begin{theoreme}[Principe d'induction transfinie]\label{thm:induction_transfinie}
+	Soit $P(\alpha)$ une propriété sur les ordinaux. Si pour tout ordinal $\alpha$,
+	$$\left(\forall \beta < \alpha, P(\beta)\right) \Rightarrow P(\alpha)$$
+	alors $P(\alpha)$ est vraie pour tout ordinal $\alpha$.
+\end{theoreme}
+
+\begin{proof}
+	On procède comme dans la preuve précédente. Si $P$ n'est pas vraie partout, il existe un plus petit ordinal $\delta$ tel que $\neg P(\delta)$. Mais alors $P(\beta)$ est vraie pour tout $\beta < \delta$ par minimalité de $\delta$, donc $P(\delta)$ devrait être vraie par hypothèse, contradiction.
+\end{proof}
+
+\subsection{Arithmétique ordinale}
+
+\subsubsection*{Addition}
+
+\begin{definition}[Addition ordinale]
+	On définit l'addition $\alpha + \beta$ par récurrence transfinie sur $\beta$ :
+	\begin{align*}
+		\alpha + 0       & = \alpha                                                                                     \\
+		\alpha + \beta^+ & = (\alpha + \beta)^+                                                                         \\
+		\alpha + \lambda & = \bigcup_{\beta < \lambda} (\alpha + \beta) \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+
+\begin{exemple}
+Nous avons:
+	\begin{itemize}
+		\item $1 + 1 = 1^+ = 2$
+		\item $2 + 3 = 5$
+		\item $\omega + 1 = \omega^+$ (le successeur de $\omega$, distinct de $\omega$)
+		\item $1 + \omega = \bigcup_{n < \omega} (1 + n) = \bigcup_{n < \omega} (n + 1) = \omega$ (car chaque $n+1$ est dans $\omega$, et leur réunion donne $\omega$)
+		\item $\omega + \omega = \bigcup_{n < \omega} (\omega + n)$, qui est un ordinal limite distinct de $\omega$
+	\end{itemize}
+\end{exemple}
+
+\begin{remarque}
+	L'addition ordinale n'est pas commutative : $1 + \omega = \omega \neq \omega + 1$.
+\end{remarque}
+
+\begin{proposition}\label{prop:addition_associative}
+	L'addition ordinale est associative : pour tous ordinaux $\alpha, \beta, \gamma$,
+	$$(\alpha + \beta) + \gamma = \alpha + (\beta + \gamma)$$
+\end{proposition}
+
+\begin{proof}[Idée de preuve]
+	Par récurrence transfinie sur $\gamma$. Le cas $\gamma = 0$ est immédiat. Le cas successeur découle de la définition. Le cas limite utilise le fait que la réunion est associative.
+\end{proof}
+
+\subsubsection{Multiplication}
+
+\begin{definition}[Multiplication ordinale]
+	On définit la multiplication $\alpha \cdot \beta$ par récurrence transfinie sur $\beta$ :
+	\begin{align*}
+		\alpha \cdot 0       & = 0                                                                                              \\
+		\alpha \cdot \beta^+ & = \alpha \cdot \beta + \alpha                                                                    \\
+		\alpha \cdot \lambda & = \bigcup_{\beta < \lambda} (\alpha \cdot \beta) \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+
+\begin{exemple}
+Nous avons :
+	\begin{itemize}
+		\item $2 \cdot 3 = 2 + 2 + 2 = 6$
+		\item $2 \cdot \omega = \bigcup_{n < \omega} (2 \cdot n) = \bigcup_{n < \omega} 2n = \omega$ (car tout entier pair est dans $\omega$)
+		\item $\omega \cdot 2 = \omega \cdot 1^+ = \omega \cdot 1 + \omega = \omega + \omega$ (distinct de $\omega$)
+		\item $\omega \cdot \omega = \omega^2$ est un ordinal limite
+	\end{itemize}
+\end{exemple}
+
+\begin{remarque}
+	La multiplication ordinale n'est PAS commutative : $2 \cdot \omega = \omega \neq \omega \cdot 2 = \omega + \omega$.
+\end{remarque}
+
+\begin{proposition}
+	La multiplication ordinale est associative et distributive à gauche :
+	\begin{itemize}
+		\item $(\alpha \cdot \beta) \cdot \gamma = \alpha \cdot (\beta \cdot \gamma)$
+		\item $\alpha \cdot (\beta + \gamma) = \alpha \cdot \beta + \alpha \cdot \gamma$
+	\end{itemize}
+	Mais elle n'est pas distributive à droite en général.
+\end{proposition}
+
+\begin{exemple}[Non-distributivité à droite]
+	$(\omega + 1) \cdot \omega = \omega \cdot \omega = \omega^2$, mais $\omega \cdot \omega + 1 \cdot \omega = \omega^2 + \omega \neq \omega^2$.
+\end{exemple}
+
+\subsubsection{Exponentiation}
+
+\begin{definition}[Exponentiation ordinale]
+	On définit l'exponentiation $\alpha^\beta$ par récurrence transfinie sur $\beta$ :
+	\begin{align*}
+		\alpha^0         & = 1                                                                                      \\
+		\alpha^{\beta^+} & = \alpha^\beta \cdot \alpha                                                              \\
+		\alpha^\lambda   & = \bigcup_{\beta < \lambda} \alpha^\beta \quad \text{si $\lambda$ est un ordinal limite}
+	\end{align*}
+\end{definition}
+\begin{remarque}
+    Il ne faut pas confondre l'exponentiation ordinale et la notation des espaces d'applications. Pour cette raison, même si $\omega = \N$, on utilisera la notation $\omega$ uniquement lorsqu'on parle d'ordinaux, et réciproquement.
+\end{remarque}
+\begin{exemple}
+Nous avons :
+	\begin{itemize}
+		\item $2^3 = 8$
+		\item $2^\omega = \bigcup_{n < \omega} 2^n = \omega$ (car tout $2^n$ est fini)
+		\item $\omega^2 = \omega \cdot \omega$
+		\item $\omega^\omega$ est un ordinal limite
+	\end{itemize}
+\end{exemple}
+
+\subsection{La hiérarchie des ordinaux}
+
+Au-delà de $\omega$, on construit une hiérarchie infinie d'ordinaux :
+\begin{align*}
+	 & 0, 1, 2, \ldots, \omega, \omega + 1, \omega + 2, \ldots                 \\
+	 & \omega + \omega = \omega \cdot 2, \omega \cdot 2 + 1, \ldots            \\
+	 & \omega \cdot 3, \ldots, \omega \cdot \omega = \omega^2, \ldots          \\
+	 & \omega^3, \ldots, \omega^\omega, \ldots, \omega^{\omega^\omega}, \ldots
+\end{align*}
+
+\begin{proposition}\label{ens : ordinal : iso_entre_ordinaux}
+    Soit $\alpha, \beta$ deux ordinaux. S'il existe un isomorphisme d'ordre $f:\alpha\to \beta$, alors $\alpha = \beta$.
+\end{proposition}
+\begin{proof}
+Comme $f$ est un isomorphisme d'ordres, pour tous $x,y\in\alpha$,
+\[
+x\in y \ssi f(x)\in f(y).
+\]
+On montre par induction transfinie sur $\gamma\in\alpha$ que $f(\gamma)=\gamma$.
+
+Soit $\gamma\in\alpha$ et supposons que $f(\delta)=\delta$ pour tout $\delta\in\gamma$. 
+Alors, en utilisant la préservation de la relation $\in$,
+\[
+f(\gamma)
+= \{ f(\delta) \mid \delta\in\gamma \}
+= \{ \delta \mid \delta\in\gamma \}
+= \gamma.
+\]
+Par induction transfinie, on obtient $f(\gamma)=\gamma$ pour tout $\gamma\in\alpha$, 
+donc $f=\mathrm{id}_\alpha$. 
+Comme $f$ est une bijection de $\alpha$ sur $\beta$, il vient $\alpha=\beta$.
+\end{proof}
+
+\begin{theoreme}[Représentation par les ordinaux]\label{ens : ordinal : isomorphisme_entre_bo_et_ordinal}
+Soit $(A, \leq)$ un ensemble bien ordonné. Alors il existe un unique ordinal 
+$\alpha$ et un unique isomorphisme d'ordre $f : A \to \alpha$.
+\end{theoreme}
+\begin{proof}
+    \begin{description}
+
+         \item[Unicité]
+Soient $\alpha,\beta$ deux ordinaux et $f : A\to \alpha, g : A\to \beta$ deux isomorphisme d'ordre. Alors $g\circ f^{-1}$ est un isomorphisme d'ordre par la proposition précédente, on a $\alpha = \beta$.
+
+    
+    
+        \item[Existence]
+Soit $S$ la partie de $A$ définie par :
+\[ S = \{ x \in A \mid \exists! \alpha_x \in \text{Ord}, A_x \simeq \alpha_x \} \]
+où $A_x = \{ y \in A \mid y < x \}$.
+
+$S$ est non vide : Si $A = \emptyset$, $\alpha = 0$ convient. Si $A \neq \emptyset$, soit $a_0 = \min A$. Comme $A_{a_0} = \emptyset$ et $\emptyset$ est l'ordinal $0$, on a $a_0 \in S$.
+
+Preuve que $S = A$ : Supposons par l'absurde que $S \subsetneq A$. L'ensemble $A \setminus S$ est non vide et possède un plus petit élément $m = \min(A \setminus S)$. Par définition de $m$, pour tout $x < m$, $x \in S$.
+Considérons la relation fonctionnelle $R(x, \gamma)$ définie sur $A_m$ par $A_x \simeq \gamma$. Par l' axiomes de Remplacement, l'image $W = \{ \alpha_x \mid x < m \}$ est un ensemble.
+\begin{itemize}
+    \item $W$ est un ensemble d'ordinaux.
+    \item $W$ est transitif : si $\beta \in \alpha_x \in W$, alors $\beta$ est l'ordinal d'un segment initial de $A_x$, donc $\beta = \alpha_y$ pour un $y < x < m$, d'où $\beta \in W$.
+\end{itemize}
+Ainsi, $W$ est un ordinal. L'application $x \mapsto \alpha_x$ est un isomorphisme de $A_m$ sur $W$. Donc $m \in S$, ce qui contredit $m \in A \setminus S$. On en déduit $S = A$.
+En appliquant le Remplacement sur $A$ tout entier, l'ensemble $\alpha = \{ \alpha_x \mid x \in A \}$ est un ordinal et l'application $f : x \mapsto \alpha_x$ est isomorphisme d'ordre recherché.
+
+        
+       
+    \end{description}
+\end{proof}
+
+\begin{corollaire}\label{ens : ordinal : existence_ordinal_équipotent}
+Pour tout ensemble $A$, il existe au moins un ordinal en bijection avec $A$.
+\end{corollaire}
+\begin{proof}
+    Par le principe de Zermelo \ref{ens : choix : zermelo}, l'ensemble $A$ peut être muni d'un bon ordre. Donc il est en isomorphisme d'ordre avec un ordinal, en particulier $A$, vu en tant qu'ensemble sans relation d'ordre, est en bijection avec cet ordinal.
+\end{proof}
+
+\begin{theoreme}[Le paradoxe de Burali-Forti]
+    La collection de tous les ordinaux n'est pas un ensemble.
+\end{theoreme}
+
+\begin{proof}
+    Supposons que $\Omega$ soit l'ensemble de tous les ordinaux. Vu ce qui précède $\Omega$ est un ensemble bien ordonné. Ainsi par \ref{ens : ordinal : isomorphisme_entre_bo_et_ordinal}, cet ensemble est isomorphe à un unique ordinal $\alpha\in \Omega$ donc $\alpha=\Omega$ et ainsi $\alpha\in \alpha$ ce qui est absurde.
+\end{proof}
+
+
+\begin{definition}
+    Un ordinal $\alpha$ est dit \emph{fini} si $\alpha\ge\omega$. Un ordinal est dit \emph{infini} si il n'est pas fini.
+\end{definition}
+\begin{proposition}
+    Soit $\alpha$ un ordinal infini. Alors $\alpha\simeq \alpha^+$
+\end{proposition}
+\begin{proof}
+Par définition, $\alpha^+ = \alpha \cup \{\alpha\}$. Puisque $\alpha$ est un ordinal infini, il contient l'ensemble des entiers naturels comme segment initial, soit $\omega \subseteq \alpha$. 
+
+On définit l'application $f : \alpha^+ \to \alpha$ par :
+\[
+f(\xi) = 
+\begin{cases} 
+0 & \text{si } \xi = \alpha \\
+n+1 & \text{si } \xi = n \in \omega \\
+\xi & \text{si } \xi \in \alpha \setminus \omega
+\end{cases}
+\]
+
+Cette application est une bijection : elle insère l'élément supplémentaire $\alpha$ à la position $0$ et décale chaque entier naturel vers son successeur, tout en laissant invariants les éléments de $\alpha \setminus \omega$. On en conclut que $\alpha \simeq \alpha^+$.
+\end{proof}
+
+\begin{definition}[Nombres epsilon]
+	Un ordinal $\epsilon$ est appelé \emph{nombre epsilon} si $\omega^\epsilon = \epsilon$.
+
+	Le plus petit $\varepsilon$ est noté $\epsilon_0$. On définit ensuite $\epsilon_1, \epsilon_2, \ldots$ par récurrence .
+\end{definition}
+\begin{remarque}
+Autrement dit, on peut montrer que $\epsilon_0= \operatorname{sup}\{\omega, \omega^\omega, \omega^{\omega^{\omega}}, \dots\}$
+\end{remarque}
+\begin{theoreme}
+    $\varepsilon_0$ est en bijection avec $\N$ (mais pas iso en tant que bon ordre. Déja vait pour $\omega +1$)
+\end{theoreme}
+
+
+
+\newpage
+\section{Les cardinaux}
+La section précédente nous fournit des résultats fabuleux nous permettant d'établir rigoureusement la notion de cardinal. Elle permet de formaliser la notion de taille d'un ensemble.
+Soit $A$ un ensemble, nous adoptons l'axiome du choix en le principe de Zermolo. Par ce biais, il existe une relation d'ordre $\le_A$ tel que $(A,\le_A)$ est bien ordonné. Par \ref{ens : ordinal : isomorphisme_entre_bo_et_ordinal}, il existe au moins un ordinal $\alpha$ tel que $$\alpha \simeq A$$
+De là, on définit $S:= \{\beta\in \alpha +1\mid \beta\simeq A\}$. L'idée est d'associer à un ensemble le plus petit ordinal possible. Ainsi pour que ce plus petit ordinal puisse exister, il nous faut vérifier quelques propriétés. Premièrement, il s'agit bien d'un ensemble qui est non vide. En effet, $\alpha \in \alpha+1$. De plus, les ordinaux sont des bons ordres pour $\in$, et puisque $S\subseteq \alpha+1$ (et non vide) $S$ admet un minimum. Ainsi, on définit le cardinal de $A$ comme 
+\[
+\operatorname{Card}(A)= \operatorname{min}(S)
+\]
+
+\subsection{Définition}
+
+De manière plus compacte:
+
+\begin{definition}
+    Soient $A$ un ensemble. On sait que il existe un ordinal $\alpha$ tel que $\alpha\simeq A$. On définit le cardinal de $A$ par :
+    \[
+    \operatorname{Card}(A)=\operatorname{min}(\{\beta\in \alpha+1\mid \beta \simeq A\})
+    \]
+\end{definition}
+
+\begin{exemple}
+    Nous avons les exemples suivants:
+    \begin{enumerate}
+        \item $\operatorname{Card}(\{0,1,2\})=3$
+        \item $\operatorname{Card}(\N )= \omega$
+        \item On a $\N\cup \{\omega\}$ est isomorphe à $\omega+1\simeq \omega$, on déduit $\operatorname{Card}(\N\cup\{\omega\})=\omega$ et non $\omega+1$
+    \end{enumerate}
+\end{exemple}
+
+\begin{definition}
+    Un ordinal $\kappa$ est dit ordinal cardinal ou  plus simplement
+    \emph{cardinal} si :
+    \[ \operatorname{Card}(\kappa)=\kappa\]
+\end{definition}
+ou autrement dit un cardinal est un ordinal qui est un point fixe pour l'opérateur $\operatorname{Card}$
+
+\begin{proposition}[caractérisation]
+Soit $\kappa$ un ordinal, $\kappa$ est un cardinal si et seulement si pour tout ordinal $\alpha $ tel que $\kappa \simeq \alpha$, nous avons $\kappa \le \alpha $
+\end{proposition}
+\begin{theoreme}
+    Soit $A$ un ensemble, il existe un unique cardinal $\kappa$ tel que $$\operatorname{Card}(A)= \kappa$$
+\end{theoreme}
+Ce  théorème résulte des remarques et constructions précédentes.
+
+Nous pouvons maintenant étudier la structure des cardinaux. Pour rappel, on dit qu'un ordinal $\alpha$ est fini si $\alpha< \omega$.
+\textbf{JE VAIS LA RÉÉCRIRE}
+\begin{proposition}
+    Les ordinaux finis sont des cardinaux
+\end{proposition}
+
+
+\begin{proof}
+    Soit $n\in \omega$. Vérifions que $\operatorname{Card}(n)=n$, montrons le par induction. Si $n=0$ par vacuité $0$ est bien un cardinal. Dés lors, supposons que $n$ soit un cardinal et montrons que $n+1$ est un cardinal. Par l'absurde, supposons qu'il existe une bijection $f$ entre $n+1$ et $m<n+1$. Si $m= n$ (l'autre cas est trivial), alors on considère $f(n)=k\in n$. On va alors construire une application, $g:n\to n-1$ à partir de $f$. Si $k=n-1$, alors on prend $g$ qui est $f$ restreint à $n$ qui est bien une bijection ce qui est absurde. Si $k<n-1$, comme $f$ est une bijection il existe un unique $x$ tel que $f(x)=n-1$. On définit $g$ de la manière suivante si $i\in n\setminus\{x\}$ alors $g(i)=i$ et si $i=x$ pose $g(i)=k$. Il faut maintenant vérifier que c'est une bijection pour aboutir à l'absurdité. Il est facile de vérifier qu'elle est injective et surjective. A noter que la surjectivité peut être pénible à vérifier formellement. 
+\end{proof}
+
+\begin{proposition}
+    Un cardinal infini est un ordinal limite.
+\end{proposition}
+
+\begin{proof}
+Soit $\kappa$ un cardinal infini, i.e. $\kappa \geq \omega$. Supposons par l'absurde que $\kappa = \alpha^+$ pour un certain ordinal $\alpha$.
+
+Si $\kappa = \omega$, on a une absurdité, puisqu'alors $\alpha^+$ serait un ordinal limite. Donc $\alpha^+=\kappa>\omega$ d'où $\alpha\ge\omega$. Donc $\alpha$ est un ordinal infini.
+
+Par le théorème sur les ordinaux infinis, $\alpha \simeq \alpha^+ = \kappa$.
+
+Mais alors $\alpha < \kappa$ et $\alpha \simeq \kappa$, ce qui contredit le fait que $\kappa$ est un cardinal (i.e. le plus petit ordinal équipotent à lui-même).
+
+Donc $\kappa$ n'est pas un successeur. Comme $\kappa > 0$, c'est un ordinal limite.
+\end{proof}
+
+\subsection{Equipotence}
+
+L'idée de cette partie est de mettre en relation des ensembles avec une "taille" comparable et de vérifier si la notion de cardinalité est en accord avec l'intuition commune.
+
+\begin{definition}
+    Soient $A$ et $B$ deux ensembles, on dit qu'ils sont \emph{équipotents} s'il existe une bijection entre $A$ et $B$ ce qu'on note $A\simeq B$
+\end{definition}
+
+\begin{lemme}
+    Soient $A$ et $B$ deux ensembles équipotents. $A$ et $B$ ont le même cardinal. Autrement dit,
+    \[
+    A\simeq B \Rightarrow |A|= |B|
+    \]
+\end{lemme}
+
+\begin{proof}
+    Notons $|A|=\kappa_1$ et $|B|= \kappa_2$. Nous avons l'existence de $f_1: A\overset{\sim}{\to} B$, $f_2: \kappa_1\overset{\sim}{\to}A$ et $f_3: B\overset{\sim}{\to}\kappa_2$. En composant, Nous obtenons $\kappa_1 \simeq \kappa_2$. Or, par définition, un cardinal est un ordinal qui n'est équipotent à aucun ordinal plus petit. Nous concluons que $|A|= |B|$ 
+\end{proof}
+
+Nous pouvons aussi comparer deux ensembles de tailles différentes.
+
+\begin{proposition}
+    Soient $A$ et $B$ deux ensembles. S'il existe une injection de $A$ dans $B$ alors $|A|\le |B|$.
+\end{proposition}
+
+\begin{proof}
+    
+Soit $g : A \to B$ une injection. Par définition des cardinaux, il existe des bijections $\alpha : |A| \to A$ et $\beta : B \to |B|$. La fonction $f = \beta \circ g \circ \alpha$ est donc une injection de $|A|$ dans $|B|$.
+
+Soit $X = \operatorname{Im}f$ . Comme $X \subseteq |B|$ et que $|B|$ est un ordinal, $(X, \in)$ est un ensemble bien ordonné. Il existe donc un unique ordinal $\gamma$ (le type d'ordre de $X$) tel qu'il existe un isomorphisme d'ordre (et donc une bijection) entre $\gamma$ et $X$.
+
+On dispose alors des deux propriétés suivantes :
+\begin{enumerate}
+    \item Puisque $X \subseteq |B|$ est un sous-ensemble d'un ordinal, on a vérifie $\gamma \le |B|$ (les détails de ce point sont laissés au lecteur).
+    \item Par construction, $|A| \simeq X \simeq \gamma$, donc $|A| \simeq \gamma$.
+\end{enumerate}
+
+Par définition du cardinal $|A|$ comme étant le plus petit ordinal équipotent à $A$, on a nécessairement $|A| \le \gamma$. Par transitivité avec (i), on conclut que $|A| \le |B|$.
+\end{proof}
+
+\begin{corollaire}
+    Soient $A$ et $B$ deux ensembles.  S'il existe une injection de $A$ dans $B$ et une de $B$ dans $A$ alors il existe une bijection de $A$ et dans $B$.
+\end{corollaire}
+
+Ce dernier corollaire est un résultat très connu et utile. Néanmoins, la preuve que nous avons fournie ici repose sur l'axiome du choix. Le résultat est également vrai lorsque l'on n'accepte pas cet axiome. Dans ce qui suit, nous donnons une preuve de ce résultat qui ne dépend pas de l'axiome du choix. Nous en profitons également pour fournir d'autres résultats fort utiles.
+
+\subsection{Théorème de Cantor-Schröder-Bernstein}
+
+Il peut être assez commode de travailler avec des injections plutôt qu'avec des bijections. C'est la raison pour laquelle nous allons démontrer le célèbre théorème de Cantor-Bernstein. 
+\begin{lemme}[Recollement]\label{ens : CSB : recollement}
+    Soient $(A_i)_{i\in I},(B_i)_{i\in I}$ des familles d'ensembles. Soient $(f_i)_{i\in I}$ une famille d'applications où pour tout $i\in I, f_i\in B_i^{A_i}$. On peut alors définir l'application $$\fonction{f}{\bigsqcup_{i\in I}A_i\to \bigsqcup_{i\in I}B_i}{x\mapsto f_j(x) \text{ avec $j$ l'unique élément de $I$ vérifiant $x\in A_j$}}$$.
+    De plus, \begin{enumerate}
+        \item $f$ est injective si et seulement si $\forall i \in I,\ f_i$ est injective.
+        \item $f$ est surjective si et seulement si $\forall i \in I,\ f_i$ est surjective
+    \end{enumerate} 
+\end{lemme} 
+\begin{proof}
+    Puisque l'élément $j$ est unique et que $\forall j\in I,\ f_j$ est une application, $f$ est bien une application. 
+    \begin{enumerate}
+        \item Supposons que $f$ est injective. Soient $i\in I$ et $x,y\in A_i$. Si $f_i(x) = f_i(y)$, alors $f(x) = f(y)$ d'où $x=y$. Réciproquement, supposons que $\forall i\in I$, $f_i$ est injective. Soient $x\ne y\in \bigsqcup_{i\in I}A_i$. Ainsi, il existe $i,j\in I$ tels que $x\in A_i$ et $y\in A_j$. Si $i\ne j$ alors $f(x)\ne f(y)$, car sinon $f(x)\in B_i$ et $f(x)\in B_j$, d'où $f(x)\in B_i\cap B_j = \varnothing$. Si $i = j$, alors $f(x) = f_i(x)\ne f_i(y) = f(y)$.
+        \item Supposons que $f$ est surjective. Soit $i\in I$. Montrons que $f_i$ est surjective. Soit $y\in B_i$. Par surjectivité de $f$, il existe $x\in \bigsqcup_{i\in I}A_i$ tel que $f(x) = y$. Si, par l'absurde, $x\notin A_i$, alors $x\in A_j$ pour un certain $j\ne i$. Donc $f(x)\in B_i\cap B_j = \varnothing$, c'est absurde. Donc $x\in A_i$ et alors $f_i(x) = f(x) = y$. Réciproquement, supposons que pour tout $i\in I,\ f_i$ est surjective. Soit $y\in\bigsqcup_{i\in I}B_i$. Alors il existe $i\in I$ tel que $y\in B_i$. Donc il existe $x\in A_i$ tel que $f(x) = f_i(x) = y$.
+    \end{enumerate}
+\end{proof}
+   
+
+\begin{lemme}[de réduction dans le cas particulier où $B\subset A$]\label{card : lemme csb}
+    Soit $B\subseteq A$ deux ensembles. Si $f$ est une injection de $A\to B$, alors $A$ est en bijection avec $B$
+\end{lemme}
+
+\begin{proof}     
+        On a $B\subset A$ et $f(A)\subset B$. On en déduit $\forall n\in \N,\ f^n(B)\subseteq f^{(n)}(A)$ et $f^{(n+1)}(A)\subseteq f^{(n)}(B)$ en itérant $f$. On conclut que $\bigcap_{n\in\N}f^{(n+1)}(A)\subseteq\bigcap_{n\in\N}f^{(n)}(B)$ et $\bigcap_{n\in\N}f^{(n)}(B)\subseteq\bigcap_{n\in\N}f^{(n)}(A)$. Or $\bigcap_{n\in\N}f^{(n)}(A) = \bigcap_{n\in\N}f^{(n+1)}(A)$ car $f(A)\subseteq A$. Donc on a $R:=\bigcap_{n\in\N}f^{(n)}(A) = \bigcap_{n\in\N}f^{(n)}(B)$.  Pour tout $n\in\N$, posons $M_n := f^{(n)}(A)\setminus f^{(n)}(B)$ et $ R_n := f^{(n)}(B)\setminus f^{(n+1)}(A).$Montrons que $$A = \left(\bigsqcup_{n\in\N}M_n \sqcup R_n\right)\sqcup R$$. Pour cela, remarquons qu'on a 
+        $$
+        R\subseteq\ldots\subseteq f^{(n+1)}(A)\subseteq f^{(n)}(B)\subseteq f^{(n)}(A)\subseteq\ldots\subseteq f(A)\subseteq B\subseteq A
+        $$. On conclut facilement. On en déduit que 
+        $$B = A\setminus(A\setminus B) = \left(\bigsqcup_{n\in\N}M_{n+1} \sqcup R_n\right)\sqcup R$$
+        De plus, $f(M_n) :=f(f^{(n)}(A)\setminus f^{(n)}(B)) = f^{(n+1)}(A)\setminus f^{(n+1)}(B)=:M_{n+1}$ par injectivité.  On définit $h$ comme le recollement de $f$ sur les marches $M_n$, et l'identité sur les rampes $R_n$ ou $R$. Comme $f$ est injective sur $A$, $$\fonction{f_n}{M_n\to f(M_n) = M_{n+1}}{x\mapsto f(x)}$$ est bijective, et $$\fonction{Id_r}{r\to r}{x\mapsto x}\text{ avec $r$ une rampe}$$ est aussi bijective, donc leur recollement $h:A\to B$ l'est aussi.
+\end{proof} 
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Rectangle [id:dp7284026711147226] 
+\draw   (179.1,40.8) -- (472.2,40.8) -- (472.2,191) -- (179.1,191) -- cycle ;
+%Shape: Rectangle [id:dp31827800791534533] 
+\draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ] (218.15,65.05) -- (433.15,65.05) -- (433.15,166.75) -- (218.15,166.75) -- cycle ;
+%Shape: Rectangle [id:dp01931182864755654] 
+\draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ] (242.42,84.58) -- (408.88,84.58) -- (408.88,147.22) -- (242.42,147.22) -- cycle ;
+%Shape: Rectangle [id:dp5465922399290879] 
+\draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ] (266.69,97.61) -- (384.61,97.61) -- (384.61,134.19) -- (266.69,134.19) -- cycle ;
+%Shape: Rectangle [id:dp8900173189927166] 
+\draw  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ] (290.26,105.4) -- (361.04,105.4) -- (361.04,126.4) -- (290.26,126.4) -- cycle ;
+%Rounded Rect [id:dp7568393852773293] 
+\draw  [color={rgb, 255:red, 208; green, 2; blue, 27 }  ,draw opacity=1 ][fill={rgb, 255:red, 208; green, 2; blue, 27 }  ,fill opacity=1 ] (301.84,110.95) .. controls (301.84,109.13) and (303.32,107.65) .. (305.14,107.65) -- (346.16,107.65) .. controls (347.98,107.65) and (349.46,109.13) .. (349.46,110.95) -- (349.46,120.85) .. controls (349.46,122.67) and (347.98,124.15) .. (346.16,124.15) -- (305.14,124.15) .. controls (303.32,124.15) and (301.84,122.67) .. (301.84,120.85) -- cycle ;
+%Curve Lines [id:da32196340760393094] 
+\draw    (311,114.8) .. controls (279.32,97.97) and (183.93,97.8) .. (144.19,120.12) ;
+\draw [shift={(143,120.8)}, rotate = 329.47] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (483.1,27.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$A$};
+% Text Node
+\draw (292.1,46) node [anchor=north west][inner sep=0.75pt]   [align=left] {\textcolor[rgb]{0.49,0.83,0.13}{La rampe}};
+% Text Node
+\draw (442.1,59.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.96,0.65,0.14}{B}$};
+% Text Node
+\draw (410.88,87.98) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{F( A)}$};
+% Text Node
+\draw (384.1,108.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.96,0.65,0.14}{F( B)}$};
+% Text Node
+\draw (279.1,65) node [anchor=north west][inner sep=0.75pt]   [align=left] {\textcolor[rgb]{0.49,0.83,0.13}{Les marches}};
+% Text Node
+\draw (126.9,117.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{1,0.06,0.06}{R}$};
+
+
+\end{tikzpicture}
+
+\begin{theoreme}[ de Cantor-Bernstein (CSB)]
+    Soit $A,B$ deux ensembles telle qu'il existe $f:A\to B$ injective et $g:B\to A$ injective. Alors il existe $h:A\to B$ bijetive
+\end{theoreme}
+\begin{proof}
+    Montrons que c'est équivalent au lemme \ref{card : lemme csb}.
+    \begin{description}
+        \item[Lemme $\alors$ CSB] Comme $g$ est injective, $g$ induit une bijection $g': B\to g(B)$. De plus, $f\circ g'^{-1}: g(B)\to A$ est une ijection car $g'^{-1}$ est bijective
+        \item[CSB $\alors$ lemme] On a l'injection naturelle $g:B\to A : b\mapsto b$.
+    \end{description}
+\end{proof}
+
+\begin{theoreme}[Cantor]
+Il n'existe pas de surjection sur $A$ dans $\partie(A)$. 
+\end{theoreme}
+\begin{proof}
+Soit $f: A\to\partie(A)$. Montrons que $f$ n'est pas surjective. Considérons $AD_f:=\{a\in A\mid a\not\in f(a)\}$. On a $AD_f\in\partie(A)$. Montrons que $\forall x\in A, fx)\ne AD_f$, \textit{i.e.} $AD_f\not\in\im(f)$. Soit $x\in a$. On a, par définition, $x\in AD_f$ ssi $x\not\in f(x)$, donc $AD_f\ne f(x)$.
+\end{proof}
+
+\begin{remarque}
+    
+Ceci nous permet de dire que $A\hookleftarrow\partie(A)$ (par $a\mapsto \{a\}$ par exemple) mais que $A\not\simeq \partie(A)$. On a alors que $\abs A <\abs{\partie(A)}$.\\
+À $S\subseteq A$, on associe une application $$\fonction{1_S}{A\to\{0,\ 1\}}{a\in S\mapsto 1\\ a\not\in S\mapsto 0}$$ Cette fonction est appelée la fonction caractéristique du sous-ensemble $S$. On a clairement une bijection entre $\partie(A)$ et $\{\text{ application :} A\to \{A,1\}\}$ cet ensemble est noté $\{0,1\}^A$. Souvent, $\{0,1\}$ est noté $2$. Si $A$ est ordonné, on peut dessiner l'arbre binaire représentant cette bijection. Intéressons-nous au cas $A=\N$.
+\end{remarque}
+
+%start dessin
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da08958183809627362] 
+\draw    (101.1,149.1) -- (266.1,150.09) ;
+\draw [shift={(268.1,150.1)}, rotate = 180.34] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da8537673911425633] 
+\draw    (101.1,140.1) -- (101.1,157.1) ;
+%Straight Lines [id:da9339875544235059] 
+\draw    (122.1,136.1) -- (122.1,161.1) ;
+%Straight Lines [id:da30230220835634114] 
+\draw    (169.1,139.1) -- (169.1,160.1) ;
+%Straight Lines [id:da7379749092079592] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (168.1,113.47) -- (168.1,131.46) ;
+%Straight Lines [id:da9407289977500348] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (177.92,131.46) -- (168.1,131.46) ;
+%Straight Lines [id:da4813910277807786] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (177.92,113.47) -- (168.1,113.47) ;
+%Straight Lines [id:da8534446550728755] 
+\draw    (199.1,140.1) -- (199.1,161.1) ;
+%Straight Lines [id:da25527441286407937] 
+\draw    (226.1,140.1) -- (226.1,161.1) ;
+%Straight Lines [id:da18145613253938697] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (121.1,114.47) -- (121.1,132.46) ;
+%Straight Lines [id:da5478396164508745] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (130.92,132.46) -- (121.1,132.46) ;
+%Straight Lines [id:da9951011106611026] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (130.92,114.47) -- (121.1,114.47) ;
+
+% Text Node
+\draw (272,141.4) node [anchor=north west][inner sep=0.75pt]    {$A$};
+% Text Node
+\draw (115,159.4) node [anchor=north west][inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (177.13,123.12) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{0}$};
+% Text Node
+\draw (177.13,105.13) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{1}$};
+% Text Node
+\draw (165,160.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (130.13,124.12) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{0}$};
+% Text Node
+\draw (130.13,106.13) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{1}$};
+
+
+\end{tikzpicture}
+
+
+%end dessin
+
+%start dessin
+
+
+
+En utilisant l'opérateur $\partie$ :"prendre les parties d'un ensemble", on construit des suites arbitrairement longues du type suivant
+\begin{equation*}
+    A\underset{a\to \{a\}}{\hookrightarrow} \partie(A) \hookrightarrow \partie ^2(X)\hookrightarrow\dots\hookrightarrow \partie^n(A)\hookrightarrow \bigcup \partie^n(A):=\partie^\omega A:=A_\omega\hookrightarrow\partie A_\omega
+\end{equation*}
+Ce sont des injections strictes, vu le théorème de Cantor qui nous dit qu'il n'y a pas de surjection de $B\to \partie (B)$ pour tout $B$.
+
+
+
+  \begin{definition}
+      Soit $V$ un $K$-espace vectoriel. Soit $A\subseteq V$. $A$ est libre si toute partie $A_0\subseteq A$ de cardinal $r\in\N$ est libre càd, en posant $A_0 := \{a_1,\dotsc, a_r\}$ et $f : K^r\to A : (\lambda_1,\dotsc, \lambda_r)\mapsto\sum_{i = 1}^r\lambda_ia_i$, $f$ est injective
+  \end{definition}
+  \begin{definition}
+      $A\subseteq V$ est une partie génératrice de $V$ si $\langle A\rangle = V$ avec $\langle A\rangle := \{\sum_{a_i\in A_0}\lambda_ia_i\mid A_0\subseteq A\text{ est fini}, \lambda_i\in K\}$
+  \end{definition}
+  \begin{definition}
+      $A$ est une base de $V$ si $A\subseteq V$ et $A$ est générateur et libre.
+  \end{definition}
+  \begin{proposition}
+      Tout espace vectoriel a une base.
+  \end{proposition}
+  \begin{proof}
+      On regarde $E:= \{A\subseteq V\mid A \text{ est libre}\}$ muni de $\subseteq$, on montre que si $V\ne\{0\}$ alors $E$ est inductif
+  \end{proof}
+
+\subsection{Dénombrabilité}
+
+Nous avons vu que le plus petit cardinal infini est $\aleph_0$. Il est donc interressant de déterminer les ensembles de cette taille. 
+
+\begin{definition}
+    Soit $A$ un ensemble, $A$ est dit \emph{dénombrable} si
+    \[
+    |A|= \aleph_0
+    \]
+\end{definition}
+
+\begin{remarque}
+    Si nous ne souhaitons pas adopter l'axiôme du choix, il est toujours possible de définir les ensembles dénombrables comme les ensembles équipotent à $\N$. 
+\end{remarque}
+
+\begin{remarque}
+    Le terme dénombrable comme définit ici, n'est pas en accord avec le sens usuel qu'on lui attribue. En effet, de manière intuitive nous aurions plutôt tendance à qualifier les ensembles finis comme étant dénombrables. Cependant avec cette définition les ensembles finis ne sont pas dénombrable. Une définition alternative consisterait plutôt à définir un ensemble $A$ dénombrable s'il existe une injection entre $A$ et $\N$. Mais nous suivons ici les conventions utilisées en logique belge. 
+\end{remarque}
+
+\begin{proposition}
+    Nous avons que $|2\N|= \aleph_0 = |2\N +1|$.
+\end{proposition}
+
+\begin{proof}
+Il suffit de considérer les deux bijections suivantes:
+$$\fonction{f_1}{\N\to 2\N}{n\mapsto2n} \quad \text{et}\quad \fonction{f_2}{\N \to 2\N +1}{n\mapsto 2n+1}$$
+
+\end{proof}
+
+\begin{proposition}
+    Nous avons que $\Z$ est dénombrable.
+\end{proposition}
+
+\begin{proof}
+Cela vient du fait que l'application suivante est une bijection $f:\N\to \Z$:
+\[
+\fonction{f(n)}{\frac{n}{2} \quad \text{si n est pair}}{-\frac{n+1}{2} \quad \text{si n est impair}}
+\]
+\end{proof}
+
+\begin{proposition}
+    Nous avons que $\N^2$ est dénombrable.
+\end{proposition}
+
+\begin{proof}
+Définissons $\varphi : \mathbb{N}^2 \to \mathbb{N}$ par :
+\[
+\varphi(n,m) = 2^n(2m+1) -1
+\]
+Cette application est injective. En effet, si $\varphi(n,m) = \varphi(n',m')$, alors $2^n(2m+1) = 2^{n'}(2m'+1)$. Par unicité de la décomposition en facteurs premiers, on a $n = n'$ puis $2m+1 = 2m'+1$, d'où $m = m'$.
+De plus, elle est surjective. En effet, soit $x\in\N$. Alors, prenons $n$ l'exposant de $2$ dans la décomposition en nombre premier de $x+1\in\N_0$. On a alors $x+1 = 2^nk$ avec $k$ un naturel impair. On peut donc, par division euclidienne, prendre $m\in\N$ tel que $2m+1 = k$. Il vient $2^n(2m+1)-1 = x$. 
+\end{proof}
+
+\begin{proposition}
+    Soit $A$ un ensemble dénombrable. Soit $B\subseteq A$ de cardinal infini. Alors $B$ est dénombrable.
+\end{proposition}
+
+\begin{proof}
+Puisque $A$ est dénombrable et $B\subseteq A$, nous avons $|B|\leq \aleph_0$. De plus, $B$ est infini donc $\aleph_0 \leq |B|$. D'où $|B|= \aleph_0$
+\end{proof}
+
+
+\begin{corollaire}
+    Nous avons que $\Q$ est dénombrable.
+\end{corollaire}
+
+\begin{remarque}
+    Le fait que $\Q$ soit dénombrable est un fait important à connaître, qui permet par exemple de répondre à des questions du type:
+    \begin{enumerate}
+        \item Soit $f:\R \to \R$ une application continue tel que $f(\R \setminus \Q) \subseteq \Q$ que pouvez vous dire ?
+        \item Existe-t-il une suite $(x_n)_{n\in I}\subseteq \R$ tel que pour tout réel $r\in \R$, il existe une sous-suite de $(x_n)$ convergeant vers $r$ ?
+    \end{enumerate}
+\end{remarque}
+
+
+En ce qui concerne les opérations sur les ensembles dénombrables nous avons:
+
+\begin{proposition}
+    Soient $A$ et $B$ deux ensembles. Si $A$ et $B$ sont dénombrables alors $A\cup B$ est dénombrable.
+\end{proposition}
+
+\begin{proof}
+    Construisons explicitement cette bijection. Par hypothèse, il existe $f:\N \to A$ et $g:\N\to B$ des bijections donc l'application suivante $h:\N\to A\cup B$ est une bijection :
+
+    $$
+\fonction{h(n)}{f\left(\frac{n}{2}\right) \quad \text{si n est pair}}{g\left(\frac{n+1}{2}\right) \quad \text{si n est impair}}
+$$
+\end{proof}
+
+\begin{proposition}
+    Soient $A$ et $B$ deux ensembles dénombrable alors $A\times B$ est dénombrable.
+\end{proposition}
+
+\begin{proof}
+Par hypothèse, il existe $f:\N \to A $ et $g: \N \to B$. Il en vient la bijection :
+$$\fonction{h}{\N ^2\to A\times B}{(n,m)\mapsto (f(n),g(n))}$$. 
+\end{proof}
+
+\begin{remarque}
+    On aurait aussi pu procéder de manière simillaire à la preuve de dénombrabilité de $\N^2$. C'est à dire en posant $$h(a,b)=2^{f(a)}3^{g(b)}$$
+    Elle est clairement injecive donc $|A\times B| \leq \aleph_0$. De plus on construit facilement une injection de $A$ dans $A\times B$ donc $|A\times B|\ge \aleph_0$.
+\end{remarque}
+
+\begin{remarque}
+    On généralise facilement ces résultat à un nombre fini d'ensemble dénombrable. Mais cela est faux pour un produit cartésien infini d'ensemble dénombrable. Par exemple, $\N^\N$ n'est pas dénombrable par l'argument de la diagonale de Cantor. 
+\end{remarque}
+
+\begin{definition}
+    Soit $A$ un ensemble de symbole. On dit que $A$ est un alphabet si $A \hookrightarrow \N$.
+    De plus, on dit que ses éléments sont des lettres.
+\end{definition}
+
+\begin{exemple}
+    Nous avons les exemples suivant:
+    \begin{itemize}
+        \item $\{a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z\}$
+        \item $\{\fullmoon , \curlyeqsucc, \boxdot, \blacklozenge \}$
+        \item $\{+,0,g,e, G,=\}$
+        \item $\{x_1,x_2,\dots\}$
+    \end{itemize}
+\end{exemple}
+
+\begin{remarque}
+    Soit $A$ un alphabet. Si $A$ est une collection de symbole on définit la concaténation de deux symboles $a$ et $b$ comme le symbole $ab$ c'est à dire le symbole formé par les deux symboles et placé l'un à coté de l'autre. On dit alors qu'en concaténant des lettres de $A$ (éventuellement égales ) nous obtenons un \emph{mot} avec une certaine longueur. Le mot de longeur $0$ est noté $\epsilon$, il s'agit du neutre pour l'opération concaténation.
+\end{remarque}
+
+\begin{definition}
+Soit $A$ un alphabet. On définit $A^*$ la clôture de Kleene (ou monoïde libre) sur l'aplhabet $A$, l'ensemble de tous les mots finis formé par les lettres de l'alphabet $A$ et contenant $\epsilon$.    
+\end{definition}
+
+\begin{remarque}
+    Pour $w\in A^*$ et $a\in A$ la concaténation de $w$ et $a$ est $wa\in A^*$.
+     On peut définir un ordre appelé ordre lexicographique sur $A^*$ à partir d'un ordre sur $A$. Soient $W:=w_1, w_2,\dotsc,w_l\in A^*$  avec les $w_i\in A$ et $X:=x_1,x_2,\dotsc,x_m\in A^*$ avec les $x_i\in A$. On dit que $w\leq_{lex} x$ si la première position où $W$ diffère de $X$, on a $W_i\leq_A X_i$. (On peut éventuellement ajouter le mot vide, où on dit $\forall a \in A, \varnothing\leq_A a$.
+\end{remarque}
+
+\begin{lemme}
+Soit $(A_b)_{b\in B}$ une famille d'ensembles disjoints telle que $\forall b\in B,\ \exists f_b : A_b\hookrightarrow C$ alors il existe $F:\bigsqcup_{b\in B}A_b\hookrightarrow B\times C$.
+\end{lemme}
+\begin{proof}
+On considère pour $a\in A_b$n le couple $(b,f_b(a))\in B\times C$. Montrons que $F:\bigsqcup_{b\in B}A_b\to B\times C$ définie comme où $\fonction{g_b}{A_b\to\{b\}\times C}{a\mapsto (b,f_b(a)}$. Comme les $g_b$ ont des domaines et des images disjoints, par le lemme du recollement $f:=\bigsqcup g_b$ est une application $\bigsqcup_{b\in B}A_b\to \bigsqcup_{b\in B}\{b\}\times C = B\times C$. 
+\end{proof}
+
+
+\begin{lemme}
+Soit $A\subseteq \N$, on a
+\[
+\left|A^* \right|= \left|\N\right|=\aleph_0
+\]
+\end{lemme}
+\begin{proof}
+On exhibe un argument pour qu'il existe une bijection entre $A^*$ et $\N$. On range $A^*$ par longueur des mots; on note $A^n$ les mots de longueur $n$ (c'est le $A^n$ usuel) et $A^0=\{\varnothing\}$ par convention. On a $A^* = \bigsqcup A^n$. Soit $B\in A^*$. Par le lemme, on a une fonction $A^*\hookrightarrow \N\times A\hookrightarrow \N$
+\end{proof}
+%% DESSIN
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da33310560261926137] 
+\draw    (250.4,211.2) -- (404,211) ;
+\draw [shift={(406,211)}, rotate = 179.93] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da6207549367821983] 
+\draw    (250.4,211.2) -- (248.42,22.2) ;
+\draw [shift={(248.4,20.2)}, rotate = 89.4] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da15335094058218057] 
+\draw    (251.4,179.6) -- (400.4,179.6) ;
+%Straight Lines [id:da6898461734934974] 
+\draw    (248.4,149.6) -- (400,150) ;
+%Straight Lines [id:da4618650631672223] 
+\draw    (248.4,121.6) -- (398,121) ;
+%Straight Lines [id:da497154241842963] 
+\draw    (247.4,90.6) -- (397,90) ;
+%Straight Lines [id:da23212583878418358] 
+\draw [color={rgb, 255:red, 73; green, 95; blue, 178 }  ,draw opacity=1 ]   (280,39) -- (281,213) ;
+
+% Text Node
+\draw (405,82.4) node [anchor=north west][inner sep=0.75pt]    {$A^{4}$};
+% Text Node
+\draw (405,111.4) node [anchor=north west][inner sep=0.75pt]    {$A^{3}$};
+% Text Node
+\draw (405,142.4) node [anchor=north west][inner sep=0.75pt]    {$A^{2}$};
+% Text Node
+\draw (407,171.4) node [anchor=north west][inner sep=0.75pt]    {$A$};
+% Text Node
+\draw (268,18.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$\mathbb{N}$};
+% Text Node
+\draw (408,199.4) node [anchor=north west][inner sep=0.75pt]    {$A^{0}$};
+% Text Node
+\draw (234,170.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{1}$};
+% Text Node
+\draw (233,142.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{2}$};
+% Text Node
+\draw (233,114.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{3}$};
+% Text Node
+\draw (233,83.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{4}$};
+% Text Node
+\draw (233,200.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{0}$};
+
+
+\end{tikzpicture}
+
+%end dessin
+\begin{exemple}
+Soit $E$ un $\mathbb{K}-espace vectoriel$ $E$ est isomorphe à $\mathbb{K}^n$ car pour $B=(b_1,...,b_n)$ on a un vecteur de $E$, $v$ auquel on associe $(\overline{\alpha},\overline{b})$ où $\overline{\alpha}:=(\alpha_1,...,\alpha_n)$ et $\overline{b}:=(b_1,..,b_n)$ et c'est dénombrable C'est dénombreble.
+\end{exemple}
+
+\subsection{Hypothése du continu}
+Ces résultats nous donnent une idée clair de ce que sont les cardinaux. Mais pour y voir encore plus clair, nous pouvons développer la question suivante; Quel est le cardinal infini le plus petit ? Ou informellement; Quel est l'infini le plus petit ? 
+Par construction, il est facile de conclure qu'il s'agit de $\omega$.
+On note ce plus petit "infini" $\aleph_0$. Naturellement, on se demande quel est l'"infini" le plus petit juste après $\aleph_0$. On le note $\aleph_1$. En procédant de la sorte on peut concevoir $\aleph_n$. Si nous cherchons à déterminer $\aleph_1$, une première idée serait de déterminer le cardinal de $\R$. Intuitivement, il s'agit du premier infini différent de $\N$ que nous sommes ammenés à rencontrer, vérifions le. 
+\begin{proposition}
+    $\abs{\partie(\N)}= \abs{2^\N}$
+\end{proposition}
+\begin{proof}
+    Prenons $$\fonction{f}{\partie(\N)\to 2^\N}{S\to 1_S}$$.Montrons que c'est une bijection en montrant qu'elle admet un inverse. Pour cela considérons la fonction $$\fonction{g}{2^\N \to \partie(\N)}{(s_n)_{n\in\N}\mapsto \{n\in\N\mid s_n = 1\}}$$. Soit $S\in\partie(\N)$. Soit $a\in\N$. On a $$a\in S\ssi f(S)(a) = 1_S(a) = 1\ssi a \in g\circ f(S)$$ d'où $g\circ f = \operatorname{Id_{\partie(\N)}}$ et de même, avec $(s_n)_{n\in\N}\in2^\N$ et $n\in\N$, on a  $$s_n = 1 \ssi n\in g((s_n)_{n\in\N})\ssi f\circ g ((s_n)_{n\in\N})(n) = 1 $$ d'où $f\circ g ((s_n)_{n\in\N}) = (s_n)_{n\in\N}$ car $(s_n)$ est entièremenet déterminée par la position de ses \og $1$ \fg. Il vient $f\circ g = \operatorname{Id}_{2^\N}$ et donc $g=f^{-
+    1}$ et donc $f$ est bijective.
+\end{proof}
+
+\begin{lemme}
+    Soit $A$ et $B$ deux ensembles. Si $|A|=|B|$ alors $|\partie(A)|=|\partie(B)|=|2^A|=|2^B|$.
+\end{lemme}
+La preuve de ce lemme est laissé au lecteur. On peut adopter les notations suivantes :
+\begin{notation}
+    On note $|2^{\N}|=2^{|\N|}= 2^{\aleph_0}$
+\end{notation}
+
+\begin{proposition}
+    $\abs{\R} = 2^{\aleph_0}$
+\end{proposition}
+\begin{proof}
+   Nous avons que $|\R|\ge |2^{\N}|$ . En effet, prenons $f$ tel que pour $(x_i)_{i\in \N}\in \{0,1\}^{\N}$ nous avons $f((x_i))= \sum_{i\in \N}\frac{x_i}{10^i}$. Reste à montrer l'injectivité, Soient deux suites $(x_n) \neq (y_n)$. Soit $k = \min\{n \in \mathbb{N} \mid x_n \neq y_n\}$. En supposant sans perte de généralité $y_k - x_k = 1$, on a :
+\[ f((y_n)) - f((x_n)) = \frac{1}{10^k} + \sum_{n=k+1}^{\infty} \frac{y_n - x_n}{10^n} \geq \frac{1}{10^k} - \sum_{n=k+1}^{\infty} \frac{1}{10^n} \]
+En utilisant la somme d'une série géométrique :
+\[ f((y_n)) - f((x_n)) \geq \frac{1}{10^k} - \frac{1}{9 \cdot 10^k} = \frac{8}{9 \cdot 10^k} > 0 \]
+L'application $f$ est donc injective, d'où $|2^{\mathbb{N}}| \leq |\mathbb{R}|$.Ensuite nous montrons que $|\R|\le |\partie(\Q)|$ . On définit $f$ tel que $\forall x\in \R$ tel que $f(x)=\{q\in \R \mid q<x\}$. Cette fonction est injective : Si $x<y$, alors par densité des rationnels, il existe un rationnel $r$ tel que $x<r<y$. Ce rationnel $r$ appartient à $f(y)$ mais pas à $f(x)$, donc $f(x)=f(y)$. Comme et $|\partie(\Q)|= |\partie(\N)|$ et par CSB, $|\R|= |\partie(\N)|= 2^{\aleph_0}$.
+\end{proof}
+
+
+
+A ce stade, nous pourrions donc penser que $\aleph_1= 2^{\aleph_0}$ mais il n'existe aucun élément de preuve allant dans ce sens. Mais ce qui est étonnant, c'est que nous ne pouvons démontrer qu'il existe un cardinal cadinal infini plus grand que $\aleph_0$ et plus petit que $2^{\aleph_0}$. Etant donné que nous ne pouvons pas déterminer formellement $\aleph_1$ nous pouvons émettre une hypthèse qui est la suivante
+
+\begin{definition}[Hypothèse du continu]
+    Il n'existe pas d'ensemble de cardinal infini intermédiaire entre $\aleph_0$ et $2^{\aleph_0}$. Autrement dit, 
+    \[
+    \aleph_1= 2^{\aleph_0}
+    \]
+\end{definition}
+
+Pour des raisons que nous ne détaillerons pas, supposer l'hypothèse du continu ou non, n'a pas d'incidence sur le bien-fondé de la théorie des ensembles.
+
+
+\subsection{Le triadique de Cantor}
+
+
+Nous présentons ici, un exemple qui nous accompagnera tout au long du prochain chapitre sur les espaces topologiques.
+
+\begin{definition}[Triadique de Cantor 1875]
+    On pose $\mathcal C_0=[0,1], \mathcal C_1=\left[0,\frac 1 3\right]\cup\left[\frac 2 3,1 \right]$ et plus généralement $\forall k \in\N$
+    \begin{equation*}
+        \mathcal C_k = \bigcup_{n\in 2A_k}\interfo{\dfrac{n}{3^k},\dfrac{n+1}{3^k}}\text{ où } A_k:=\{0,1,\ldots,(3^k-1)/2\}
+    \end{equation*}
+    On définit le triadique $\mathcal C_{\infty}:=\bigcap_{n\in\N}C_n$. 
+\end{definition}
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da5301277362047295] 
+\draw    (201.1,16.9) -- (200.1,120.9) (205,26.94) -- (197,26.86)(204.91,36.94) -- (196.91,36.86)(204.81,46.94) -- (196.81,46.86)(204.72,56.94) -- (196.72,56.86)(204.62,66.94) -- (196.62,66.86)(204.52,76.94) -- (196.52,76.86)(204.43,86.94) -- (196.43,86.86)(204.33,96.93) -- (196.33,96.86)(204.23,106.93) -- (196.23,106.86)(204.14,116.93) -- (196.14,116.86) ;
+%Straight Lines [id:da0628089442905615] 
+\draw    (293,19) -- (262.1,48.9) ;
+%Straight Lines [id:da062398130848109634] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (293,19) -- (317.1,49.7) ;
+%Straight Lines [id:da6329238371443944] 
+\draw    (263.1,47.7) -- (242.1,91.9) ;
+%Straight Lines [id:da15496042784425246] 
+\draw    (263.1,47.7) -- (278.1,88.9) ;
+%Straight Lines [id:da06722026382225965] 
+\draw    (317.1,48.7) -- (307.1,89.9) ;
+%Straight Lines [id:da5293489081180287] 
+\draw    (317.1,48.7) -- (337.1,86.9) ;
+%Straight Lines [id:da9330510895149886] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (194,47) -- (219.1,46.9) ;
+%Straight Lines [id:da20939671081927436] 
+\draw    (244.1,86.9) -- (234.1,118.9) ;
+%Straight Lines [id:da2704243906142465] 
+\draw    (244.1,86.9) -- (251.1,117.9) ;
+%Straight Lines [id:da5221287058873935] 
+\draw    (278.1,86.9) -- (268.1,118.9) ;
+%Straight Lines [id:da8761089169065429] 
+\draw    (278.1,86.9) -- (285.1,117.9) ;
+%Straight Lines [id:da5349053098111228] 
+\draw    (307.86,85.9) -- (296.1,117.9) ;
+%Straight Lines [id:da5465420582853824] 
+\draw    (307.86,85.9) -- (316.1,116.9) ;
+%Straight Lines [id:da3177525511494872] 
+\draw    (335.81,83.9) -- (351.1,115.9) ;
+%Straight Lines [id:da7736056904941442] 
+\draw    (335.81,83.9) -- (325.1,114.9) ;
+%Straight Lines [id:da7637056961194088] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (191,87) -- (216.1,86.9) ;
+%Straight Lines [id:da6377687823472371] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (193,117) -- (218.1,116.9) ;
+
+% Text Node
+\draw (318,36.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$\{0,3\} \subseteq S$};
+% Text Node
+\draw (182,38.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{0}$};
+% Text Node
+\draw (181,77.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{1}$};
+% Text Node
+\draw (181,107.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{2}$};
+
+
+\end{tikzpicture}
+
+%end dessin
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\centering
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Straight Lines [id:da14710713240647466] 
+\draw    (160.1,30.9) -- (420.1,30.9) ;
+%Straight Lines [id:da5988644701611933] 
+\draw    (160,24) -- (160.1,38.9) ;
+%Straight Lines [id:da5629573499384315] 
+\draw    (419,24) -- (419.1,38.9) ;
+%Straight Lines [id:da851991155188057] 
+\draw    (331.47,79.9) -- (419.1,79.9) ;
+%Straight Lines [id:da3376123715286058] 
+\draw    (331.1,73) -- (331.13,87.9) ;
+%Straight Lines [id:da3020637212559296] 
+\draw    (418.73,73) -- (418.76,87.9) ;
+%Straight Lines [id:da8556443741381664] 
+\draw    (158.03,79.9) -- (242.1,79.9) ;
+%Straight Lines [id:da295293890402033] 
+\draw    (158,73) -- (158.03,87.9) ;
+%Straight Lines [id:da17707825306518077] 
+\draw    (241.74,73) -- (241.78,87.9) ;
+%Straight Lines [id:da5060985426741975] 
+\draw    (160.1,143.9) -- (420.1,143.9) ;
+%Straight Lines [id:da03285686759360318] 
+\draw    (160,137) -- (160.1,151.9) ;
+%Straight Lines [id:da22105948500203532] 
+\draw    (419,137) -- (419.1,151.9) ;
+%Straight Lines [id:da5934272793115186] 
+\draw    (201.1,136.3) -- (201.1,150.3) ;
+%Straight Lines [id:da26497788256971666] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (201.1,16.9) -- (201.1,130.9) ;
+
+% Text Node
+\draw (156,6.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (414,5.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (426,20.4) node [anchor=north west][inner sep=0.75pt]    {$\mathcal{C}_{0}$};
+% Text Node
+\draw (423,69.4) node [anchor=north west][inner sep=0.75pt]    {$\mathcal{C}_{1} =\mathcal{C}_{0} \cap \mathcal{C}_{1}$};
+% Text Node
+\draw (278,91.4) node [anchor=north west][inner sep=0.75pt]    {$\vdots $};
+% Text Node
+\draw (278,112.4) node [anchor=north west][inner sep=0.75pt]    {$\vdots $};
+% Text Node
+\draw (424,119.4) node [anchor=north west][inner sep=0.75pt]    {$\mathcal{C} =\bigcap _{n\in \mathbb{N}}\mathcal{C}_{n}$};
+% Text Node
+\draw (197,149.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$c$};
+
+
+\end{tikzpicture}
+
+
+Bien que nous ne développons cette notion que dans le chapitre suivant, les lecteurs informés peuvent remarquer qu'il s'agit d'un ensemble fermé.
+Le triadique de Cantor est un ensemble aux propriétées étonantes comme nous allons le voir.
+
+\begin{definition}
+    Soit $A\subseteq \R$. On définit la longueur de $A$ par 
+    $$l(A):=\int1_Adx \quad \text{où} \quad1_A:=\begin{cases}
+        1 &\text{ si }x\in A\\
+        0 &\text{ sinon}
+    \end{cases}$$
+\end{definition}
+
+\begin{proposition}
+    Le triadique de Cantor a une longueur nul.
+    \[
+    l(\mathcal{C}_{\infty})=0
+    \]
+\end{proposition}
+
+\begin{proof}
+    Cela vient du fait que $l(C_{n+1})=\frac{2}{3}l(C_n)$
+\end{proof}
+
+\begin{theoreme}
+    $\abs{\mathcal{C}_{\infty}}=2^{\aleph_0}$
+\end{theoreme}
+\begin{proof}
+    Comme $C_n=\bigsqcup_{i\in 2^n}I_{n,i}$ où les $I_i$ sont des intervalles fermés, et $2^n:=\{0,1,\dotsc,2^{n-1}\}$. À chaque $c\in C$, on associe la suite $(I_{n,c})_{n\in\N}$ où $I_n\subseteq C_n$ est telle que $c\in I_{n,c}$. Les $I_{n,c}$ sont fermés, et ils sont de longueurs $\ell(I_{n,c})=\frac 1{3^n}$. Donc, par la complétude de $\R$,  $\{c\}=\bigcap_{n\in\N}I_{n,c}$. Il reste à montrer que l'intersection est non-vide. On remarque que $I_{n,i}\cap I_{n+1,j}\ne\varnothing$ ssi $I_{n+1,j}\subseteq I_{n,c}$.
+\end{proof}
+
+Il est donc étonnant de constater que le triadique de Cantor a une longueur nule mais a pourtant la même "taille" que $\R$. 
+
+\subsection{Dérivation de Cantor-Bendixon}
+
+La dérivation de Cantor-Bendixon permet de démontrer le théorème suivant. Dans l'annexe, ce théorème à été prouver pour $n=1$. Cette section permet de donner un bref aperçu des différentes notions intervennant dans la preuve. A noter que pour suivre cette partie, il est important de connaitre les notions d'ensembles fermés et des éléments de topologie. La plupart des preuves ne sont pas fournies ici mais sont fournies dans l'annexe.
+
+    \begin{theoreme}[Cantor]
+      Tous les $X$ fermés dans $\R^n$ sont soit finis, soit de cardinal $\aleph_0$, soit de cardinal $2^{\aleph_0}$
+  \end{theoreme}
+
+  
+  La dérivation de Cantor-Bendixon fait la distinction entre "adhérent" et "point limite".
+  On parle de l'adhérence pour la topologie engendrée par les boules.
+  
+  \begin{definition}
+      On dit que $a\in\R^n$ est adhérent à $X$ si $a\in\adh(X)$. On dit que $a$ est isolé de $X$ si il existe une boule ouverte $B(a,r)$ avec $r>0$ centrée sur $a$ telle que $B(a,r)\cap X \subseteq \{a\}$
+  \end{definition}
+  \begin{remarque}
+      On peut être dans la situation où $a \in \adh X$ et $a$ est isolé de $X$ (car $a$ est déjà dans $X$).
+  \end{remarque}
+  \begin{definition}
+      Les points de $\adh(X)$ qui ne sont pas isolés de $X$ sont appelés les points limites, ou points d'accumulation, de $X$.
+  \end{definition}
+  
+  \begin{exemple}
+      Prenons $a_1<a_2< a_3\in\R$. Prenons $X = \interoo{a_1,a_2}\cup \{a_3\}$.
+      On a $\overline{X} = X\cup\{a_1,a_2\}$, donc $a_3$ est isolé dans $X$. Les points limites de $X$ sont donc les points de $X\cup\{a_1,a_2\}\setminus\{a_3\}$
+  \end{exemple}
+
+  \begin{definition}
+      $a$ est un point limite de $X$ si pour tout $a\in \ouvert$, alors $\exists b \neq a, b\in X\cap \ouvert $.
+  \end{definition}
+
+  Dans le cas de $\R ^n$ avec la topologie métrique c'est équivalent à demander  que toute boule ouverte comprenant $a$, comprend un point de $X$ qui est différent de $a$, ce qui est encore équivalent à demander que toute boule ouverte comprenant $a$, comprend une infinité au moins dénombrable de point de $X$.
+
+  \begin{definition}
+      On dit que $a\in \R^n$ est un point de condensation de $X\subseteq \R^n$ si pour tout $B$ ouverte centrée sur $a$, on a $\abs{B\cap X}> \aleph_0$
+  \end{definition}
+
+\begin{proposition}
+  Tout point de condensation est limite.
+\end{proposition}
+
+\begin{remarque}
+    Si $X=\mathscr C _\infty$ tous les points du triadique de Cantor sont exactement les point de condensation de $\mathscr C _\infty$
+\end{remarque}
+\begin{definition}
+    Le dérivé (CB) de $X\subseteq\R^n$ noté $X'$ est l'ensemble des points limites de $X$. 
+\end{definition}
+
+\begin{lemme}
+Si $X$ est fermé alors $X'\subseteq X$ et $X'$ est fermé.
+\end{lemme}
+\iffalse
+ \begin{figure}
+        \centering
+        \includegraphics[width=0.5\linewidth]{Shrek.png}
+        \caption{Shrek qui lit les \og notes\fg}
+        \label{fig:placeholder}
+    \end{figure}
+\fi
+\begin{definition}
+    On dit que $X$ est parfait si $X' = X$.
+\end{definition}
+
+\begin{theoreme}
+    Si $X\neq \varnothing$ est parfait alors,
+    \[
+    \abs{X} = 2^{\aleph_0}
+    \]
+    De plus, tous ses points sont des points de condensation.
+\end{theoreme}
+\begin{exemple}
+    Considérons l'ensemble $X = \{\frac 1 n\mid n\in \N\}\cup \{0\}$. 
+    Par itération, on peut trouver pour chaque $n\in\N$, un $X_n\subseteq\R$ tel que $X^{(n)}_n = \varnothing$ mais $X^{(n-1)}_n\ne\varnothing$. On peut même demander que $X_n\subseteq \interff{2n,2n+\frac 1 2}$. Pour tout $n$, on a donc $X^{(n)}\neq \varnothing$ et on définit $X^{(\omega)}=\bigcap X^{n}$
+\end{exemple}
+Le rang de Cantor-Bendixor de $X\subseteq\R^n$ est ke plus petit ordinal $\alpha$ tel que $X^{(\alpha)} = X^{(\alpha + 1)}$, \textit{i.e.} est parfait.
+\begin{proposition}
+    Le triadique de Cantor est parfait
+\end{proposition}
+
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,411); %set diagram left start at 0, and has height of 411
+
+%Straight Lines [id:da6454271352305905] 
+\draw    (244.1,103.9) -- (283.1,56.9) ;
+%Straight Lines [id:da5918868027337287] 
+\draw    (327.1,102.9) -- (283.1,56.9) ;
+%Straight Lines [id:da11292251235701434] 
+\draw    (211.1,188.9) -- (238.82,129.9) ;
+%Straight Lines [id:da6054962372605112] 
+\draw    (265.1,191.5) -- (238.82,129.9) ;
+%Straight Lines [id:da27178853116595436] 
+\draw    (306.08,186.9) -- (331.82,130.9) ;
+%Straight Lines [id:da32818844501379385] 
+\draw    (363.1,188.64) -- (331.82,130.9) ;
+%Straight Lines [id:da5470786486167077] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (181.1,269.5) -- (406.1,269.5) ;
+%Straight Lines [id:da7014147404448344] 
+\draw    (192.1,233.5) -- (212.08,186.9) ;
+%Straight Lines [id:da7434767270277727] 
+\draw    (227.1,232.5) -- (212.08,186.9) ;
+%Straight Lines [id:da22100240847085295] 
+\draw    (253.1,232.5) -- (265.1,191.5) ;
+%Straight Lines [id:da5902809604006749] 
+\draw    (280.1,230.5) -- (265.1,191.5) ;
+%Straight Lines [id:da515581688330549] 
+\draw    (293.1,233.5) -- (306.08,186.9) ;
+%Straight Lines [id:da16429160030584478] 
+\draw    (321.1,232.5) -- (306.08,186.9) ;
+%Straight Lines [id:da9445549128110634] 
+\draw    (346.1,233.5) -- (362.08,184.9) ;
+%Straight Lines [id:da27763230332232414] 
+\draw    (377.1,230.5) -- (362.08,184.9) ;
+%Curve Lines [id:da8167033396792013] 
+\draw [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ]   (283.1,56.9) .. controls (198.1,166.5) and (286.1,117.5) .. (284.1,268.5) ;
+\draw [shift={(284.1,268.5)}, rotate = 270.76] [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Rounded Rect [id:dp37303192887892866] 
+\draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ] (171.1,269.23) .. controls (171.1,266.45) and (173.35,264.2) .. (176.13,264.2) -- (196.07,264.2) .. controls (198.85,264.2) and (201.1,266.45) .. (201.1,269.23) -- (201.1,271.17) .. controls (201.1,273.95) and (198.85,276.2) .. (196.07,276.2) -- (176.13,276.2) .. controls (173.35,276.2) and (171.1,273.95) .. (171.1,271.17) -- cycle ;
+%Rounded Rect [id:dp4373088333019447] 
+\draw  [color={rgb, 255:red, 245; green, 166; blue, 35 }  ,draw opacity=1 ] (269.1,267.53) .. controls (269.1,264.75) and (271.35,262.5) .. (274.13,262.5) -- (294.07,262.5) .. controls (296.85,262.5) and (299.1,264.75) .. (299.1,267.53) -- (299.1,269.47) .. controls (299.1,272.25) and (296.85,274.5) .. (294.07,274.5) -- (274.13,274.5) .. controls (271.35,274.5) and (269.1,272.25) .. (269.1,269.47) -- cycle ;
+
+% Text Node
+\draw (264,35.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$[ 0,1]$};
+% Text Node
+\draw (209,112.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$[ 0,1/3]$};
+% Text Node
+\draw (304,109.4) node [anchor=north west][inner sep=0.75pt]  [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,opacity=1 ]  {$[ 2/3,1]$};
+% Text Node
+\draw (416,258.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\mathscr{C}_{\infty }}$};
+% Text Node
+\draw (323.1,235.9) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (373,235.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (343,235.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (295.1,236.9) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (279.1,237.9) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (255.1,235.9) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (229.1,235.9) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (194.1,236.9) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{\vdots }$};
+% Text Node
+\draw (271,280.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.96,0.65,0.14}{c\in \ \mathscr{C}}$};
+% Text Node
+\draw (180,277.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{0}$};
+% Text Node
+\draw (401,275.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.29,0.56,0.89}{1}$};
+% Text Node
+\draw (304,253.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.96,0.65,0.14}{I}$};
+
+
+\end{tikzpicture}
+
+
+\begin{proof}
+    Soit $c\in\mathscr C$. On considère la suite d'intervalles $(I_k)_{k\in\N}$ vérifiant $I_0= \interff{0,1}, \{c\} = \bigcap_{k\in\N} I_k, I_k\supseteq I_{k+1},\ \frac 1 3 l(I_k) = l(I_{k+1})$.
+\end{proof}
+
+
+
+
+
+
+
+
+
+
+
+
+
+

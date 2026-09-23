@@ -1,0 +1,58 @@
+\documentclass[12pt,a4paper]{report}
+% ===== PRÉAMBULE =====
+\input{preambule.tex}
+%Pour la page de garde
+\newcommand{\teacher}{C.Michaux}
+\title{Topologie et    \: logique}
+\author{T. Piette \and M.Hamiot}
+\newcommand{\grade}{BaB2}
+
+\begin{document}
+
+% =====PAGE DE GARDE=====
+\input{pagedegarde}
+
+
+%% PREFACE
+
+\chapter*{Préface}
+\addcontentsline{toc}{chapter}{Préface}
+
+Le présent document constitue le syllabus du cours \textit{Topologie et Logique C.~Michaux}, dispensé au premier quadrimestre (Q1) de l’année académique 2025-2026 aux étudiants de deuxième année de bachelier (BAC2).
+
+\vspace{0.5em}
+
+Nous avons entrepris cette retranscription à partir des notes et exposés du cours donné par C.~Michaux, avec la volonté de proposer un support à la fois fidèle à l’esprit des séances et structuré de manière à en faciliter l’étude. Notre travail n’a pas pour ambition de remplacer le cours, mais d’en offrir une trace écrite claire et organisée, permettant de retrouver les définitions, résultats et idées essentielles développés tout au long du quadrimestre.
+
+\vspace{0.5em}
+
+Le contenu s’articule autour de deux axes fondamentaux. La première partie est consacrée à la logique et à la théorie des ensembles, qui constituent le socle formel des mathématiques modernes. La seconde partie est dédiée à la topologie.
+
+\vspace{0.5em}
+
+Les annexes rassemblent le contenu des présentations réalisées par les étudiants au second quadrimestre (Q2). Elles prolongent et enrichissent le cours en approfondissant certains thèmes, tant du côté de la logique et de la théorie des ensembles que de celui de la topologie.
+
+\vfill
+
+\vspace{1.5cm}
+
+\begin{flushright}
+    \textit{Mons, le \today} \\
+    \textbf{M.Hamiot \& T.Piette}
+\end{flushright}
+
+\newpage
+
+% ===== TABLE DES MATIÈRES =====
+\tableofcontents
+\newpage
+
+% ===== CHAPITRES =====
+\include{Chapitres/ensembles}
+\include{Chapitres/espacetopologique}
+\include{Chapitres/Annexes/annexe1}
+\include{Chapitres/Annexes/annexe2}
+\include{Chapitres/Annexes/annexe3}
+\include{Chapitres/Annexes/annexe4}
+\include{Chapitres/Annexes/annexe5}:=
+\end{document}

@@ -1,0 +1,239 @@
+\chapter{Distributions Jointes, Indépendance}
+
+Soient $X$ et $Y$ deux variables aléatoires définies sur le même espace probabilisé $(\Omega, \A, P )$. On
+s’intéresse souvent au comportement simultané de ces variables, ce qui nous amène à considérer
+le vecteur aléatoire $(X, Y )$.
+
+\section{Fonction de répartition jointe}
+
+\begin{definition}
+    La \textbf{fonction de répartition jointe} du couple $(X,Y)$ est la fonction $F_{X,Y}: \R^2 \to [0,1]$ définie par
+    \[
+    F_{X,Y}(x,y)= P(X\leq x, Y\leq y) \quad \text{pour tous }(x,y)\in \R^2
+    \]
+\end{definition}
+
+Connaître la fonction de répartition jointe $F_{X,Y}(x,y)$ équivaut à connaître la loi de probabilité du couple $(X,Y)$.
+En particulier on peut trouver la probabilité que $(X,Y)$ appartienne à un "rectangle" de la forme $]a,b] \times ]c,d]$:
+
+\begin{align*}
+    P(a<X\leq b, c<Y\leq d)&= P(X\leq b, Y\leq d) - P(X\leq a,Y\leq d) - P(X\leq b,Y\leq c) +P(X\leq a, Y\leq c)\\
+    &= F_{X,Y}(b,d)-F_{X,Y}(a,d)-F_{X,Y}(b,c)+F_{X,Y}(a,c)
+\end{align*}
+C'est une conséquence du principe d'inclusion-exclusion.
+
+\section{Cas où $(X,Y)$ est un couple de variables aléatoires discrètes}
+
+Si $(X,Y)$ est un couple de variables aléatoires discrètes, c'est à dire que $X$ prend des valeurs dans un ensemble fini ou dénombrable $\{x_i\}_{i\in I}$ et $Y$ prend des valeurs dans un ensemble fini ou dénombrable $\{Y_j\}_{j\in J}$, alors la loi du couple est entièrement déterminée par la \textbf{fonction de masse conjointe} (ou loi de probabilité conjointe) :
+\[
+p_{i,j}=P(X=x_i,Y=y_j)
+\]
+Cette fonction doit satisfaire $p_{i,j}\ge 0$ pour tout $i,j$ et $\sum_{i\in I}\sum_{j\in J}p_{i,j}=1$ 
+
+\begin{definition}
+    La fonction de répartition conjointe $F_{X,Y}(x,y)$ est alors obtenue par
+    \[
+    F_{X,Y}(x,y)=\sum_{x_i\leq x}\sum_{y_j\leq y}p_{i,j}
+    \]
+\end{definition}
+
+Voici quelques exemples :
+
+\begin{exemple}[Suite de l'exemple des lancers de pièce] On lance 2 fois une pièce équilibrée. $X \sim \text{Bernoulli}(1/2)$ est le résultat du 1er lancer (1 si Pile, 0 si Face), $Y \sim \text{Bernoulli}(1/2)$ est le résultat du 2e lancer.
+
+\vspace{1em}
+
+\textbf{Cas 1} ($X, Y$ indépendantes et identiquement distribuées (i.i.d.)) : $P(X=x, Y=y) = P(X=x)P(Y=y)$ pour $x, y \in \{0, 1\}$. $p_{00} = P(X=0, Y=0) = (1/2)(1/2) = 1/4$. De même, $p_{01} = P(X=0, Y=1) = 1/4$, $p_{10} = P(X=1, Y=0) = 1/4$, $p_{11} = P(X=1, Y=1) = 1/4$. La loi conjointe peut être représentée dans un tableau :
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|cc|c}
+$X \setminus Y$ & 0 (Face) & 1 (Pile) & $P(X=x)$ (Marginale de $X$) \\ \hline
+0 (Face) & 1/4 & 1/4 & 1/2 \\
+1 (Pile) & 1/4 & 1/4 & 1/2 \\ \hline
+$P(Y=y)$ (Marginale de $Y$) & 1/2 & 1/2 & 1 (Total)
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+
+\textbf{Cas 2} ($X \sim \text{Bernoulli}(1/2)$, $Y$ dépend de $X$) : Supposons que la loi de $Y$ dépende du résultat de $X$ de la manière suivante : $P(Y=1|X=0) = 1/3$ (donc $P(Y=0|X=0) = 2/3$) $P(Y=1|X=1) = 2/3$ (donc $P(Y=0|X=1) = 1/3$). On calcule les probabilités jointes :
+$P(X=0, Y=0) = P(Y=0|X=0)P(X=0) = (2/3) \cdot (1/2) = 1/3$.
+$P(X=0, Y=1) = P(Y=1|X=0)P(X=0) = (1/3) \cdot (1/2) = 1/6$.
+$P(X=1, Y=0) = P(Y=0|X=1)P(X=1) = (1/3) \cdot (1/2) = 1/6$.
+$P(X=1, Y=1) = P(Y=1|X=1)P(X=1) = (2/3) \cdot (1/2) = 1/3$.
+Tableau de la loi conjointe :
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|cc|c}
+$X \setminus Y$ & 0 & 1 & $P(X=x)$ \\ \hline
+0 & 1/3 & 1/6 & 1/2 \\
+1 & 1/6 & 1/3 & 1/2 \\ \hline
+$P(Y=y)$ & 1/2 & 1/2 & 1 (Total)
+\end{tabular}
+\end{center}
+
+(\textit{La somme des probabilités $1/3 + 1/6 + 1/6 + 1/3 = 2/6 + 1/6 + 1/6 + 2/6 = 6/6 = 1$}).
+    
+\end{exemple}
+
+\begin{exemple}[Urne avec 3 Boules Bleues, 5 Rouges, 2 Noires. Tirage simultané (ou sans remise) de 2 boules]. Soit $X$ le nombre de boules Bleues tirées ($X \in \{0, 1, 2\}$). Soit $Y$ le nombre de boules Rouges tirées ($Y \in \{0, 1, 2\}$). Le nombre total de façons de tirer 2 boules parmi 10 est $\binom{10}{2} = \frac{10 \times 9}{2} = 45$. La fonction de masse conjointe $P(X=x, Y=y)$ est donnée par :
+
+\[
+P(X=x, Y=y) = \frac{\binom{3}{x} \binom{5}{y} \binom{2}{2-x-y}}{\binom{10}{2}}
+\]
+
+pour $x, y \geq 0$ et $x+y \leq 2$. Calculs : $P(X=0, Y=0) = \frac{\binom{3}{0}\binom{5}{0}\binom{2}{2}}{45} = 1/45$, $P(X=0, Y=1) = \frac{\binom{3}{0}\binom{5}{1}\binom{2}{1}}{45} = 10/45$, $P(X=0, Y=2) = \frac{\binom{3}{0}\binom{5}{2}\binom{2}{0}}{45} = 10/45$, $P(X=1, Y=0) = \frac{\binom{3}{1}\binom{5}{0}\binom{2}{1}}{45} = 6/45$, $P(X=1, Y=1) = \frac{\binom{3}{1}\binom{5}{1}\binom{2}{0}}{45} = 15/45$, $P(X=2, Y=0) = \frac{\binom{3}{2}\binom{5}{0}\binom{2}{0}}{45} = 3/45$. Toutes les autres paires $(x,y)$ ont une probabilité nulle.
+
+\begin{center}
+\renewcommand{\arraystretch}{1.5}
+\begin{tabular}{c|ccc|c}
+$X \setminus Y$ & 0 & 1 & 2 & $P(X=x)$ (Marginale $X$) \\ \hline
+0 & 1/45 & 10/45 & 10/45 & 21/45 \\
+1 & 6/45 & 15/45 & 0 & 21/45 \\
+2 & 3/45 & 0 & 0 & 3/45 \\ \hline
+$P(Y=y)$ (Marginale $Y$) & 10/45 & 25/45 & 10/45 & 1 (Total = 45/45)
+\end{tabular}
+\end{center}
+    
+\end{exemple}
+\vspace{2em}
+    
+
+\section{Cas où $(X, Y)$ est un couple de variables aléatoires (absolument) continues}
+
+Le couple $(X, Y)$ est dit conjointement (absolument) continu s'il existe une fonction $f_{X,Y} : \mathbb{R}^2 \to \mathbb{R}^+$, appelée \textbf{densité de probabilité jointe}, telle que pour tous $(x, y) \in \mathbb{R}^2$ :
+
+\[
+F_{X,Y}(x,y) = \int_{-\infty}^{x} \int_{-\infty}^{y} f_{X,Y}(u,v) \, dv \, du
+\]
+
+Cela implique que pour un domaine $A \subset \mathbb{R}^2$ (par exemple un borélien de $\mathbb{R}^2$) :
+
+\[
+P((X,Y) \in A) = \iint_A f_{X,Y}(u,v) \, du \, dv
+\]
+
+Propriétés de la densité jointe :
+\begin{itemize}
+    \item $f_{X,Y}(x,y) \geq 0$ pour tous $(x, y) \in \mathbb{R}^2$.
+    \item $\int_{-\infty}^{+\infty} \int_{-\infty}^{+\infty} f_{X,Y}(x,y) \, dy \, dx = 1$.
+    \item Si $F_{X,Y}$ est suffisamment régulière (par exemple, si ses dérivées partielles croisées existent et sont continues), alors $f_{X,Y}(x,y) = \frac{\partial^2 F_{X,Y}(x,y)}{\partial x \partial y}$.
+\end{itemize}
+
+\begin{exemple}[Loi uniforme sur un domaine $D$]. Lancer d'une fléchette sur une cible circulaire $D = \{(x, y) \in \mathbb{R}^2 \mid x^2 + y^2 \leq R^2\}$ de rayon $R$. On suppose que la fléchette atteint toujours la cible et que la probabilité d'atteindre une région est proportionnelle à l'aire de cette région. La densité jointe du point d'impact $(X, Y)$ est :
+
+\[
+f_{X,Y}(x,y) = \begin{cases} 
+\frac{1}{\text{Aire}(D)} & \text{si } (x, y) \in D \\ 
+0 & \text{sinon} 
+\end{cases}
+\]
+
+Comme $\text{Aire}(D) = \pi R^2$, on a $f_{X,Y}(x,y) = \frac{1}{\pi R^2}$ si $(x,y) \in D$, et 0 sinon. Pour un sous-ensemble $A \subseteq D$, $P((X, Y) \in A) = \iint_A \frac{1}{\pi R^2} \, dx \, dy = \frac{\text{Aire}(A)}{\text{Aire}(D)}$.
+
+\vspace{2em}
+\end{exemple}
+\section{Lois Marginales}
+
+La \textbf{loi marginale} de $X$ est la loi de la variable aléatoire $X$ considérée seule, sans tenir compte de $Y$. De même pour $Y$. On peut obtenir les fonctions de répartition marginales à partir de la fonction de répartition jointe : $F_X(x) = P(X \leq x) = P(X \leq x, Y < +\infty) = \lim_{y \to +\infty} F_{X,Y}(x, y)$. (Parfois noté $F_{X,Y}(x, \infty)$). $F_Y(y) = P(Y \leq y) = P(X < +\infty, Y \leq y) = \lim_{x \to +\infty} F_{X,Y}(x, y)$. (Parfois noté $F_{X,Y}(\infty, y)$).
+
+\vspace{1em}
+
+\textbf{Cas discret :} Les probabilités (fonctions de masse) marginales s'obtiennent en sommant la loi jointe sur toutes les valeurs possibles de l'autre variable : $P(X = x_i) = \sum_{j \in J} P(X = x_i, Y = y_j) = \sum_{j \in J} p_{ij}$. (Somme sur la ligne $i$ du tableau de probabilités conjointes). $P(Y = y_j) = \sum_{i \in I} P(X = x_i, Y = y_j) = \sum_{i \in I} p_{ij}$. (Somme sur la colonne $j$ du tableau).
+
+\vspace{1em}
+
+\textbf{Cas continu :} Les densités marginales s'obtiennent en intégrant la densité jointe par rapport à l'autre variable sur tout son domaine : $f_X(x) = \int_{-\infty}^{+\infty} f_{X,Y}(x, y) \, dy$. $f_Y(y) = \int_{-\infty}^{+\infty} f_{X,Y}(x, y) \, dx$.
+
+\section{Indépendance de Variables Aléatoires}
+
+\begin{definition}[Indépendance de deux variables aléatoires]
+Soient $X$ et $Y$ deux variables aléatoires définies sur le même espace probabilisé $(\Omega, \mathcal{A}, P)$. $X$ et $Y$ sont dites \textbf{indépendantes} (noté $X \indep Y$ ou parfois $X \perp Y$) si pour tous ensembles boréliens $A, B \subset \mathbb{R}$ (c'est-à-dire des sous-ensembles "raisonnables" de $\mathbb{R}$ pour lesquels $P(X \in A)$ et $P(Y \in B)$ sont bien définis) :
+\[
+P(X \in A, Y \in B) = P(X \in A)P(Y \in B)
+\]
+Cela signifie que les événements $\{X \in A\}$ et $\{Y \in B\}$ sont indépendants pour tous choix de $A$ et $B$.
+\end{definition}
+
+\begin{proposition}[Caractérisation de l'indépendance]
+L'indépendance de $X$ et $Y$ peut être caractérisée de plusieurs manières équivalentes :
+\begin{itemize}
+    \item Par la fonction de répartition jointe : $X \indep Y \iff F_{X,Y}(x,y) = F_X(x)F_Y(y)$ pour tous $(x, y) \in \mathbb{R}^2$.
+    \item Cas discret : $X \indep Y \iff P(X = x_i, Y = y_j) = P(X = x_i)P(Y = y_j)$ pour toutes les valeurs $x_i, y_j$ prises par $X$ et $Y$. (Autrement dit, $p_{ij} = p_{i \cdot} \times p_{\cdot j}$, où $p_{i \cdot}$ et $p_{\cdot j}$ sont les probabilités marginales).
+    \item Cas continu : Si $X$ et $Y$ admettent des densités marginales $f_X$ et $f_Y$, elles sont indépendantes si et seulement si le couple $(X, Y)$ admet pour densité jointe le produit des densités marginales : $f_{X,Y}(x,y) = f_X(x)f_Y(y)$ pour (presque) tous $(x, y) \in \mathbb{R}^2$.
+\end{itemize}
+\end{proposition}
+
+\begin{proposition}[Espérance du produit de v.a. indépendantes]
+Si $X$ et $Y$ sont deux variables aléatoires indépendantes :
+\begin{enumerate}
+    \item Pour toutes fonctions (mesurables) $g : \mathbb{R} \to \mathbb{R}$ et $h : \mathbb{R} \to \mathbb{R}$, les variables aléatoires $g(X)$ et $h(Y)$ sont également indépendantes.
+    \item Si $E[X]$ et $E[Y]$ existent (et sont finies), et si $E[XY]$ existe (ce qui est garanti si $X, Y$ sont bornées, par exemple, ou par des conditions de moments plus faibles), alors :
+    \[
+    E[XY] = E[X]E[Y]
+    \]
+    Plus généralement, si $g(X)$ et $h(Y)$ ont des espérances finies :
+    \[
+    E[g(X)h(Y)] = E[g(X)]E[h(Y)]
+    \]
+\end{enumerate}
+\end{proposition}
+
+\begin{proposition}[Variance de la somme de v.a. indépendantes]
+Si $X$ et $Y$ sont deux variables aléatoires indépendantes et si leurs variances $\operatorname{Var}(X)$ et $\operatorname{Var}(Y)$ existent (sont finies) :
+\[
+\operatorname{Var}(X + Y) = \operatorname{Var}(X) + \operatorname{Var}(Y)
+\]
+\end{proposition}
+\begin{proof}
+    
+On sait que, de manière générale, $\operatorname{Var}(X+Y) = \operatorname{Var}(X) + \operatorname{Var}(Y) + 2\operatorname{Cov}(X, Y)$. 
+Si $X \indep Y$, alors $\operatorname{Cov}(X, Y) = \E[(X - \E[X])(Y - \E[Y])]$. Puisque $X - \E[X]$ est une fonction de $X$, et $Y - \E[Y]$ est une fonction de $Y$, et que $X \indep Y$, les variables $X - \E[X]$ et $Y - \E[Y]$ sont aussi indépendantes. 
+
+Donc, par la propriété de l'espérance du produit de variables indépendantes appliquée à $g(X) = X - \E[X]$ et $h(Y) = Y - \E[Y]$ : 
+\[ \operatorname{Cov}(X, Y) = \E[X - \E[X]] \cdot \E[Y - \E[Y]] \]
+Or, par linéarité de l'espérance, $\E[X - \E[X]] = \E[X] - \E[\E[X]] = \E[X] - \E[X] = 0$. De même, $\E[Y - \E[Y]] = 0$. 
+Ainsi, $\operatorname{Cov}(X, Y) = 0 \cdot 0 = 0$. D'où $\operatorname{Var}(X + Y) = \operatorname{Var}(X) + \operatorname{Var}(Y)$ si $X \indep Y$. \hfill $\square$
+\end{proof} 
+\vspace{2em}
+
+\section{Covariance entre deux Variables Aléatoires}
+
+Soit $(X, Y)$ un couple de variables aléatoires telles que $\E[X^2] < \infty$ et $\E[Y^2] < \infty$ (ceci garantit que $\E[X]$, $\E[Y]$, $\operatorname{Var}(X)$, $\operatorname{Var}(Y)$ existent et sont finies, et par Cauchy-Schwarz, que $\E[|XY|]$ existe aussi).
+
+\begin{definition}[Covariance]
+La \textbf{covariance} de $X$ et $Y$ est définie par :
+\[ \operatorname{Cov}(X, Y) = \E[(X - \E[X])(Y - \E[Y])] \]
+Elle mesure la tendance des variables à varier ensemble par rapport à leurs moyennes. Une formule de calcul plus pratique est la formule de Huygens pour la covariance :
+\[ \operatorname{Cov}(X, Y) = \E[XY] - \E[X]\E[Y] \]
+\end{definition}
+
+\paragraph{Interprétation de la covariance :}
+\begin{itemize}
+    \item Si $\operatorname{Cov}(X, Y) > 0$ : $X$ et $Y$ ont tendance à varier dans le même sens. Quand $X$ est au-dessus de sa moyenne, $Y$ a tendance à l'être aussi, et vice-versa.
+    \item Si $\operatorname{Cov}(X, Y) < 0$ : $X$ et $Y$ ont tendance à varier en sens opposés. Quand $X$ est au-dessus de sa moyenne, $Y$ a tendance à être en dessous, et vice-versa.
+    \item Si $\operatorname{Cov}(X, Y) = 0$ : On dit que $X$ et $Y$ sont \textbf{non corrélées}. Cela indique une absence de relation \textit{linéaire} entre $X$ et $Y$.
+\end{itemize}
+\begin{proposition}
+Si $X$ et $Y$ sont indépendantes (et que leurs espérances existent), alors $\operatorname{Cov}(X, Y) = 0$.
+\end{proposition}
+
+\begin{proof}
+Si $X \indep Y$, alors $\E[XY] = \E[X]\E[Y]$. Donc :
+\[
+\operatorname{Cov}(X, Y) = \E[XY] - \E[X]\E[Y] = \E[X]\E[Y] - \E[X]\E[Y] = 0.
+\]
+\end{proof}
+
+\begin{remarque}[Attention à la réciproque]
+La réciproque est \textbf{fausse} en général : $\operatorname{Cov}(X, Y) = 0$ (variables non corrélées) n'implique \textbf{pas} que $X$ et $Y$ sont indépendantes. L'indépendance est une condition plus forte que la non-corrélation.
+
+\vspace{0.5em}
+\noindent \textbf{Contre-exemple :} Soit $X$ une variable aléatoire telle que $\E[X] = 0$ et $\E[X^3] = 0$ (par exemple $X \sim \mathcal{N}(0, 1)$ ou $X$ une variable uniforme sur $[-c, c]$). Soit $Y = X^2$. Alors $X$ et $Y$ sont clairement dépendantes (connaître $X$ détermine $Y$). 
+\[ \E[Y] = \E[X^2] \]
+\[ \E[XY] = \E[X \cdot X^2] = \E[X^3] = 0 \text{ (par hypothèse sur } X). \]
+Dès lors :
+\[ \operatorname{Cov}(X, Y) = \E[XY] - \E[X]\E[Y] = 0 - 0 \cdot \E[X^2] = 0. \]
+\end{remarque}

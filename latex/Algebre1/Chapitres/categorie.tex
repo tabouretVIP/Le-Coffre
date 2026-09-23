@@ -1,0 +1,26 @@
+\chapter{Théorie des catégories}
+
+\section{Catégories}
+
+\begin{definition}
+Une \emph{catégorie} $\mathscr{C}$ consiste en :
+
+\begin{itemize}
+\item une collection $\text{ob}(\mathscr{C})$ d'\textbf{objets} ;
+\item pour chaque $A, B \in \text{ob}(\mathscr{C})$, une collection $\mathscr{C}(A, B)$ de \textbf{morphismes} (ou \textbf{flèches} ou \textbf{applications}) de $A$ vers $B$ ;
+\item pour chaque $A, B, C \in \text{ob}(\mathscr{C})$, une fonction
+$$\mathscr{C}(B, C) \times \mathscr{C}(A, B) \longrightarrow \mathscr{C}(A, C)$$
+$$(g, f) \longmapsto g \circ f,$$
+appelée \textbf{composition} ;
+\item pour chaque $A \in \text{ob}(\mathscr{C})$, un élément $1_A$ de $\mathscr{C}(A, A)$, appelé \textbf{identité} sur $A$,
+\end{itemize}
+
+satisfaisant les axiomes suivants :
+
+\begin{itemize}
+\item \textbf{associativité} : pour chaque $f \in \mathscr{C}(A, B)$, $g \in \mathscr{C}(B, C)$ et $h \in \mathscr{C}(C, D)$, nous avons $(h \circ g) \circ f = h \circ (g \circ f)$ ;
+\item \textbf{lois d'identité} : pour chaque $f \in \mathscr{C}(A, B)$, nous avons $f \circ 1_A = f = 1_B \circ f$.
+\end{itemize}
+\end{definition}
+
+\section{Foncteurs}

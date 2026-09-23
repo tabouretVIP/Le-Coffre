@@ -1,0 +1,415 @@
+\chapter{Polynômes}
+\begin{tcolorbox}[colback = red!40, colframe = red]
+   \centering!!! En chantier !!!
+\end{tcolorbox}
+Soit $K$ un corps. Un polynôme à coefficients dans $K$, est une fonction $f$ de $K$ dans lui-même telle qu'il existe des éléments $a_0,a_1,...,a_n$ de $K$ tels que
+\[
+f(t)=a_nt^n+\cdots +a_0
+\]
+pour tout $t\in K$. Soit
+
+\[
+g(t)=b_mt^m+\cdots+b_0
+\]
+Un autre polynôme sur $K$; on peut alors former la somme $f+g$. Si, par exemple $n\geq m$, on peut poser $b_j=0$, pour $j>m,$
+\[
+g(t)=0t^n+\cdots +b_mt^m+\cdots +b_0
+\]
+et l'on peut alors écrire la valeur de la somme $f+g$ sous la forme
+\[
+(f+g)(t)=(a_n+b_m)t^n+\cdots+(a_0+b_0)
+\]
+La fonction $f+g$ est encore un polynôme. Si $c\in K$, alors
+\[
+(cf)(t)=ca_nt^n+\cdots+ca_0
+\]
+donc $cf$ est un polynôme.
+On peut ainsi effectuer le produit de deux polynômes, $fg$, et
+\[
+(fg)(t)= (a_nb_m)t^{n+m}+\cdots+(a_0b_0)
+\]
+tel que $fg$ est un polynôme. On écrit, en fait,
+\[
+(fg)(t)=c_{n+m}t^{n+m}+\cdots+c_0,
+\]
+où
+\[
+c_k=\sum_{i=0}^ka_ib_{k-i}
+\]
+
+    \begin{lemme}
+        Soit $f$ un polynôme sur $K$, et soit $\alpha \in K$. Il existe alors des éléments $c_0,...,c_n\in K$ tels que
+        \[
+        f(t)=c_0+c_1(t-\alpha)+\cdots+c_n(t-\alpha)^n
+        \]
+    \end{lemme}
+\begin{proof}
+    
+\end{proof}
+
+    \begin{theoreme}
+        Soit $f$ un polynôme sur $K$ de la forme
+        \[
+        f(t)=a_nt^n+\cdots+a_0
+        \]
+        Si $a_0,...,a_n$ ne sont pas tous nuls, $f$ a au plus, $n$ racines dans $K$. Si 
+        \[
+        g(t)=b_nt^n+\cdots+b_0
+        \]
+        est un autre polynôme tel que $f(t)=g(t)$ pour tous $t\in K$, alors $a_i=b_i$ pour tout $i$.
+    \end{theoreme}
+
+Ce théorème nous montre que si l'on écrit le polynôme $f$ sous la forme
+\[
+f(t)=a_nt^n+\cdots+a_0
+\]
+où $a_i\in K$, alors les nombres $a_0,...,a_n$ sont déterminés de manière unique. Ces nombres sont appelés les coefficients de ce polynômes. Si $n$ est le plus grand entier tel que $a_n\neq0$, nous dirons que $n$ est le degré de $f$ et nous écrirons $n=deg(f)$. Nous disons aussi que le coefficient dominant de $f$ est $a_n$. Si $f$ est le polynôme nul, nous convenons que $\operatorname{deg}(f)=-\infty$.
+Nous faisons également les conventions suivantes
+\[
+-\infty+(-\infty)=-\infty
+\]
+et
+\[
+-\infty+a=-\infty
+\]
+
+    \begin{theoreme}
+        Soient $f$ et $g$ des polynômes à coefficients dans $K$. Alors,
+        \[
+        \operatorname{deg}(fg)=\operatorname{deg}(f)+\operatorname{deg}(g)
+        \]
+    \end{theoreme}
+
+\begin{proof}
+    
+\end{proof}
+
+\begin{corollaire}
+    L'anneau $K(t)$ n'a pas de diviseurs de zéro, et donc il est intègre
+\end{corollaire}
+
+    \begin{theoreme}
+        Soient $f$ et $g$ des polynômes sur le corps $K$
+        supposons que $\operatorname{deg}(g)\geq 0$. Il existe alors $q,r\in K[t]$ tels que
+        \[
+        f(t)=q(t)g(t)+r(t)
+        \]
+        avec$\operatorname{deg}(r)<\operatorname{deg}(g)$. Les polynômes $q$ et $r$ dont déterminés de manière unique par ces conditions.
+    \end{theoreme}
+\
+\begin{proof}
+\end{proof}
+
+    \begin{corollaire}
+        Soit $f$ un polynôme non nul de $K[t]$, et soit $\alpha\in K$ tel que $f(\alpha)=0$. Il existe alors un polynôme $q(t)\in K[t]$ tel que
+        \[
+        f(t)=(t-\alpha)q(t)
+        \]
+    \end{corollaire}
+
+\begin{proof}
+\end{proof}
+
+    \begin{corollaire}
+        Soit $K$ un corps tel que tout polynôme, non constant, de $K[t]$ possède une racine dans $K$. Soit $f$ un tel polynôme. Il existe alors des éléments $\alpha_1,...,\alpha_n$ et $c$ de $K$ tels que
+        \[
+        f(t)=c(t-\alpha_1)(t-\alpha_2)\cdots(t-\alpha_n)
+        \]
+    \end{corollaire}
+    \begin{proof}
+    \end{proof}
+\section{plus grand diviseur commun}
+
+    \begin{theoreme}
+        Soit $I$ un idéal de $K[t]$. Il existe un polynôme $g$ qui est un générateur de $I$
+    \end{theoreme}
+
+\begin{theoreme}
+    Soient $f_1,f_2\in K[t]$ des polynômes non nuls. Soit $g$ un générateur de l'idéal engendré par $f_1$ e $f_2$. Alors $g$ est le pgcd de $f_1$ et $f_2$.
+\end{theoreme}
+
+\section{Unicité de la décomposition}
+
+    \begin{definition}
+        Un polynôme $p$ de $K[t]$ est dit irréductible (sur $K$) s'il est de degré $\geq 1$, et si, étant donné une décomposition de $p$ sous la forme $p=fg$, où $f,g\in K[t]$, deg$(f)$ ou deg$(g)=0$. Ainsi, à une constante multiplicative non nulle près, les seules diviseurs de $p$ sont $p$ lui même et $1$.
+    \end{definition}
+
+    \begin{theoreme}
+        Tout polynôme de $K[t]$ $\geq 1$ peut s'exprimer comme produit $p_1\cdots p_m$ de polynômes irréductibles. Dans un tel produit, les polynômes $p_1,...,p_m$ sont déterminés de manière unique, à l'ordre près, et à une constante multiplicative non nulle près.
+    \end{theoreme}
+
+\begin{proof}
+\end{proof}
+
+    \begin{lemme}
+        Soit $p$ un polynôme irréductible de $K[t]$. Soient $f$ et $g$ des polynômes non nuls de $K[t]$. si $p$ divise $fg$ alors $p$ divise $f$ ou $g$.
+    \end{lemme}
+
+\begin{proof}
+\end{proof}
+
+    \begin{corollaire}
+        Soit $f$ un polynôme de $K[t]$ de degrés $\geq 1$. Le polynôme $f$ possède une décomposition $f=cp_1\cdots p_s$, où $p_1,...,p_s$ sont des polynômes irréductibles, de coefficient dominant $1$, déterminés de manière unique à une permutation près.
+    \end{corollaire}
+
+\begin{corollaire}
+    Soit $K$ un corps algébriquement clos. Soit $f$ un polynôme de $K[t]$ de degrès $\geq 1$. Le polynôme $f$ possède alors une décomposition sous la forme
+    \[
+    f(t)=c(t-\alpha_1)\cdots(t-\alpha_n)
+    \]
+    où $\alpha_i\in K$ et $c\in K$. Les facteurs $t-\alpha_i$ sont déterminés de manière unique à une permutation près.
+\end{corollaire}
+
+Un polynôme ayant $1$ pour coefficient dominant est parfois appelé monique.
+
+    \begin{definition}
+        Si $p$ est irréductible, et si $f=p^mg$ où $p$ ne divise pas $g$ et où $m$ est un entier positif ou nul, on dira que $m$ est la multiplicité de $p$ dans $f$. On note alors cette multiplicité $\operatorname{ord}_pf$, et on l'appel encore ordre de $f$ en $p$.
+        Si $\alpha$ est une racine de $f$, et si
+        \[
+        f(t)=(t-\alpha)^mg(t)
+        \]
+        où $g(\alpha)\neq 0$, alors $t-\alpha$ ne divise pas $g(t)$, et $m$ est la multiplicité de $t-\alpha$ dans $f$.
+        On dit aussi que $m$ est la multiplicité de $\alpha$ dans $f$. Il y a un critère simple, en utilisant la dérivé, pour vérifier si $m> 1$. Soit $f(t)=a_nt^n+\cdots+a_0$ un polynôme. On définit sa dérivée comme suit
+        \[
+        Df(t)=f'(t)=na_nt^{n-1}+(n-1)a_{n-1}t^{n-2}+\cdots+a_1
+        \]
+        Si $f$ et $g$ sont des polynômes, alors
+        \[
+        (f+g)'=f'+g'
+        \]
+        et
+        \[
+        (fg)'=f'g+fg'
+        \]
+        et si $c$ est une constante, $(cf)'=cf'$
+        De plus, si $f(t)=h(t)^m$ pour un entier $m\geq 1$, $f'(t)=mh(t)^{m-1}h'(t)$
+    \end{definition}
+
+
+    \begin{theoreme}
+        Soit $K$ un corps. Soit $f$ un polynôme sur $K$ de degrés $1$, et soit $\alpha$ une racine de $f$ dans $K$. La multiplicité de $\alpha$ dans $f$ est alors $>1$ si et seulement si $f'(\alpha)=0$.
+    \end{theoreme}
+
+\section{Décomposition en éléments simples}
+Nous avons démontré au paragraphe précédent qu’on peut exprimer un polynôme comme produit de puissances de polynômes irréductibles d’une façon unique à une permutation près des facteurs. La même chose reste vraie, si on admet l’utilisation d’exposants négatifs. Soit \( R = \frac{g}{f} \) une fraction rationnelle, exprimée comme quotient des polynômes \( g \) et \( f \), où \( f \neq 0 \). Supposons que \( R \neq 0 \). Si \( g \) et \( f \) ne sont pas premiers entre eux, on peut simplifier par leur plus grand commun diviseur pour obtenir \( R \) comme quotient de deux polynômes premiers entre eux. En mettant en facteurs leurs coefficients dominants, on peut écrire  
+
+\[
+R = c \frac{g_1}{f_1}
+\]
+
+où \( f_1 \) et \( g_1 \) ont 1 pour coefficient dominant. Alors \( f_1 \), \( g_1 \) et \( c \) sont déterminés de manière unique ; supposons que  
+
+\[
+c g_1 f_1 = c_2 g_2 f_2,
+\]
+
+pour des constantes \( c \) et \( c_2 \) et pour des couples de polynômes étrangers \( f_1, g_1 \) et \( f_2, g_2 \) de coefficients dominants égaux à 1. On a alors  
+
+\[
+c g_1 f_2 = c_2 g_2 f_1.
+\]
+
+D’après l’unicité de la décomposition des polynômes, nous arrivons à la conclusion que \( g_1 = g_2 \) et \( f_1 = f_2 \), de sorte que \( c = c_2 \).  
+
+Si nous décomposons maintenant \( f_1 \) et \( g_1 \) en produits de puissances de polynômes irréductibles, nous obtenons l’unique décomposition possible de \( R \). Tout cela est parfaitement analogue à la décomposition obtenue pour les nombres rationnels au chapitre I, §4.  
+
+Nous voulons maintenant décomposer une fraction rationnelle en somme de fractions rationnelles, telles que le dénominateur de chacune d’elles soit une puissance d’un polynôme irréductible. Une telle décomposition est appelée *décomposition en éléments simples*. Commençons par un lemme qui nous permet de raisonner par récurrence.
+
+    \begin{lemme}
+        Soient \( f_1 \) et \( f_2 \) deux polynômes non nuls et étrangers à coefficients dans un corps \( K \). Il existe alors des polynômes \( h_1 \) et \( h_2 \), à coefficients dans \( K \), tels que  
+
+\[
+\frac{1}{f_1 f_2} = \frac{h_1}{f_1} + \frac{h_2}{f_2}.
+\]
+    \end{lemme}
+
+\begin{proof}
+     Puisque \( f_1 \) et \( f_2 \) sont étrangers, il existe des polynômes \( h_1 \) et \( h_2 \) tels que  
+
+\[
+h_2 f_1 + h_1 f_2 = 1.
+\]
+
+En divisant les deux côtés de cette égalité par \( f_1 f_2 \), on obtient le résultat.  
+\end{proof}
+
+    \begin{theoreme}
+         \textit{Toute fraction rationnelle peut s’écrire sous la forme}  
+
+\[
+R = \frac{h_1}{p_1^{i_1}} + \dots + \frac{h_n}{p_n^{i_n}} + h,
+\]
+
+où \( p_1, \dots, p_n \) sont des polynômes irréductibles distincts de coefficients dominants égaux à \( 1 \) ; \( i_1, \dots, i_n \) sont des entiers \( \geq 0 \) ; \( h_1, \dots, h_n, h \) sont des polynômes satisfaisant à  
+
+\[
+\deg h_v < \deg p_v^{i_v} \quad \text{et} \quad p_v \nmid h_v
+\]
+
+pour \( v = 1, \dots, n \). Dans une telle expression, les entiers \( i_v \) et les polynômes \( h_v \), \( h(v = 1, \dots, n) \) sont déterminés de manière unique.
+
+    \end{theoreme}
+\begin{proof}
+    
+\end{proof}
+
+    \begin{theoreme}
+        Considérons une fraction rationnelle sous la forme $R=g/f$, où $f$ et $g$ sont des polynômes étrangers et $f\neq 0$. Supposons que tous les entiers $i_1,...,i_n$ soient $>0$. Alors
+        \[
+        f=p_1^{i_1}\cdots p_n^{i_n}
+        \]
+        est de la décomposition de $f$ en éléments irréductibles. De plus, si $\operatorname{deg}g< \operatorname{deg}f,h=0$.
+    \end{theoreme}
+
+\begin{remarque}
+    Étant donnée une fraction rationnelle \( R = \frac{g}{f} \), où \( f \) et \( g \) sont des polynômes étrangers, on peut écrire en utilisant l’algorithme d’Euclide  
+
+\[
+g = g_1 f + g_2,
+\]
+
+où \( g_1 \) et \( g_2 \) sont des polynômes et où \( \deg g_2 < \deg f \). On a alors  
+
+\[
+\frac{g}{f} = \frac{g_2}{f} + g_1,
+\]
+
+et on peut appliquer le théorème  à la fraction rationnelle \( \frac{g_2}{f} \). Il est toujours utile lorsqu’on étudie des fractions rationnelles d’effectuer dès le début cette division pour ramener cette étude au cas où le degré du numérateur est plus petit que celui du dénominateur.  
+\end{remarque}
+
+    \begin{theoreme}
+         \textit{Soit \( \varphi \) un polynôme non nul à coefficients dans \( K \). Soit \( h \) un polynôme quelconque à coefficients dans \( K \). Il existe des polynômes \( \psi_0, \dots, \psi_m \) tels que}  
+
+\[
+h = \psi_0 + \psi_1 \varphi + \dots + \psi_m \varphi^m.
+\]
+avec $\operatorname{deg}\psi_i<\operatorname{deg}\varphi$, pour tous $i=0,...,m$. Les polynômes $\psi_0,...,\psi_m$ sont déterminés de façon unique par ces conditions.
+    \end{theoreme}
+
+    \begin{theoreme}
+        \textit{Soient \( h \) un polynôme et \( p \) un polynôme irréductible à coefficients dans le corps \( K \). Soit \( i \) un entier \( > 0 \). Il existe une expression unique}  
+
+\[
+\frac{h}{p^i} = \frac{g_{-i}}{p^i} + \frac{g_{-i+1}}{p^{i-1}} + \dots + g_0 + g_1 p + \dots + g_s p^s
+\]
+
+\textit{où les \( g_\mu \) sont des polynômes de degré \( < \deg p \).}  
+
+    \end{theoreme}
+
+
+    \begin{corollaire}
+        \textit{Soit \( \alpha \in K \), et soit \( h \) un polynôme à coefficients dans \( K \). On a alors}  
+
+\[
+\frac{h(t)}{(t + \alpha_i)^i} = \frac{a_{-i}}{(t - \alpha)^i} + \frac{a_{-i+1}}{(t - \alpha)^{i-1}} + \dots + a_0 + a_1 (t - \alpha) + \dots,
+\]
+
+\textit{où les \( a_\mu \) sont des éléments de \( K \), déterminés de façon unique.}  
+
+    \end{corollaire}
+\begin{proof}
+    \textit{Dans ces conditions \( p(t) = t - \alpha \) est de degré 1, de sorte que les coefficients du développement \( p \)-adique de \( h \) doivent être des constantes.}  
+\end{proof}
+\section{Polynômes à coefficients entiers}
+Les polynômes à coefficients dans \(\mathbb{Z}\) forment un anneau particulièrement intéressant. Nous allons démontrer quelques propriétés particulières de tels polynômes, propriétés qui vont conduire à un important critère d’irréductibilité concernant les polynômes à coefficients rationnels. 
+
+Si \(A\) est un anneau, contenu dans un corps, on désigne par \(A[t]\) l’ensemble des polynômes à coefficients dans \(A\). Il s’agit, de façon claire, d’un anneau, appelé anneau des polynômes à coefficients dans \(A\).
+
+    \begin{lemme}
+        Soit \(f\) un polynôme non nul sur le corps des rationnels. Il existe alors un nombre rationnel \(r \neq 0\) tel que \(rf\) possède des coefficients entiers, qui sont premiers entre eux.
+
+    \end{lemme}
+
+\begin{proof}
+    Écrivons 
+
+\[
+f(t) = a_n t^n + \dots + a_0,
+\]
+
+où \(a_0, \dots, a_n\) sont des nombres rationnels, et où \(a_n \neq 0\). Soit \(d\) un dénominateur commun de \(a_0, \dots, a_n\). Le polynôme \(df\) possède donc des coefficients entiers, à savoir \(da_n, \dots, da_0\). Soit \(b\) le plus grand commun diviseur de \(da_n, \dots, da_0\). Le polynôme 
+
+\[
+\frac{d}{b} f(t) = \frac{da_n}{b} t^n + \dots + \frac{da_0}{b}
+\]
+
+possède alors des coefficients entiers premiers entre eux, comme il fallait le montrer.
+\end{proof}
+
+\begin{lemme}
+    Soient \(f\) et \(g\) deux polynômes non nuls à coefficients dans \(\mathbb{Z}\) ; supposons que \(f\) a des coefficients premiers entre eux, ainsi que \(g\). Alors \(fg\) a aussi des coefficients premiers entre eux.
+\end{lemme}
+    
+\begin{proof}
+    Écrivons
+    \[
+    f(t) = a_n t^n + \dots + a_0, \quad a_n \neq 0,
+    \]
+    
+    \[
+    g(t) = b_m t^m + \dots + b_0, \quad b_m \neq 0,
+    \]
+    
+    où les \(a_i\) sont étrangers, ainsi que les \(b_i\). Soit \(p\) un nombre premier. Il va suffire de démontrer que \(p\) divise certains coefficients de \(fg\). 
+    
+    Soit \(r\) le plus grand entier tel que \(0 \leq r \leq n\) avec \(a_r \neq 0\), et tel que \(p\) ne divise pas \(a_r\). De la même façon, soit \(s\) le coefficient de \(g\) le plus à gauche, non nul, tel que \(p\) ne divise pas \(b_s\). Considérons le coefficient de \(t^{r+s}\) dans \(f(t) g(t)\). Il est égal à
+    
+    \[
+    c = a_r b_s + a_{r-1} b_{s-1} + \dots + a_{r-1} b_{s+1} + \dots
+    \]
+    
+    et \(p\) ne divise pas \(a_r b_s\). Cependant, \(p\) divise tout autre terme non nul de la somme, d'où \(p\) ne divise pas \(c\), et le lemme est démontré.
+\end{proof}
+
+\begin{theoreme}[Gauss]
+        Soit \(f\) un polynôme à coefficients premiers entre eux de degré \(\geq 1\). Si \(f\) est réductible sur \(\mathbb{Q}\), c'est-à-dire si l’on peut écrire \(f = gh\) avec \(g, h \in \mathbb{Q}[t]\), et \(\deg g \geq 1\), \(\deg h \geq 1\), alors il existe des nombres rationnels \(r\) et \(s\) tels que, si l’on pose \(g_1 = rg\) et \(h_1 = sh\), alors \(g_1\) et \(h_1\) sont à coefficients entiers, vérifiant \(f = g_1 h_1\).
+\end{theoreme}
+
+\begin{proof}
+    D’après le lemme 1, \(r\) et \(s\) sont des nombres rationnels non nuls tels que \(rg\) et \(sh\) sont à coefficients entiers, étrangers. Soient \(g_1 = rg\) et \(h_1 = sh\). Alors
+    
+    \[
+    f = \frac{1}{r} g_1 \frac{1}{s} h_1
+    \]
+    
+    et par suite, \(rsf = g_1 h_1\). D’après le lemme 2, \(g_1 h_1\) possède des coefficients premiers entre eux. Puisqu’on suppose que les coefficients de \(f\) sont étrangers, il s’ensuit immédiatement que \(rs\) lui-même doit être un entier, et ne peut être divisible par aucun nombre premier. De là vient que \(rs = \pm 1\), et qu’en divisant par exemple \(g_1\) par \(rs\), on obtient le résultat.
+\end{proof}
+
+\begin{theoreme}[Critère d'Eisenstein]
+    Soit
+    \[
+    f(t) = a_n t^n + \dots + a_0
+    \]
+    un polynôme de degré \(n \geq 1\), à coefficients entiers. Soit \(p\) un nombre premier. Supposons que
+    \[
+    a_n \not\equiv 0 \pmod{p}, \quad a_i \equiv 0 \pmod{p} \text{ pour tout } i < n, \quad a_0 \not\equiv 0 \pmod{p^2}.
+    \]
+    Le polynôme \(f\) est alors irréductible sur \(\mathbb{Q}\).
+\end{theoreme}
+    
+\begin{proof}
+    Divisons d’abord \( f \) par le plus grand commun diviseur de ses coefficients et supposons maintenant que \( f \) a des coefficients premiers entre eux. D’après le théorème 5, on doit montrer que \( f \) ne peut pas s’exprimer comme produit \( gh \) de polynômes \( g \) et \( h \) à coefficients entiers, tels que \( \deg g \) et \( \deg h \) soient \( \geq 1 \). Supposons qu’on peut le faire, et écrivons
+    \[
+    g(t) = b_d t^d + \cdots + b_0,
+    \]
+    \[
+    h(t) = c_m t^m + \cdots + c_0,
+    \]
+    où \( d, m \geq 1 \) et \( b_d c_m \neq 0 \). Puisque \( b_0 c_0 = a_0 \) est divisible par \( p \) mais pas par \( p^2 \), il s’ensuit que l’un des nombres \( b_0 \) ou \( c_0 \) n’est pas divisible par \( p \), par exemple, \( b_0 \). 
+    Alors \( p \mid c_0 \). Puisque \( c_m b_d = a_n \) n’est pas divisible par \( p \), il s’ensuit que \( p \) ne divise pas \( c_m \). Soit \( c_r \) le coefficient de \( h \) le plus éloigné vers la droite tel que \( c_r \neq 0 \) (mod \( p \)). 
+    Alors \( r \neq n \) et 
+    \[
+    a_r = b_0 c_r + b_1 c_{r-1} + \cdots
+    \]
+    Puisque \( p \mid b_0 c_r \), mais puisque \( p \) divise tout autre terme de la somme, on en conclut que \( p \mid a_r \), contradiction qui démontre notre théorème.
+\end{proof}
+
+\begin{exemple}
+    Le polynôme \( t^5 - 2 \) est irréductible sur le corps des rationnels, par application immédiate du théorème.
+\end{exemple}
+
+\begin{remarque}
+    Les démonstrations qui prouvent l’existence et l’unicité des décompositions dans les anneaux de polynômes et dans \( \mathbb{Z} \) (donnée au chapitre I pour cette dernière) sont très semblables. Nous avons d’abord utilisé l’algorithme d’Euclide dans les deux cas, pour montrer que tout idéal peut être engendré par un seul élément. Il y a très peu d’exemples d’anneaux dans lesquels soit valable un tel algorithme d’Euclide. Cependant, les raisonnements qui ont suivi ne dépendaient que de ce qu’entraînait cet algorithme sur l’engendrement des idéaux. Il est donc utile de donner un nom à de tels anneaux : un anneau \( A \) est dit \textit{anneau principal} s’il est intègre, et si tout idéal peut être engendré par un seul élément. On peut prouver le théorème de l’existence et de l’unicité des décompositions dans les anneaux principaux, et aussi démontrer les analogues des théorèmes 12 et 13 sur de tels anneaux. Il existe beaucoup d’exemples de tels anneaux, et cela vaut donc la peine d’expliciter de telles axiomatisations. Nous renvoyons le lecteur à des textes d’un niveau plus élevé, où il trouvera un exposé systématique de ces questions.
+\end{remarque}
+

@@ -1,0 +1,68 @@
+\chapter{Corps}
+
+\section{construction de corps}
+
+\textbf{Le corps des fractions.} Pour cela il faut partir d'un anneau commutatif intègre. Lorsque $A$ est intègre, on peut considérer les fractions d'éléments de $A$
+$$\text{Frac}(A) \triangleq \left\{\frac{a}{b} \mid a, b \in A, b \neq 0\right\},$$
+avec comme d'habitude $\frac{a}{b} = \frac{c}{d}$ si et seulement si $ad - bc = 0$, et $\frac{a}{1} = a$. Alors $\text{Frac}(A)$ est un corps, l'addition et la multiplication étant définies de façon usuelle (comme dans $\mathbb{Q}$), et $A$ est un sous-anneau de $\text{Frac}(A)$.
+
+Si $A \subseteq L$ est un sous-anneau d'un corps $L$, alors $A$ est intègre puisque $L$ l'est. Dans ce cas $\text{Frac}(A)$ est le plus petit sous-corps de $L$ contenant $A$ (exercice).
+
+\begin{exemple}
+$\text{Frac}(\mathbb{Z}) = \mathbb{Q}$ est le plus petit sous-corps de $\mathbb{C}$ (contenant $\mathbb{Z}$).
+\end{exemple}
+
+\begin{exemple}
+Soit $\mathbb{F}_p[t]$ l'anneau des polynômes à coefficients dans $\mathbb{F}_p$ en la "variable" $t$. Son corps des fractions est
+$$\text{Frac}(\mathbb{F}_p[t]) \triangleq \mathbb{F}_p(t) = \left\{\frac{P(t)}{Q(t)} \mid P(t), Q(t) \in \mathbb{F}_p[t], Q(t) \neq 0\right\}.$$
+Les éléments de $\mathbb{F}_p(t)$ sont les "fractions rationnelles" à coefficients dans $\mathbb{F}_p$.
+\end{exemple}
+
+\textbf{Quotients.} Rappelons que si $I$ est un idéal de $A$, alors le quotient $A/I$ est un corps ssi $I$ est un idéal maximal. De plus, tout anneau commutatif non nul contient au moins un idéal maximal. Ainsi, si $\mathfrak{m}$ est un idéal maximal de $A$, alors $A/\mathfrak{m}$ est un corps.
+
+\begin{exemple}
+Les idéaux maximaux de $\mathbb{Z}$ sont les $p\mathbb{Z}$ avec $p$ premier. On obtient ainsi les corps finis à $p$ éléments $\mathbb{Z}/p\mathbb{Z} = \mathbb{F}_p$.
+\end{exemple}
+
+\begin{exemple}
+Cet exemple est fondamental.
+
+Soit $K$ un corps. L'anneau $K[X]$ est principal, et ses idéaux maximaux sont les $(P)$ avec $P(X)$ irréductible dans $K[X]$, que l'on peut choisir monique. Alors $K[X]/(P)$ est un corps, et aussi un $K$-espace vectoriel de dimension $\deg(P)$.
+
+De plus, l'application $K \hookrightarrow K[X]/(P)$, $a \mapsto a \bmod (P)$ est un morphisme de corps injectif, qui identifie $K$ à un sous-corps de $K[X]/(P)$.
+\end{exemple}
+
+\section{Caractéristique d'un corps}
+On distingue généralement deux types de corps. Soit $F$ un corps. Soit
+$$\nu_F : \mathbb{Z} \longrightarrow F$$
+$$1 \longmapsto 1_F$$
+l'unique morphisme d'anneau de $\mathbb{Z}$ dans $F$. Par factorisation
+$$\overline{\nu}_F : \mathbb{Z}/\ker(\nu_F) \hookrightarrow F$$
+est un morphisme d'anneau injectif. Comme $F$ est un corps, il est intègre, et donc $\mathbb{Z}/\ker(\nu_F)$ aussi. Par conséquent $\ker(\nu_F)$ est un idéal premier de $\mathbb{Z}$, c'est-à-dire $\ker(\nu_F) = (0)$ ou $\ker(\nu_F) = p\mathbb{Z}$ avec $p$ premier.
+
+$-$ Si $\ker(\nu_F) = p\mathbb{Z}$, alors on a un morphisme injectif
+$$\overline{\nu}_F : \mathbb{Z}/p\mathbb{Z} = \mathbb{F}_p \hookrightarrow F$$
+et $F$ contient un sous-corps isomorphe à $\mathbb{F}_p$.
+
+$-$ Si $\ker(\nu_F) = (0)$, alors $\nu_F : \mathbb{Z} \hookrightarrow F$ s'étend en un morphisme injectif
+$$\widetilde{\nu}_F : \mathbb{Q} \hookrightarrow F$$
+$$\frac{a}{b} \longmapsto \nu_F(a)\nu_F(b)^{-1},$$
+et $F$ contient un sous-corps isomorphe à $\mathbb{Q}$.
+
+\begin{definition}
+La caractéristique de $F$ est :
+
+$-$ $\text{Car}(F) = p$ premier dans le cas où $\ker(\nu_F) = p\mathbb{Z}$ ;
+
+$-$ $\text{Car}(F) = 0$ dans le cas où $\ker(\nu_F) = (0)$.
+\end{definition}
+
+\begin{remarque}
+Si $\text{Car}(F) = p$ alors $p = 0$ dans $F$, et si $\text{Car}(F) = 0$ alors $n \neq 0$ dans $F$ pour tout $n \in \mathbb{Z} \setminus \{0\}$.
+\end{remarque}
+
+\begin{exemple}
+$-$ Les corps $\mathbb{Q}$, $\mathbb{Q}(i)$, $\mathbb{R}$, $\mathbb{C}$ sont de caractéristique $0$. De façon générale, tous les sous-corps de $\mathbb{C}$ sont de caractéristique $0$.
+
+$-$ Les corps $\mathbb{F}_p$, $\mathbb{F}_p(t)$ sont de caractéristique $p$.
+\end{exemple}

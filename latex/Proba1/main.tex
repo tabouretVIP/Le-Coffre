@@ -1,0 +1,202 @@
+\documentclass[a4paper, 11pt, twoside]{report}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[french]{babel}
+\usepackage{newpxtext,newpxmath} 
+\usepackage{microtype}
+\usepackage{xcolor}
+\usepackage{titlesec}
+\usepackage{geometry}
+\usepackage{dsfont}
+\usepackage{graphicx}
+\usepackage{amsthm}
+\usepackage{enumitem}
+\usepackage{fancyhdr} % Pour les en-têtes
+\usepackage{titletoc}
+\usepackage[most]{tcolorbox} % Monté ici pour centraliser les packages
+
+\geometry{a4paper, top=3cm, bottom=3cm, inner=3cm, outer=2.5cm, headheight=14pt}
+
+% --- Palette de Couleurs "Deep Academic" ---
+\definecolor{MainBlue}{RGB}{20, 50, 90}      % Bleu Nuit (Titres)
+\definecolor{SecondaryBlue}{RGB}{40, 90, 140} % Bleu Moyen
+\definecolor{DefColor}{RGB}{0, 100, 80}      % Vert Émeraude sombre (Définitions)
+\definecolor{PropColor}{RGB}{140, 30, 30}    % Rouge Sombre (Propositions)
+\definecolor{ExoColor}{RGB}{100, 60, 0}      % Ambre brûlée (Exercices)
+\definecolor{RemColor}{RGB}{80, 80, 80}      % Gris de Payne (Remarques)
+
+% --- Style des Chapitres (Plus moderne) ---
+\titleformat{\chapter}[display]
+  {\normalfont\huge\bfseries\color{MainBlue}}
+  {\filleft\Large\textsf{\chaptertitlename} \Huge\thechapter}
+  {1ex}
+  {\titlerule[1.5pt]\vspace{1ex}\filright}
+  [\vspace{1ex}\titlerule]
+
+% --- Configuration des Titres de sections ---
+\titleformat{\section}{\normalfont\Large\bfseries\color{MainBlue}}{\thesection}{1em}{}
+\titleformat{\subsection}{\normalfont\large\bfseries\color{SecondaryBlue}}{\thesubsection}{1em}{}
+
+% --- En-têtes et Pieds de page ---
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[RO,LE]{\small\color{gray}\textsf{\thepage}}
+\fancyhead[LO]{\small\color{gray}\textsf{\rightmark}}
+\fancyhead[RE]{\small\color{gray}\textsf{\leftmark}}
+\renewcommand{\headrulewidth}{0.2pt}
+\addtolength{\headwidth}{0pt}
+
+% --- Personnalisation des listes ---
+\setlist[itemize,1]{label=\color{SecondaryBlue}$\bullet$}
+\setlist[enumerate,1]{label=\color{SecondaryBlue}\arabic*)}
+
+% ==============================================================
+% --- COMPTEURS (Nouveau) ---
+% Compteur partagé pour tout sauf les exercices
+\newcounter{envcpt}[chapter]
+\renewcommand{\theenvcpt}{\thechapter.\arabic{envcpt}}
+
+% Compteur spécifique pour les exercices
+\newcounter{exocpt}[chapter]
+\renewcommand{\theexocpt}{\thechapter.\arabic{exocpt}}
+% ==============================================================
+
+% --- Environnements SANS CADRES (Amélioration typographique + Comptage) ---
+
+\newenvironment{definition}[1][]{
+    \medskip\par\noindent\refstepcounter{envcpt}
+    % Ici on a remplacé \ --- #1 par \ (#1) pour avoir des parenthèses
+    \textcolor{DefColor}{\rule[0pt]{2pt}{10pt}\hspace{0.5em}\textbf{Définition \theenvcpt \ifx&#1&\else\ (#1)\fi.}} \itshape
+}{
+    \par\medskip
+}
+
+\newenvironment{proposition}[1][]{
+    \medskip\par\noindent\refstepcounter{envcpt}
+    % Ajout de l'option [#1] pour pouvoir nommer les propositions aussi
+    \textcolor{PropColor}{\rule[0pt]{2pt}{10pt}\hspace{0.5em}\textbf{Proposition \theenvcpt \ifx&#1&\else\ (#1)\fi.}} \itshape
+}{
+    \par\medskip
+}
+
+\newenvironment{lemme}[1][]{
+    \medskip\par\noindent\refstepcounter{envcpt}
+    \textcolor{PropColor}{\rule[0pt]{2pt}{10pt}\hspace{0.5em}\textbf{Lemme \theenvcpt \ifx&#1&\else\ (#1)\fi.}} \itshape
+}{
+    \par\medskip
+}
+
+\newenvironment{exemple}[1][]{
+    \medskip\par\noindent\refstepcounter{envcpt}
+    \textcolor{RemColor}{\small\textbf{\textsf{Exemple \theenvcpt \ifx&#1&\else\ (#1)\fi.}}} 
+}{
+    \par\medskip
+}
+
+\newenvironment{remarque}[1][]{
+    \medskip\par\noindent\refstepcounter{envcpt}
+    \textcolor{RemColor}{\small\textbf{\textsf{Remarque \theenvcpt \ifx&#1&\else\ (#1)\fi.}}} 
+}{
+    \par\medskip
+}
+
+\newenvironment{exercice}[1][]{
+    \medskip\par\noindent\refstepcounter{exocpt}
+    \textcolor{ExoColor}{\textbf{\small\scshape Exercice \theexocpt \ifx&#1&\else\ (#1)\fi.}} \small
+}{
+    \par\medskip
+}
+
+% --- Théorème (Lié au compteur partagé) ---
+% --- Théorème (Lié au compteur partagé) ---
+% L'ajout du DEUXIÈME [] est crucial ici pour rendre l'argument optionnel !
+\newtcolorbox[use counter=envcpt]{theoreme}[1][]{
+    enhanced, sharp corners, boxrule=0.8pt,
+    colback=white, colframe=MainBlue,
+    fonttitle=\bfseries, coltitle=MainBlue,
+    title={Théorème \thetcbcounter \ifx&#1&\else\ (#1)\fi},
+    attach title to upper={\textbf{. }},
+}
+
+% --- Preuve avec fin de démo stylisée (et support du titre personnalisé) ---
+% L'ajout du [1][Démonstration] permet de changer le mot par défaut
+\renewenvironment{proof}[1][Démonstration]{
+    \par\noindent \textit{\small #1.} 
+}{
+    \hfill \textcolor{MainBlue}{$\blacksquare$} \par\medskip
+}
+
+% --- Macros Mathématiques ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\Prob}{\mathbb{P}}
+\newcommand{\Esp}{\mathbb{E}}
+\newcommand{\ind}{\mathds{1}}
+
+% --- Page de garde améliorée ---
+\newcommand{\makecoursepage}{
+    \begin{titlepage}
+        \centering
+        \vspace*{3cm}
+        {\large \textsc{\color{gray} Université de Mons} \par}
+        \vspace{1cm}
+        \rule{\linewidth}{0.5pt} \\ [0.4cm]
+        {\Huge \bfseries \color{MainBlue} Probabilité 1 \par}
+        \rule{\linewidth}{2pt} \\ [1cm]
+        {\Large \textsf{Notes de cours} \par}
+        \vspace{2cm}
+        {\Large Piette Tiago \par}
+        \vfill
+        {\small \textsf{Bac 2 Mathématiques} \par}
+        {\small \textsf{Année académique 2025-2026} \par}
+    \end{titlepage}
+}
+
+% ==============================================================
+% PACKAGES DE LIENS ET RÉFÉRENCES (TOUJOURS À LA FIN DU PRÉAMBULE)
+\usepackage[hidelinks]{hyperref} % Rend la table des matières cliquable
+\usepackage[french]{cleveref} % Pour les références intelligentes (\cref)
+% ==============================================================
+\newcommand{\alors}{\Rightarrow}
+\newcommand{\partie}{\mathcal{P}}
+\newcommand{\interoo}[1]{\left] #1\right[}  % ]a,b[
+\newcommand{\interof}[1]{\left] #1\right]}   % ]a,b]
+\newcommand{\interfo}[1]{\left[ #1\right[}   % [a,b[
+\newcommand{\interff}[1]{\left[ #1\right]}   % [a,b]
+\newcommand{\fonction}[3]{#1\colon \left\{\begin{array}{l}#2 \\#3\end{array}\right.}
+\newcommand{\A}{\mathscr{A}}
+\usepackage{centernot}
+\newcommand{\indep}{\mathrel{\perp\!\!\!\perp}}
+\newcommand{\nindep}{\centernot\indep}
+\newenvironment{notation}{
+    \medskip\par\noindent
+    \textcolor{RemColor}{\small\textbf{\textsf{Notation.}}} 
+}{
+    \par\medskip
+}
+\newcommand{\E}{E}
+\newcommand{\Cov}{\operatorname{Cov}}
+\newcommand{\Var}{\operatorname{Var}}
+\usepackage[table]{xcolor}
+
+% Pour les couleurs dans la matrice
+
+% --- Couleurs personnalisées ---
+\definecolor{diagblue}{RGB}{230, 230, 255}
+\definecolor{covgreen}{RGB}{230, 255, 230}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta, positioning}
+\begin{document}
+
+\input{pagedegarde.tex}
+
+\tableofcontents
+
+\include{Chapitres/Chapitre1.tex}
+\include{Chapitres/Chapitre2.tex}
+\include{Chapitres/Chapitre3.tex}
+\include{Chapitres/Chapitre4.tex}
+\include{Chapitres/Chapitre5.tex}
+\end{document}

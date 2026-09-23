@@ -1,0 +1,316 @@
+\chapter{Extrema des fonctions de $\R^n$ dans $\R$}
+\section{Sans contrainte}
+\begin{definition}
+    Soit $f: \R^n\to\R$. Soient $A\subseteq\R^n$ et $a\in A\cap\dom (f)$
+    \begin{itemize}
+        \item $a$ est un minimum de $f$ sur $A$ si $\forall x\in A\cup\dom (f),\ f(a)\le f(x)$
+        \item $a$ est un minimum global de $f$ si $a$ est un minimum de $f$ sur $\R^n$
+        \item $a$ est un minimum local de $f$ s'il existe $V$ un voisinage de $a$ tel que $a$ est un minimum de $f$ sur $V$
+    \end{itemize}
+\end{definition}
+On étend les résultats vus pour les fonctions de $\R$ dans $\R$ aux fonctions de $\R^n$ dans $\R$.
+\begin{proposition}
+    Soit $f:\R^n\to\R$ et soit $a$ un min/max local de $f$ tel que $f$ est différentiable en $a$. Alors $Df(a) = 0$
+\end{proposition}
+\begin{proof}
+    Pour toute direction $h\in\R^n\setminus\{0\}$, $0$ est un min/max local de $f_{a,h}:\R\to\R$. Autrement dit, $0 = f'_{a,h}(0) = \dpart{f}{h}(a) = Df(a)(h)$. Comme $Df(a)(0) = 0$, on en déduit que $Df(a) = 0$
+\end{proof}
+\begin{proposition}
+    Soit $f:\R^n\to\R$ différentiable deux fois en $a$. 
+    \begin{itemize}
+        \item Si $a$ est un minimum local de $f$ alors $Df(a) = 0$ et $D^2f(a)(h,h)\ge 0$ pour tout $h\in\R^n$
+        \item Si $a$ est un maximum local de $f$ alors $Df(a) = 0$ et $D^2f(a)(h,h)\le 0$ pour tout $h\in\R^n$
+    \end{itemize}
+\end{proposition}
+\begin{proof}
+    Supposons que $a$ est un minimum local de $f$. Par la formule de Taylor-Young, on a
+    \begin{align*}
+        f(a+h) &= f(a) + Df(a)(h) + D^2f(a)(h,h)/2 + o(\norm h ^2)\\
+        &= f(a) + D^2f(a)(h,h)/2 + o(\norm h ^2)
+    \end{align*}
+    On a alors $$
+    0\le \lim_{h\to0}\frac{f(a+h)-f(a)}{\norm h^2} = \lim_{h\to 0}\frac{D^2f(a)(h,h)}{2\norm h ^2}$$ ou encore pour tout $h\in\R^n\setminus \{0\}$, 
+    \begin{align*}
+        0&\le \lim_{t\to0}\frac{f(a+th)-f(a)}{\norm {th}^2}\\
+        &= \lim_{t\to 0}\frac{t^2D^2f(a)(h,h)}{2t^2\norm{h} ^2}\\
+        &=\frac{D^2f(a)(h,h)}{2\norm{h} ^2}
+    \end{align*}
+    d'où $D^2f(a)(h,h)\ge 0$
+\end{proof}
+On peut également établir des réciproques partielles.
+\begin{proposition}
+    Soit $f:\R^n\to \R$ une fonction deux fois différentiable au voisinage de $a$.
+    \begin{enumerate}
+        \item Si $Df(a) = 0$ et $D^2f(x)(h,h)\ge 0$ pour tout $x$ dans un voisinage de $a$, pour tout $h\in\R^n$, alors $a$ est un minimum local de $f$.
+        \item Si $Df(a) = 0$ et $D^2f(x)(h,h)\le 0$ pour tout $x$ dans un voisinage de $a$, pour tout $h\in\R^n$, alors $a$ est un maximum local de $f$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    On utilise cette fois-ci la formule de Taylor-Lagrange. Soit $U$ un ouvert contenant $a$ tel que pour tout $x\in U$, $$D^2f(x)(h,h)\ge 0$$ pour tout $h\in\R^n$. On a alors que pour tout $h\in\R^n\setminus\{0\}$ tel que $\interff{a,a+h}\subseteq U$, il existe $c\in\interoo{a,a+h}$ tel que $$f(a+h) = f(a) + Df(a)(h) + \frac{D^2f(a)(h,h)}{2}$$ 
+    ce qui implique $f(a+h) \ge f(a)$
+\end{proof}
+\begin{proposition}
+    Soit $f:\R^n\to\R$ différentiable deux fois en $a$.
+    \begin{enumerate}
+        \item Si $Df(a) = 0$ et $D^2f(a)(h,h)>0$ pour tout $h\in\R^n\setminus\{0\}$ alors $a$ est un minimum local de $f$
+        \item Si $Df(a) = 0$ et $D^2f(a)(h,h)<0$ pour tout $h\in\R^n\setminus\{0\}$ alors $a$ est un maximum local de $f$
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Posons $c:=\min \{D^2f(a)(h,h) \mid \norm h = 1\} >0$.
+    Par la formule de Taylor-Young,$$f(a+h) = f(a) + Df(a)(h) + \frac{D^2f(a)(h,h)}{2} + o(\norm{h}^2)$$
+    Il existe donc $\delta >0$ tel que pour tout $h$ vérifiant $\norm h <\delta$, 
+    $$\abs{f(a+h) - f(a) - \frac{D^2f(a)(h,h)}{2}}<\frac c 4 \norm h ^2$$
+    On a ainsi pour tout $h\ne 0$ avec $\norm h <\delta$,
+    \begin{align*}
+        f(a+h)-f(a) &= \frac{D^2f(a)(h,h)}{2} + f(a+h)-f(a)-\frac{D^2f(a)(h,h)}{2}\\
+        &\ge \frac{D^2f(a)(h,h)}{2}  - \abs{f(a+h)-f(a)-\frac{D^2f(a)(h,h)}{2}}\\
+        &\ge \frac{D^2f(a)(h,h)}{2} - \frac c 4 \norm h ^2\\
+        & = \norm h ^2\frac{D^2f(a)(\frac{h}{\norm h },(\frac{h}{\norm h })}{2}- \frac c 4 \norm h ^2 = \frac c 4 \norm h ^2\ge 0
+    \end{align*}
+\end{proof}
+On remarque que les inégalités sur la différentielle seconde doivent être vérifiées pour tout $h\in\R^n\setminus\{0\}$. Contrairement au cas des fonctions de $\R$ dans $\R$, il se peut que $D^2f(a)(h,h,)$ change de signe selon la direction $h$ considérées.
+\begin{definition}
+    Soit $f:\R^n\to\R$ deux fois différentiable en $a$. On dit que $a$ est un col (ou un point de selle) si $Df(a) = 0$ et $\exists h_1,h_2\in\R^n$ tel que 
+    $D^2f(a)(h_1,h_1) >0 $ et $D^2f(a)(h_2,h_2) <0 $
+\end{definition}
+\begin{exemple}
+    $f(x,y) = xy\e^x$ a pour dérivées partielles $$\dpart{f}{x}((x,y) = y(x+1)\e^x $$ et $$\dpart{f}{y}(x,y) = x\e^x$$
+    Donc $Df(a) = 0\ssi a = (0,0)$
+    \begin{align*}
+        &H_f(x,y) = \begin{pmatrix}
+            y(x+2)\e^x & (x+1)\e^x\\
+            (x+1)\e^x & 0
+        \end{pmatrix}\\
+        \alors & H_f(0,0) = \begin{pmatrix}
+            0 & 1\\
+            1 & 0
+        \end{pmatrix}     
+    \end{align*}
+    Soit $h = (h_1, h_2) \in \R^2\setminus\{0\}$ Nous pouvons maintenant calculer $D^2f(0,0)(h,h)$
+    $$D^2f(0,0)(h,h) = (h_1,h_2)\begin{pmatrix} 
+        0 & 1\\
+        1 & 0
+    \end{pmatrix}\begin{pmatrix}
+        h_1\\
+        h_2
+    \end{pmatrix} = 2h_1h_2$$
+    Si $h_1$ et $h_2$ sont de même signe, $D^2f(0,0)(h,h) > 0$, sinon $D^2 f(0,0)(h,h) < 0$ 
+    On en conclut donc que $(0,0)$ est un col.
+\end{exemple}
+
+\begin{proposition}
+    Soit $f : \R^n \to \R $
+    Si $a$ est un col, alors dans tout voisinage $V$ de $a$, il existe $x_1,x_2\in V$ tels que $$f(x_1)<a<f(x_2)$$
+\end{proposition}
+\begin{proof}
+    Si $a$ est un col, alors $Df(a) = 0$ 
+    et il existe $h_1, h_2 \in \R\setminus{0}$ tel que $D^2f(a)(h_1,h_1)>0$ et $D^2f(a)(h_2,h_2)<0$
+    Par la formule de Taylor-Young,
+    \begin{align*}
+        \lim_{h\to 0}\frac{f(a+h)-f(a)}{\norm h ^2} = \lim_{h\to 0}\frac 12\frac{D^2f(a)(h,h)}{\norm h ^2}
+    \end{align*}
+    En particulier, on a 
+    \begin{align*}
+        \lim_{t \to 0} \frac{f(a+th_1) - f(a)}{\norm{th_1}^2}
+        &= \lim_{t \to 0}\frac{D^2f(a)(th_1,th_1)}{\norm {th_1}^2}\\
+        &= \frac 12\frac{D^2f(a)(h_1,h_1)}{\norm{h_1}^2}
+    \end{align*}
+    On en déduit qu'il existe $t_0 > 0$ tel que si $\abs{t} < t_0$,
+    alors $\frac{f(a+th_1)-f(a)}{\norm {th_1}^2} > 0$ et donc $f(a+th_1) > f(a)$, $x_1 = f(a+th_1) \in V$ pour $t$ assez petit
+    En procédant de la même manière avec $h_2$, on en déduit que pour $t$ assez petit $x_2 = a + th_2\in V$ et $f(x_2)<f(a)$
+\end{proof}
+On a vu que les problèmes d’optimisation sans contrainte reposent sur des inégalités du type : $ h^tH_f(a) h = D^2f(a)(h,h)>0\ (\text {ou } <0)$ pour tout $h\in\R^n\setminus\{0\}$
+Pour rappel, la matrice Hessienne est composée des $\dpart{^2f}{x_i\partial x_j}(a)$ et celle-ci est symétrique par le théorème de Schwarz.
+\begin{definition}
+Soit $A$ une matrice réelle symétrique de taille $n\times n$
+\begin{itemize}
+    \item $A$ est défini positif si pour tout $h\in\R^n\setminus\{0\},\ h^t A h >0$
+    \item $A$est semi-défini positif si $\forall h \in \R^n$ 
+    $ h^tAh \ge 0$
+    
+    \item $A$ est défini négatif si pour tout $h\in\R^n\setminus\{0\},\ h^t A h <0$
+     \item $A$est semi-défini négatif si $\forall h \in \R^n$ 
+    $ h^tAh \le 0$
+\end{itemize}
+\end{definition}
+Si on cherche à optimiser $f :\R^n\to\R$
+\begin{enumerate}
+    \item Trouver les points critiques : $Df(a) = 0$
+    \item Si $a$ est un point critique et $f$ est différentiable 2 fois au voisinage de $a$,
+    \begin{itemize}
+        \item Si $H_f(a)$ est défini positif alors $a$ est minimum local 
+        \item Si $H_f(a)$ est défini négatif alors $a$ est maximum local 
+        \item Si sur un voisinage de $a$, $H_f(x)$ est semi-défini positif, alors $a$ est minimum local.
+        \item Si sur un voisinage de $a$, $H_f(x)$ est semi-défini négatif, alors $a$ est maximum local.
+        \item Si $H_f(a)$ n'est ni semi-défini positif ni semi-défini négatif, alors $a$ est un col.
+        \item Dans les cas restants, nous ne pouvons rien conclure \textit{a priori}. 
+    \end{itemize}
+\end{enumerate}
+Il nous reste à comprendre quand une matrice est (semi-)définie positive/négative
+\begin{proposition}[Critère de Sylvester]
+    Soit $A$ une matrice réelle symétrique de taille $n\times n$.
+    $A$ est défini positif ssi tous les mineurs principaux de $A$ sont strictement positifs \textit{i.e.} pour tout $1\le k \le n$,
+    $\det({(a_{i,j})}_{1 \le i,j \le k}) > 0$
+\end{proposition}
+\begin{proof}[Démonstration du cas $n=2$]
+    \begin{description}
+        \item[Sens $\alors$ :] 
+    On a $$A:=\begin{pmatrix}
+        a & b\\
+        b & c
+    \end{pmatrix}$$
+    Si $A$ est défini positif alors $\forall h = (h_1,h_2) \in \R^2\setminus{0}$,
+    \begin{align*}
+        0<h^tAh = \begin{pmatrix}
+            h_1 & h_2
+        \end{pmatrix}
+        \begin{pmatrix}
+            a & b\\
+            b & c
+        \end{pmatrix} 
+        \begin{pmatrix}
+            h_1\\
+            h_2
+        \end{pmatrix}= \begin{pmatrix}
+        h_1 & h_2
+        \end{pmatrix} \begin{pmatrix}
+            ah_1 & ah_2 \\
+            bh_2 & bh_2
+        \end{pmatrix} = ah_1^2 + 2bh_1h_2 + ch_2^2   \end{align*}
+
+
+En prenant $h_1 = 1$ et $h_2 = 0$, on en déduit que $a > 0$.
+De même, en prenant $h2 = 1$, on en déduit que $\forall h_2$
+$$ah_1 + 2bh_1 + c > 0$$
+et cela n'est possible que si $\Delta = 4b^2-4ac <0 \textit{ i.e. }\det(A) = ac-b^2<0$
+    \item[Sens $\si$ :] Si $a >0$ et $ac - b > 0$ alors on doit montrer que $\forall (h_2, h_2) \in \R^2\setminus{0}$ 
+    $$ ah_1 + 2bh_1h_2 + ch_2^2 > 0$$,
+    On remarque que pour $h_2 = 0$, on a besoin $ah_1 > 0$ $\forall h_1 \ne 0$ car $a > 0$
+    D'autre part, si $h_2 \ne 0$, alors $ah_1^2+2bh_1h_2 + ch_2^2$ décrit une parabole convexe en $h_1$ et le discriminant $\Delta = 4b^2-4ach_2^2 = -4h_2^2(ac-b^2)<0$. On a donc $\forall h_1,\ ah_1^2+2bh_1h_2 + ch_2^2>0 $.
+\end{description}
+\end{proof}
+\begin{proposition}[Critère pour les semi-définis positifs]
+Soit $A$ une matrice réelle symétrique de taille $n \times n$.
+  $A$ est semi-définis positifs ssi $\forall I$ tel que $\varnothing\ne I \subseteq \{1,2,...,n\}$,
+    $$\det((a_{i,j})_{i,j\in J}\ge 0$$
+\end{proposition}
+\begin{proof}[Démonstration du cas $n = 2$]
+\begin{description}
+    \item[Sens $\alors$] Si $A$ est semi-défini positif alors $\forall h = (h_1,h_2) \in \R^2$ $$ ah_1 +2bh_1h_2 + ch_2^2 \ge 0$$
+En prenant $h_1 = 1$ et $ h_2 = 0$, on a $a \ge 0$ 
+En prenant $h_1 = 0$ et $ h_2 = 1$, on a $c\ge 0$ 
+En prenant $ h_2 = 1$, on a $ ah_1^2 + 2bh_1 + c \ge 0$ $\forall h_1 \ in \R$
+  \begin{itemize}
+      \item Si $a = 0$ alors on a $bh_1 + c\ge 0$ pour tout $h_1\in \R$ et donc $b = 0$, d'où $ac-b^2 = 0\ge 0$.
+      \item Si $a>0$ alors on a $\Delta = 4b^2-4ac\le 0 \textit{ i.e. } ac-b^2\ge 0$
+  \end{itemize}       
+ 
+  \item[Sens $\si$] On procède de la même manière que pour l'autre implication.
+\end{description}
+\end{proof}
+Pour déterminer si $A$ est (semi-)défini négatif, on utilisera le fait que 
+$A$ est défini (semi-)négatif ssi $-A$ est (semi-)défini positif.
+\begin{proposition}
+    Soit $f : \R^2 \to \R$ deux fois différentiable en $a$.
+    \begin{itemize}
+        \item Si $Df(a) = 0, \dpart{^2f}{x^2}(a)>0$ et $\det H_f(a)>0$ alors $a$ est un minimum local.
+        \item Si $Df(a) = 0,  \dpart{^2f}{x^2}(a) < 0$ et $\det H_f(a)>0$ alors $a$ est un maximum local.
+        \item Si $Df(a) = 0$ et que $\det(H_f(a))<0$ alors $a$ est un col.
+    \end{itemize}
+\end{proposition}
+\begin{proposition}
+    Soit $f : \R^3 \to \R$ deux fois différentiable en $a$. 
+    \begin{itemize}
+        \item Si $Df(a) = 0,\ \dpart{^2f}{x^2}(a)>0,\ \dpart{^2f}{x^2}(a) \dpart{^2f}{y^2}(a) -(\dpart{^2f}{x\partial y}(a))^2>0$ et $det({H_f}(a)) > 0$ alors $a$ est un minimum local.
+        \item Si $Df(a) = 0,\ \dpart{^2f}{x^2}(a)<0,\ \dpart{^2f}{x^2}(a) \dpart{^2f}{y^2}(a) -(\dpart{^2f}{x\partial y}(a))^2>0$ et $det({H_f}(a)) < 0$ alors $a$ est un maximum local.
+    \end{itemize}
+\end{proposition}
+%\begin{exemple} 
+Voici quelques exemples :
+    \begin{enumerate}
+        \item Déterminer les extrema locaux  de $f(x,y) = x^2 - 2x + y^2$
+        Calculons les dérivées partielles  : \begin{align*}
+            \dpart{f}{x}(x,y) = 2x - 2\quad \dpart{f}{y}(x,y) = 2y
+        \end{align*}
+        Résolvons le système
+        $$\begin{cases}
+            2x - 2 &= 0\\
+            2y &= 0
+        \end{cases}$$
+        On a un unique point critique $(1,0)$
+        On calcule est dérivées partielles secondes 
+        \begin{align*}
+            \dpart{^2f}{x^2}(x,y) = 2\quad & \dpart{^2f}{x,\partial y}(x,y) = 0\\
+             \dpart{^2f}{y,\partial x}(x,y) = 0 & \dpart{^2f}{y^2}(x,y) = 2
+        \end{align*}
+        Notons que la fonctions $f$ est $\mathcal C^\infty$ car toutes les dérivées partielles à n'importe quel ordre existent et sont continues 
+        $\forall (x,y) \in \R^2$ , on a $$H_f(x,y) = \begin{pmatrix}
+            2 & 0\\0& 2
+        \end{pmatrix}$$ qui est défini positif car $2 > 0$ et $\det\begin{pmatrix}
+            2 & 0\\0& 2
+        \end{pmatrix} = 4>0$
+        On déduit que $(1,0)$ est un minimum local.
+        \item $f(x,y) = x^2-y^2$
+        On a $\dpart{f}{x}(x,y) = 2x$ et $\dpart{f}{y}(x,y) = -2y$
+        On a un unique point critique en $(0,0)$
+        On a \begin{align*}
+            \dpart{^2f}{x^2}(x, y) = 2\quad & \dpart{^2f}{x\partial y } = 0\\
+            \dpart{^2f}{y\partial x } = 0 & \dpart{^2f}{y^2}(x, y) = -2
+        \end{align*}
+        Notons que le fonction f est $\mathcal C^\infty$ car toutes les dérivées partielles à tout ordre existent et sont continues 
+        On remarque que $\forall (x,y)$
+        \begin{align*}
+        H_f(x,y) = \begin{pmatrix}
+            2 & 0 \\
+            0 & -2
+        \end{pmatrix}
+        \end{align*}
+        Cette matrice n'est ni semi-défini positif si semi-défini négatif car 
+        $\det(H_f(x,y)) = -4 < 0$ On en déduit que $(0,0)$ est un col.
+        \item Montrez que $f(x,y,z) = 8x^3 + y^3 - 12 xyz  + 10z^3 - 6z$
+        admet $(1,2,1)$ comme minimum local et $(-1,-2,-1)$comme maximum local. Remarquons que la fonction $f$ est $\mathcal{ C}^\infty$ car c'est un polynôme.
+        On a \begin{align*}
+        \dpart{f}{x}(x,y,z) = 24 x^2 - 12 yz \\
+        \dpart{f}{y}(x,y,z) = 3y^2 - 12 xz \\
+        \dpart{f}{z}(x,y,z) = -12xy +30z^2-6    
+        \end{align*}
+        On remarque que toutes ces dérivées partielles s'annulent en $(1,2,1)$ et en $(-1,-2,-1)$. De plus, on a 
+        \begin{align*}
+            \dpart{^2f}{x^2} = 48x\quad&\dpart{^f}{y\partial z} = -12 x\\
+            \dpart{^2f}{y^2} = 6y\quad&\dpart{^f}{x\partial z} = -12 y \\
+            \dpart{^2f}{z^2} = 60z \quad&\dpart{^f}{x\partial y} = -12 z\\
+        \end{align*}
+        On a dès lors
+        \begin{align*}
+            &H_f(1,2,1) = \begin{pmatrix}
+                48 & -12 & -24 \\
+                -12 & 12 & -12 \\
+                -24 & -12 & 60
+            \end{pmatrix}\\
+            &\det(48) = 48>0\\
+            &\det\begin{pmatrix}
+                48 & -12\\ -12 & 12
+            \end{pmatrix} =48\cdot 12-12\cdot 12 = 36\cdot 12 >0\\
+            &\det\begin{pmatrix}
+                48 & -12 & -24 \\
+                -12 & 12 & -12 \\
+                -24 & -12 & 60
+            \end{pmatrix} = 12^3\det\begin{pmatrix}
+                4 & -1 & -2 \\
+                -1 & 1 & -1 \\
+                -2 & -1 & 5
+            \end{pmatrix} = 12^3(20-2-2-4-4-5) > 0
+        \end{align*}
+        De même, on remarque que 
+        \begin{align*}
+            H_f(-1,-2,-1) = -H_f(1,2,1)
+        \end{align*}
+        Comme $H_f(1,2,1)$ est défini positif,
+        \begin{align*}
+            H_f(-1,-2,-1)
+        \end{align*}
+        est défini négatif 
+        et donc $(-1,-2,-1)$ est un maximum local .
+    \end{enumerate}
+%\end{exemple}

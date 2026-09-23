@@ -1,0 +1,313 @@
+\chapter{Généralités sur la convergence}
+\section{De la topologie à la norme}
+\begin{definition}
+    Soit $E$ un ensemble et $\topologie\subseteq \partie(E)$. Le couple $(E,\topologie)$ est un espace topologique si 
+    \begin{enumerate}
+        \item $\varnothing,E\in \topologie$
+        \item $\topologie$ est clos par union quelconque.
+        \item $\topologie$ est clos par intersection finie.
+    \end{enumerate}
+    Dans ce cas, les éléments de $\topologie$ sont appelés les ouverts de la topologie.
+\end{definition}
+Pour parler de convergence, c'est en réalité la notion de voisinage qui sera la plus utile.
+\begin{definition}
+    Soit $(E,\topologie)$ un espace topologique. Soit $a\in E$. On dit que $V\subseteq E$ est un voisinage de $a$ si $\exists U\in\topologie$ tel que $a\in U$ et $U\subseteq V$
+\end{definition}
+\begin{definition}
+    Soit $(E,\topologie)$ un espace topologique. Une suite $(x_n)_{n\ge 1}\subseteq E$ converge vers $a\in E$ si pour tout voisinage $V$ de $a$, il existe $n_0\ge 1$ tel que pour tout $n\ge n_0,\ x_n\in V$. 
+\end{definition}
+\begin{exemple}
+    Soit $E$ un ensemble (non vide).
+    \begin{itemize}
+        \item Pour $(E,\topologie_{\text{disc}})$ \textit{i.e.} $\topologie_{\text{disc}} = \partie(E)$. Une suite $(x_n)_{n\ge 1}\subseteq E$ converge vers $a$ ssi $x_n = a$ à partir d'un certain rang.
+        \item Pour $(E,\topologie_{\text{gross}})$ \textit{i.e.} $\topologie_{\text{gross}} = \{\varnothing, E\}$. Toute suite d'éléments de $E$ converge vers tout élément de $E$.
+    \end{itemize}
+\end{exemple}
+On remarque que la limite n'est pas toujours unique. Pour éviter cela, on se restreint souvent aux espaces topologiques séparés.
+\begin{definition}
+    Soit $(E,\topologie)$ un espace topologique. Cet espace est dit séparé si $\forall a\ne b\in E$, il existe $U_a$ un ouvert contenant $a$ et $U_b$  un ouvert contenant $b$ tel que $U_a\cap U_b = \varnothing$ 
+\end{definition}
+\begin{exemple}
+    Soit $E$ un ensemble. $E$ muni de la topologie discrète est séparé mais $E$ muni de la topologie grossière ne l'est pas dès que $\abs{E}\ge 2$
+\end{exemple}
+\begin{proposition}
+Si $(E,\topologie)$ est un espace topologique séparé, alors pour toute suite convergente dans $E$, on a unicité de la limite.
+\end{proposition}
+\begin{proof}
+    Supposons par l'absurde qu'il existe une suite $(x_n)\subseteq E$ qui converge à la fois vers $a$ et vers $b$ avec $a\ne b$. Comme $(E,\topologie)$ est séparé, il existe $U_a$ un ouvert contenant $a$ et $U_b$ un ouvert contenat $b$ tel que $U_a\cap U_b\ne\varnothing$. Or, par convergence de $(x_n)$ vers $a$ et $b$, il existe $n_0$ tel que $\forall n\ge n_0,\ x_n\in U_a$ et il existe $n_1$ tel que $\forall n\ge n_1,\ x_n\in U_b$. Il vient $x_{\max(n_0,n_1)}\in U_a\cap U_b=\varnothing$
+\end{proof}
+Une grande famille d'espaces topologiques séparés est celle des espaces métriques.
+\begin{definition}
+    Soit $E$ un ensemble (non vide). Soit $d:E^2\to \R^{\ge0}$. Le couple $(E,d)$ est un espace métrique si \begin{itemize}
+        \item $\forall x,y\in E, d(x,y) = 0\ssi x=y$
+        \item $\forall x,y\in E, d(x,y) = d(y,x)$
+        \item $\forall x,y,z\in E, d(x,z)\le d(x,y) + d(y,z)$
+    \end{itemize}
+\end{definition}
+\begin{definition}
+    Lorsqu'on a un espace métrique $(E,d)$, on lui associe la topologie où $A$ est ouvert si pour tout $a\in A$, il existe $r>0$ tel que $B(a,r):=\{x\in E\mid d(x,a)<r\}\subseteq A$. Cet espace topologique est séparé, car si $a\ne b$, il suffit de considérer $U_a = B\left(a,\frac{d(a,b)}2\right)$ et $U_b = B\left(b,\frac{d(a,b)}2\right)$
+    \end{definition}
+    \begin{proposition}
+        Dans le cas d'un espace métrique $(E,d)$, on a qu'une suite $(x_n)_{n\ge 1}\subseteq E$ converge vers $a$ ssi $\forall\varepsilon > 0\exists n_0,\forall n\ge n_0, d(x_n,a)<\varepsilon$
+    \end{proposition}
+    Dans le cadre des espaces métriques, on peut également parler de suites de Cauchy.
+    \begin{definition}
+        Soit $(E,d)$ un espace métrique. Une suite $(x_n)_{n\ge 1}\subseteq E$ est une suite de Cauchy si $\forall\epsilon>0,\exists n_0\ge 1,\forall n,m\ge n_0,\ d(x_n,x_m)<\varepsilon$
+    \end{definition}
+    \begin{proposition}
+    En général,\begin{itemize}
+        \item Toute suite convergente est de Cauchy (car $d(x_n,x_m)\le d(x_n,a) + d(a,x_m)$)
+        \item La réciproque est fausse (par exemple pour les rationnels)
+    \end{itemize}       
+\end{proposition}
+\begin{definition}
+    Un espace métrique $(E,d)$ est dit complet si toute suite de Cauchy dans $E$ converge.
+\end{definition}
+Un cas particulier d'espaces métrique est donné par les espaces vectoriels normés (dans ce cours, un $\mathbb K$-espace vectoriel avec $\mathbb K =\R$ ou $\mathbb K = \C$)
+\begin{definition}
+    Soient $X$ un espace vectoriel et $\norm{\cdot} : X\to \R^{\ge 0}$. Le couple $(X,\norm{\cdot})$ est un espace vectoriel normé si
+    \begin{itemize}
+        \item $\forall x\in X, \norm{x} = 0\ssi x = 0$
+        \item $\forall x\in X,\forall\lambda\in\mathbb K, \norm{\lambda x} = |\lambda|\norm x$
+        \item $\forall x,y\in X, \norm{x+y}\le \norm x + \norm y$
+    \end{itemize}
+\end{definition}
+Touyt espace vectoriel normé $(X,\norm\cdot)$ est un espace métrique pour $d(x,y) = \norm{x-y}$. Ici, une suite $(x_n)_{n\ge 1}\subseteq E$ converge vers $a$ si $\forall\varepsilon >0,\exists n_0\forall n\ge n_0, \norm{x_n-a}<\varepsilon$\\
+Parmi les espaces vectoriels normés\begin{itemize}
+    \item Certains sont complets (par exemple, les espaces vectoriels normés de dimension finie)
+    \item Certains ne sont pas complets (par exemple, $c_{00}:=\{(x_n)\in\mathbb K^\N\mid \exists n_0\forall n\ge n_0, x_n = 0\}$ avec $\norm{(x_n)}_\infty = \sup_{n\ge 0}\abs{x_n}$. Penser à la suite $x^{(n)} := (1,\frac12,\dotsc,\frac1n,0,0\dots)$
+\end{itemize}
+\section{Généralités sur les séries}
+\begin{notation}
+    La série $\sum_{i = 0}^{+\infty}a_n$ représente la somme infinie $a_0+a_1+\ldots$
+\end{notation}
+\begin{definition}
+    Soit $E$ un espace vectoriel et $\topologie$ une topologie sur $E$. Soit $(a_n)_{n\ge 0}$ une suite dans $E$. La série $\sum_{i = 0}^{+\infty}a_n$ est dite convergente dans $(E,\topologie)$ si la suite des sommes partielles $(S_N)_{N\ge 0}$ converge dans $E$, avec $S_n =\sum_{n=0}^Na_n$
+\end{definition}
+\begin{remarque}
+    \begin{itemize}
+        \item Si une série $\sum_{i = 0}^{+\infty}a_n$ ne converge pas, on dit qu'elle diverge.
+        \item Si $(E,\topologie)$ est séparé e si la suite $(S_N)_{N\ge 0}$ converge vers $S$, alors on écrira $\sum_{i = 0}^{+\infty}a_n =S$
+    \end{itemize}
+\end{remarque}
+\begin{proposition}
+    Soient $(X,\norm\cdot)$ un espace vectoriel normé et $(a_n)_{n\ge 0}\subseteq X,(b_n)_{n\ge 0}\subseteq X,\lambda\in\mathbb K$.
+    On a \begin{enumerate}
+        \item $\sum_{n = 0}^{+\infty}a_n$ converge ssi pour tout $k\ge 0$, $\sum_{n = k}^{+\infty}a_n$ converge.
+        \item Si $\sum_{n = 0}^{+\infty}a_n = S$ et $\sum_{n = 0}^{+\infty}b_n = T$, alors $\sum_{i = 0}^{+\infty}\lambda a_n+b_n = \lambda S + T$
+        \item Si $\sum_{n = 0}^{+\infty}a_n$ alors $\left(\sum_{n = k}^{+\infty}a_n\right)_k$ converge vers $0$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}Montrons-le.
+    \begin{enumerate}
+        \item On remarque que $$\sum_{n = 0}^Na_n = \sum_{n = k}^Na_n + \sum_{n = 0}^{k-1}a_n  $$ si $N>k$ et donc $$\sum_{n = k}^Na_n = \sum_{n = 0}^Na_n-\sum_{n = 0}^{k-1}a_n $$
+        \item On remarque que $$\sum_{i = 0}^N\lambda a_n+b_n = \lambda \sum_{i = 0}^Na_n+\sum_{i = 0}^Nb_n$$ d'où le résulat par linéarité de la limite.
+        \item On remarque que $$\sum_{n = k}^Na_n = \sum_{n = 0}^Na_n-\sum_{n = 0}^{k-1}a_n  = \sum_{n = 0}^Na_n-S_{k-1}\to 0 $$
+    \end{enumerate}
+\end{proof}
+\begin{proposition}[Propriété très importante]
+     Soit $(X,\norm\cdot)$ un espace vectoriel normé. Si la série $\sum_{n = 0}^{+\infty} a_n$ converge alors la suite $(a_n)$ converge vers $0$
+\end{proposition}
+\begin{proof}
+    Notons que $a_n = S_n-S_{n-1}\to S-S = 0$
+\end{proof}
+Dans le cas des espaces vectoriels normés complets, on a les équivalences suivantes : $$\sum_{n=0}^{+\infty}a_n \text{ converge} \ssi (S_n) \text{ converge}  \ssi (S_n) \text{ est de Cauchy}$$
+\begin{proposition}[Propriété de Cauchy]
+    Si $(X,\norm\cdot)$ un espace vectoriel normé complet, $\sum_{n=0}^{+\infty}a_n$ converge si et seulement si $\forall \varepsilon > 0,\exists n_0,\forall m\ge n \ge n_0, \norm{\sum_{i=n}^{m}a_i}<\varepsilon$
+\end{proposition}
+Les séries de réels positifs auront une importance particulière à travers la notion de convergence absolue.
+\begin{definition}
+    Soit $(E,\norm\cdot)$ un espace vectoriel normé. On dit que $\sum_{n=0}^{+\infty}a_n$ converge absolument si $\sum_{n=0}^{+\infty}\norm{a_n}$ converge.
+\end{definition}
+Cette propriété aura un interêt si on travaille avec un espace vectoriel normé complet
+\begin{proposition}
+    Soit $(E,\norm\cdot)$ un espace vectoriel normé complet. Si $\sum_{n=0}^{+\infty}a_n$ converge absolument alors $\sum_{n=0}^{+\infty}a_n$ converge.
+\end{proposition}
+\begin{proof}
+    On a que $\sum_{n=0}^{+\infty}a_n$ converge absolument ssi $$\forall\varepsilon> 0,\exists n_0,\forall m\ge n\ge n_0,\ \sum_{i = n}^{m}\norm{a_i}<\varepsilon$$ Or $\norm{\sum_{i=n}^{m}a_i}\le \sum_{i=n}^{m}\norm{a_i}$ par inégalité triangulaire. Donc $\sum_{n=0}^{+\infty}a_n$ est de Cauchy, d'où sa convergence par complétude.
+\end{proof}
+\begin{exemple}
+    Attention, même dans un espace vectoriel normé complet, il est possible que $\sum_{n=0}^{+\infty}a_n$ converge mais ne converge pas absolument.
+    Dans $(\R,\abs\cdot),\ \sum_{n=0}^{+\infty}\frac{(-1)^n}{n}$ converge mais $\sum_{n=0}^{+\infty}\frac 1 n $ ne converge pas.
+\end{exemple}
+On va étudier les séries de réels et plus particulièrement les séries de réels positifs. Si $(a_n)_{n\ge 0}$ est une suite de réels positifs, alors la suite $(S_N)_{N \ge 0}$ est une suite croissante de réels positifs. Autrement dit, $\sum_{n=0}^{+\infty}a_n$ converge ssi la suite $(S_N)_{N\ge 0}$ est bornée.
+\subsection*{Séries de référence}
+Il y a deux types de séries de référence : $$\sum_{n = 1}^{+\infty}\frac 1{n^\alpha}\text{ et }\sum_{n=0}^{+\infty}q^n$$
+\begin{proposition}
+    Soit $\alpha\in\R$. La série $\sum_{n=1}^{+\infty}\frac{1}{n^\alpha}$ converge ssi $\alpha > 1$.
+\end{proposition}
+\begin{proof}
+    Soit $\alpha\in\R$.
+    \begin{itemize}
+        \item Si $\alpha\le 0$ alors la suite $\left(\frac1{n^\alpha}\right)$ ne converge pas vers $0$, donc la série $\sum_{n=1}^{+\infty}\frac{1}{n^\alpha}$ diverge.
+        \item Si $\alpha >1$ alors \begin{align*}
+            S_N &= \sum_{n=1}^{N}\frac{1}{n^\alpha} =1 + \sum_{n = 2}^N\int_{n-1}^n\frac 1{n^\alpha}\intd x\\
+            &\le 1 + \sum_{n = 2}^N\int_{n-1}^n\frac 1{x^\alpha}\intd x\text{ car $\forall x\in\interff{n-1,n},\ \frac 1 n\le\frac 1 x$, et par propriété de l'intégrale}\\
+            &= 1 + \int_{1}^N\frac 1{x^\alpha}\intd x = 1 + \left[\frac{x^{1-\alpha}}{1-\alpha}\right]_1^N = \frac{N^{1-\alpha}}{1-\alpha}- \frac{1}{1-\alpha}
+        \end{align*}
+        Comme $1-\alpha <0$, la suite $(\frac{N^{1-\alpha}}{1-\alpha}- \frac{1}{1-\alpha})_{N\ge 0}$ converge et est donc majorée, donc $(S_N)_{N\ge 0}$ l'est aussi et donc $\sum_{n=1}^{+\infty}\frac{1}{n^\alpha}$ converge.
+        \item Si $0<\alpha<1$ alors \begin{align*}
+            S_N &= \sum_{n=1}^{N}\frac{1}{n^\alpha} = \sum_{n = 1}^N\int_{n}^{n+1}\frac 1{n^\alpha}\intd x\\
+            &\ge \sum_{n = 1}^N\int_{n}^{n+1}\frac 1{x^\alpha}\intd x\text{ car $\forall x\in\interff{n,n+1},\ \frac 1 n\ge\frac 1 x$, et par propriété de l'intégrale}\\
+            &= \int_{1}^{N+1}\frac 1{x^\alpha}\intd x =\left[\frac{x^{1-\alpha}}{1-\alpha}\right]_1^{N+1} = \frac{(N+1)^{1-\alpha}}{1-\alpha}- \frac{1}{1-\alpha}\conv{N\to+\infty}{} + \infty \text{ car $1-\alpha >0$}
+        \end{align*}
+        Donc $\sum_{n=1}^{+\infty}\frac1{n^\alpha}$ diverge.
+        \item Si $\alpha = 1$, alors $$S_N = \sum_{n = 1}^N\frac 1 n\ge\sum_{n = 1}^N\int_n^{n+1}\frac1x\intd x = \int_1^{N+1}\frac 1 x \intd x= \ln(N+1)\conv{N\to+\infty}{}+\infty$$
+    \end{itemize}
+\end{proof}
+\begin{proposition}
+    Soit $q\in\R$. La série $\sum_{n = 0}^{+\infty}q^n$ converge ssi $\abs q<1$. Dans ce cas, elle converge vers $\frac 1{1-q}$.
+\end{proposition}
+\begin{proof}
+\begin{itemize}
+    \item   Si $\abs q\ge 1$, la suite $(q^n)_{n\ge0}$ ne converge pas vers $0$ et donc, par la propriété très importante, la série  $\sum_{n = 0}^{+\infty}q^n$ ne converge pas.
+    \item Si $\abs q<1$, alors $$\sum_{n = 0}^{N}q^n = \frac{1-q^{N+1}}{1-q}\conv{N\to + \infty}{} \frac 1{1-q}$$ La première égalité se montre par récurrence.
+\end{itemize}
+\end{proof}
+\begin{exemple}
+    On a $$\sum_{n = 1}^{+\infty}\frac{1}{2^{2n}} = \frac14\sum_{n = 0}^{+\infty}\frac{1}{2^{2n}} = \frac13$$
+\end{exemple}
+\subsection*{Critères de convergence}
+Nous allons voir différents critères pour nous aider à déterminer si une série diverge ou converge.
+\begin{proposition}[Critères de comparaison]\label{conv : critère : comparaison}
+Soit $(a_n)_{n\ge0}$ une suite de réels positifs.
+\begin{enumerate}
+    \item S'il existe une suite de réels positifs $(b_n)_{n\ge0}$ telle que $a_n\le b_n$ et $\sum_{n=0}^Nb_n$ converge alors $\sum_{n=0}^Na_n$ converge.
+    \item S'il existe une suite de réels positifs $(b_n)$ telle que $b_n\le a_n$ et  $\sum_{n=0}^Nb_n$ diverge alors $\sum_{n=0}^Na_n$ diverge.
+\end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item On a $S_N = \sum_{n=0}^Na_n\le\sum_{n=0}^Nb_n$ qui converge, donc est bornée. Donc $(S_N)$ est bornée, donc elle converge.
+        \item On a $S_N = \sum_{n=0}^Na_n\ge\sum_{n=0}^Nb_n\conv{N\to+\infty}{}$, donc $(S_N)$ n'est pas minorée donc elle ne converge pas.
+    \end{enumerate}
+\end{proof}
+\begin{exemple}
+    $\sum_{k=1}^{+\infty}\frac{1 + \cos(k)}{k^2}$ converge car $0\le\frac{1+\cos(k)}{k^2}\le \frac 2{k^2}$ et $\sum_{k=1}^{+\infty}\frac2{k^2}$ est une série de référence convergente.
+\end{exemple}
+\begin{proposition}[Critère d'équivalence]
+Soit $(a_n)_{n\ge0}$ une suite de réels positifs. Soit $(b_n)_{n\ge0}$ une suite de réels strictement positifs. Si $\lim_{n\to+\infty}\frac{a_n}{b_n} = L\in\interoo{0,+\infty}$ alors $\sum_{n=0}^{+\infty}a_n$ converge ssi $\sum_{n=0}^{+\infty}b_n$ converge.
+\end{proposition}
+\begin{proof}
+    En particularisant la convergence de $\frac{a_n}{b_n}$, il existe $n_0$ tel que $\forall n\ge n_0$. On a $\abs{\frac{a_n}{b_n}-L}<\frac L2$ \textit{i.e.} $\frac{L}{2}b_n\le a_n\le\frac{3L}2b_n$. Par \ref{conv : critère : comparaison}, le résultat suit.
+\end{proof}
+\begin{exemple}
+    \begin{itemize}
+        \item $\sum_{k=0}^{+\infty}\frac{1}{2^k-\pi}$ converge car $\forall k\ge 2 ,\ \frac{1}{2^k-\pi}\ge 0$ et $\lim_{k\to+\infty}\dfrac{\frac1{2^k-\pi}}{\frac{1}{2^k}} = 1$. Or $\sum_{k=2}^{+\infty}\frac 1{2^k}$ converge, donc par équivalence la série converge.
+        \item Par l'Hospital, $\lim_{x\to 0}\frac{\sin(x)}{x} = 1$. Donc $\sum_{n = 1}^\infty\sin\left(\frac{1}{n^2}\right)$ converge par équivalence entre $\sin\left(\frac{1}{n^2}\right)$ et $\frac{1}{n^2}$.
+        \item Par l'Hospital, $\lim_{x\to 0}\frac{\ln(1+x)}{x} = 1$. Donc $\sum_{n = 1}^\infty\ln\left(1+\frac{1}{n}\right)$ diverge par équivalence entre $\ln\left(1+\frac{1}{n}\right)$ et $\frac{1}{n}$.
+    \end{itemize}
+\end{exemple}
+\begin{proposition}[Critère de D'Alembert]
+    Soit $(a_n)$ une suite de réels non-nuls.
+    \begin{enumerate}
+        \item Si $\limsup\frac{\abs{a_{n+1}}}{\abs{a_n}}<1$ alors $\sum_{n=0}^\infty a_n$ converge absolument.
+        \item S'il existe $n_0$ tel que $\forall n\ge n_0, \frac{\abs{a_{n+1}}}{\abs{a_n}}\ge 1$ alors $\sum_{n = 0}^\infty a_n$ diverge.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item Si $\limsup\frac{\abs{a_{n+1}}}{\abs{a_n}} = L<1$, considérons $0\le L<\gamma<1$. Il existe $n_0$ tel que pour tout $n\ge n_0,\ \frac{\abs{a_{n+1}}}{\abs{a_n}} \le \gamma$ d'où $\forall n\ge n_0,\ \abs{a_n}\le \gamma^{n-n_0}\abs{a_{n_0}}$ Or $$\sum_{n=n_0}^\infty\gamma^{n-n_0}\abs{a_{n_0}} = \abs{a_{n_0}}\gamma^{-n_0}\sum_{n=0}^\infty \gamma^n$$ converge car $0\le \gamma<1$. Donc $\sum_{n=n_0}^\infty\abs{a_n}$ converge par comparaison \ref{conv : critère : comparaison}.
+        \item On a $\forall n\ge n_0,\ \abs {a_n}\ge \abs{a_{n_0}}>0$ par récurrence immédiate. La suite $(a_n)$ ne converge donc pas vers $0$, donc $\sum_{n=0}^\infty a_n$ ne converge pas par la propriété très importante.
+    \end{enumerate}
+\end{proof}
+\begin{corollaire}[Critère de D'Alembert]
+    Soit $(a_n)_{n\ge 0}$ une suite de réels non nuls. Soit $L = \lim \frac{\abs{a_{n+1}}}{\abs{a_n}}\in[0,+\infty]$. Alors,\begin{itemize}
+        \item Si $L<1$ alors $\sum_{n = 0}^\infty a_n$ converge.
+        \item Si $L>1$ alors $\sum_{n = 0}^\infty a_n$ diverge.
+        \item Si $L=1$, on ne peut rien déduire.
+    \end{itemize}
+\end{corollaire}
+\begin{exemple}
+    La série $\sum_{k=1}^\infty\frac{2^k}{k!}$ converge par le critère de D'Alembert car $$\lim_{k\to\infty}\frac{a_{k+1}}{a_k} = \lim_{k\to\infty}\frac{\frac{2^{k+1}}{(k+1)!}}{\frac{2^k}{k!}} = \lim_{k\to\infty}\frac{2}{k+1} = 0$$
+\end{exemple}
+\begin{remarque}
+    Si $a_k$ est un quotient de polynôme, alors on aura $\lim_{k\to\infty}\frac{a_{k+1}}{a_k} = 1$. Il vaut mieux avoir recours au critère d'équivalence.
+\end{remarque}
+\begin{exemple}
+    Prenons $a_k = \frac{k^2 - 3k+ 2}{4k^4+1}$. On considère $b_k = \frac{1}{4k^2}$. On a $\lim_{k\to\infty} \frac{a_k}{b_k} = 1$ donc $a_k$ converge par le critère d'équivalence. 
+\end{exemple}
+\begin{proposition}[Critère de Cauchy]
+Soit $(a_k)_{k\ge 1}$ une suite de réels positifs. Soit $L = \lim_{k\to\infty}\sqrt[k]{a_k}$
+\begin{itemize}
+    \item Si $L<1$ alors $\sum_{n = 0}^\infty a_n$ converge.
+    \item Si $L>1$ alors $\sum_{n = 0}^\infty a_n$ diverge.
+    \item Si $L=1$, on ne peut rien déduire.
+\end{itemize}
+\end{proposition}
+\begin{proof}
+    \begin{itemize}
+        \item Si $L<1$, on considère $L<\gamma<1$. Il existe alors $k_0$ tel que $\forall k \ge k_0,\ \sqrt[k]{a_k}\le \gamma\ \ie\ a_k\le\gamma^k$. Par comparaison, $\sum_{k = 1}^\infty a_k$ converge car $\sum_{k = 1}^\infty \gamma^k$ converge.
+        \item Si $L>1$ alors on considère $L>\gamma>1$. Il existe alors $k_0$ tel que $\forall k\ge k_0,\ \sqrt[k]{a_k}\ge\gamma \ \ie\ a_k\ge\gamma ^k$. Par la propriété très importante, la série ne converge pas.
+    \end{itemize}
+\end{proof}
+\begin{exemple}
+    $\sum_{k = 1}^\infty\left(\frac{1}{2k+2}\right)^k$ converge par le critère de Cauchy.
+\end{exemple}
+\begin{proposition}[Formule de Stirling]
+    $$\lim_{n\to+\infty} \frac{n!}{\sqrt{2\pi n}(\frac ne)^n} = 1$$
+\end{proposition}
+Voyons maintenant deux critères qui peuvent s'appliquer lorsque les termes ne sont pas toujours positifs, et qu'on ne peut pas montrer la convergence absolue.
+\begin{proposition}[Critère d'Abel]
+    Soit $(a_n)$ une suite décroissante qui converge vers $0$. Soit $(b_n)$ une suite de réel. Si la suite $(\sum_{n = 0}^Nb_n)_{N\ge 0}$ est bornée, alors $\sum_{n =0}^\infty a_nb_n$ converge.
+\end{proposition}
+\begin{proof}
+    Soit $N\ge 0$ On pose $B_n := \sum_{k = 0}^nb_n$. On a \begin{align*}
+        \sum_{n=0}^Na_nb_n &= a_0b_0 + \sum_{n = 1}^Na_n(B_n-B_{n-1})\\
+        &= a_0B_0 +\sum_{n = 1}^Na_nB_n - \sum_{n = 1}^Na_nB_{n-1}\\
+        &= \sum_{n = 0}^Na_nB_n - \sum_{n = 1}^Na_nB_{n-1}\\
+        &=\sum_{n = 0}^{N-1}(a_n- a_{n+1})B_n + a_NB_N
+    \end{align*}
+    Puisque $a_n\to 0$ et $B_N$ est bornée, $a_NB_N\to 0$ et donc notre somme est équivalente à $\sum_{n = 0}^{N-1}(a_n-a_{n+1})B_n$. Montrons que cette suite converge absolument. Comme $(B_n)$ est bornée, il existe $C>0$ tel que $\abs{B_n}\le C$ et, par décroissance de $(a_n)$, on a \begin{align*}
+        \sum_{n = 0}^{N-1}\abs{(a_n-a_{n-1})}\abs{B_n}\le C\sum_{n = 0}^{N-1}a_n-a_{n-1} = C(a_0-a_{N})\to C a_0
+    \end{align*}
+    Donc, par croissance et majoration, $\sum_{n = 0}^\infty(a_n-a_{n+1})B_n$ converge absolument.
+\end{proof}
+\begin{corollaire}[Critère des séries alternées]
+    Soit $(a_n)$ une suite décroissante qui converge vers $0$. Alors $\sum_{n = 0}^\infty(-1)^na_n$ converge.
+\end{corollaire}
+\begin{proof}
+    On applique Abel avec $b_n = (-1)^n$.
+\end{proof}
+\begin{exemple}
+    La série $\sum_{n = 1}^\infty\frac{(-
+    1)^n}n$ converge par critère des séries alternées avec $a_n = \frac1n$ mais elle ne converge pas absolument.
+\end{exemple}
+\subsection*{Convergence inconditionnelle}
+Lorsqu'on calcule une somme finie, l'ordre des termes n'a aucune importance. Voyons ce qu'il se passe pour les séries
+\begin{definition}
+    Soit $(E,\norm\cdot)$ un espace vectoriel normé et soit $(a_n)_{n\ge0}\subseteq E$. On dit que la série $\sum_{n = 0}^\infty a_n$ \emph{converge inconditionnellement} vers $a\in E$ si pour toute fonction bijective $\sigma : \N\to\N$, on a $\sum_{n = 0}^\infty a_{\sigma (n)} = a$
+\end{definition}
+\begin{remarque}
+    Par définition, si une série converge inconditionnelement vers $a$ alors elle converge vers $a$ en prenant $\sigma = \Id_{\N}$
+\end{remarque}
+\begin{proposition}
+    Soit $(E,\norm\cdot)$ un espace vectoriel normé complet. Si $\sum_{n = 0}^\infty a_n$ converge absolument, alors elle converge inconditionnellement.
+\end{proposition}
+\begin{proof}
+    Par convergence absolue de $\sum_{n=0}^\infty a_n$, on déduit que $$\forall \varepsilon >0,\exists n_0,\forall m\ge n\ge n_0,\ \sum_{k = n}^m\norm{a_k}\le \varepsilon$$
+    Comme $E$ est complet, la série $\sum_{n=0}^\infty a_{\sigma(n)}$ converge ssi $$\forall \varepsilon >0,\exists n_1,\forall m\ge n\ge n_0,\ \norm{\sum_{k = n}^ma_{\sigma(k)}}\le \varepsilon$$
+    Soit $\varepsilon>0$. On considère $n_0$ donné par la convergence absolue. On choisit alors $n_1 = 1+\max_{1\le i<n} \sigma^{-1}(i)$ de sorte que si $n\ge n_1$, alors $\sigma(n)\ge n_0$. Pour tous $m\ge n \ge n_1$, on a alors $$\norm{\sum_{k =n}^ma_{\sigma(k)}}\le \sum_{k =n}^m\norm{a_{\sigma(k)}}\le \sum_{k =\sigma (n)}^{\sigma (m)}\norm{a_{k}}\le  \varepsilon$$ car tous les $\sigma(k)$ sont supérieurs à $n_0$
+\end{proof}
+\begin{theoreme}[Réarrangement de Riemann]
+    Soit $(a_n)_{n\ge0}$ une suite de réels tels que \begin{itemize}
+        \item $\sum_{n=0}^\infty a_n$ converge
+        \item $\sum_{n=0}^\infty a_n$ ne converge pas absolument
+    \end{itemize}
+    Alors pour tout $a\in\R$, il existe $\sigma : \N\to\N$ bijective telle que $\sum_{n=0}^\infty a_{\sigma (n)} = a$.
+\end{theoreme}
+\begin{proof}
+    Comme la série $\sum_{n=0}^\infty a_n$ converge, on a $\lim_{n\to+\infty}a_n = 0$. On divise la suite $(a_n)$ en deux $(b_n)_{n\ge 0}$ et $(c_n)$ où $(b_n)$ est la sous-suite de $(a_n)$ constituée des termes positifs, et $(c_n)$ est celle constituée des termes négatifs. Comme $\sum_{n=0}^\infty a_n$ converge mais ne converge pas absolument, on a forcément $\sum_{n=0}^\infty b_n\to+\infty$ et $\sum_{n=0}^\infty c_n\to -\infty$. Intéressons-nous maintenant à la méthode de réarrangement. Soit $a\in\R$.  On regarde si $a\ge 0$ ou $a<0$. Dans le cas $a\ge 0$, on prend $b_0,\dotsc, b_{n_0}$ jusqu'à ce que $b_0 + \dots + b_{n_0} > a$. Ensuite, on prend des éléments $c_0,\dotsc, c_{m_0}$ jusqu'à ce que $b_0+ \dots + b_{n_0} + c_0 + \dots + c_{m_0}<a$. On itère. Cette méthode fonctionne car \begin{itemize}
+        \item On peut itérer indéfiniment car $\sum_{n=M}^\infty b_n = +\infty$ et $\sum_{n=M}^\infty c_n = -\infty$ pour tout $M\ge 0$.
+        \item Comme $a_n\to 0$, on a que $b_n\to 0$ et $c_n\to 0$, la série des sommes partielles converge vers $a$.
+    \end{itemize}
+\end{proof}
+\begin{corollaire}
+    Dans $\R$, la convergence absolue est équivalente à la convergence inconditionnelle.
+\end{corollaire}
+ \begin{remarque}
+     En général, on a bien que la convergence absolue implique la convergence inconditionnelle, mais la réciproque est fausse.
+ \end{remarque}
+\begin{remarque}
+    Soit $(a_{j,k})_{j,k\ge0}$ une famille de réels indicés par $\N^2$. En général, l'ordre de sommation est important et donc on peut avoir $\sum_{k=0}^\infty\sum_{j=0}^\infty a_{j,k}\ne \sum_{j=0}^\infty\sum_{k=0}^\infty a_{j,k}$
+\end{remarque}

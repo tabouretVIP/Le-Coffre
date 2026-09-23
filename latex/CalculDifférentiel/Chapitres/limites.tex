@@ -1,0 +1,108 @@
+\chapter{Limites et continuité}
+\section{Généralisation à $R^n$}
+Soit $A\subseteq\R^n$.
+\begin{definition}
+    \begin{itemize}
+        \item Un point $x\in \R^n$ est un point d'accumulation de $A$ si $\forall\varepsilon>0, \quad B(x,\varepsilon)\cap A$ contient au moins un éléments différent de $x$.
+        \item Un point $x\in A$ est un point isolé de $A$ s'il existe $\varepsilon>0, \quad B(x,\varepsilon)\cap A = \{x\}$
+    \end{itemize}
+\end{definition}
+    \begin{remarque}
+        \begin{itemize}
+            \item Un point d'accumulation de $A$ n'est pas forcément dans $A$.
+            \item Un point $x\in A$ est soit un point d'accumulation, soit un point isolé.
+        \end{itemize}
+    \end{remarque}
+    \begin{exemple}
+        Si $A=\{\frac{1}{n}\mid n\geq 1\}$ alors $0$ est un point d'accumulation. Tous les $\frac{1}{n}$ sont des points isolés de $A$. Tous les autres réels ne sont ni points d'accumulation ni points isolés de $A$.
+    \end{exemple}
+    On peut définir la limite d'une application $f:A\to\R^n$ en $a$ seulement si $a$ est un point d'accumulation de $A$.
+    \begin{definition}
+        Soit $a$ un point d'accumulation de $A$. Soit $f:A\to\R^m$.\\
+        La limite de $f$ en $a$ existe et vaut $b$ si 
+        \[
+        \forall\varepsilon>0, \exists\delta>0, \forall x\in A\cap \{a\} \quad \norm{x-a}<\delta \Rightarrow \norm{f(x)-b}<\varepsilon 
+        \]
+        Dans ce cas, on note $\lim\limits_{x\to a}f(x)=b$
+    \end{definition}
+    \begin{definition}
+        Soit $f:\R^n\to \R^m$. Soit $a\in \dom f$. On dit que $f$ est continue en $a$ si
+        \[
+        \forall \varepsilon>0,\exists\delta>0,\forall x\in \dom f \quad \norm{x-a}<\delta \Rightarrow \norm{f(x)-f(a)}<\varepsilon
+        \]
+        De plus, on dit que $f$ est continue si $f$ est continue en tout point de son domaine.
+    \end{definition}
+    \begin{remarque}
+        Soit $a\in \dom f$
+        \begin{itemize}
+            \item Si $a$ est un point isolé alors $f$ est continue en $a$.
+            \item Si $a$ est un point d'accumulation du $\dom f$ alors $f$ est continue en $a$ ssi $\lim\limits_{x\to a}f(x)=f(a)$.
+        \end{itemize}
+    \end{remarque}
+    \begin{exemple}
+        \begin{itemize}    
+            \item $f(x) = \tan(x)$ est continue.
+            \item $h(x):=\begin{cases}
+                1 &\text{si } x\geq 0\\
+                -1 &\text{si } x<0
+            \end{cases}$  n'est pas continue en 0 %(j'ai oublie comment écrire cette notation en latex)
+        \end{itemize}
+    \end{exemple}
+     \begin{exercice}
+        Montrer que $f(x)=x\sin(1/x)$ si $x\neq 0$ et $0$ sinon, est continue
+     \end{exercice}
+     Il faut faire attention au fait que la limite en $a$ prend en compte toutes les manières de s'approcher du point $a$.
+     \begin{exemple}
+         %flemme de faire l'exemple je fais dodo Zzzzz bon ca va toi sinon ? chill perso
+         %Chill de fou, par contre c'était le seul exemple intéressant.
+         Considérons la fonction $f:\R^2\to\R$ définie par $f(x,y):=\begin{cases}
+                \dfrac{x^2y}{x^4+y^2} &\text{si } (x,y)\ne 0\\
+                0 &\text{sinon} 
+            \end{cases}$
+        Remarquons que la fonction est continue sur $\R^2\setminus\{(0,0)\}$ car c'est une composée de monômes et d'opérations binaires usuelles.
+        Intéressons-nous à la continuité en $0$.
+        Considérons une direction $v:=(v_1,v_2)$.
+        Remarquons que $f_{(0,0),v}$ est continue en $0$ car $\lim\limits_{t\to 0}f_{(0,0),v}(t) = \lim\limits_{t\to 0}\dfrac{v_1^2v_2t}{v_1^4t^2+v_2^2}=0$, ce qui se voit en considérant les cas $v_2=0$ et $v_2\ne 0$.
+        Or, on a $(x,x^2)\to (0,0)$ quand $x\to 0$ et $ \lim\limits_{x\to 0}f(x,x^2)=\lim\limits_{x\to 0}\frac{x^4}{2x^4} = \frac 1 2\ne0$
+        Ainsi $f$ n'est pas continue en $(0,0)$.   
+     \end{exemple}
+     \begin{exemple}
+         Soit $f: \R\to\R^2$ définie par $\begin{cases}
+             \dfrac{x+y}{x-y} &\text{si } x\ne y\\
+             1 &\text{si } x=y
+         \end{cases}$
+         Considérons $\lim_{y \to 0} f(0,y) = \lim_{y\to 0}\dfrac{y}{-y} = -
+         1\ne f(0,0)$
+         Ainsi $f$ n'est pas continue en $(0,0)$.
+     \end{exemple}
+     \begin{proposition}
+     \begin{itemize}
+         \item Soient $f:\R^n\to\R^m$ et $g:\R^n\to\R^m$. Si $f$ est continue et $g$ est continue et si $\dom(f)\cap\dom(g)\ne\varnothing$ alors $f+g$ est continue sur $\dom(f)\cap\dom(g)$
+        \item Soient $f:\R^n\to\R^m$ et $g:\R^n\to\R$. Supposons que $f$ et $g$ soient continues \begin{enumerate}
+            \item Si $\dom(f)\cap\dom(g)\ne\varnothing$ alors $f\cdot g$ est continue sur $\dom(f)\cap\dom(g)$
+            \item Si $\dom(f)\cap\{ x \in \dom(g)\mid g(x)\ne 0\}\ne\varnothing$ alors $f/ g$ est continue sur $\dom(f)\cap\{ x \in \dom(g)\mid g(x)\ne 0\}$
+        \end{enumerate}
+         \end{itemize}
+     \end{proposition}
+     \begin{proof}
+     Donnons une ébauche de preuve : On a \begin{align}
+         \norm{f(x)g(x)-f(a)g(a)}&=\norm{f(x)g(x)-f(x)g(a)+f(x)g(a)-f(a)g(a)}\\
+         &\leq \norm{f(x)g(x)-f(x)g(a)} + \norm{(f(x)g(a)-f(a)g(a)}\\
+         &=|g(x)-g(a)|\norm{f(x)} + |g(a)|\norm{f(x)-f(a)}
+     \end{align}
+     Il suffit de montrer que $\dfrac 1 g$ est continue sur $\{ x \in \dom(g)\mid g(x)\ne 0\}$ pour déduire la deuxième proposition.
+     \end{proof}
+     \begin{proposition}
+        Soient $f:\R^n\to\R^m$ et $g:\R^m\to\R^p$. Supposons que $f$ et $g$ sont continues. Si $\{x\in\dom f\mid f(x)\in\dom g\}$ est ouvert alors $g \circ f$ est continue sur cet ensemble.
+     \end{proposition}
+     \begin{proposition}
+         Soit $f:\R^n\to\R^m$. La fonction $f$ est continue ssi pour tout $1\leq i\leq m$, la fonction $f_i:\R^n\to\R$ est continue sur $\dom f$
+     \end{proposition}
+     \begin{proof} 
+         \begin{itemize}
+             \item (Sens $\Rightarrow$) Soit $1\leq i\leq m$. Posons $\pi_i:\R^m\to\R : (x_1,\dots,x_n)\mapsto x_i$ alors $f_i=\pi_i \circ f$ est continue car $\pi_i$ et une forme linéaire sur un espace vectoriel de dimension finie et qu'une composée de fonction continue est continue.
+             \item (Sens $\Leftarrow$) On suppose que toutes les fonction $f_i$ sont continues. Soit $a\in\dom f$. Soit $\varepsilon>0$. Pour chaque $1\leq i\leq m$ il existe $\delta_i<0$ tel que pour tout $x\in\dom f,\norm{x-a}$ alors $|f_i(x)-f_i(a)|<$. Prenons $\delta = \min\{\delta_
+             1,\dots\delta_m\}$. On a alors pour tout $x\in\dom f$ vérifiant $\norm{x-a}<\delta$
+             $$\norm{f(x)-f(a)}_\infty = \max_{1\leq i\leq m}|f_i(x)-f_i(a)|<\varepsilon$$
+         \end{itemize}
+     \end{proof}

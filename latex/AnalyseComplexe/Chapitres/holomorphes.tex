@@ -1,0 +1,140 @@
+\chapter{Fonctions holomorphes}
+\section{Introduction}
+Les fonctions holomorphes sont les fonctions complexes dérivables.
+\begin{definition}
+    
+    Soient $\Omega\subseteq \C$ un ouvert et $f:\Omega\to\C$. Soit $z_0\in \Omega$. $f$ est holomorphe en $z_0$ si $\lim_{h\to 0}\frac{f(z_0 + h) - f(z_0)}{h}$ existe. Cette limite est alors notée $f'(z_0)$
+    \begin{itemize}
+        \item 
+        \item $f$ est holomorphe sur $\Omega$ si $f$ est holomorphe en tout point de $\Omega$.
+    \end{itemize}
+\end{definition}
+
+\begin{exemple}
+    Voici quelques exemples de fonctions holomorphes 
+    \begin{itemize}
+        \item Soit $f(z)=z$. $f$ est holomorphe en tout point car $$\lim_{h\to 0}\frac{f(z+h)- f(z)}{h}= \lim_{h\to 0}\frac{z+h-z}{h}=1\quad \text{ et } \quad f'(z)=1$$ et donc $f'(z) = 1$.
+        \item Soit $f(z) = z^2$. $f$ est holomorphe en tout point car $$\lim_{h\to 0}\frac{(z+h)^2-z^2}{h} = \lim_{h\to 0}2z + h = 2z$$
+        \item Soit $f(z)= |z|$, $f$ n'est pas holomorphe. car sa restriction à $\R$ n'est pas dérivable.
+        \item Soit $f(z)= \overline{z}$. $f$ n'est pas holomorphe. Soit $z\in \C$, on a
+        $$
+        \lim_{h\to0}\frac{\overline{z+h}- \overline{z}}{h}=\lim_{h\to 0} \frac{\overline{h}}{h}
+        $$ n'existe pas car elle vaut $1$ sur la droite réelle et vaut $-1$ sur la droite imaginaire.
+    \end{itemize}
+\end{exemple}
+\begin{proposition}
+    Soient $\Omega$ un ouvert de $\C$ et $f,g:\Omega \to \C$. Soit $z_0\in \Omega$.
+    \begin{itemize}
+        \item Si $f$ et holomorphe en $z_0$ alors $f$ est continue en $z_0$.
+        \item Si $f$ et $g$ sont holomorphes en $z_0$ alors $f+g$ est holomorphe en $z_0$ et $(f+g)'(z_0) = f'(z_0) + g'(z_0)$
+        \item si $f$ et $g$ sont holomorphes en $z_0$ alors $f g$ est holomorphe en $z_0$ et $(fg)'(z_0)= f'(z_0)g(z_0) + g'(z_0)f(z_0)$
+        \item Si $f$ et $g$ sont holomorphes en $z_0$ et qye $g(z_0)\ne 0$ alors $\frac{f}{g}$ est holomorphe en $z_0$ et $\left(\frac{f}{g}\right)'(z_0) = \frac{f'(z_0)g(z_0)-f(z_0)g'(z_0)}{(g(z_0)^2}$
+        \item Si $f$ est holomorphe sur $\Omega$ et si $g$ est holomorphe sur une ouvert $V$ tel que $V\subseteq f(\Omega) $ alors $(g\circ f)$ est holomorphe sur $\Omega$ et pour tout $z \in \Omega$ nous avons $(g\circ f)'(z)= g'(f(z))f'(z)$.
+    \end{itemize}
+
+
+\end{proposition}
+
+Cette proposition se prouve de la même manière que les résultats analogues sur $\R$ que nous avons déjà démontré.
+
+\begin{remarque}
+    Notons que:
+    \begin{itemize}
+        \item Tout polynôme complexe est holomorphe sur $\C$.
+        \item La fonction logarithme n'est pas holomorphe sur $\C\setminus\{0\}$ puisqu' elle n'est pas continue sur ce même ensemble. Cela aura pour conséquence que $f(z)= \frac{1}{z}$ n'aura pas de primitive sur $\C \setminus \{0\}$.
+    \end{itemize}
+\end{remarque}
+ Tout comme pour les fonctions réelles, nous avons le résultat suivant:
+
+ \begin{proposition}
+     Soit $f: \Omega\to \C$ avec $\Omega\subseteq \C$ et soit $z\in\Omega$. La fonction $f$ est holomorphe en $z$ ssi il existe $M_z\in \C$ $$
+     f(z+h)= f(z)+M_zh+ R_z(h)
+     $$ tel que $\lim_{h\to 0}\frac{R_z(h)}{(h)} = 0$. De plus, on a alors $M_z = f'(z)$.
+ \end{proposition}
+
+\begin{proof}
+\begin{description}
+    \item[$(\alors)$] Supposons $f$ holomorphe en $z$, c'est à dire que 
+    $$\lim_{h\to 0}\frac{f(z+h)-f(z)}{h}=f'(z)$$ On a bien, pour $M_z = f'(z)$, que  $$
+    \lim_{h\to 0}\frac{R_z(h)}{h}= \lim_{h\to 0}\frac{f(z+h)-f(z)- f(z)h}{h}=\lim_{h\to 0}\frac{f(z+h)-f(z)}{h}- f(z)= 0
+    $$
+    \item[$(\si)$] Comme $\lim_{h\to 0}\frac{R_z(h)}{h} = \lim_{h\to 0}\frac{f(z+h) - f(z)}{h}-M_z$, on a que $\lim_{h\to 0}\frac{f(z+h) - f(z)}{h}$ existe et vaut $M_z$.
+\end{description}
+\end{proof}
+
+\newpage
+
+\section{Équations de Cauchy-Riemann}
+On sait qu'on peut identifier $\C$ à $\R^2$ en identifiant $z = x + iy$ au couple $(x,y)$. Étant donné donnée un fonction $f:\C\to\C$, on peut l'identifier à une fonction $f_{\R}:\R^2\to\R^2$ en posant
+$f_\R(x,y)= (u(x,y), v(x,y))$ où $u(x,y)= \Re(f(x+iy))$ et $v(x+y)= \Im(f(x+iy))$.
+\begin{exemple}
+Pour illustrer :
+\begin{itemize}
+    \item Soit $f = \Id_{\C}$. On a que $f_{\R}(x,y) = (x,y)$ d'où $u(x,y) = x$ et $v(x,y) = y$.
+    \item Soit $f:\C\to \C; f(z)= f(\overline{z})$ alors $f_{\R}(x,y) = (x,-y)$ et donc $u(x,y) = x$ et $v(x,y) = -y$.
+    \item $f(z)= z^2$. alors $f_\R(x,y)=(x^2-y^2, 2xy)$ d'où $u(x,y) = x^2-y^2$ et $v(x,y) = 2xy$..
+
+\end{itemize}
+\end{exemple}
+
+\begin{theoreme}[Équations de Cauchy-Riemann]
+    Soient $f:\Omega\to \C$ avec $\Omega$ ouvert de $\C$ et $z = x+iy\in \C$.
+    $f$ est holomorphe en $z$ ssi 
+    \begin{itemize}
+        \item  $f_\R$ est différentiable en $(x,y)$
+        \item  $\frac{\partial u}{\partial x}(x,y)= \frac{\partial v}{\partial y}(x,y)$ et $\frac{\partial u}{\partial y}(x,y)= \frac{-\partial v}{\partial x}(x,y)$
+    \end{itemize}
+\end{theoreme}
+\begin{proof}
+\begin{description}
+    \item[$(\alors)$]  Supposons que $f$ est holomorphe en $z$. On a donc $f(z+h) = f(z) + f'(z)  h + R_z(h)$ où $\lim_{h\to 0}\frac{R_z(h)}{h} = 0$
+    Autrement dit, 
+    \begin{align*}
+    f_\R (x+ \Re(h), y + \Im(h))&= f_\R(x,y)+ \left( \Re(f'(z) )\Re(h)- \Im (f'(z))\Im(h), \Re(f'(z)) \Im(h) + \Im(f'(y))\Re(h)  \right) + R_{\R, z}(\Re(h), \Im(h))\\
+    &= f_\R(x,y)+  \begin{pmatrix}
+        \Re(f'(z)) & - \Im(f'(z)) \\ \Im(f'(z)) & \Re(f'(z))
+    \end{pmatrix}\begin{pmatrix}
+        \Re(h)\\ \Im(h)
+    \end{pmatrix}
++R_{\R, z}(\Re(h), \Im(h)) 
+    \end{align*}   
+On déduit que $f_\R$ est différentiable en $(x,y)$ et que 
+$$
+J_{f_\R}(x,y)= \begin{pmatrix}
+    \Re(f'(x+i y)) & - \Im(f'(x+iy)) \\ \Im(f'(x+iy)) & \Re(f'(x+iy))
+\end{pmatrix}
+$$
+
+Or, on sait que 
+$$
+    J_{f_{\R}} = \begin{pmatrix}
+        \frac{\partial u}{\partial x}(x,y) & \frac{\partial u}{\partial y}(x,y)\\
+        \frac{\partial v}{\partial x}(x,y) & \frac{\partial v}{\partial x}(x,y)
+    \end{pmatrix}
+$$
+En regardant ces deux matrices, on en déduit que 
+$$
+\frac{\partial u}{\partial x}(x,y)= \frac{\partial v}{\partial y}(x,y) \quad \text{ et } \quad \frac{\partial u}{\partial y}(x,y)= -\frac{\partial v}{\partial x}(x,y)
+$$
+\end{description}
+   
+\end{proof}
+
+Conséquence importante : Si $f$ est holomorphe en $z= x+iy$, on a 
+\begin{align*}
+    f'(z) &= \frac{\partial u}{\partial x}(x,y)+ i \frac{\partial v}{\partial y}(x,y)\\
+    &= \frac{\partial v}{\partial y}(x,y) - i\frac{ \partial u }{\partial y}(x,y) 
+\end{align*}
+\begin{corollaire}
+    Soient $ f: \Omega \to \C $ avec $ \Omega $ ouvert  et $z= x+iy$
+    Si $(\frac{\partial u}{\partial x}), \frac{\partial u}{\partial y}, \frac{\partial v}{\partial x}, \frac{\partial v }{\partial y}$ sont continus sur $\Omega$ , alors $f$ est holomorphe en $z$. ie $f$ satisfait :  $$\frac{\partial u}{\partial x}(x,y)= \frac{\partial v}{\partial y}(x,y) \quad \text{ et }\quad \frac{\partial u}{\partial y}(x,y)= \frac{-\partial v}{\partial x}(x,y)$$
+\end{corollaire}
+\begin{exemple}
+Pour illuster :
+    \begin{itemize}
+        \item $f(z) = z$. On a $u(x,y) = x$ et $v(x,y) = y$. Donc $f$ est holomorphe sur tout le plan complexe.
+        \item $f(z) = \overline{z}$
+        \item $f(z) = \e^z$. On a $\e^z = \e^{x+\i y} = \e^x(\cos(y)) + \i \e^x\sin(y)$
+    \end{itemize}
+\end{exemple}
+% exo faire avec z^2

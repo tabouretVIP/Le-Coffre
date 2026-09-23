@@ -1,0 +1,48 @@
+\definecolor{encre}{RGB}{28,28,30}
+\definecolor{accent}{RGB}{90,110,140}
+\begin{titlepage}
+\thispagestyle{empty}
+
+% ---------- Filigrane : le cercle d'Apollonius ----------
+\begin{tikzpicture}[remember picture, overlay]
+  \node[opacity=0.16] at ($(current page.center)+(0,-0.6cm)$)
+    {\includegraphics[width=17cm]{apollonius.png}};
+\end{tikzpicture}
+
+% ---------- Contenu ----------
+\begin{center}
+\vspace*{2.2cm}
+
+{\footnotesize\color{accent}\scshape\selectfont
+ \setlength{\baselineskip}{1.6em}
+ Université de Mons \quad$\cdot$\quad Faculté des Sciences\par}
+
+\vspace{3.4cm}
+
+{\color{accent}\rule{2.2cm}{0.8pt}}
+
+\vspace{1.1cm}
+
+{\fontsize{43}{50}\selectfont\color{encre}
+ Statistiques\par}
+
+\vspace{1.0cm}
+
+{\large\color{encre} Notes de cours\par}
+
+\vspace{0.9cm}
+
+{\color{accent}\rule{2.2cm}{0.8pt}}
+
+\vfill
+
+{\normalsize\color{encre}\scshape Tiago Piette\par}
+\vspace{0.35cm}
+{\footnotesize\color{accent}BaB3 --- Sciences mathématiques\par}
+\vspace{0.15cm}
+{\footnotesize\color{accent}2026\,--\,2027\par}
+
+\vspace{1.4cm}
+\end{center}
+
+\end{titlepage}

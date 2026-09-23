@@ -1,0 +1,103 @@
+\chapter{Rappel d'optimisation à une variable}
+Pour optimiser une fonction $f:\R\to \R$,
+\begin{itemize}
+    \item On identifie les points critiques de $f:\quad f'(x)=0$
+    \item On calcule la dérivée seconde de $f$ pour identifier la nature du point critique.
+\end{itemize}
+\begin{theoreme}[Formule de Taylor-Young]
+    Soit $f:\R\to\R$ dérivable $n$ fois en $a$. Alors 
+    \begin{equation*}
+        f(a+h)=f(a)+f'(a)\cdot h+\dots + \frac{f^{(n)}(a)}{n!}\cdot h^n+o(h^n)
+    \end{equation*}
+\end{theoreme}
+\begin{theoreme}[Formule de Taylor-Lagrange]
+    Soit $f:\R\to\R$ dérivable $n+1$ fois sur un intervalle ouvert $I$. Alors, $\forall a, x \in I$ tels que $x\ne a$, il existe $c\in\interoo{a,x}$ tel que $$f(x) = \sum_{i=0}^n\frac{f^{(i)}(a)}{i!}(x-a)^i+\frac{f^{(n+1)}(c)}{(n+1)!}(x-a)^{n+1}$$
+\end{theoreme}
+Le but de ce chapitre est d'établir comment on obtient des critères d'optimisation à travers ces formules de Taylor.
+\begin{proposition}
+    Soit $f:\R\to\R$ dérivable en $a$. Si $a$ est un extremum local alors $f'(a)=0$
+\end{proposition}
+\begin{proof}
+    Supposons que $a$ est un minimum local. Alors $\lim_{h\to0^+}\frac{f(a+h)-f(a)}{h} = f'(a)\ge 0$ car $f(a+h)-f(a)\ge 0$ et $h\ge 0$. De même, $\lim_{h\to0^-}\frac{f(a+h)-f(a)}{h} = f'(a)\le 0$ d'où $f(a) = 0$.
+\end{proof}
+\begin{proposition}
+    Soit $f:\R\to\R$ dérivable deux fois en $a$,
+    \begin{enumerate}
+        \item Si $a$ est un minimum local, alors $f'(a)=0$ et $f''(a)\geq 0$.
+        \item Si $a$ est un maximum local, alors $f'(a)=0$ et $f''(a)\le 0$.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    \begin{enumerate}
+        \item Par la formule de Taylor-Young, on a $$f(a+h) = f(a)+f(a)h+\frac{f''(a)}{2}h^2+o(h^2)$$ On a alors $$\lim_{x\to a}\frac{f(a+h)-f(a)}{h^2}-\frac{f''(a)}{2}=0$$ Autrement dit, $$\frac{f''(a)}{2}=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h^2}\ge 0$$ car le numérateur et le dénominateur sont positifs.
+        \item $a$ est un minimum local de $-f$, le point précédent termine.
+    \end{enumerate}
+\end{proof}
+\begin{proposition}
+    Soit $f:\R\to\R$ dérivable deux fois au voisinage de $a$.
+    \begin{enumerate}
+        \item Si $f'(a)=0$ et $f''(x)\ge0$ pour tout $x$ dans un voisinage de $a$. alors $a$ est un minimum local.
+         \item Si $f'(a)=0$ et $f''(x)\le 0$ pour tout $x$ dans un voisinage de $a$. alors $a$ est un maximum local. 
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+\begin{enumerate}
+    \item Soit $I$ un intervalle ouvert contenant $a$ tel que $f''(x)\ge 0$ pour tout $x\in I$. Par la formule de Taylor-Lagrange, pour tout $x\in I\setminus\{a\}$, il existe $c\in \ ] a,x[\ \subseteq I$ tel que
+    \begin{equation*}
+        f(x)=f(a)+0+\frac{f''(c)}{2}\cdot(x-a)^2
+    \end{equation*}
+    On déduit que $f(x)\ge f(a)$ pour tout $x\in I$, donc $a$ est un minimum local.
+\end{enumerate}    
+\end{proof}
+\begin{corollaire}
+     Soit $f:\R\to\R$ dérivable deux fois.
+    \begin{enumerate}
+        \item Si $f'(a)=0$ et $f''(x)\ge 0$ pour tout $x\in\R$, alors $a$ est un minimum global.
+        \item Si $f'(a)=0$ et $f''(x)\le 0$ pour tout $x\in\R$, alors $a$ est un maximum global. 
+    \end{enumerate}
+\end{corollaire}
+\begin{proof}
+    Comme la preuve précédente, en remplaçant $I$ par $\R$.
+\end{proof}
+\begin{exemple}
+    Il se peut que $f$ soit dérivable deux fois, que $a$ soit un minimum local et que $f''$ change de signes sur tout voisinage de $a$. C'est la cas pour la fonction $$f(x) =\begin{cases}
+        x^4(1+ \sin\left(\frac 1 x\right)) &\text{si } x\ne 0\\
+        0 &\text{sinon}
+    \end{cases} $$
+\end{exemple}
+\begin{proposition}
+    Soit $f:\R\to \R$ une fonction deux fois dérivable en $a$
+    \begin{enumerate}
+        \item Si $f(a) = 0$ et $f''(a)>0$ alors $a$ est un minimum local.
+        \item Si $f'(a) = 0$ et $f''(a)<0$ alors $a$ est un maximum local.
+    \end{enumerate}
+\end{proposition}
+\begin{proof}
+    Par la formule de Taylor-Young, on a vu que 
+    \begin{equation*}
+        0<\frac{f''(a)}{2}=\lim_{h\to 0}\frac{f(a+h)-f(a)}{h^2}
+    \end{equation*}
+    Par définition des limites, il existe $V$ un voisinage de $0$ tel que pour tout $h\in V\setminus\{0\}$
+    \begin{equation*}
+        0<\frac{f''(a)}{4}\leq \frac{f(a+h)-f(a)}{h^2}\alors f(a+h)\ge f(a)\text{ pour tout $h\in V$}
+    \end{equation*}
+\end{proof}
+En résumé,\begin{enumerate}
+    \item On cherche les ponts critiques.
+     \item \begin{itemize}
+         \item Si $f'(a) = 0$ et $f''(a)\ne 0$ alors $a$ est un extremum local et sa nature dépend du signe de $f''(a)$.
+         \item Si $f'(a) = f''(a) = 0$ alors 
+         \begin{description}
+             \item[$*$ ] Si sur un voisinage de $a$, $f''$ ne change pas de signes, $a$ est un extremum local et sa nature dépend de ce signe
+             \item[$*$ ] Si sur tout voisinage de $c$, $f''$ change de signe on ne peut rien déduire.
+         \end{description}
+     \end{itemize}
+\end{enumerate}
+\begin{exemple}
+    Chercher les extrema locaux de $f(x) = x^2 + \cos(x)$
+    \begin{description}
+        \item[(Points critiques)] $f'(x)=2x-\sin(x)$, $0$ est un point critique. 
+        \item[(Dérivée seconde)] $f''(x)=2-\cos(x)>0$ pour tout $x\in \R$ comme $f''(0)=1>0$, $0$ est un minimum local. Comme la dérivée seconde est strictement positive. On en déduit que $f'$ est strictement croissante et que donc $0$ est le seul point critique. De plus, par un corollaire précédent, $0$ est un minimum global.
+    \end{description}
+    
+\end{exemple}
