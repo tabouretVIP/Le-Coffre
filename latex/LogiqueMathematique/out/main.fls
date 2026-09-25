@@ -494,11 +494,11 @@ INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fouriernc/fncsy.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-ms.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-mcl.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/ncntrsbk/pncr8r.tfm
+INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/ncntrsbk/pncr8t.vf
+INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/ncntrsbk/pncr8r.tfm
 INPUT ./Chapitres/Langesetautomates.tex
 INPUT ./Chapitres/Langesetautomates.tex
 INPUT Chapitres/Langesetautomates.tex
-INPUT /usr/share/texlive/texmf-dist/fonts/vf/adobe/ncntrsbk/pncr8t.vf
-INPUT /usr/share/texlive/texmf-dist/fonts/tfm/adobe/ncntrsbk/pncr8r.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/vf/public/fouriernc/fncmii.vf
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-mlit.tfm
 INPUT /usr/share/texlive/texmf-dist/fonts/tfm/public/fourier/fourier-ml.tfm
