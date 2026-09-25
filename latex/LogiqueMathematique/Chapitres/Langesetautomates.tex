@@ -1,20 +1,25 @@
 \chapter{Langages et automates}
 
 %Esperza et blondin automate sipser pour livres
-Pour rappel : on a vu le \textbf{problème} suivant :
+\section{Automates finis}
+
+on a vu le \textbf{problème} suivant :
 
 Etant donné un mot binaire, contient- il le facteur "101" ?
+\smallskip
+
 On est avec l'aplhabet $\Sigma = \{0,1\}$ et $\mathcal{L}_{101} = \{w\in \sigma^* | w \text{contient le facteur "101"}\}$
 On peut réflechir à un algorithme pour déterminer si un mot appartient à $ \mathcal{L}_{101}$.
-
-On veut donc trouver un algorithme pour reconnaitre (décider oui ou non en s'arretant ). Nous allons constuire un automate
+On veut donc trouver un algorithme pour reconnaitre, décider oui ou non en s'arretant, si un mot appartient à ce langage.
+Nous allons constuire un automate.
 
 \begin{definition}[informel]
-    Un automate c'est une machine qui reconnait un langage ca va manger un mot lettre apres lettre et dira s'il est accepter pas.
+    Un automate c'est une machine qui représente un langage il prend en entrée un mot lettre apres lettre et dira s'il est accepté ou non.
 \end{definition}
 Pour notre problème on construit l'automate suivant : 
 
 \begin{centering}
+
 
 
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
@@ -55,13 +60,15 @@ Pour notre problème on construit l'automate suivant :
 \draw    (463,80) .. controls (448.95,27.47) and (500.53,56.19) .. (483.78,78.07) ;
 \draw [shift={(482.67,79.4)}, rotate = 312.27] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Curve Lines [id:da05531269471522049] 
-\draw    (434.67,132.4) .. controls (473.87,103) and (406.14,184.43) .. (388.67,208.03) ;
+\draw    (455.67,134.4) .. controls (452.73,153.02) and (405.29,186.43) .. (388.65,208.09) ;
 \draw [shift={(387.67,209.4)}, rotate = 305.95] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Curve Lines [id:da0594437607240863] 
 \draw    (233.67,178.4) .. controls (263.22,196.13) and (312.17,199.31) .. (344.53,207.62) ;
 \draw [shift={(346,208)}, rotate = 194.89] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Shape: Circle [id:dp45992039591403555] 
 \draw   (345,215.83) .. controls (345,203.22) and (355.22,193) .. (367.83,193) .. controls (380.44,193) and (390.67,203.22) .. (390.67,215.83) .. controls (390.67,228.44) and (380.44,238.67) .. (367.83,238.67) .. controls (355.22,238.67) and (345,228.44) .. (345,215.83) -- cycle ;
+%Shape: Circle [id:dp6241378939791583] 
+\draw   (454.03,101.83) .. controls (454.03,91.45) and (462.45,83.03) .. (472.83,83.03) .. controls (483.22,83.03) and (491.63,91.45) .. (491.63,101.83) .. controls (491.63,112.22) and (483.22,120.63) .. (472.83,120.63) .. controls (462.45,120.63) and (454.03,112.22) .. (454.03,101.83) -- cycle ;
 
 % Text Node
 \draw (193,94.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
@@ -86,19 +93,494 @@ Pour notre problème on construit l'automate suivant :
 % Text Node
 \draw (489,44.4) node [anchor=north west][inner sep=0.75pt]    {$1,\ 0$};
 % Text Node
-\draw (354,208.4) node [anchor=north west][inner sep=0.75pt]    {$poub$};
-% Text Node
 \draw (184,241) node [anchor=north west][inner sep=0.75pt]   [align=left] {On peut completer avec un état poubelle};
+% Text Node
+\draw (356,208.4) node [anchor=north west][inner sep=0.75pt]    {$\perp $};
+
+
+\end{tikzpicture}
+
+
+\end{centering}
+
+On peut tester l'automate sur différents mots et vérifier si l'état final est $q_4$ qui est acceptant. Dans ce cas le mot appartiendra au langage de l'automate.
+
+\begin{remarque}
+On peut remarquer que $w_1= 11$ et $w_2= 0001$ finissent sur le même état et en fait on verra qu'ils peuvent être vus comme équivalent en terme de continuiation qu'on verra plus tard.
+\end{remarque}
+
+En fait, un automate est $\mathcal{L}(\mathcal{A})\subseteq \Sigma^*$ qui prend $w\in \Sigma^*$ et qui accepte si $w\in \mathcal{L}(\mathcal{A})$ et le rejette sinon.
+
+A présent, formalisons les différents concepts que nous avons rencontré.
+\begin{definition}[Automate fini déterministe (DFA)]
+Voici des définitions plus formelles.
+\begin{enumerate}
+
+    \item On définit un mot comme une suite finie de lettres (symboles) sur un aplhabet (ensemble de symbole) $\Sigma$.
+    \item Un langage $\mathcal{L}$ est un sous-ensemble de tous les mots $\mathcal{L} \subseteq \Sigma^*$
+    \item Soient $\Sigma$ un alphabet, $Q$ un ensemble fini (d'état ), $q_0\in Q$ un état initial, $F\subseteq Q$ l'ensemble des états acceptant et $\delta: Q\times \Sigma \to Q$ une fonction dites de transition. On définit un automate comme un tuple  $$\mathcal{A}= (Q, \Sigma, \delta, q_0, F)$$
+    \item On définit un Run pour $w=a_1\cdots a_n\in \Sigma^*$ comme un séquence d'états $$\rho=r_0r_1\cdots r_n$$ tel que $r_0=q_0$ et $\forall 1\leq i \leq n, r_i = \delta(r_{i-1},a_i)$
+    \item On dit que $w$ est acceptant si $r_n \in F$. De plus, on pose 
+    $$
+    \mathcal{L}(\mathcal{A})= \{w\in \Sigma^* | w \text{ est accepté par } \mathcal{A}\} 
+    $$
+    \item Un automate est déterministe si pour chaque mot il existe un unique run.
+
+
+\end{enumerate}
+
+\end{definition}
+
+\begin{exemple}
+   Considérons le langage $\mathcal{L}= \{w\in \{0,1\}^* | \text{ le nombre de 1 est pair}\}$
+\end{exemple}
+
+\begin{centering}
+    
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp89135235634561] 
+\draw   (168,132) .. controls (168,118.19) and (179.19,107) .. (193,107) .. controls (206.81,107) and (218,118.19) .. (218,132) .. controls (218,145.81) and (206.81,157) .. (193,157) .. controls (179.19,157) and (168,145.81) .. (168,132) -- cycle ;
+%Shape: Circle [id:dp34115575534594467] 
+\draw   (340,138) .. controls (340,124.19) and (351.19,113) .. (365,113) .. controls (378.81,113) and (390,124.19) .. (390,138) .. controls (390,151.81) and (378.81,163) .. (365,163) .. controls (351.19,163) and (340,151.81) .. (340,138) -- cycle ;
+%Curve Lines [id:da7704822667159174] 
+\draw    (193,107) .. controls (217.42,70.77) and (328.42,64.52) .. (363.95,111.56) ;
+\draw [shift={(365,113)}, rotate = 234.76] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da3551416469354568] 
+\draw    (365,163) .. controls (367.64,214.88) and (183.41,205.59) .. (192.66,158.44) ;
+\draw [shift={(193,157)}, rotate = 105.4] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp11847089397851551] 
+\draw   (173.2,132) .. controls (173.2,121.06) and (182.06,112.2) .. (193,112.2) .. controls (203.94,112.2) and (212.8,121.06) .. (212.8,132) .. controls (212.8,142.94) and (203.94,151.8) .. (193,151.8) .. controls (182.06,151.8) and (173.2,142.94) .. (173.2,132) -- cycle ;
+%Curve Lines [id:da03166036311935516] 
+\draw    (170.67,119.4) .. controls (100.4,115.85) and (173.41,69.81) .. (184.22,107.61) ;
+\draw [shift={(184.67,109.4)}, rotate = 257.62] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da48985526524398504] 
+\draw    (373.67,117.4) .. controls (361.79,54.04) and (439.1,112.21) .. (389.22,129.88) ;
+\draw [shift={(387.67,130.4)}, rotate = 342.22] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da7792583689126359] 
+\draw    (110.67,131.4) -- (166,131.98) ;
+\draw [shift={(168,132)}, rotate = 180.6] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (185.8,121.8) node [anchor=north west][inner sep=0.75pt]    {$q_{0}$};
+% Text Node
+\draw (358,128.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (272,204.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (263,55.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (146,72.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (397,76.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
 
 
 \end{tikzpicture}
 
 \end{centering}
 
-On peut tester l'automate sur différents mots et vérifier si l'état final est $q_4$ qui est acceptant.
+\begin{exemple}
+    pour $\mathcal{L}= \{w\in \{0,1\}^* | \text{ qui dit s'il y a autant de 0 que de 1 }\}$
+    Il n'est pas possible de trouver un automate pour cela.
+\end{exemple}
+
+\section{Théorème de Klein}
+
+Dans cette section, nous allons étudier le théorème de Kleen. Pour cette raison nous aurons besoins de différentes notions.
+
+\begin{definition}[DFA-rec]
+On dit qu'un langage $\mathcal{L}$ est reconnu par un DFA si il existe un automate qui accepte tous les mots du langage.
+\end{definition}
+
+\begin{theoreme}
+Pour tout langage $\mathcal{L}$ on a l'équivalence entre $\mathcal{L}$ est reconnu par un $DFA$ et que $\mathcal{L}$ est défini par une RegExp. Si ces propositions sont vraies, on dit que $\mathcal{L}$ est régulier.
+\end{theoreme}
+ 
+\subsection{Expressions régulières}
+Soient $\mathcal{L}_1$ et $\mathcal{L}_2$ deux langages sur un même alphabet (non nécéssaire), on définit :
+\begin{itemize}
+    \item $\mathcal{L}_1 \cup \mathcal{L}_2 = \{w | w\in \mathcal{L}_1 \lor w\in \mathcal{L}_2\} $
+    \item $\mathcal{L}_1 \circ \mathcal{L}_2 = \{w_1w_2 | w_1\in \mathcal{L}_1 \land w_2\in \mathcal{L}_2  \}$
+    \item $\mathcal{L}_1^*= \{w_1\dots w_k | k \geq 0 \land \forall 1\leq i \leq k, w_i \in \mathcal{L}_1\}$
+\end{itemize}
+
+\begin{exemple}
+    Considérons $\mathcal{L}_1= \{\text{ Black, Yellow } \}$ et $\mathcal{L}_2= \{\text{ Night, Submarine }\}$
+    \begin{itemize}
+        \item $\mathcal{L}_1 \cup \mathcal{L}_2 = \{\text{ Black , Yellow , Night, Submarine }\}$
+        \item $\mathcal{L}_1 \circ \mathcal{L}_2 = \{ \text{ BlackNight, BlackSubmarine, YellowNight, YellowSubmarine }\}$
+        \item $ \mathcal{L}_1^*  =\{ \varepsilon, \text{ Black, Yellow, BlackYellow, ...} \} $
+    \end{itemize}
+\end{exemple}
+
+Soit l'alphabet $\Sigma$ une expression régulière $E$ est formée de manière inductive par
+$$E := \varnothing \, | \,\varepsilon \, | \, a \, | \, E+E' \, | \, EE' \quad  a \in \Sigma $$ 
+
+
+\begin{exemple}
+    Voici quelques exemples :
+    \begin{itemize}
+        \item $\mathcal{L}(\varnothing)= \varnothing$
+        \item $\mathcal{L}(\varepsilon)= \{\varepsilon\}$
+        \item $\mathcal{L}(E_1 +E_2 := E_1|E_2) = \mathcal{L}(E_1)\cup \mathcal{L}(E_2)$
+        \item $\mathcal{L}(E_1E_2)= \mathcal{L}(E_1) \circ \mathcal{L}(E_2)$
+        \item $\mathcal{L}(E^*)= \mathcal{L}(E)^*$
+        \item $\mathcal{L}(E_1 \varnothing) = \varnothing$. 
+        \item $\mathcal{L}(\varnothing^*)= \{\varepsilon\}$
+        \item  Dés lors posons $\Sigma= \{a,b,c\}$
+            \begin{itemize}
+                \item $\mathcal{L}((a|b|c)^*)= \Sigma^*$
+                \item $\mathcal{L}(a(b|c)^*a)= \{aba, aca ,abba , abca , acba, acca, \dots \}$
+                \end{itemize}
+    \end{itemize}
+
+\end{exemple}
 
 \begin{remarque}
-On peut remarquer que $w_1= 11$ et $w_2= 0001$ finissent sur le même état et en fait on verra qu'ils peuvent être vus comme équivalent en terme de continuiation qu'on verra plus tard.
+    Ainsi le langage du premier automates est $\mathcal{L}(\mathcal{A})= \mathcal{L}((0|1)^* 101 (0|1)^*)$
 \end{remarque}
 
-En fait, un automate est $\mathcal{L}(\mathcal{A})\subseteq \Sigma^*$ qui prend $w\in \Sigma^*$ et qui accepte si $w\in \mathcal{L}(\mathcal{A})$ et rejette sinon.
+Pour être clair, la \textbf{la priorité des opérations} est naturellement:
+
+\begin{enumerate}
+    \item $E^*$
+    \item $EE'$
+    \item $E+E'$
+\end{enumerate}
+
+Notons que le théorème de Kleen établit donc une équivalence entre deux objets qui pourtant semblent bien différents.
+\subsection*{Regexp implique DFA}
+
+Nous allons d'abord nous interesser à la direction RegExp implique DFA.
+Pour cela, analysons d'abord \textbf{les propriétés de clôture} des langages reconnu par des DFA pour les opérations régulières.
+
+\begin{lemme}
+    Si $\mathcal{L}_1$ et  $\mathcal{L}_2$ sont des DFA-rec alors $\mathcal{L}_1 \cup \mathcal{L}_2$ est DFA-rec.
+\end{lemme}
+
+\begin{proof}
+Débutons la preuve :  
+
+Soient $\mathcal{A}_1= (Q_1, \Sigma, \delta_1, q_1, F_1)$ rec $\mathcal{L}_1$ et $\mathcal{A}_2= (Q_2, \Sigma, \delta_2, q_2, F_2)$ rec $\mathcal{L}_2$
+
+Nous voulons construire $\mathcal{A}= (Q, \Sigma, \delta, q, F)$ tel que $\mathcal{L}(\mathcal{A}) = \mathcal{L}_1 \cup \mathcal{L}_2$.
+Pour illustrer l'idée :
+
+\bigskip
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Rounded Rect [id:dp284850783195031] 
+\draw   (105,84.2) .. controls (105,57.8) and (126.4,36.4) .. (152.8,36.4) -- (246.87,36.4) .. controls (273.27,36.4) and (294.67,57.8) .. (294.67,84.2) -- (294.67,84.2) .. controls (294.67,110.6) and (273.27,132) .. (246.87,132) -- (152.8,132) .. controls (126.4,132) and (105,110.6) .. (105,84.2) -- cycle ;
+%Rounded Rect [id:dp276114117813971] 
+\draw   (363,88.2) .. controls (363,61.8) and (384.4,40.4) .. (410.8,40.4) -- (504.87,40.4) .. controls (531.27,40.4) and (552.67,61.8) .. (552.67,88.2) -- (552.67,88.2) .. controls (552.67,114.6) and (531.27,136) .. (504.87,136) -- (410.8,136) .. controls (384.4,136) and (363,114.6) .. (363,88.2) -- cycle ;
+%Rounded Rect [id:dp6256025734689729] 
+\draw   (201.67,231.2) .. controls (201.67,204.8) and (223.07,183.4) .. (249.47,183.4) -- (405.87,183.4) .. controls (432.27,183.4) and (453.67,204.8) .. (453.67,231.2) -- (453.67,231.2) .. controls (453.67,257.6) and (432.27,279) .. (405.87,279) -- (249.47,279) .. controls (223.07,279) and (201.67,257.6) .. (201.67,231.2) -- cycle ;
+%Curve Lines [id:da6632754137669762] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (142.67,136.4) .. controls (142.67,185.65) and (327.01,136.91) .. (326.81,174.62) ;
+\draw [shift={(326.67,176.4)}, rotate = 278.33] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da29599343206949935] 
+\draw [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ]   (509.67,141.4) .. controls (509.67,190.65) and (337.94,137.06) .. (327.05,174.62) ;
+\draw [shift={(326.67,176.4)}, rotate = 278.33] [color={rgb, 255:red, 74; green, 144; blue, 226 }  ,draw opacity=1 ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp2291311830942766] 
+\draw   (129,94.7) .. controls (129,83.49) and (138.09,74.4) .. (149.3,74.4) .. controls (160.51,74.4) and (169.6,83.49) .. (169.6,94.7) .. controls (169.6,105.91) and (160.51,115) .. (149.3,115) .. controls (138.09,115) and (129,105.91) .. (129,94.7) -- cycle ;
+%Shape: Circle [id:dp749510468452781] 
+\draw   (398,101.7) .. controls (398,90.49) and (407.09,81.4) .. (418.3,81.4) .. controls (429.51,81.4) and (438.6,90.49) .. (438.6,101.7) .. controls (438.6,112.91) and (429.51,122) .. (418.3,122) .. controls (407.09,122) and (398,112.91) .. (398,101.7) -- cycle ;
+%Shape: Circle [id:dp8657139071930654] 
+\draw   (203,84.7) .. controls (203,73.49) and (212.09,64.4) .. (223.3,64.4) .. controls (234.51,64.4) and (243.6,73.49) .. (243.6,84.7) .. controls (243.6,95.91) and (234.51,105) .. (223.3,105) .. controls (212.09,105) and (203,95.91) .. (203,84.7) -- cycle ;
+%Shape: Circle [id:dp6192027417932944] 
+\draw   (481,81.7) .. controls (481,70.49) and (490.09,61.4) .. (501.3,61.4) .. controls (512.51,61.4) and (521.6,70.49) .. (521.6,81.7) .. controls (521.6,92.91) and (512.51,102) .. (501.3,102) .. controls (490.09,102) and (481,92.91) .. (481,81.7) -- cycle ;
+%Shape: Circle [id:dp061472703884228985] 
+\draw   (163,58.2) .. controls (163,50.03) and (169.63,43.4) .. (177.8,43.4) .. controls (185.97,43.4) and (192.6,50.03) .. (192.6,58.2) .. controls (192.6,66.37) and (185.97,73) .. (177.8,73) .. controls (169.63,73) and (163,66.37) .. (163,58.2) -- cycle ;
+%Shape: Circle [id:dp813206027399627] 
+\draw   (248,105.2) .. controls (248,97.03) and (254.63,90.4) .. (262.8,90.4) .. controls (270.97,90.4) and (277.6,97.03) .. (277.6,105.2) .. controls (277.6,113.37) and (270.97,120) .. (262.8,120) .. controls (254.63,120) and (248,113.37) .. (248,105.2) -- cycle ;
+%Shape: Circle [id:dp5214504256712712] 
+\draw   (384,64.2) .. controls (384,56.03) and (390.63,49.4) .. (398.8,49.4) .. controls (406.97,49.4) and (413.6,56.03) .. (413.6,64.2) .. controls (413.6,72.37) and (406.97,79) .. (398.8,79) .. controls (390.63,79) and (384,72.37) .. (384,64.2) -- cycle ;
+%Shape: Circle [id:dp1340813771933912] 
+\draw   (455,112.2) .. controls (455,104.03) and (461.63,97.4) .. (469.8,97.4) .. controls (477.97,97.4) and (484.6,104.03) .. (484.6,112.2) .. controls (484.6,120.37) and (477.97,127) .. (469.8,127) .. controls (461.63,127) and (455,120.37) .. (455,112.2) -- cycle ;
+%Shape: Circle [id:dp32750300866498583] 
+\draw   (431,65.2) .. controls (431,57.03) and (437.63,50.4) .. (445.8,50.4) .. controls (453.97,50.4) and (460.6,57.03) .. (460.6,65.2) .. controls (460.6,73.37) and (453.97,80) .. (445.8,80) .. controls (437.63,80) and (431,73.37) .. (431,65.2) -- cycle ;
+%Shape: Ellipse [id:dp11321520816783048] 
+\draw   (234.67,245.9) .. controls (234.67,234.58) and (254.37,225.4) .. (278.67,225.4) .. controls (302.97,225.4) and (322.67,234.58) .. (322.67,245.9) .. controls (322.67,257.22) and (302.97,266.4) .. (278.67,266.4) .. controls (254.37,266.4) and (234.67,257.22) .. (234.67,245.9) -- cycle ;
+%Shape: Ellipse [id:dp9205037378392791] 
+\draw   (329.67,218.9) .. controls (329.67,207.58) and (349.37,198.4) .. (373.67,198.4) .. controls (397.97,198.4) and (417.67,207.58) .. (417.67,218.9) .. controls (417.67,230.22) and (397.97,239.4) .. (373.67,239.4) .. controls (349.37,239.4) and (329.67,230.22) .. (329.67,218.9) -- cycle ;
+%Shape: Ellipse [id:dp10192943005563937] 
+\draw   (228.67,206.4) .. controls (228.67,199.77) and (239.64,194.4) .. (253.17,194.4) .. controls (266.7,194.4) and (277.67,199.77) .. (277.67,206.4) .. controls (277.67,213.03) and (266.7,218.4) .. (253.17,218.4) .. controls (239.64,218.4) and (228.67,213.03) .. (228.67,206.4) -- cycle ;
+%Shape: Ellipse [id:dp16203183907806462] 
+\draw   (328.67,257.4) .. controls (328.67,250.77) and (339.64,245.4) .. (353.17,245.4) .. controls (366.7,245.4) and (377.67,250.77) .. (377.67,257.4) .. controls (377.67,264.03) and (366.7,269.4) .. (353.17,269.4) .. controls (339.64,269.4) and (328.67,264.03) .. (328.67,257.4) -- cycle ;
+
+% Text Node
+\draw (80,22.4) node [anchor=north west][inner sep=0.75pt]    {$\mathcal{A}_{1}$};
+% Text Node
+\draw (563,23.4) node [anchor=north west][inner sep=0.75pt]    {$\mathcal{A}_{2}$};
+% Text Node
+\draw (548,231.4) node [anchor=north west][inner sep=0.75pt]    {$\mathcal{A}$};
+% Text Node
+\draw (143,83.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (412,89.4) node [anchor=north west][inner sep=0.75pt]    {$q_{2}$};
+% Text Node
+\draw (220,75.4) node [anchor=north west][inner sep=0.75pt]    {$r$};
+% Text Node
+\draw (498,72.4) node [anchor=north west][inner sep=0.75pt]    {$s$};
+% Text Node
+\draw (254.04,235.19) node [anchor=north west][inner sep=0.75pt]    {$( q_{1} ,q_{2})$};
+% Text Node
+\draw (359.04,211.19) node [anchor=north west][inner sep=0.75pt]    {$( r,s)$};
+
+
+\end{tikzpicture}
+
+\bigskip
+
+Posons $Q= Q_1\times Q_2$ et $q_0 = \langle q_1,q_2 \rangle $ et $\delta(\langle r,s \rangle, a )= \langle \delta_1(r,a), \delta_2(s,a) \rangle $
+Pour $F$ prendre $F_1 \times F_2$ ne convient pas. Cependant $F= (Q_1\times F_2) \cup (F_1 \times Q_2)$ convient car nous voulons que dés que un des deux langages acceptent un mot c'est accepté.
+\bigskip
+Pour s'en convaincre, Montrons que 
+    \begin{itemize}
+    \item$\mathcal{L}(\mathcal{A})\subseteq \mathcal(L)(\mathcal{A}_1)\cup \mathcal{L}(\mathcal{A}_2)$.
+
+   Prenons un mot $w$ accepté par $\mathcal{A}$ ; on doit montrer qu'il est aussi
+    accepté par $\mathcal{A}_1$ ou $\mathcal{A}_2$. Par définition de
+    $w \in \mathcal{L}(\mathcal{A})$, le run de $w$ dans $\mathcal{A}$ s'arrête sur
+    un état de $F$, c'est-à-dire un couple $\langle r, s \rangle$ tel que
+    $r \in F_1$ ou $s \in F_2$. Sans perte de généralité, supposons que $r \in F_1$.
+    Le run dans $\mathcal{A}$ projeté dans $\mathcal{A}_1$ est un run de
+    $\mathcal{A}_1$ qui finit en $r \in F_1$. Donc $\mathcal{A}_1$ accepte $w$ et
+    $w \in \mathcal{L}_1$. A fortiori, $w \in \mathcal{L}_1 \cup \mathcal{L}_2$.
+
+    \item $\mathcal{L}_1 \cup \mathcal{L}_2 \subseteq \mathcal{L}(\mathcal{A})$.
+
+    Prenons un mot $w$ accepté par $\mathcal{A}_1$ (sans perte de généralité).
+    Son run dans $\mathcal{A}_1$ peut être reproduit dans $\mathcal{A}$ par
+    construction, et finit dans un état $\langle r, s \rangle$ où $r \in F_1$
+    (par hypothèse). Par définition de $F$, on a donc que $\mathcal{A}$ accepte
+    aussi $w$, et $w \in \mathcal{L}(\mathcal{A})$.
+    \end{itemize}
+
+\end{proof}
+
+
+\begin{lemme}[Clôture pour la concaténation]
+    Si $\mathcal{L}_1$ et $\mathcal{L}_2$ sont deux langages DFA-rec alors $\mathcal{L}_1\circ \mathcal{L}_2$ est DFA-rec
+\end{lemme}
+
+Le lemme précédent semble compliqué à prouver (voir notes manuscrites pour plus de détails).
+En effet, Il apparait que pour construire un tel objet nous aurions besoin de connaitre le "future" d'un mot.
+Pour contourner ce problème nous allons, à présent, nous intéresser aux automates non déterministes.
+
+
+
+
+
+\subsection{Automates non déterministes}
+Abordons, d'abord, cette notion par un exemple.
+
+\begin{exemple}[NFA epsilon]
+    Posons $\Sigma = \{a,b\}$ considérons l'automate suivant :
+
+
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp08765716097987719] 
+\draw   (311,231) .. controls (311,217.19) and (322.19,206) .. (336,206) .. controls (349.81,206) and (361,217.19) .. (361,231) .. controls (361,244.81) and (349.81,256) .. (336,256) .. controls (322.19,256) and (311,244.81) .. (311,231) -- cycle ;
+%Shape: Circle [id:dp3433082035661834] 
+\draw   (208,131) .. controls (208,117.19) and (219.19,106) .. (233,106) .. controls (246.81,106) and (258,117.19) .. (258,131) .. controls (258,144.81) and (246.81,156) .. (233,156) .. controls (219.19,156) and (208,144.81) .. (208,131) -- cycle ;
+%Shape: Circle [id:dp3347631803577762] 
+\draw   (303,132) .. controls (303,118.19) and (314.19,107) .. (328,107) .. controls (341.81,107) and (353,118.19) .. (353,132) .. controls (353,145.81) and (341.81,157) .. (328,157) .. controls (314.19,157) and (303,145.81) .. (303,132) -- cycle ;
+%Shape: Circle [id:dp8009869037853988] 
+\draw   (395,132) .. controls (395,118.19) and (406.19,107) .. (420,107) .. controls (433.81,107) and (445,118.19) .. (445,132) .. controls (445,145.81) and (433.81,157) .. (420,157) .. controls (406.19,157) and (395,145.81) .. (395,132) -- cycle ;
+%Curve Lines [id:da8950043269282352] 
+\draw    (110,107) .. controls (60.91,70.58) and (200.26,70.4) .. (140.58,107.83) ;
+\draw [shift={(139.67,108.4)}, rotate = 328.5] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da2745951167254401] 
+\draw    (150,129) -- (206,130.93) ;
+\draw [shift={(208,131)}, rotate = 181.97] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da9580631275356766] 
+\draw    (258,131) -- (301,131.96) ;
+\draw [shift={(303,132)}, rotate = 181.27] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Straight Lines [id:da08401375659539545] 
+\draw    (353,132) -- (393,132) ;
+\draw [shift={(395,132)}, rotate = 180] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Shape: Circle [id:dp6497837056980355] 
+\draw   (398.67,132) .. controls (398.67,120.22) and (408.22,110.67) .. (420,110.67) .. controls (431.78,110.67) and (441.33,120.22) .. (441.33,132) .. controls (441.33,143.78) and (431.78,153.33) .. (420,153.33) .. controls (408.22,153.33) and (398.67,143.78) .. (398.67,132) -- cycle ;
+%Shape: Circle [id:dp9063178066043676] 
+\draw   (100,126) .. controls (100,112.19) and (111.19,101) .. (125,101) .. controls (138.81,101) and (150,112.19) .. (150,126) .. controls (150,139.81) and (138.81,151) .. (125,151) .. controls (111.19,151) and (100,139.81) .. (100,126) -- cycle ;
+%Curve Lines [id:da7888681322676493] 
+\draw    (233,156) .. controls (243.51,175.11) and (270.51,205.86) .. (306.04,225.51) ;
+\draw [shift={(307.67,226.4)}, rotate = 208.34] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da5598456428758242] 
+\draw    (328,157) .. controls (329.63,162.29) and (335.43,175.84) .. (335.97,204.24) ;
+\draw [shift={(336,206)}, rotate = 269.35] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da8995112956133697] 
+\draw    (420,157) .. controls (421.65,162.35) and (405,208.46) .. (362.3,230.34) ;
+\draw [shift={(361,231)}, rotate = 333.68] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da6651337017429059] 
+\draw    (322.67,256.4) .. controls (321.69,280.9) and (338.95,283.31) .. (345.29,257.04) ;
+\draw [shift={(345.67,255.4)}, rotate = 102.09] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (113,59.4) node [anchor=north west][inner sep=0.75pt]    {$a,b$};
+% Text Node
+\draw (118,119.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (322,122.4) node [anchor=north west][inner sep=0.75pt]    {$q_{3}$};
+% Text Node
+\draw (227,121.4) node [anchor=north west][inner sep=0.75pt]    {$q_{2}$};
+% Text Node
+\draw (412,122.4) node [anchor=north west][inner sep=0.75pt]    {$q_{4}$};
+% Text Node
+\draw (170,109.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (272,107.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (357,109.4) node [anchor=north west][inner sep=0.75pt]    {$a,\ \varepsilon $};
+% Text Node
+\draw (240,186.4) node [anchor=north west][inner sep=0.75pt]    {$a$};
+% Text Node
+\draw (315,176.4) node [anchor=north west][inner sep=0.75pt]    {$b$};
+% Text Node
+\draw (374,182.4) node [anchor=north west][inner sep=0.75pt]    {$a,b$};
+% Text Node
+\draw (352,265.4) node [anchor=north west][inner sep=0.75pt]    {$a,b$};
+% Text Node
+\draw (321,226.4) node [anchor=north west][inner sep=0.75pt]    {$poub$};
+
+
+\end{tikzpicture}
+
+Dans ce cas, il y a plusieurs runs par mot s'il existe une run où le mot est accepté alors le mot est accepté et que tout le mot soit lu.
+Par exemple avec le mot $w = abba $ ca donne : 
+
+\bigskip
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+\begin{centering}
+    
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp6836294885390309] 
+\draw   (303,53.2) .. controls (303,43.37) and (310.97,35.4) .. (320.8,35.4) .. controls (330.63,35.4) and (338.6,43.37) .. (338.6,53.2) .. controls (338.6,63.03) and (330.63,71) .. (320.8,71) .. controls (310.97,71) and (303,63.03) .. (303,53.2) -- cycle ;
+%Straight Lines [id:da1797130402663174] 
+\draw    (320.8,71) -- (320.8,91.4) ;
+%Shape: Circle [id:dp3360194582447127] 
+\draw   (303,109.2) .. controls (303,99.37) and (310.97,91.4) .. (320.8,91.4) .. controls (330.63,91.4) and (338.6,99.37) .. (338.6,109.2) .. controls (338.6,119.03) and (330.63,127) .. (320.8,127) .. controls (310.97,127) and (303,119.03) .. (303,109.2) -- cycle ;
+%Straight Lines [id:da5468002279918187] 
+\draw    (320.8,127) -- (286.67,150.4) ;
+%Straight Lines [id:da5929348448495171] 
+\draw    (320.8,127) -- (349.67,149.4) ;
+%Shape: Circle [id:dp09070174132722919] 
+\draw   (262,168.2) .. controls (262,158.37) and (269.97,150.4) .. (279.8,150.4) .. controls (289.63,150.4) and (297.6,158.37) .. (297.6,168.2) .. controls (297.6,178.03) and (289.63,186) .. (279.8,186) .. controls (269.97,186) and (262,178.03) .. (262,168.2) -- cycle ;
+%Straight Lines [id:da7432525559126064] 
+\draw    (278.8,186) -- (244.67,209.4) ;
+%Straight Lines [id:da7092417830658024] 
+\draw    (278.8,186) -- (307.67,208.4) ;
+%Shape: Circle [id:dp3089281106642574] 
+\draw   (227,226.2) .. controls (227,216.37) and (234.97,208.4) .. (244.8,208.4) .. controls (254.63,208.4) and (262.6,216.37) .. (262.6,226.2) .. controls (262.6,236.03) and (254.63,244) .. (244.8,244) .. controls (234.97,244) and (227,236.03) .. (227,226.2) -- cycle ;
+%Shape: Circle [id:dp5878232654443346] 
+\draw   (291,226.2) .. controls (291,216.37) and (298.97,208.4) .. (308.8,208.4) .. controls (318.63,208.4) and (326.6,216.37) .. (326.6,226.2) .. controls (326.6,236.03) and (318.63,244) .. (308.8,244) .. controls (298.97,244) and (291,236.03) .. (291,226.2) -- cycle ;
+%Shape: Circle [id:dp9695784397920547] 
+\draw   (342,164.2) .. controls (342,154.37) and (349.97,146.4) .. (359.8,146.4) .. controls (369.63,146.4) and (377.6,154.37) .. (377.6,164.2) .. controls (377.6,174.03) and (369.63,182) .. (359.8,182) .. controls (349.97,182) and (342,174.03) .. (342,164.2) -- cycle ;
+%Straight Lines [id:da3460956435531176] 
+\draw    (361.8,182) -- (361.8,202.4) ;
+%Shape: Circle [id:dp383956515725579] 
+\draw   (344,220.2) .. controls (344,210.37) and (351.97,202.4) .. (361.8,202.4) .. controls (371.63,202.4) and (379.6,210.37) .. (379.6,220.2) .. controls (379.6,230.03) and (371.63,238) .. (361.8,238) .. controls (351.97,238) and (344,230.03) .. (344,220.2) -- cycle ;
+%Straight Lines [id:da3915738052577249] 
+\draw    (362.8,237) -- (362.8,257.4) ;
+%Shape: Circle [id:dp826651689011283] 
+\draw   (345,275.2) .. controls (345,265.37) and (352.97,257.4) .. (362.8,257.4) .. controls (372.63,257.4) and (380.6,265.37) .. (380.6,275.2) .. controls (380.6,285.03) and (372.63,293) .. (362.8,293) .. controls (352.97,293) and (345,285.03) .. (345,275.2) -- cycle ;
+%Curve Lines [id:da5610764930802694] 
+\draw [color={rgb, 255:red, 126; green, 211; blue, 33 }  ,draw opacity=1 ]   (349.67,53.4) .. controls (334.67,173.4) and (407.67,38.4) .. (389.67,266.4) ;
+
+% Text Node
+\draw (314,42.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (314,98.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (273,157.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (238,215.4) node [anchor=north west][inner sep=0.75pt]    {$q_{1}$};
+% Text Node
+\draw (302,215.4) node [anchor=north west][inner sep=0.75pt]    {$q_{2}$};
+% Text Node
+\draw (353,153.4) node [anchor=north west][inner sep=0.75pt]    {$q_{2}$};
+% Text Node
+\draw (355,209.4) node [anchor=north west][inner sep=0.75pt]    {$q_{3}$};
+% Text Node
+\draw (356,264.4) node [anchor=north west][inner sep=0.75pt]    {$q_{4}$};
+% Text Node
+\draw (385,270.4) node [anchor=north west][inner sep=0.75pt]    {$\textcolor[rgb]{0.49,0.83,0.13}{\in F}$};
+
+
+\end{tikzpicture}
+
+\end{centering}
+Notons que $\mathcal{L}(\mathcal{A})= \mathcal{L}((a|b)^*bb(a|\varepsilon))$
+\end{exemple}
+
+Définissons formellement les NFA$\varepsilon$:
+
+\begin{definition}[Automate fini non-déterministe avec $\varepsilon$-transitions]
+Un NFA$\varepsilon$ est un tuple $\mathcal{A} = (Q, \Sigma, \delta, q_0, F)$ où
+\begin{itemize}
+    \item $Q$ est un ensemble fini d'états,
+    \item $\Sigma$ est un alphabet fini,
+    \item $q_0 \in Q$ est l'état initial,
+    \item $F \subseteq Q$ est un ensemble d'états acceptants,
+    \item $\delta : Q \times \Sigma_\varepsilon \to 2^Q$ est la fonction de transition.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Run dans un NFA$\varepsilon$]
+Un run pour un mot $w \in \Sigma^*$ est une séquence d'états
+$\rho = r_0 \cdots r_m$ associée à une séquence de symboles
+$a_1 \cdots a_m \in \Sigma_\varepsilon^*$ telle que
+\begin{itemize}
+    \item $r_0 = q_0$,
+    \item $\forall 1 \leq i \leq m,\ r_i \in \delta(r_{i-1}, a_i)$,
+    \item $w = a_1 \cdot a_2 \cdots a_m$.
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Acceptance dans un NFA$\varepsilon$]
+Un mot $w$ est accepté s'il existe un run $\rho = r_0 \cdots r_m$ sur ce mot
+tel que $r_m \in F$.
+\end{definition}
+
+\paragraph{Trois visions du non-déterminisme}
+
+\begin{enumerate}
+    \item \textbf{arbres.}
+    Nous créons un arbre d'exécution avec un branchement pour chaque choix
+    non-déterministe : nous acceptons si une des branches accepte.
+
+    \item \textbf{calcul parallèle.}
+    À chaque choix non-déterministe, nous faisons un \og fork \fg{} : nous lançons
+    un nouveau processus qui fonctionne en parallèle. Nous acceptons si un des
+    processus accepte.
+
+    \item \textbf{Magique}
+    Nous \og devinons \fg{} le choix correct (celui qui amènera à OUI) et nous
+    allons de ce côté.
+\end{enumerate}
+
+\begin{proposition}
+    On peut transformer tout NFA$\varepsilon$ $\mathcal{A}_\varepsilon$ en NFA (sans $\varepsilon$ transition) $\mathcal{A}$ équivalent. Autrement dit,
+    $$\mathcal{L}(\mathcal{A}_\varepsilon)=\mathcal{L}(\mathcal{A})$$
+\end{proposition}
+
+
