@@ -1,5 +1,5 @@
 # Fdb version 4
-["pdflatex"] 1790173075.01139 "/home/tiago/Bureau/BAB/latex/LogiqueMathematique/main.tex" "out/main.pdf" "main" 1790173078.37402 0
+["pdflatex"] 1790375435.22621 "/home/tiago/Bureau/BAB/latex/LogiqueMathematique/main.tex" "out/main.pdf" "main" 1790375438.82643 0
   "/etc/texmf/web2c/texmf.cnf" 1758364100.67449 475 c0e671620eb5563b2130f56340a5fde8 ""
   "/home/tiago/Bureau/BAB/latex/LogiqueMathematique/main.tex" 1790158176.76153 422 4dd30b9e483b7b67784e37ccc0e091fa ""
   "/usr/share/texlive/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
@@ -38,6 +38,7 @@
   "/usr/share/texlive/texmf-dist/fonts/tfm/public/rsfs/rsfs7.tfm" 1229303445 692 1b6510779f0f05e9cbf03e0f6c8361e6 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb" 1248133631 32442 c975af247b6702f7ca0c299af3616b80 ""
+  "/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pfb" 1248133631 34694 ad62b13721ee8eda1dcc8993c8bd7041 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-bb.pfb" 1136849748 6232 c3fc7954848548c26c82678efc1400a6 ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-ml.pfb" 1136849748 14981 0a68017b66294a0c7d78935574145a1c ""
   "/usr/share/texlive/texmf-dist/fonts/type1/public/fourier/fourier-mlit.pfb" 1136849748 13137 9cf0e1f3fa8b74ec708377d745022d53 ""
@@ -233,13 +234,13 @@
   "/usr/share/texmf/web2c/texmf.cnf" 1741904018 41538 c016915c1d51223b6dbbfe27341748a8 ""
   "/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map" 1758364609 5467255 9a64d1b40e0b893fc5588ecce9d8accf ""
   "/var/lib/texmf/web2c/pdftex/pdflatex.fmt" 1758364645 3347010 64bcee857bb81deeab373d8deb809045 ""
-  "Chapitres/Intro.tex" 1790173039.27579 5961 78fc7afe6c2d8befe419bfbd415ebf65 ""
-  "Chapitres/Langesetautomates.tex" 1790173074.55027 7771 a9197933f9f1aa858ab49310f1c9fe92 ""
+  "Chapitres/Intro.tex" 1790357428.08279 6510 d5c0a076948821df3e544569bfac3039 ""
+  "Chapitres/Langesetautomates.tex" 1790375434.86224 38978 2352d83c7dcfca0aca35be5aeeac46bd ""
   "apollonius.png" 1790152369.47304 73135 431eb676925555a2de05fab76a5b144b ""
   "main.tex" 1790158176.76153 422 4dd30b9e483b7b67784e37ccc0e091fa ""
-  "out/main.aux" 1790173078.21722 952 44f3b4ec39c90693a7009e5d7edef3df "pdflatex"
-  "out/main.out" 1790173078.21822 547 b874b2c4fe117bbeedb82684ab9309fb "pdflatex"
-  "out/main.toc" 1790173078.21822 269 b8233a324f01fdf349a59f59c13190ef "pdflatex"
+  "out/main.aux" 1790375438.65697 1584 cd9d8388fd12462a50f734a9e1d4152b "pdflatex"
+  "out/main.out" 1790375438.65797 1327 b048d6c46dde9b642d916e861a0aac93 "pdflatex"
+  "out/main.toc" 1790375438.65897 695 2be2f6515bb97b28d8647b5ac2861522 "pdflatex"
   "pagedegarde.tex" 1790152463.95732 1070 6504a5eb7b49157aea6088651dfcf962 ""
   "preambule.tex" 1790152331.93507 14421 a2de196c0c28ca463a8b61a826049623 ""
   (generated)

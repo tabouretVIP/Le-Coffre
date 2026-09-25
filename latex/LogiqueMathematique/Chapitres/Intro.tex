@@ -1,10 +1,12 @@
 \chapter{Logique, langage et calcul}
 
+cacacacacacacacac
 \section{Introduction informel}
 On veut comprendre quels types de résonements on peut automatiser, 
 on doit donc s'interresser à la notion d'algorithme. Dont le fonctionnement est illustré ci-dessous:
 
 \begin{centering}
+
 
 
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
@@ -21,16 +23,16 @@ on doit donc s'interresser à la notion d'algorithme. Dont le fonctionnement est
 \draw    (113,175) -- (113.63,208.4) ;
 \draw [shift={(113.67,210.4)}, rotate = 268.92] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Rounded Rect [id:dp2740339183716237] 
-\draw  [color={rgb, 255:red, 80; green, 227; blue, 194 }  ,draw opacity=1 ] (420,121) .. controls (420,116.58) and (423.58,113) .. (428,113) -- (482,113) .. controls (486.42,113) and (490,116.58) .. (490,121) -- (490,145) .. controls (490,149.42) and (486.42,153) .. (482,153) -- (428,153) .. controls (423.58,153) and (420,149.42) .. (420,145) -- cycle ;
+\draw  [color={rgb, 255:red, 80; green, 227; blue, 194 }  ,draw opacity=1 ] (418,134) .. controls (418,129.58) and (421.58,126) .. (426,126) -- (480,126) .. controls (484.42,126) and (488,129.58) .. (488,134) -- (488,158) .. controls (488,162.42) and (484.42,166) .. (480,166) -- (426,166) .. controls (421.58,166) and (418,162.42) .. (418,158) -- cycle ;
 %Straight Lines [id:da29169806821167166] 
 \draw    (454,79) -- (454.63,112.4) ;
 \draw [shift={(454.67,114.4)}, rotate = 268.92] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Straight Lines [id:da06188763678807363] 
-\draw    (455,155) -- (436.69,185.68) ;
-\draw [shift={(435.67,187.4)}, rotate = 300.82] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (451,172) -- (432.69,202.68) ;
+\draw [shift={(431.67,204.4)}, rotate = 300.82] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 %Straight Lines [id:da6168041041911708] 
-\draw    (455,155) -- (480.35,183.9) ;
-\draw [shift={(481.67,185.4)}, rotate = 228.74] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+\draw    (451,172) -- (476.35,200.9) ;
+\draw [shift={(477.67,202.4)}, rotate = 228.74] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
 
 % Text Node
 \draw (92,58) node [anchor=north west][inner sep=0.75pt]   [align=left] {Input\\};
@@ -43,14 +45,17 @@ on doit donc s'interresser à la notion d'algorithme. Dont le fonctionnement est
 % Text Node
 \draw (436,61) node [anchor=north west][inner sep=0.75pt]   [align=left] {Input\\};
 % Text Node
-\draw (422,124) node [anchor=north west][inner sep=0.75pt]   [align=left] {Question};
+\draw (425,138) node [anchor=north west][inner sep=0.75pt]   [align=left] {Question};
 % Text Node
-\draw (411,191) node [anchor=north west][inner sep=0.75pt]   [align=left] {oui};
+\draw (407,212) node [anchor=north west][inner sep=0.75pt]   [align=left] {oui};
 % Text Node
-\draw (475,188) node [anchor=north west][inner sep=0.75pt]   [align=left] {non};
+\draw (476,212) node [anchor=north west][inner sep=0.75pt]   [align=left] {non};
+% Text Node
+\draw (511,133) node [anchor=north west][inner sep=0.75pt]   [align=left] {Procédure\\décisionnelle};
 
 
 \end{tikzpicture}
+
 
 \end{centering}
 
@@ -62,13 +67,13 @@ Il nous faut donc formaliser toutes ces notions.
 \end{definition}
 
 \begin{definition}
-    Un alphabet $\Sigma^*$ est l'ensemble de tout les mots finis ( dont le mot vide) formé par les lettres (symboles) d'un ensemble nommé dictionnaire et noté $\Sigma$
+    Un dictionnaire $\Sigma^*$ est l'ensemble de tout les mots finis ( dont le mot vide) formé par les lettres (symboles) d'un ensemble nommé alphabet et noté $\Sigma$
 \end{definition}
 
 Un \textbf{Input} d'un algorithme doit être finiement représentable. Par exemple $\N$ est un input infini mais représenté par un symbole.
-En fait, 
+En fait, on a besoin d'une fonction d'encodage 
 $$
-x\mapsto \operatorname{enc(x)\in \Sigma^*}
+x\mapsto \operatorname{enc}(x)\in \Sigma^*
 $$
 
 Etant donné un mot $w\in \Sigma^*$, décider le problème $\mathcal{P}$
@@ -85,17 +90,26 @@ Pour être clair, une instance positive est l'ensemble des inputs dont la questi
     On peut réflechir à un algorithme pour déterminer si un mot appartient à $ \mathcal{L}_{101}$. La notion de mémoire apparait !
 \end{exemple}
 
+Avec ce même formalisme, nous pouvons répondre à des problèmes bien plus compliqués.
+
 \begin{definition}
     On  définit un systeme formel $S$ comme la réunion d'un alphabet, synthaxe, sémantique et ect..
 \end{definition}
 
-Avec $\varphi, \pi$ dans un système $S$, où $\varphi$ est un ennoncé et $\pi$ est une tentative de preuve. On s'interresse à
+Le premier problème est :
+
+Avec $\varphi, \pi$ dans un système $S$, où $\varphi$ est un ennoncé et $\pi$ est une tentative de preuve. On veut déterminer
 $$
 V_S = \{\langle \varphi, \pi \rangle | \pi \text{ est une preuve valide de } \varphi\text{ dans } S \}
 $$
 
-Pour cela, on doit s'interresser à $T_S = \{\varphi | \exists \text{ une preuve } \pi \text{ dans } S\}$
-Il faut distinguer que en pratique on peut même s'il n'existe pas de preuve avec certains inputs sur d'autres input on pourrait trouver une preuve.
+En générale, déterminer si une preuve est correcte est décidable.
+
+Le second problème encore plus compliqué est :
+
+
+Sous les même hypothèses déterminons $$T_S = \{\varphi | \exists \text{ une preuve } \pi \text{ dans } S\}$$
+Il faut distinguer qu'en pratique on peut même s'il n'existe pas de preuve avec certains inputs sur d'autres input on pourrait trouver une preuve. Mais le fait que déterminer ce langage soit encore plus compliqué est étroitement lié au théorème de completude de Godel.
 Il faut distingué la \textbf{vérité} et la \textbf{démontrabilité} parfois les notions sémentiques et la notion synthaxique d'une preuve ne peuvent pas toujours correspondre.
 
 
