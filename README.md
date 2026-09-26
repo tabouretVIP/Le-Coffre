@@ -4,7 +4,7 @@ L'objectif de ce projet est d'une part de permettre un suivi studieux de nos cou
 En l'état, ***Le Coffre*** contient des notes de la majorité des cours de bachelier en option informatique. Tout étudiant en master ou en option physique est invité à partager ses documents pour que le plus grand nombre puisse en profiter. Plus bas, pour les débutants, nous détaillons comment utiliser GitHub pour faciliter l'accès à ce projet. 
 
 ### Fonctionnement
-Le projet contient donc des thèmes qui ne sont pas couverts en cours ; pour éviter les confusions, les documents « non officiels » seront donc nommés comme "\*ExempleSuperCool\*". Ci-dessous, nous présentons la hiérarchie des fichiers :
+Le projet contient donc des thèmes qui ne sont pas couverts en cours ; pour éviter les confusions, les documents « non officiels » seront donc nommés comme "ExempleSuperCool--". Ci-dessous, nous présentons la hiérarchie des fichiers :
 
 ```
 Le-Coffre/
