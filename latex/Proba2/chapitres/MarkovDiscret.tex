@@ -9,17 +9,24 @@
 On veut s'éloigner de la notion i.i.d. que l'on a pu étudier auparavant dans le but d'étudier des phenomenes plus complexes.
 
 \begin{definition}
-    Une chaine de Markov (en temps discret) est un processus stochastique $\{X_n\mid n\ge 0\}$ à valeurs dasn un ensemble fini ou dénombrable $E$, qui satisfait :
+    Une chaine de Markov (en temps discret) est un processus stochastique $\{X_n\mid n\ge 0\}$ à valeurs dans un ensemble fini ou dénombrable $E$, qui satisfait :
     \begin{description}
         \item[Propriété de Markov : ]$$ P(X_{n+1}\mid X_0 = i_0, X_1 = i_1,\dotsc, X_n = i_n) = P(X_{n+1} = j\mid X_n = i_n) \quad \forall n \in \N, \forall j, i_0, \dotsc, i_n\in E$$ 
         \item[Homogéneité : ] $$P(X_{n+1}= j\mid X_n = 1)= P(X_1= j\mid X_0= i) \quad \forall n, \forall i,j \in E$$    
     \end{description}
 \end{definition}
 \begin{notation}
+    Pour être clair, on établit les conventions suivantes :
+
     $E = \{\text{états du système\}}$
+
     $X_n = i$ : le système est dans l'état $i$ au moment $n$.
+
     $X_n = i, X_{n=1} = j$ : entre $n$ et $n+1$, le système fait une transitino de $i$ à $j$
-    Un vecteur sera noté $\overline{v}$ et sa nature dépendra du contexte. On utilise aussi les conventions suivantes : $\frac{1}{\infty}= 0$ et $0\cdot \infty = 0$.
+    
+    Un vecteur sera noté $\overline{v}$ et sa nature dépendra du contexte. 
+    
+    On utilise aussi: $\frac{1}{\infty}= 0$ et $0\cdot \infty = 0$.
 \end{notation}
 
 \begin{definition}
@@ -51,13 +58,16 @@ Pour rappel:
 $$P(A\cap B \mid C)= P(A\mid B,C)P(B\mid C)$$
 
 \begin{proof}
+    Prouvons maintenant les trois points précédents : 
     \begin{enumerate}
-        \item \begin{align*}
+        \item On a  
+        \begin{align*}
            P(X_0 = \dotsc, X_n = i_n) &= P( X_1 = i_1,\dotsc, X_n = i_n\mid X_0 = i_0)P(X_0 = i_0)\\
            &=  P(X_2 = i_2,\dots, X_n = i_n\mid X_0 = i_0, X_1 = i_1)P(X_1 = i_1\mid X_0 = i_0) \alpha_{i_0}\\
            &=  P(X_3 = i_3,\dots, X_n = i_n\mid X_0 = i_0, X_1 = i_1,X_2 = i_2)P(X_2 = i_2\mid X_0 = i_0, X_1 = i_1) \un P_{01}\alpha_{i_0}\\
            &= P(X_3 = i_3,\dots, X_n = i_n\mid X_0 = i_0, X_1 = i_1,X_2 = i_2)P(X_2 = i_2\mid  X_1 = i_1) \un P_{01}\alpha_{i_0} \text{ par la propriété de Markov}
-           &= \dots\\ =\alpha_{i_0}P_{i_0i_1}P_{i_1i_2}\cdot\dots P_{i_{n-1}i_n}
+           &= \dots\\ 
+        &=\alpha_{i_0}P_{i_0i_1}P_{i_1i_2}\cdot\dots P_{i_{n-1}i_n}
         \end{align*}
         \item Par induction sur $n$. Le cas de base est trivialement vérifié. Supposons que cela est vrai pour $n$ montrons le pour $n+1$
         \begin{align*}
@@ -74,17 +84,19 @@ $$P(A\cap B \mid C)= P(A\mid B,C)P(B\mid C)$$
     \end{enumerate}
 \end{proof}
 \begin{proposition}[Équations de Chapman-Kolmogorov]
-    $$P(X_{n+m} = j\mid X_0 = i) = \sum {k\in E}(P(X_n = k\mid X_0 = i)P(X_m = j\mid X_0 = k)$$
+    $$P(X_{n+m} = j\mid X_0 = i) = \sum_{k\in E}(P(X_n = k\mid X_0 = i)P(X_m = j\mid X_0 = k)$$
 \end{proposition}
 \begin{proof}
     
-\end{proof}
+
 On sait que $P^{n+m}= P^nP ^m$. On sait donc toujours que 
 $$P(X_{n+m}= j \mid X_0 = i)= \sum_{k\in E}P(X_n= k\mid X_0= i)P(X_m= j \mid X_0= k)$$
+\end{proof}
+
 \begin{exemple}
 Voici quelques exemples de CM : 
     \begin{itemize}
-        \item Tous les jours on a un état que qui s'appel $S$ pour soleil $N$ pour nuage et $p$ pour pluie. Et le temps qu'il fait demain est uniquement dépendant du temps de ce jour. Si disons, on sait que : aujourd'hui il fait soleil alors demain ce sera pluie (80\%) et nuage (20\%) et s'il fait nuageux alors demain soleil (30\%) et nuage pour 70\% et enfin si aujourd'hui on est dans l'état pluie  alors il fait du soleil pour 5\%, nuage pour 5\% et pluie pour 90\%
+        \item[Méteo :] Tous les jours on a un état que qui s'appel $S$ pour soleil $N$ pour nuage et $p$ pour pluie. Et le temps qu'il fait demain est uniquement dépendant du temps de ce jour. Si disons, on sait que : aujourd'hui il fait soleil alors demain ce sera pluie (80\%) et nuage (20\%) et s'il fait nuageux alors demain soleil (30\%) et nuage pour 70\% et enfin si aujourd'hui on est dans l'état pluie  alors il fait du soleil pour 5\%, nuage pour 5\% et pluie pour 90\%
         
 \begin{center}
 
@@ -161,7 +173,7 @@ $P=\begin{pmatrix}
     0 && 0,2 && 0, 8\\ 0,3 && 0, 7 && 0\\ 0, 05 && 0,05 && 0, 9
 \end{pmatrix}$
 
-\item[Epidémies SIS]
+\item[Epidémies SIS :]
 On suppose avoir une population de $N$ personnes elle est fermée et constante. Un virus s'y balade. On catégarise la population avec les suseptibles et les infectés et une fois infecté apres être guérris on peut redevenir malade. On est infecté au moment $n$ on est suseptible au moment $n+1$. On évalue que chaque infecté rencontre une autre personne suseptible se fait avec un probabilité $p$. Et la rencontre sus et infecté mène à la contamination avec une proba $\rho$. On note $S_n$ le nombre de sus au moment $n$ et $I_n$ et le nombre d'infectés au moment $n$. Etant donné l'état de la population nous avons pour tout $n$, $I_n= N-S_n$. Dans ce modèle, sachant $S_n$,
 $$S_{n+1} \sim \operatorname{Bin}(S_n, q^{I_n})+ I_n$$
 
@@ -172,10 +184,12 @@ Ainsi, $\{S_n\}$ est une chaine de Markov, avec $\overline{\alpha}= \overline{e}
      &X= Y+ N - i\\
      &Y \sim \operatorname{Bin}(i, q^{N-i})
 \end{align*}
-\item[Durées de vie]
-Supposons avoir $N$ classes d'âge $1,\dots, N$
+\item[Durées de vie :]
+Supposons avoir $N$ classes d'âge $1,\dots, N$ avec pour chaque âge une probabilité sur survivre jusqu'a l'âge suivant. On peut se demander combien de personnes y'a t'il en vie pour une certaine classe d'age avec un nombre de population de départ donné.
+On peut représenter cette CM comme :
 
 
+\begin{center}
 \tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
 
 \begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
@@ -247,6 +261,478 @@ Supposons avoir $N$ classes d'âge $1,\dots, N$
 
 
 \end{tikzpicture}
+\end{center}
 
+\item [Marche aléatoire :] On suppose avoir une personne se baladant sur une droite il habite à l'état $0$ et pour chaque états (endroits) dans lequel il se trouve il à une probabilité d'avancer et une probabilité de reculer.
+On peut se demander quel est la probabilité qu'il rentre chez lui un jour, par exemple. Voici une modélisation de cette CM :
+
+\begin{center}
+    
+
+\tikzset{every picture/.style={line width=0.75pt}} %set default line width to 0.75pt        
+
+\begin{tikzpicture}[x=0.75pt,y=0.75pt,yscale=-1,xscale=1]
+%uncomment if require: \path (0,300); %set diagram left start at 0, and has height of 300
+
+%Shape: Circle [id:dp0916557784933495] 
+\draw   (102,114.2) .. controls (102,103.26) and (110.86,94.4) .. (121.8,94.4) .. controls (132.74,94.4) and (141.6,103.26) .. (141.6,114.2) .. controls (141.6,125.14) and (132.74,134) .. (121.8,134) .. controls (110.86,134) and (102,125.14) .. (102,114.2) -- cycle ;
+%Shape: Circle [id:dp5315774352510997] 
+\draw   (176,115.2) .. controls (176,104.26) and (184.86,95.4) .. (195.8,95.4) .. controls (206.74,95.4) and (215.6,104.26) .. (215.6,115.2) .. controls (215.6,126.14) and (206.74,135) .. (195.8,135) .. controls (184.86,135) and (176,126.14) .. (176,115.2) -- cycle ;
+%Shape: Circle [id:dp680771035124237] 
+\draw   (249,112.2) .. controls (249,101.26) and (257.86,92.4) .. (268.8,92.4) .. controls (279.74,92.4) and (288.6,101.26) .. (288.6,112.2) .. controls (288.6,123.14) and (279.74,132) .. (268.8,132) .. controls (257.86,132) and (249,123.14) .. (249,112.2) -- cycle ;
+%Shape: Circle [id:dp01920671466238466] 
+\draw   (322,108.2) .. controls (322,97.26) and (330.86,88.4) .. (341.8,88.4) .. controls (352.74,88.4) and (361.6,97.26) .. (361.6,108.2) .. controls (361.6,119.14) and (352.74,128) .. (341.8,128) .. controls (330.86,128) and (322,119.14) .. (322,108.2) -- cycle ;
+%Shape: Circle [id:dp5543229876590718] 
+\draw   (392,105.2) .. controls (392,94.26) and (400.86,85.4) .. (411.8,85.4) .. controls (422.74,85.4) and (431.6,94.26) .. (431.6,105.2) .. controls (431.6,116.14) and (422.74,125) .. (411.8,125) .. controls (400.86,125) and (392,116.14) .. (392,105.2) -- cycle ;
+%Curve Lines [id:da24470901953768698] 
+\draw    (124,88) .. controls (126.64,53.75) and (191.35,43.6) .. (192.65,89.01) ;
+\draw [shift={(192.67,90.4)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da7953261194696739] 
+\draw    (199,86) .. controls (201.64,51.75) and (266.35,41.6) .. (267.65,87.01) ;
+\draw [shift={(267.67,88.4)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da4573323151292218] 
+\draw    (273,80) .. controls (275.64,45.75) and (340.35,35.6) .. (341.65,81.01) ;
+\draw [shift={(341.67,82.4)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da6366411993995461] 
+\draw    (344,79) .. controls (346.64,44.75) and (411.35,34.6) .. (412.65,80.01) ;
+\draw [shift={(412.67,81.4)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da6645407938277232] 
+\draw    (416,77) .. controls (418.64,42.75) and (483.35,32.6) .. (484.65,78.01) ;
+\draw [shift={(484.67,79.4)}, rotate = 270] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da4809535085350177] 
+\draw    (195.67,144.4) .. controls (195.34,178.28) and (121.92,186.17) .. (119.72,145.3) ;
+\draw [shift={(119.67,143.4)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da965190567684146] 
+\draw    (271.67,145.4) .. controls (271.34,179.28) and (197.92,187.17) .. (195.72,146.3) ;
+\draw [shift={(195.67,144.4)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da3411792318515666] 
+\draw    (348.67,139.4) .. controls (348.34,173.28) and (274.92,181.17) .. (272.72,140.3) ;
+\draw [shift={(272.67,138.4)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+%Curve Lines [id:da10050640411209433] 
+\draw    (423.67,139.4) .. controls (423.34,173.28) and (349.92,181.17) .. (347.72,140.3) ;
+\draw [shift={(347.67,138.4)}, rotate = 90] [color={rgb, 255:red, 0; green, 0; blue, 0 }  ][line width=0.75]    (10.93,-3.29) .. controls (6.95,-1.4) and (3.31,-0.3) .. (0,0) .. controls (3.31,0.3) and (6.95,1.4) .. (10.93,3.29)   ;
+
+% Text Node
+\draw (117,106.4) node [anchor=north west][inner sep=0.75pt]    {$0$};
+% Text Node
+\draw (191,107.4) node [anchor=north west][inner sep=0.75pt]    {$1$};
+% Text Node
+\draw (264,104.4) node [anchor=north west][inner sep=0.75pt]    {$2$};
+% Text Node
+\draw (337,100.4) node [anchor=north west][inner sep=0.75pt]    {$3$};
+% Text Node
+\draw (407,97.4) node [anchor=north west][inner sep=0.75pt]    {$4$};
+% Text Node
+\draw (152,32.4) node [anchor=north west][inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (227,30.4) node [anchor=north west][inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (301,24.4) node [anchor=north west][inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (372,23.4) node [anchor=north west][inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (444,21.4) node [anchor=north west][inner sep=0.75pt]    {$p$};
+% Text Node
+\draw (471,92.4) node [anchor=north west][inner sep=0.75pt]    {$\cdots $};
+% Text Node
+\draw (157,180.4) node [anchor=north west][inner sep=0.75pt]    {$q$};
+% Text Node
+\draw (233,181.4) node [anchor=north west][inner sep=0.75pt]    {$q$};
+% Text Node
+\draw (310,175.4) node [anchor=north west][inner sep=0.75pt]    {$q$};
+% Text Node
+\draw (385,175.4) node [anchor=north west][inner sep=0.75pt]    {$q$};
+
+
+\end{tikzpicture}
+
+\end{center}
+
+où on construit sa matrice comme $P= \begin{pmatrix}
+    q & p &0&0&0&\dots \\ q&0&p&0&0&\dots \\ 0&0&q&0&p& \dots \\ 0&0&0&q&0&\dots\\ \dots&\dots&\dots&\dots&\dots&\dots
+\end{pmatrix}$
     \end{itemize}
 \end{exemple}
+
+\section{Propriété forte de Markov}
+
+Soit $\{X_n\}$ une chaine de Markov, la propriété de Markov est :
+
+$$
+\forall k \in \N_0 \quad P(X_{k+1}=i_1, \dots X_{k+n}= i_n | X_0,X_1,\dots, X_k= i)= P(X_1= i_1,X_2= i_2,\dots , X_n=i_n | X_0=i)
+$$
+On peut se demander si on peut remplacer $k$ par \textbf{une variable aléatoire} et que cette propriété reste vraie. En effet, cela est possible si cette v.a est un temps d'arret.
+
+\begin{definition}
+    Soient $\{X_n\}$ unz CM et $T$ une v.a sur $\N \cup \{+\infty\}$. On dit que 
+    $T$ est un temps d'arret pour $\{X_n\}$ si $\forall n $, l'évenement $T= n$ ne depend que de $X_0,\dots, X_n$ ( et pas du future $X_{n+1},\dots $)
+\end{definition}
+
+\begin{exemple}
+    Voici deux exemples  : soit $j\in E$,
+    \begin{itemize}
+        \item posons $\theta_j = \operatorname{inf}\{n\geq 0, X_n = j\}$
+        \item posons $L_j= \operatorname{sup}\{n\geq 0, X_n= j\}$ (n'est pas un temps d'arret)
+    \end{itemize}
+\end{exemple}
+
+\begin{proposition}[Propriété de Markov forte]
+Soient $\{X_n\}$ une chaîne de Markov $\sim(\alpha,P)$ et $T$ un temps d'arrêt pour $\{X_n\}$. Alors, sachant $\{T<\infty,\ X_T=i\}$, le processus $\{X_{T+m} \,:\, m\ge 0\}$ est une chaîne de Markov $\sim(e_i,P)$, indépendante de $X_0,X_1,\dots,X_T$.
+
+Autrement dit : si $A$ est un événement qui ne dépend que de $X_0,\dots,X_T$, c'est-à-dire tel que $A\cap\{T=k\}\in\sigma(X_0,\dots,X_k)$ pour tout $k\ge0$, et si $P(A,\ T<\infty,\ X_T=i)>0$, alors pour tous $m\ge1$ et $i_1,\dots,i_m$,
+\[
+P\big(X_{T+1}=i_1,\dots,X_{T+m}=i_m \,\big|\, A,\ T<\infty,\ X_T=i\big)
+= P\big(X_1=i_1,\dots,X_m=i_m \,\big|\, X_0=i\big).
+\]
+\end{proposition}
+
+\begin{proof}
+Fixons $m\ge1$ et $i_1,\dots,i_m$, et notons
+\[
+E:=\{X_{T+1}=i_1,\dots,X_{T+m}=i_m\},\qquad
+E_k:=\{X_{k+1}=i_1,\dots,X_{k+m}=i_m\}\quad(k\ge0),
+\]
+ainsi que
+\[
+\pi:=P\big(X_1=i_1,\dots,X_m=i_m \,\big|\, X_0=i\big).
+\]
+On utilisera la propriété de Markov sous la forme suivante : pour tout $k\ge0$ et tout $B\in\sigma(X_0,\dots,X_k)$ tel que $P(B,\,X_k=i)>0$,
+\begin{equation}\label{eq:markov}
+P\big(E_k \,\big|\, B,\ X_k=i\big)=\pi .
+\end{equation}
+
+Par définition de la probabilité conditionnelle, il suffit de montrer que
+\begin{equation}\label{eq:but}
+P\big(E,\ A,\ T<\infty,\ X_T=i\big)=\pi\;P\big(A,\ T<\infty,\ X_T=i\big).
+\end{equation}
+
+Comme $\{T<\infty\}$ est la réunion disjointe des $\{T=k\}$, $k\ge0$, et que sur $\{T=k\}$ on a $E=E_k$ et $X_T=X_k$, on obtient
+\begin{equation}\label{eq:somme}
+P\big(E,\ A,\ T<\infty,\ X_T=i\big)
+=\sum_{k=0}^{\infty}P\big(E,\ A,\ T=k,\ X_T=i\big)
+=\sum_{k=0}^{\infty}P\big(E_k,\ A,\ T=k,\ X_k=i\big).
+\end{equation}
+
+Soit $k\ge0$. L'événement $B_k:=A\cap\{T=k\}$ appartient à $\sigma(X_0,\dots,X_k)$, par hypothèse sur $A$ et parce que $T$ est un temps d'arrêt. Si $P(B_k,\,X_k=i)=0$, alors $P(E_k,\,B_k,\,X_k=i)=0$ aussi. Sinon, d'après \eqref{eq:markov} appliquée à $B=B_k$,
+\[
+P\big(E_k,\ B_k,\ X_k=i\big)
+=P\big(E_k\,\big|\,B_k,\ X_k=i\big)\,P\big(B_k,\ X_k=i\big)
+=\pi\,P\big(B_k,\ X_k=i\big).
+\]
+Dans tous les cas,
+\begin{equation}\label{eq:terme}
+P\big(E_k,\ A,\ T=k,\ X_k=i\big)=\pi\,P\big(A,\ T=k,\ X_k=i\big).
+\end{equation}
+
+En reportant \eqref{eq:terme} dans \eqref{eq:somme}, puis en utilisant à nouveau la décomposition disjointe de $\{T<\infty\}$,
+\[
+P\big(E,\ A,\ T<\infty,\ X_T=i\big)
+=\pi\sum_{k=0}^{\infty}P\big(A,\ T=k,\ X_k=i\big)
+=\pi\,P\big(A,\ T<\infty,\ X_T=i\big),
+\]
+ce qui est \eqref{eq:but}. Puisque $P(A,\ T<\infty,\ X_T=i)>0$, on en déduit
+\[
+P\big(X_{T+1}=i_1,\dots,X_{T+m}=i_m \,\big|\, A,\ T<\infty,\ X_T=i\big)
+=\pi
+=P\big(X_1=i_1,\dots,X_m=i_m \,\big|\, X_0=i\big).
+\]
+
+Le membre de droite vaut $p_{ii_1}p_{i_1i_2}\cdots p_{i_{m-1}i_m}$ et ne dépend pas de $A$. En prenant $A=\Omega$, on voit que, sachant $\{T<\infty,\ X_T=i\}$, le processus $\{X_{T+m}\}_{m\ge0}$ a les lois fini-dimensionnelles d'une chaîne de Markov $\sim(e_i,P)$ ; et l'indépendance du résultat vis-à-vis de $A$ traduit précisément l'indépendance de ce processus avec $X_0,\dots,X_T$.
+\end{proof}
+
+\textbf{Application : }
+
+Soit $(X_n)_{n\ge 0}$ une chaîne de Markov $\sim(\alpha,P)$ sur $E$ et $j\in E$ fixé. On pose
+\[
+T_j:=\inf\{n\ge 1 : X_n=j\}
+\qquad\text{(temps de premier retour en } j\text{)},
+\]
+et l'on définit les temps de passages successifs en $j$ par
+\[
+\theta_j(1):=\inf\{n\ge 0 : X_n=j\},
+\qquad
+\theta_j(k+1):=\inf\{n>\theta_j(k) : X_n=j\}\quad(k\ge 1),
+\]
+avec la convention $\inf\emptyset=+\infty$ (et $\theta_j(k+1)=+\infty$ si $\theta_j(k)=+\infty$).
+Les durées $\theta_j(k+1)-\theta_j(k)$ sont les longueurs des intervalles $I_k$ entre deux visites consécutives en $j$.
+
+\begin{center}
+\begin{tikzpicture}[x=0.9cm,y=0.8cm]
+  \draw[->] (0,0) -- (10,0) node[right] {$n$};
+  \draw[->] (0,0) -- (0,2.3) node[left] {$E$};
+  \draw[dashed] (0,1.2) -- (9.5,1.2) node[left,pos=0] {$j$};
+  \foreach \x in {1,2,3,4,5,6,7,8,9} \draw (\x,-0.1)--(\x,0.1);
+  \foreach \x/\y in {0/0.5,1/1.8,2/1.2,3/0.7,4/1.2,5/1.2,6/1.9,7/1.2,8/0.4,9/1.2}
+     \fill (\x,\y) circle (2pt);
+  \foreach \x in {2,4,5,7,9} \draw[thick] (\x,-0.25)--(\x,0.25);
+  \draw[<->] (2,-0.6)--(4,-0.6) node[midway,below] {$I_1$};
+  \draw[<->] (4,-0.6)--(5,-0.6) node[midway,below] {$I_2$};
+  \draw[<->] (5,-0.6)--(7,-0.6) node[midway,below] {$I_3$};
+  \draw[<->] (7,-0.6)--(9,-0.6) node[midway,below] {$I_4$};
+  \node[below] at (2,-1.1) {$\theta_j(1)$};
+  \node[below] at (4,-1.1) {$\theta_j(2)$};
+\end{tikzpicture}
+\end{center}
+
+\begin{lemme}
+Pour tout $k\ge 1$, $\theta_j(k)$ est un temps d'arrêt pour $(X_n)$, et $X_{\theta_j(k)}=j$ sur $\{\theta_j(k)<\infty\}$.
+\end{lemme}
+
+\begin{proof}
+Par récurrence sur $k$. Pour $k=1$ et $n\ge 0$,
+$\{\theta_j(1)=n\}=\{X_0\ne j,\dots,X_{n-1}\ne j,\,X_n=j\}\in\sigma(X_0,\dots,X_n)$.
+Si $\theta_j(k)$ est un temps d'arrêt, alors pour $n\ge 0$,
+\[
+\{\theta_j(k+1)=n\}=\bigsqcup_{\ell=0}^{n-1}\{\theta_j(k)=\ell\}\cap\{X_{\ell+1}\ne j,\dots,X_{n-1}\ne j,\,X_n=j\}
+\in\sigma(X_0,\dots,X_n).
+\]
+Enfin $X_{\theta_j(k)}=j$ sur $\{\theta_j(k)<\infty\}$ par définition de l'infimum (l'ensemble $\{n:X_n=j\}$ est un sous-ensemble de $\mathbb N$, donc l'inf est atteint lorsqu'il est fini).
+\end{proof}
+
+\begin{proposition}
+Soit $k\ge 1$ tel que $P(\theta_j(k)<\infty)>0$. Alors, conditionnellement à $\{\theta_j(k)<\infty\}$, la variable $\theta_j(k+1)-\theta_j(k)$ est indépendante de $(X_0,\dots,X_{\theta_j(k)})$ et a même loi que $T_j$ sous $P(\,\cdot\mid X_0=j)$ :
+\[
+P\big(\theta_j(k+1)-\theta_j(k)=s \,\big|\, \theta_j(k)<\infty\big)
+=P\big(T_j=s\,\big|\,X_0=j\big)\qquad\text{pour tout } s\in\mathbb N^*\cup\{+\infty\}.
+\]
+Plus précisément, pour tout événement $A$ déterminé par $X_0,\dots,X_{\theta_j(k)}$ tel que $P(A,\theta_j(k)<\infty)>0$,
+\[
+P\big(\theta_j(k+1)-\theta_j(k)=s \,\big|\, A,\ \theta_j(k)<\infty\big)
+=P\big(T_j=s\,\big|\,X_0=j\big).
+\]
+\end{proposition}
+
+\begin{proof}
+Notons $T:=\theta_j(k)$. D'après le lemme, $T$ est un temps d'arrêt et $\{T<\infty\}=\{T<\infty,\ X_T=j\}$. On peut donc appliquer la propriété de Markov forte avec $i=j$ : posons $Y_m:=X_{T+m}$ pour $m\ge 0$ (défini sur $\{T<\infty\}$). Pour tout $A$ déterminé par $X_0,\dots,X_T$ avec $P(A,T<\infty)>0$, et tous $m\ge1$, $i_1,\dots,i_m\in E$,
+\begin{equation}\label{eq:forte}
+P\big(Y_1=i_1,\dots,Y_m=i_m\,\big|\,A,\ T<\infty\big)
+=P\big(X_1=i_1,\dots,X_m=i_m\,\big|\,X_0=j\big).
+\end{equation}
+
+\emph{Réécriture de l'incrément.} Sur $\{T<\infty\}$, par définition,
+\[
+\theta_j(k+1)=\inf\{n>T : X_n=j\}=T+\inf\{m\ge 1 : X_{T+m}=j\},
+\qquad\text{donc}\qquad
+\theta_j(k+1)-\theta_j(k)=\inf\{m\ge 1: Y_m=j\}.
+\]
+C'est exactement le temps de premier retour en $j$ du processus $(Y_m)_{m\ge 0}$.
+
+\emph{Calcul de la loi.} Soit $s\in\mathbb N^*$. L'événement $\{\inf\{m\ge1:Y_m=j\}=s\}$ s'écrit comme réunion disjointe dénombrable de cylindres :
+\[
+\{Y_1\ne j,\dots,Y_{s-1}\ne j,\ Y_s=j\}
+=\bigsqcup_{(i_1,\dots,i_{s-1})\in(E\setminus\{j\})^{s-1}}\{Y_1=i_1,\dots,Y_{s-1}=i_{s-1},\ Y_s=j\}.
+\]
+Par $\sigma$-additivité et \eqref{eq:forte} appliquée terme à terme,
+\begin{align*}
+P\big(\theta_j(k+1)-\theta_j(k)=s\,\big|\,A,\ T<\infty\big)
+&=\sum_{(i_1,\dots,i_{s-1})\in(E\setminus\{j\})^{s-1}}
+  P\big(Y_1=i_1,\dots,Y_{s-1}=i_{s-1},Y_s=j\,\big|\,A,\ T<\infty\big)\\
+&=\sum_{(i_1,\dots,i_{s-1})\in(E\setminus\{j\})^{s-1}}
+  P\big(X_1=i_1,\dots,X_{s-1}=i_{s-1},X_s=j\,\big|\,X_0=j\big)\\
+&=P\big(X_1\ne j,\dots,X_{s-1}\ne j,\ X_s=j\,\big|\,X_0=j\big)
+ =P\big(T_j=s\,\big|\,X_0=j\big).
+\end{align*}
+Le cas $s=+\infty$ s'en déduit par passage au complémentaire :
+$P(\theta_j(k+1)-\theta_j(k)=\infty\mid A,T<\infty)=1-\sum_{s\ge1}P(T_j=s\mid X_0=j)=P(T_j=\infty\mid X_0=j)$.
+
+Le membre de droite ne dépend pas de $A$ : c'est précisément l'indépendance annoncée entre $\theta_j(k+1)-\theta_j(k)$ et $(X_0,\dots,X_{\theta_j(k)})$, sachant $\{\theta_j(k)<\infty\}$. En prenant $A=\Omega$ on obtient la formule de la loi.
+\end{proof}
+
+\begin{corollaire}[Intervalles i.i.d.]
+Soit $K\ge 1$ tel que $P(\theta_j(K)<\infty)>0$. Conditionnellement à $\{\theta_j(K)<\infty\}$, les variables
+$\theta_j(2)-\theta_j(1),\ \dots,\ \theta_j(K)-\theta_j(K-1)$
+sont indépendantes et de même loi que $T_j$ sous $P(\,\cdot\mid X_0=j)$.
+\end{corollaire}
+
+\begin{proof}
+Chaque $\theta_j(\ell+1)-\theta_j(\ell)$ est déterminé par $X_0,\dots,X_{\theta_j(\ell+1)}$ ; on applique la proposition successivement pour $k=K-1,K-2,\dots,1$ en conditionnant à chaque étape par l'événement $A$ « les incréments précédents prennent des valeurs fixées », qui est déterminé par $X_0,\dots,X_{\theta_j(k)}$.
+\end{proof}
+
+\section{Visites par un état}
+
+Soit $(X_n)_{n\ge0}$ une chaîne de Markov sur $E$ et $j\in E$. On note
+\[
+V_j:=\sum_{m=0}^{\infty}\mathbf 1_{\{X_m=j\}}\in\mathbb N\cup\{+\infty\}
+\]
+le nombre total de visites en $j$, et
+\[
+T_j:=\inf\{n\ge1 : X_n=j\},\qquad
+f_{ij}:=P\big(T_j<\infty\,\big|\,X_0=i\big)\quad(i\in E).
+\]
+On reprend les temps de passages successifs $\theta_j(k)$ de la section précédente.
+
+\begin{theoreme}\label{thm:visites}
+Soit $n\ge 0$.
+\begin{enumerate}
+\item Pour $i=j$ :
+\[
+P(V_j>n\mid X_0=j)=f_{jj}^{\,n}.
+\]
+Par conséquent,
+\[
+P(V_j=n\mid X_0=j)=f_{jj}^{\,n-1}(1-f_{jj})\qquad(n\ge1).
+\]
+\item Pour $i\neq j$ :
+\[
+P(V_j>n\mid X_0=i)=f_{ij}\,f_{jj}^{\,n}.
+\]
+Par conséquent,
+\[
+P(V_j=n\mid X_0=i)=
+\begin{cases}
+1-f_{ij} & \text{si } n=0,\\[2pt]
+f_{ij}\,f_{jj}^{\,n-1}(1-f_{jj}) & \text{si } n\ge1.
+\end{cases}
+\]
+\end{enumerate}
+\end{theoreme}
+
+\begin{remarque}
+\begin{itemize}
+\item On rappelle que $Y\sim\mathcal G(p)$ (loi géométrique sur $\mathbb N^*$) si
+\[
+P(Y=n)=(1-p)^{n-1}p\qquad(n\ge1).
+\]
+Le théorème dit donc que, si $f_{jj}<1$, la loi de $V_j$ sous $P(\,\cdot\mid X_0=j)$ est $\mathcal G(1-f_{jj})$.
+\item La loi géométrique est la seule loi sur $\mathbb N^*$ ayant la propriété d'absence de mémoire :
+\[
+P(Y>n+s\mid Y>n)=P(Y>s)\qquad(n,s\ge0).
+\]
+C'est exactement ce que traduit la propriété de Markov forte : à chaque retour en $j$, la chaîne « repart à neuf ».
+\item Si $f_{jj}=1$, on a $P(V_j>n\mid X_0=i)=f_{ij}$ pour tout $n$. Donc $P(V_j=\infty\mid X_0=j)=1$ et $P(V_j=\infty\mid X_0=i)=f_{ij}$.
+\item Il reste à calculer les $f_{ij}$.
+\end{itemize}
+\end{remarque}
+
+\begin{proof}
+\emph{Cas $i=j$.} Sous $X_0=j$, on a $\theta_j(1)=0$. Le nombre de visites en $j$ est donc au moins $n+1$ si et seulement si le $(n+1)$-ième passage a lieu :
+\[
+\{V_j>n\}=\{\theta_j(n+1)<\infty\}\qquad\text{sur }\{X_0=j\}.
+\]
+Montrons par récurrence sur $n$ que $P(V_j>n\mid X_0=j)=f_{jj}^{\,n}$.
+
+Pour $n=0$, on a $P(V_j>0\mid X_0=j)=1=f_{jj}^{\,0}$, puisque $X_0=j$.
+
+Soit $n\ge1$ ; supposons le résultat vrai au rang $n-1$. Comme $\theta_j(n+1)<\infty$ implique $\theta_j(n)<\infty$,
+\begin{align*}
+P(V_j>n\mid X_0=j)
+&=P\big(\theta_j(n)<\infty,\ \theta_j(n+1)-\theta_j(n)<\infty\,\big|\,X_0=j\big)\\
+&=P\big(\theta_j(n+1)-\theta_j(n)<\infty\,\big|\,\theta_j(n)<\infty,\ X_0=j\big)\,
+  P\big(\theta_j(n)<\infty\,\big|\,X_0=j\big).
+\end{align*}
+Si $P(\theta_j(n)<\infty\mid X_0=j)=0$, les deux membres sont nuls et il n'y a rien à montrer. Sinon, on raisonne comme suit.
+\begin{itemize}
+\item L'événement $A=\{X_0=j\}$ est déterminé par $X_0,\dots,X_{\theta_j(n)}$. La proposition sur les intervalles entre visites donne donc
+\[
+P\big(\theta_j(n+1)-\theta_j(n)<\infty\,\big|\,\theta_j(n)<\infty,\ X_0=j\big)
+=P(T_j<\infty\mid X_0=j)=f_{jj}.
+\]
+\item Par hypothèse de récurrence,
+\[
+P\big(\theta_j(n)<\infty\,\big|\,X_0=j\big)=P(V_j>n-1\mid X_0=j)=f_{jj}^{\,n-1}.
+\]
+\end{itemize}
+Ainsi $P(V_j>n\mid X_0=j)=f_{jj}\cdot f_{jj}^{\,n-1}=f_{jj}^{\,n}$, ce qui achève la récurrence.
+
+\emph{Cas $i\neq j$.} On décompose selon que la chaîne atteint $j$ ou non :
+\begin{align*}
+P(V_j>n\mid X_0=i)
+={}&P\big(V_j>n\,\big|\,X_0=i,\ T_j<\infty\big)\,P(T_j<\infty\mid X_0=i)\\
+&+P\big(V_j>n\,\big|\,X_0=i,\ T_j=\infty\big)\,P(T_j=\infty\mid X_0=i),
+\end{align*}
+avec la convention qu'un terme est nul si la probabilité de l'événement conditionnant est nulle.
+\begin{itemize}
+\item \emph{Second terme.} Sur $\{X_0=i,\ T_j=\infty\}$, la chaîne ne visite jamais $j$, donc $V_j=0$. Le second terme est nul.
+\item \emph{Premier terme.} Comme $X_0=i\neq j$, la chaîne ne visite pas $j$ avant $T_j$. Sur $\{T_j<\infty\}$, on a donc
+\[
+V_j=\sum_{m\ge0}\mathbf 1_{\{X_{T_j+m}=j\}}.
+\]
+Autrement dit, $V_j$ est le nombre de visites en $j$ du processus $(X_{T_j+m})_{m\ge0}$.
+
+Or $T_j$ est un temps d'arrêt, $X_{T_j}=j$ sur $\{T_j<\infty\}$, et $\{X_0=i\}$ est déterminé par $X_0,\dots,X_{T_j}$. Par la propriété de Markov forte, sous $P(\,\cdot\mid X_0=i,\ T_j<\infty)$, le processus $(X_{T_j+m})_{m\ge0}$ a la loi d'une chaîne $(\delta_j,P)$.
+
+L'événement $\{V_j>n\}$ se décompose en réunion dénombrable de cylindres. Par $\sigma$-additivité, comme dans la section précédente, on obtient
+\[
+P\big(V_j>n\,\big|\,X_0=i,\ T_j<\infty\big)=P(V_j>n\mid X_0=j)=f_{jj}^{\,n}.
+\]
+\end{itemize}
+D'où
+\[
+P(V_j>n\mid X_0=i)=f_{ij}\,f_{jj}^{\,n}.
+\]
+
+\emph{Lois ponctuelles.} Pour $n\ge1$, on a $\{V_j=n\}=\{V_j>n-1\}\setminus\{V_j>n\}$. Par conséquent,
+\[
+P(V_j=n\mid X_0=i)=f_{ij}f_{jj}^{\,n-1}-f_{ij}f_{jj}^{\,n}=f_{ij}\,f_{jj}^{\,n-1}(1-f_{jj}),
+\]
+et, pour $i\neq j$,
+\[
+P(V_j=0\mid X_0=i)=1-P(V_j>0\mid X_0=i)=1-f_{ij}.
+\]
+Le cas $i=j$ s'obtient de la même façon, en remplaçant $f_{ij}$ par $1$.
+\end{proof}
+
+\begin{definition}
+Pour $i,j\in E$, on note
+\[
+R_{ij}:=\mathbb E\big[V_j\,\big|\,X_0=i\big]\in[0,+\infty]
+\]
+le nombre moyen de visites en $j$ partant de $i$.
+\end{definition}
+
+\begin{proposition}
+Avec la convention $\dfrac{1}{0}=+\infty$ (et $R_{ij}=0$ si $f_{ij}=0$),
+\[
+R_{ij}=
+\begin{cases}
+\dfrac{1}{1-f_{jj}} & \text{si } i=j,\\[10pt]
+\dfrac{f_{ij}}{1-f_{jj}} & \text{si } i\neq j.
+\end{cases}
+\]
+En particulier, $R_{jj}=+\infty$ si et seulement si $f_{jj}=1$.
+\end{proposition}
+
+\begin{proof}
+$V_j$ est à valeurs dans $\mathbb N\cup\{+\infty\}$. On peut donc écrire
+\[
+V_j=\sum_{n\ge0}\mathbf 1_{\{V_j>n\}}.
+\]
+Par convergence monotone (Fubini--Tonelli), puis par le théorème~\ref{thm:visites}, on obtient pour $i\neq j$
+\[
+R_{ij}=\sum_{n=0}^{\infty}P(V_j>n\mid X_0=i)
+=\sum_{n=0}^{\infty}f_{ij}\,f_{jj}^{\,n}
+=\frac{f_{ij}}{1-f_{jj}}.
+\]
+La somme géométrique vaut $+\infty$ si $f_{jj}=1$ et $f_{ij}>0$ ; elle vaut $0$ si $f_{ij}=0$.
+
+Pour $i=j$, le même calcul avec $P(V_j>n\mid X_0=j)=f_{jj}^{\,n}$ donne
+\[
+R_{jj}=\frac{1}{1-f_{jj}}.
+\]
+\end{proof}
+
+\begin{proposition}
+La matrice $R=(R_{ij})_{i,j\in E}$ vérifie
+\[
+R=\sum_{n=0}^{\infty}P^n,
+\qquad\text{c'est-à-dire}\qquad
+R_{ij}=\sum_{n=0}^{\infty}(P^n)_{ij}\in[0,+\infty]\quad\text{pour tous } i,j\in E.
+\]
+\end{proposition}
+
+\begin{proof}
+Soient $i,j\in E$. Par définition de $V_j$,
+\[
+R_{ij}=E\big[V_j\,\big|\,X_0=i\big]
+=E\Big[\sum_{n=0}^{\infty}\mathbf 1_{\{X_n=j\}}\,\Big|\,X_0=i\Big].
+\]
+Les variables $\mathbf 1_{\{X_n=j\}}$ sont positives. Le théorème de Fubini--Tonelli (ou de convergence monotone) permet donc d'échanger somme et espérance, y compris lorsque la somme vaut $+\infty$ :
+\[
+R_{ij}=\sum_{n=0}^{\infty}E\big[\mathbf 1_{\{X_n=j\}}\,\big|\,X_0=i\big]
+=\sum_{n=0}^{\infty}P\big(X_n=j\,\big|\,X_0=i\big).
+\]
+Enfin, $P(X_n=j\mid X_0=i)=(P^n)_{ij}$ (probabilité de transition en $n$ pas), d'où
+\[
+R_{ij}=\sum_{n=0}^{\infty}(P^n)_{ij}.
+\]
+\end{proof}
