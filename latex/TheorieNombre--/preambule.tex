@@ -1,0 +1,382 @@
+% ========================================
+% PACKAGES DE BASE
+% ========================================
+\usepackage[utf8]{inputenc}                    % Encodage UTF-8 pour les caractères accentués
+\usepackage[T1]{fontenc}                       % Encodage de sortie pour les polices européennes
+\usepackage[french]{babel}                     % Support de la langue française
+\usepackage{microtype}
+% ========================================
+% PACKAGES MATHÉMATIQUES
+% ========================================
+\usepackage{mathtools}                         % Extension d'amsmath avec outils supplémentaires
+\usepackage{amsfonts}                          % Polices mathématiques AMS
+\usepackage{amssymb}                           % Symboles mathématiques AMS
+\usepackage{amsthm}                            % Environnements de théorèmes
+\usepackage{mathrsfs}                          % Lettres calligraphiques \mathscr{}
+
+% ========================================
+% PACKAGES GRAPHIQUES ET COULEURS
+% ========================================
+\usepackage{graphicx}                          % Inclusion et manipulation d'images
+\usepackage[dvipsnames]{xcolor}                % Couleurs étendues (noms prédéfinis)
+\usepackage{tikz}                              % Graphiques TikZ
+\usepackage{tikz-cd}                           % Diagrammes commutatifs
+\usetikzlibrary{calc}
+
+% ========================================
+% PACKAGES DE MISE EN PAGE
+% ========================================
+\usepackage[a4paper, margin=1in]{geometry}    % Configuration des marges
+\usepackage{fancyhdr}                          % En-têtes et pieds de page personnalisés
+\usepackage{titlesec}                          % Personnalisation des titres de sections
+\usepackage{setspace}                          % Contrôle de l'interligne
+\usepackage{titling} %Récupération du nom des auteurs                            
+% Configuration détaillée des marges
+\geometry{
+    top=2.5cm,
+    bottom=2.5cm,
+    left=2.5cm,
+    right=2.5cm,
+    headheight=15.03pt,
+    headsep=20pt,
+    footskip=30pt
+}
+
+% ========================================
+% PACKAGES DE MISE EN FORME
+% ========================================
+\usepackage{textcomp}                          % Symboles textuels supplémentaires
+\usepackage{soul}                              % Soulignement et surlignage avancés
+\usepackage{mdframed}                          % Boîtes encadrées personnalisables
+\usepackage{tcolorbox}                         % Boîtes colorées avancées
+
+% ========================================
+% LISTES ET ÉNUMÉRATIONS
+% ========================================
+\usepackage[shortlabels]{enumitem}
+\setlistdepth{9}
+\renewlist{enumerate}{enumerate}{9}
+\renewlist{itemize}{itemize}{9}
+
+% Configuration des niveaux d'énumération
+\setlist[enumerate,1]{label=(\roman*)}
+\setlist[enumerate,2]{label=(\alph*)}
+\setlist[enumerate,3]{label=\arabic*.}
+\setlist[enumerate,4]{label=(\roman*)}
+\setlist[enumerate,5]{label=(\alph*)}
+
+% Configuration des niveaux d'itemize
+\setlist[itemize,1]{label=$\bullet$}
+\setlist[itemize,2]{label=$\circ$}
+\setlist[itemize,3]{label=$-$}
+\setlist[itemize,4]{label=$\ast$}
+
+% ========================================
+% HYPERLIENS
+% ========================================
+\definecolor{linkcolor}{RGB}{0,0,139}
+\definecolor{citecolor}{RGB}{139,0,0}
+\definecolor{urlcolor}{RGB}{0,100,0}
+
+\usepackage[
+    colorlinks=true,
+    linkcolor=linkcolor,
+    citecolor=citecolor,
+    urlcolor=urlcolor,
+    bookmarks=true,
+    bookmarksnumbered=true,
+    pdfstartview=FitH
+]{hyperref}
+
+% ========================================
+% POLICES MATHÉMATIQUES
+% ========================================
+\usepackage{fouriernc}                         % Police Fourier
+\DeclareMathAlphabet{\mathbb}{U}{msb}{m}{n}    % \mathbb standard (AMS)
+\DeclareMathAlphabet{\mathcal}{OMS}{cmsy}{m}{n} % \mathcal standard
+
+% ========================================
+% STYLES POUR LES BOÎTES
+% ========================================
+\definecolor{lime}{RGB}{0,0,128}
+
+% Macro pour définir des styles rapidement
+\newcommand{\defstyle}[2]{\mdfdefinestyle{#1}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=10pt,
+    innerrightmargin=10pt,
+    innertopmargin=0pt,
+    innerbottommargin=2pt,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    linecolor=#2,
+    linewidth=2pt,
+    backgroundcolor=white
+}}
+
+% Styles spécifiques
+\defstyle{definitionstyle}{RoyalBlue}
+\defstyle{theoremstyle}{lime}
+\defstyle{attentionstyle}{Red}
+
+% Style classique (sans bordure colorée)
+\mdfdefinestyle{classicstyle}{
+    leftmargin=0pt,
+    rightmargin=0pt,
+    innerleftmargin=0pt,
+    innerrightmargin=0pt,
+    innertopmargin=0pt,
+    innerbottommargin=2pt,
+    leftline=true,
+    rightline=false,
+    topline=false,
+    bottomline=false,
+    linecolor=white,
+    linewidth=2pt,
+    backgroundcolor=white
+}
+
+% ========================================
+% ENVIRONNEMENTS DE THÉORÈMES
+% ========================================
+
+% Définitions et axiomes
+\newmdtheoremenv[style=definitionstyle,nobreak=true]{definition}{Définition}[section]
+\newmdtheoremenv[style=definitionstyle,nobreak=true]{axiome}[definition]{Axiome}
+\newmdtheoremenv[style=definitionstyle,nobreak=true]{conjecture}[definition]{Conjecture}
+\newmdtheoremenv[style=definitionstyle,nobreak=true]{convention}[definition]{Convention}
+
+% Théorèmes et résultats
+\newmdtheoremenv[style=theoremstyle,nobreak=true]{theoreme}[definition]{Théorème}
+\newmdtheoremenv[style=theoremstyle,nobreak=true]{lemme}[definition]{Lemme}
+\newmdtheoremenv[style=theoremstyle,nobreak=true]{proposition}[definition]{Proposition}
+\newmdtheoremenv[style=theoremstyle,nobreak=true]{corollaire}[definition]{Corollaire}
+
+% Style amsthm
+\newtheoremstyle{remarkstyle}
+  {}{}
+  {\normalfont}  % corps en droit
+  {}
+  {\itshape\bfseries}     % titre en italique
+  {.}{ }{}
+
+% Environnements auxiliaires
+\theoremstyle{remarkstyle}
+
+
+\newtheorem{remarque}[definition]{Remarque}
+\surroundwithmdframed[style=classicstyle]{remarque}
+% Style amsthm
+\newtheoremstyle{normalstyle}
+  {}{}
+  {\normalfont}  % corps en droit
+  {}
+  {\normalfont\bfseries}     % titre en italique
+  {.}{ }{}
+
+% Environnements auxiliaires
+\theoremstyle{normalstyle}
+\newtheorem{exercice}[definition]{Exercice}
+\surroundwithmdframed[style=classicstyle]{exercice}
+\newtheorem{exemple}[definition]{Exemple}
+\surroundwithmdframed[style=classicstyle]{exemple}
+\newtheorem*{resolution}{Résolution}
+\surroundwithmdframed[style=classicstyle]{resolution}
+\newtheorem*{notation}{Notation}
+\surroundwithmdframed[style=classicstyle]{notation}
+
+% ========================================
+% EN-TÊTES ET PIEDS DE PAGE
+% ========================================
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[L]{\textit{\leftmark}}              % Chapitre à gauche
+\fancyfoot[L]{\thepage}                        % Numéro de page à gauche
+\fancyfoot[R]{\textit{\rightmark}}             % Section à droite
+
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Marques de chapitres et sections
+\renewcommand{\chaptermark}[1]{%
+    \markboth{\MakeUppercase{\chaptername\ \thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{%
+    \markright{\MakeUppercase{\thesection.\ #1}}}
+
+% Style pour les premières pages de chapitre
+\fancypagestyle{plain}{%
+    \fancyhf{}
+    \fancyfoot[L]{\thepage}
+    \fancyfoot[R]{\textit{\rightmark}}
+}
+
+% ========================================
+% FORMAT DES TITRES DE SECTIONS
+% ========================================
+\titleformat{\chapter}[block]
+    {\normalfont\LARGE\bfseries\scshape\color{RoyalBlue}\flushleft}
+    {\thechapter.}
+    {1em}
+    {\scshape\color{RoyalBlue}}
+
+\titleformat{\section}[block]
+    {\normalfont\large\scshape\color{RoyalBlue}\flushleft}
+    {\thesection}
+    {1em}
+    {}
+
+\titleformat{\subsection}[block]
+    {\normalfont\large\scshape\color{RoyalBlue}\flushleft}
+    {\thesubsection}
+    {1em}
+    {}
+
+\titleformat{\subsubsection}[block]
+    {\normalfont\large\scshape\color{RoyalBlue}\flushleft}
+    {\thesubsubsection}
+    {1em}
+    {}
+
+% ========================================
+% ENSEMBLES USUELS
+% ========================================
+\newcommand{\N}{\mathbb{N}}                    % Entiers naturels
+\newcommand{\Z}{\mathbb{Z}}                    % Entiers relatifs
+\newcommand{\Q}{\mathbb{Q}}                    % Rationnels
+\newcommand{\R}{\mathbb{R}}                    % Réels
+\newcommand{\C}{\mathbb{C}}                    % Complexes
+\newcommand{\K}{\mathbb{K}}                    % Corps quelconque
+\newcommand{\Sg}{\mathfrak{S}}                 % Groupe symétrique
+\newcommand{\sn}{\mathbb{S}_n}                 % Sphère de dimension n
+
+% ========================================
+% LOGIQUE
+% ========================================
+\newcommand{\ssi}{\Leftrightarrow}             % Si et seulement si
+\newcommand{\alors}{\Rightarrow}               % Implique
+\newcommand{\si}{\Leftarrow}                   % Est impliqué par
+
+% ========================================
+% NORMES ET DISTANCES
+% ========================================
+\newcommand{\norm}[1]{\left\| #1 \right\|}     % Norme
+\newcommand{\norme}[1]{\lVert #1 \rVert}       % Norme (variante)
+\newcommand{\abs}[1]{\left| #1 \right|}        % Valeur absolue
+
+% ========================================
+% INTERVALLES
+% ========================================
+\newcommand{\interoo}[1]{\left] #1\right[}  % ]a,b[
+\newcommand{\interof}[1]{\left] #1\right]}   % ]a,b]
+\newcommand{\interfo}[1]{\left[ #1\right[}   % [a,b[
+\newcommand{\interff}[1]{\left[ #1\right]}   % [a,b]
+
+% ========================================
+% TOPOLOGIE
+% ========================================
+\newcommand{\topologie}{\mathcal{T}}           % Topologie
+\newcommand{\voisinage}{\mathcal{V}}           % Voisinages
+\newcommand{\partie}{\mathscr{P}}              % Parties
+\newcommand{\filtre}{\mathscr{F}}              % Filtre
+\newcommand{\ouvert}{\mathcal{O}}              % Ouverts
+\newcommand{\ferme}{\mathcal{F}}               % Fermés
+\newcommand{\adh}{\operatorname{adh}}                % Adhérence
+% ========================================
+% FONCTIONS
+% ========================================
+\newcommand{\fonction}[3]{#1\colon\left\{\begin{array}{l}#2 \\#3\end{array}\right.}
+
+% ========================================
+% OPÉRATEURS MATHÉMATIQUES
+% ========================================
+\DeclareMathOperator{\dom}{dom}               % Domaine
+\DeclareMathOperator{\im}{Im}                 % Image
+\DeclareMathOperator{\e}{e}                   % Exponentielle
+\DeclareMathOperator{\stab}{St}               % Stabilisateur
+\DeclareMathOperator{\orb}{Orb}               % Orbite
+\DeclareMathOperator{\coker}{coker}           % Conoyau
+\DeclareMathOperator{\sgn}{sgn}               % Signature
+\DeclareMathOperator{\Frac}{Frac}             % Corps des fractions
+\DeclareMathOperator{\Eq}{Eq}                 % Égaliseur
+\DeclareMathOperator{\Coeq}{Coeq}             % Coégaliseur
+\DeclareMathOperator{\Cone}{Cone}             % Catégorie des cônes
+\DeclareMathOperator{\colim}{colim}           % Colimite
+
+% Limites avec indices
+\newcommand{\limi}{\lim\limits}
+
+% Intégrale différentielle
+\newcommand{\intd}{\,\operatorname{d}}
+\newcommand{\dpart}[2]{\frac{\partial#1}{\partial#2}}
+
+% ========================================
+% THÉORIE DES CATÉGORIES
+% ========================================
+
+% --- Catégories standards ---
+\newcommand{\Set}{\mathbf{Set}}               % Ensembles
+\newcommand{\Grp}{\mathbf{Grp}}               % Groupes
+\newcommand{\Ab}{\mathbf{Ab}}                 % Groupes abéliens
+\newcommand{\Ring}{\mathbf{Ring}}             % Anneaux
+\newcommand{\CRing}{\mathbf{CRing}}           % Anneaux commutatifs
+\newcommand{\Mod}{\mathbf{Mod}}               % Modules
+\newcommand{\Vect}{\mathbf{Vect}}             % Espaces vectoriels
+\newcommand{\Top}{\mathbf{Top}}               % Espaces topologiques
+\newcommand{\Pos}{\mathbf{Pos}}               % Ensembles ordonnés
+\newcommand{\Cat}{\mathbf{Cat}}               % Catégories
+\newcommand{\Mon}{\mathbf{Mon}}               % Monoïdes
+
+% --- Constructions ---
+\newcommand{\Disc}{\mathbf{Disc}}             % Catégorie discrète
+\newcommand{\op}{^{\mathrm{op}}}              % Catégorie opposée
+
+% --- Objets et morphismes ---
+\newcommand{\Ob}{\mathrm{Ob}}                 % Objets
+\newcommand{\Hom}{\mathrm{Hom}}               % Morphismes
+\newcommand{\End}{\mathrm{End}}               % Endomorphismes
+\newcommand{\Aut}{\mathrm{Aut}}               % Automorphismes
+\newcommand{\id}{\mathrm{id}}                 % Identité
+\newcommand{\Id}{\mathrm{Id}}                 % Foncteur identité
+
+% --- Groupes linéaires ---
+\newcommand{\GL}{\mathrm{GL}}                 % Groupe linéaire général
+\newcommand{\SL}{\mathrm{SL}}                 % Groupe spécial linéaire
+
+% ========================================
+% TOPOLOGIE ALGÉBRIQUE
+% ========================================
+
+% --- Espaces classiques ---
+\newcommand{\Sph}[1]{S^{#1}}                  % Sphère S^n
+\newcommand{\Boule}[1]{D^{#1}}                % Boule D^n
+\newcommand{\Tore}{T^2}                        % Tore
+\newcommand{\RP}[1]{\mathbb{RP}^{#1}}         % Espace projectif réel
+\newcommand{\CP}[1]{\mathbb{CP}^{#1}}         % Espace projectif complexe
+\newcommand{\simplex}{\Delta}                  % Simplexe standard
+
+% --- Groupes d'homotopie ---
+\newcommand{\pifond}[2]{\pi_1(#1,#2)}         % π₁(X,x₀)
+\newcommand{\pihomo}[2]{\pi_{#1} (#2)}         % πₙ(X)
+
+% --- Homologie et cohomologie ---
+\newcommand{\Hsing}[1]{H_{#1}}                % Homologie H_n
+\newcommand{\Cohsing}[1]{H^{#1}}              % Cohomologie H^n
+\newcommand{\Htilde}[1]{\widetilde{H}_{#1}}   % Homologie réduite
+
+% --- Complexes de chaînes ---
+\newcommand{\Csing}[1]{C_{#1}}                % Chaînes singulières C_n
+\newcommand{\Zsing}[1]{Z_{#1}}                % Cycles Z_n
+\newcommand{\Bsing}[1]{B_{#1}}                % Bords B_n
+
+% --- Relations ---
+\newcommand{\iso}{\cong}                       % Isomorphisme
+\newcommand{\rel}{\,\text{rel}\,}             % Relatif à
+
+% ========================================
+% NOTATIONS DIVERSES
+% ========================================
+\newcommand{\xn}{(x_n)_{n\inI}}              % Suite indexée par I
+\newcommand{\yn}{(y_n)_{n\inJ}}              % Suite indexée par J
