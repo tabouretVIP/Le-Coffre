@@ -83,6 +83,6 @@ Nous remercions toutes les personnes qui participeront à l'élaboration du Coff
 
 ## Informations pratiques
 Il est **vivement** recommandé de télécharger l'application GitHub sur l'App Store ou le Play Store pour accéder au Coffre facilement depuis votre téléphone.
-Pour toute question/suggestion, n'hésitez pas à nous contacter : 
+Pour toute question/suggestion, n'hésitez pas à nous contacter :
 
 (Tiago Piette) tiago.piette@student.umons.ac.be ou (Manoa Hamiot) manoa.hamiot@student.umons.ac.be
