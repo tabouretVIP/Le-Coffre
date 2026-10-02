@@ -1,0 +1,261 @@
+\documentclass[12pt, a4paper]{report}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[french]{babel}
+\usepackage{amsmath, amssymb, amsthm}
+\usepackage{geometry}
+\geometry{hmargin=2.5cm, vmargin=3cm}
+\usepackage{hyperref}
+\hypersetup{
+    hidelinks 
+}
+
+
+% --- Configuration des théorèmes ---
+\theoremstyle{definition}
+\newtheorem{definition}{Définition}[chapter]
+\newtheorem{proposition}[definition]{Proposition}
+\newtheorem{lemme}[definition]{Lemme}
+\newtheorem{theoreme}[definition]{Théorème} 
+\newtheorem{remarque}[definition]{Remarque} 
+
+\title{\Huge\bfseries Syllabus de Topologie\\ \vspace{0.5cm} \Large Éléments fondamentaux et espaces métriques}
+\author{\Large Moriau Emilien / UMons}
+\date{\vfill\today}
+
+\begin{document}
+
+% ========================================================
+% PAGE DE GARDE
+% ========================================================
+\begin{titlepage}
+    \centering
+    \vfill
+    {\vfill}
+    {\makeatletter\@title\makeatother}
+    \vfill
+    {\makeatletter\@author\makeatother}
+    \vfill
+    {\makeatletter\@date\makeatother}
+\end{titlepage}
+
+\newpage
+\tableofcontents
+\newpage
+Tous les lemmes et toutes les définitions énoncées peuvent être prouvés comme exercice supplémentaire, il s'agit du meilleur exercice pour se familiariser avec les notions les traîtant.
+
+% ========================================================
+% CHAPITRE 1 : Introduction
+% ========================================================
+\chapter{Introduction}
+\section{Définitions de base}
+Soit $X$ un ensemble et $\le$ une relation binaire. On dit que $\le$ est un ordre sur $X$ si et seulement si $\forall x, y, z \in X$, les trois axiomes suivants sont vérifiés :
+\begin{enumerate}
+	\item Réflexivité : $x \le x$
+	\item Transitivité : $(x \le y \land y \le z) \implies x \le z$
+	\item Anti-symétrie : $(x \le y \land y \le x) \implies x = y$
+\end{enumerate}
+De plus, on dit que cet ordre est total si :
+\begin{enumerate}
+	\item[4.] $x \le y$ ou $y \le x$
+\end{enumerate}
+
+\begin{definition}[Corps ordonné]
+Soit $(K, +, \cdot, 0, 1)$ un corps et $\le$ un ordre total sur $K$. On dit que $K$ est un \textbf{corps ordonné} si et seulement si, $\forall x, y, z \in K$ :
+\begin{enumerate}
+	\item $x \le y \implies x+z \le y+z$
+	\item $(0 \le x \land 0 \le y) \implies 0 \le x \cdot y$
+\end{enumerate}
+\end{definition}
+
+On dira également qu'un corps $K$ is \textbf{archimédien} si pour tout élément de $K$, il existe un naturel $n$ le majorant. Une manière équivalente de dire qu'un corps est archimédien (utile pour les limites) est que pour tout élément $\varepsilon > 0$ dans $K$, il existe un naturel $n$ tel que $\varepsilon > 1/n$.
+
+\section{Adhérence, Compacité, Ouvert et Fermé}
+La notion d'adhérence est intuitivement la même que vue en Analyse I. Pour rappel, si $E \subset \mathbb{R}$, alors $\text{Adh}(E)$, ou $\overline{E}$ est l'ensemble donné par $\{ a \in \mathbb{R} \mid \exists (x_n) \in E^{\mathbb{N}} \text{ tel que } x_n \to a \}$.
+
+Une autre manière de voir l'adhérence est de la définir comme le plus petit fermé de $K$ contenant $E$. Cependant, pour parler de fermé (et d'ouvert), il faut définir ces notions :
+
+\begin{definition}[Fermé]
+Soit $E \in \mathcal{P}(K)$. On dit que $E$ est \textbf{fermé} si et seulement si $\forall x \in K, \, (\exists (x_n) \in E^{\mathbb{N}} \text{ tel que } x_n \to x) \implies x \in E$. 
+\end{definition}
+
+\begin{lemme}[Lien entre adhérence et fermé]
+Soit $E \in \mathcal{P}(K)$. $E$ est fermé $\iff E = \text{Adh}(E)$.
+\end{lemme}
+
+On définit, tout comme dans $\mathbb{R}$, la compacité (séquentielle) :
+\begin{definition}[Compacité séquentielle]
+Soit $E \subset \mathbb{R}$, on dit que $E$ est \textbf{séquentiellement compact} si et seulement si $\forall (x_n) \in E^{\mathbb{N}}, \, \exists (x'_n) \subset (x_n)$ qui converge vers une limite $a \in E$.
+\end{definition}
+Une fois ces notions vues, la notion de topologie peut être introduite...
+ 
+% ========================================================
+% CHAPITRE 2 : Introduction à la Topologie Générale
+% ========================================================
+\chapter{Introduction à la Topologie Générale}
+
+La topologie est l'étude des notions de limite, de continuité et de voisinage de manière abstraite, en s'affranchissant de la notion stricte de distance.
+
+\section{Définitions de base}
+
+\begin{definition}[Ouvert et Fermé]
+Soit $(X, \mathcal{T})$ un espace topologique.
+\begin{itemize}
+    \item Les éléments de $\mathcal{T}$ sont appelés les \textbf{ouverts} de $X$.
+    \item Une partie $F$ de $X$ est appelée un \textbf{fermé} si son complémentaire $X \setminus F$ est un ouvert ($X \setminus F \in \mathcal{T}$).
+\end{itemize}
+\end{definition}
+
+\begin{definition}[Voisinage]
+Soit $(X, \mathcal{T})$ un espace topologique et $x \in X$. On appelle \textbf{voisinage} de $x$ toute partie $V$ de $X$ qui contient un ouvert contenant $x$. C'est-à-dire :
+\[ \exists U \in \mathcal{T} \quad \text{tel que} \quad x \in U \subset V \]
+\end{definition}
+
+\section{Introduction à la théorie naïve}
+Avant de commencer la théorie naïve, nous avons besoin d'introduire ce qu'est une famille de sous-ensembles :
+\begin{definition}[Famille d'ensembles]
+Soit $I$ un ensemble. Une famille de sous-ensembles de $X$ indicée par $I$ est une fonction $f : I \to \mathcal{P}(X)$, où $f(i)$ est noté $A_i$. On note cette famille $(A_i)_{i \in I}$.
+\end{definition}
+
+Grâce à cette dernière définition, on peut parler d'intersections et d'unions de familles :
+\begin{definition}[Intersection et Union]
+Soit $I$ un ensemble non vide et $(A_i)_{i \in I}$ une famille de sous-ensembles de $X$. Pour tout $x \in X$ :
+\begin{enumerate}
+    \item $x \in \bigcap_{i \in I} A_i \iff \forall i \in I, \quad x \in A_i$
+    \item $x \in \bigcup_{i \in I} A_i \iff \exists i \in I, \quad x \in A_i$
+\end{enumerate}
+\end{definition}
+
+De nouveau, de ces notions, on introduit la PDIE (Propriété Des Intervalles Emboîtés) :
+\begin{definition}[PDIE]
+Soit $K$ un corps ordonné, on dit que $K$ a la PDIE si et seulement si pour toute suite d'intervalles fermés (non-vides) emboîtés, on a $\bigcap_{i \in \mathbb{N}} F_i \neq \emptyset$.
+\end{definition}
+Notons qu'un intervalle de la sorte est de la forme $F_i = [a_i, b_i]$, avec $a_i \le b_i$ et que pour tous $k, l \in \mathbb{N}$, $k \le l \implies F_l \subset F_k$.
+
+De cette propriété découle un théorème :
+\begin{theoreme}
+Soit $K$ un corps ordonné archimédien, $K$ est complet $\iff K$ a la PDIE.
+\end{theoreme}
+
+
+% ========================================================
+% CHAPITRE 3 : Topologie de R^{n}
+% ========================================================
+\chapter{Topologie de $\mathbb{R}^{n}$}
+\section{Norme}
+La norme n'ayant été vue qu'en Analyse II, un rappel s'impose pour clarifier cette notion.
+\begin{definition}[Norme]
+Une \textbf{norme} $\|\cdot\|$ est une application : $\mathbb{R}^{n} \to \mathbb{R}^{+}$ telle que pour tous $x, y \in \mathbb{R}^{n}$ et tout $\lambda \in \mathbb{R}$ :
+\begin{enumerate}
+    \item $\|x\| = 0 \iff x = 0$
+    \item $\|\lambda \cdot x\| = |\lambda| \cdot \|x\|$
+    \item $\|x + y\| \le \|x\| + \|y\|$
+\end{enumerate}
+\end{definition}
+Grâce à cette norme, on peut définir ce que l'on appellera une \textbf{boule}. Une telle boule se note de la manière suivante :
+
+Soit $a \in \mathbb{R}^{n}$, soit $r > 0$, la boule ouverte centrée en $a$ de rayon $r$ est $B(a, r) = \{x \in \mathbb{R}^{n} \mid \|x - a\| < r \}$.
+
+De la même manière, on note la boule fermée centrée en $a$ de rayon $r$ : $\overline{B(a, r)} = \{ x \in \mathbb{R}^{n} \mid \|x - a\| \le r \}$.
+Grâce aux boules, ont peut définir ce qu'est l'intérieur d'un ensemble :
+\begin{definition}[Intérieur]
+Soit $E \subset \mathbb{R}^{n}, Int(E) (ou \mathring{E})$ est l'ensemble défini par $\{ x \in E | \exists r > 0, B(x, r) \subset E \}$.
+\end{definition}
+Concrètement, cela revient à dire que l'intérieur d'un ensemble est constitué des points "qui ne sont pas au bord" de l'ensemble. Dans le cas d'un ouvert, il est naturel de se demander s'il existe des points "au bord". C'est pourquoi on définit la notion d'ouvert grâce à l'intérieur de la manière suivante : 
+\[ \text{Soit } E \subset \mathbb{R}^{n}, \quad E \text{ est ouvert} \iff E = \mathring{E} \]
+
+De la même manière, il est naturel de penser qu'un fermé est égal à son adhérence, ce qui est vrai. Il est également vrai de penser qu'un ensemble est fermé si son complémentaire est ouvert (pour rappel, le complémentaire d'un ensemble $E \subset \mathbb{R}^{n}$, noté $E^{\complement}$, est défini par l'ensemble des points n'appartenant pas à $E$ : $E^{\complement} = \mathbb{R}^{n} \setminus E$).
+
+% ========================================================
+% CHAPITRE 4 : Topologie générale
+% ========================================================
+\chapter{Topologie générale}
+\section{Introduction}
+La topologie ne se limite pas simplement à $\mathbb{R}^{n}$. Trois axiomes définissent ce qu'est un espace topologique. (Un bon exercice pour les lecteurs est de trouver des exemples d'espaces topologiques).
+
+\begin{definition}[Espace topologique]
+Soit $X$ un ensemble non-vide, et $\mathcal{T} \subset \mathcal{P}(X)$. On dit que $(X, \mathcal{T})$ est un espace topologique si et seulement si :
+\begin{enumerate}
+	\item $\emptyset \in \mathcal{T} \quad \land \quad X \in \mathcal{T}$
+	\item Pour toute famille $(O_i)_{i \in I}$ d'éléments de $\mathcal{T}$, $\bigcup_{i \in I} O_i \in \mathcal{T}$
+	\item $\forall n \in \mathbb{N}, \, \forall (O_1, \dots, O_n) \in \mathcal{T}^{n}, \quad \bigcap_{i = 1}^{n} O_i \in \mathcal{T}$
+\end{enumerate}
+\end{definition}
+
+Les éléments de $\mathcal{T}$ sont appelés ouverts de $X$. En appliquant cette définition, on en déduit que pour $E \in \mathcal{P}(X)$ :
+\[ E \text{ est fermé} \iff E^{\complement} \in \mathcal{T} \]
+
+Si $X$ est infini, il est alors possible que $E \in \mathcal{P}(X)$ le soit aussi. Alors, $E^{\complement}$ sera fini. On pose alors :
+\[ \text{Cof}(X) = \{ E \in \mathcal{P}(X) \mid E^{\complement} \text{ est fini} \} \]
+Posons alors également $\mathcal{T}_{\text{cof}} = \text{Cof}(X) \cup \{\emptyset\}$. Un bon entraînement est de prouver que $(X, \mathcal{T}_{\text{cof}})$ est un espace topologique.
+
+Nous allons également définir trois topologies classiques qui seront souvent utilisées plus tard :
+\begin{enumerate}
+	\item La topologie grossière : $\mathcal{T}_{\text{gros}} = \{\emptyset, X\}$
+	\item La topologie discrète : $\mathcal{T}_{\text{disc}} = \mathcal{P}(X)$
+	\item Soit $a \in X$, on définit la topologie de $a$ comme suit : $\mathcal{T}_{a} = \{E \subset X \mid a \in E\} \cup \{ \emptyset \}$
+\end{enumerate}
+
+\section{Topologie induite}
+Soit $(X, \mathcal{T})$ un espace topologique, soit $A \subset X$ avec $A$ non-vide. On définit $\mathcal{T}_{A} = \{ O \cap A \mid O \in \mathcal{T}\}$. Il s'agit d'une topologie sur $A$. (Un bon exercice est de le prouver via la définition !)
+
+\section{Topologie engendrée}
+Soit $X$ un ensemble et $S \subset \mathcal{P}(X)$. On note $\mathcal{T}_S$ l'ensemble des unions quelconques d'éléments de $S_{\cap}$, où $S_{\cap}$ est un ensemble d'intersections finies d'éléments de $S$.
+
+\begin{definition}[Sous-base]
+Soit $(X, \mathcal{T})$ un espace topologique et $S \subset \mathcal{P}(X)$. On dit que $S$ est une \textbf{sous-base} de $\mathcal{T}$ si et seulement si $\mathcal{T} = \mathcal{T}_S$.
+\end{definition}
+
+Notez que peu importe $S \subset \mathcal{P}(X)$, $\emptyset \in \mathcal{T}_S \quad \land \quad X \in \mathcal{T}_S$. Prouver cette remarque est un exercice conseillé pour se familiariser avec ces nouveaux concepts.
+
+\section{Notion similaire aux sous-structures}
+Tout comme les groupes, anneaux, etc., il existe une relation d'ordre sur les structures.
+\begin{definition}
+Soit $X$ un ensemble, soient $\mathcal{T}_1, \mathcal{T}_2$ deux topologies sur $X$. On dit que $\mathcal{T}_1$ est \textbf{plus fine} que $\mathcal{T}_2$ si et seulement si $\mathcal{T}_2 \subset \mathcal{T}_1$.
+\end{definition}
+Suite à cette définition, on remarquera que l'on ne dit pas que $\mathcal{T}_2$ est une sous-topologie de $\mathcal{T}_1$, mais qu'elle est moins fine.
+
+% ========================================================
+% CHAPITRE 5 : Limites de suites
+% ========================================================
+\chapter{Limites de suites}
+\section{Voisinage}
+Pour ce chapitre, nous aurons besoin de rappeler ce qu'est un voisinage :
+
+Soit $(X, \mathcal{T})$ un espace topologique, soit $a \in X$, soit $V \subset X$. On dit que $V$ est un \textbf{voisinage} de $a$ si et seulement si $\exists O \in \mathcal{T}$ tel que $a \in O \land O \subset V$.
+
+Nous noterons l'ensemble des voisinages de $a$ par $\mathcal{V}_a$.
+
+Notez que cette notation permet également de définir un ouvert ! En effet, soit $(X, \mathcal{T})$ un espace topologique, soit $E \subset X$. $E$ est ouvert $\iff \forall a \in E, \, E \in \mathcal{V}_a$. (Cette équivalence est un bon exercice à prouver).
+
+\begin{remarque}
+Si $O \in \mathcal{T}$ et $a \in O$, alors $O \in \mathcal{V}_a$.
+\end{remarque}
+
+\section{Limites}
+Maintenant que la notion de voisinage est claire, nous pouvons définir ce qu'est une limite :
+\begin{definition}[Limite]
+Soit $(X, \mathcal{T})$ un espace topologique, soit $a \in X$ et $(x_n) \in X^{\mathbb{N}}$. On dit que $a$ est une limite de $(x_n)$ si et seulement si :
+\[ \forall V \in \mathcal{V}_a, \quad \exists n_0 \in \mathbb{N}, \quad \forall n \ge n_0, \quad x_n \in V \]
+\end{definition}
+
+\begin{remarque}
+Soient $\mathcal{T}_1, \mathcal{T}_2$ deux topologies sur un ensemble $X$. Si une suite $(x_n)$ converge vers un $a \in X$ pour $\mathcal{T}_1$ et que $\mathcal{T}_1$ est plus fine que $\mathcal{T}_2$, alors $(x_n)$ converge vers $a$ pour $\mathcal{T}_2$.
+\end{remarque}
+
+Pour imager cette remarque, prenons l'exemple de la topologie grossière : soit $(X, \mathcal{T}_{\text{gros}})$ un espace topologique. Soit $a \in X$, $V \subset X$, $V \in \mathcal{V}_a$. Alors, nécessairement $V = X$. Soit $(x_n) \in X^{\mathbb{N}}$, $a$ est une limite de $(x_n)$ si et seulement si $\exists n_0 \in \mathbb{N}, \forall n \ge n_0, x_n \in X$, ce qui est toujours vrai. On en déduit donc que toutes les suites tendent vers tous les points dans un espace muni de la topologie grossière.
+
+\begin{definition}[Hausdorff]
+Soit $(X, \mathcal{T})$ un espace topologique. On dit que $(X, \mathcal{T})$ est de Hausdorff (ou séparé) si et seulement si :
+\[ \forall x, y \in X, \quad x \neq y \implies \exists O_x, O_y \in \mathcal{T} \quad \text{tels que} \quad x \in O_x \land y \in O_y \text{ et } O_x \cap O_y = \emptyset \]
+\end{definition}
+
+\begin{lemme}
+Soit $(X, \mathcal{T})$ un espace topologique de Hausdorff, soient $x, y \in X$ et $(x_n) \in X^{\mathbb{N}}$. Si $x_n \to x$ et $x_n \to y$, alors $x = y$.
+\end{lemme}
+
+\begin{proof}
+Pour le prouver, supposons par l'absurde que $x \neq y$. Par la propriété de Hausdorff, il existe deux ouverts disjoints $O_x$ et $O_y$ contenant respectivement $x$ et $y$. Comme $O_x \in \mathcal{V}_x$ et $O_y \in \mathcal{V}_y$, la définition de convergence implique qu'il existe un rang à partir duquel tous les termes de la suite appartiennent simultanément à $O_x$ et $O_y$, ce qui contredit le fait que $O_x \cap O_y = \emptyset$. Ainsi, la limite est unique.
+\end{proof}
+
+\end{document}
