@@ -138,3 +138,242 @@ Pour illuster :
     \end{itemize}
 \end{exemple}
 % exo faire avec z^2
+
+\begin{remarque}
+Pour rappel :
+
+Soit $f = u + iv : \Omega \to \mathbb{C}$ où $\Omega \subseteq \mathbb{C}$ est ouvert.
+Si $\dfrac{\partial u}{\partial x}, \dfrac{\partial u}{\partial y}, \dfrac{\partial v}{\partial x}, \dfrac{\partial v}{\partial y}$
+sont continues sur $\{(x,y) : x + iy \in \Omega\}$, alors $f$ est holomorphe en $z = x + iy$ ssi
+\[
+\left\{
+\begin{aligned}
+\frac{\partial u}{\partial x}(x,y) &= \frac{\partial v}{\partial y}(x,y) \\[4pt]
+\frac{\partial u}{\partial y}(x,y) &= -\frac{\partial v}{\partial x}(x,y)
+\end{aligned}
+\right.
+\qquad \text{(équations de Cauchy--Riemann).}
+\]
+De plus,
+\[
+f'(x+iy) = \frac{\partial u}{\partial x}(x,y) + i\,\frac{\partial v}{\partial x}(x,y).
+\]
+\end{remarque}
+
+\paragraph{Quelques notations supplémentaires.}
+Si $f$ est holomorphe en $x+iy$, on peut poser :
+\begin{align*}
+\frac{\partial f}{\partial x}(x+iy) &:= \frac{\partial u}{\partial x}(x,y) + i\,\frac{\partial v}{\partial x}(x,y) = f'(x+iy), \\[4pt]
+\frac{\partial f}{\partial y}(x+iy) &:= \frac{\partial u}{\partial y}(x,y) + i\,\frac{\partial v}{\partial y}(x,y) = i\,f'(x+iy), \\[4pt]
+\frac{\partial f}{\partial z}(x+iy) &:= \frac12 \left( \frac{\partial f}{\partial x}(x+iy) - i\,\frac{\partial f}{\partial y}(x+iy) \right) = f'(x+iy), \\[4pt]
+\frac{\partial f}{\partial \bar z}(x+iy) &:= \frac12 \left( \frac{\partial f}{\partial x}(x+iy) + i\,\frac{\partial f}{\partial y}(x+iy) \right).
+\end{align*}
+
+\begin{proposition}
+Soit $f : \Omega \to \mathbb{C}$ où $\Omega$ est un ouvert de $\mathbb{C}$.
+Si $\dfrac{\partial u}{\partial x}, \dfrac{\partial u}{\partial y}, \dfrac{\partial v}{\partial x}, \dfrac{\partial v}{\partial y}$
+sont continues sur $\{(x,y) : x+iy \in \Omega\}$, alors $f$ est holomorphe en $x+iy \in \Omega$ ssi
+\[
+\frac{\partial f}{\partial \bar z}(x+iy) = 0 .
+\]
+\end{proposition}
+
+\begin{proof}
+On calcule
+\begin{align*}
+\frac{\partial f}{\partial \bar z}(x+iy)
+&= \frac12 \left( \frac{\partial f}{\partial x}(x+iy) + i\,\frac{\partial f}{\partial y}(x+iy) \right) \\
+&= \frac12 \left( \frac{\partial u}{\partial x}(x,y) + i\,\frac{\partial v}{\partial x}(x,y)
+   + i \left[ \frac{\partial u}{\partial y}(x,y) + i\,\frac{\partial v}{\partial y}(x,y) \right] \right) \\
+&= \frac12 \left( \left[ \frac{\partial u}{\partial x}(x,y) - \frac{\partial v}{\partial y}(x,y) \right]
+   + i \left[ \frac{\partial v}{\partial x}(x,y) + \frac{\partial u}{\partial y}(x,y) \right] \right),
+\end{align*}
+et cette quantité est nulle ssi les deux crochets sont nuls, c'est-à-dire ssi les équations de Cauchy--Riemann sont satisfaites.
+\end{proof}
+
+\setcounter{section}{2}
+\section{Séries entières et fonctions analytiques}
+
+\subsection{Séries entières}
+
+\begin{definition}[Série entière]
+Une \emph{série entière} est une fonction de la forme
+\[
+f(z) = \sum_{n=0}^{+\infty} a_n (z - z_0)^n ,
+\]
+où $z_0 \in \mathbb{C}$ et $(a_n)_{n \geq 0}$ est une suite dans $\mathbb{C}$.
+\end{definition}
+
+\begin{exemple}
+\[
+e^z = \sum_{n=0}^{+\infty} \frac{z^n}{n!}, \qquad
+\cos(z) = \sum_{n=0}^{+\infty} \frac{(-1)^n}{(2n)!}\, z^{2n}, \qquad
+\sin(z) = \sum_{n=0}^{+\infty} \frac{(-1)^n}{(2n+1)!}\, z^{2n+1}.
+\]
+Dans les trois cas $z_0 = 0$, avec respectivement :
+\begin{itemize}
+  \item $a_n = \dfrac{1}{n!}$ pour $e^z$ ;
+  \item $a_{2n} = \dfrac{(-1)^n}{(2n)!}$, $a_{2n+1} = 0$ pour $\cos$ ;
+  \item $a_{2n+1} = \dfrac{(-1)^n}{(2n+1)!}$, $a_{2n} = 0$ pour $\sin$.
+\end{itemize}
+\end{exemple}
+
+\begin{definition}[Rayon de convergence]
+Soit $f(z) = \displaystyle\sum_{n=0}^{+\infty} a_n (z-z_0)^n$. Le \emph{rayon de convergence} de $f$ est donné par
+\[
+R = \frac{1}{\limsup\limits_{n} \sqrt[n]{|a_n|}} ,
+\]
+avec les conventions
+\[
+R = 0 \ \text{ si } \limsup_n \sqrt[n]{|a_n|} = +\infty,
+\qquad
+R = +\infty \ \text{ si } \limsup_n \sqrt[n]{|a_n|} = 0 .
+\]
+\end{definition}
+
+\begin{remarque}
+Soit $(c_n)_{n \geq 0}$ une suite de réels. On a
+\[
+\limsup_n c_n = \lim_{n \to +\infty} \Big( \sup_{k \geq n} c_k \Big),
+\]
+limite qui existe toujours dans $[-\infty, +\infty]$ car la suite $n \mapsto \sup_{k \geq n} c_k$ est décroissante.
+Par exemple, si $c_n = (-1)^n$, alors $\limsup_n c_n = 1$.
+Si $\lim_n c_n$ existe, alors $\limsup_n c_n = \lim_n c_n$.
+\end{remarque}
+
+\begin{exemple}
+\begin{itemize}
+  \item Pour $f(z) = e^z = \displaystyle\sum_{n=0}^{+\infty} \frac{1}{n!}\, z^n$, on a, par la formule de Stirling
+  $n! \sim \sqrt{2\pi n}\,\left(\frac{n}{e}\right)^n$ (c'est-à-dire $\lim_{n\to\infty} \dfrac{n!}{\sqrt{2\pi n}\,(n/e)^n} = 1$) :
+  \[
+  \limsup_n \sqrt[n]{\frac{1}{n!}}
+  = \limsup_n \sqrt[n]{\frac{1}{\sqrt{2\pi n}\,(n/e)^n}}
+  = \limsup_n \frac{1}{\sqrt[2n]{2\pi n}\cdot \dfrac{n}{e}}
+  = \limsup_n \frac{1}{\underbrace{e^{\frac{1}{2n}\ln(2\pi n)}}_{\to 1}\cdot \dfrac{n}{e}}
+  = 0 .
+  \]
+  Conclusion : $R = +\infty$.
+  \item On aura de même $R = +\infty$ pour $\sin$ et $\cos$.
+\end{itemize}
+\end{exemple}
+
+\begin{proposition}\label{prop:disque}
+Soit $f(z) = \displaystyle\sum_{n=0}^{+\infty} a_n (z-z_0)^n$ et soit
+\[
+D = \Big\{ z \in \mathbb{C} \ \Big|\ \sum_{n=0}^{+\infty} a_n (z-z_0)^n \text{ converge} \Big\}.
+\]
+Si $R$ est le rayon de convergence, alors
+\[
+D(z_0, R) \subseteq D \subseteq \overline{D(z_0, R)} .
+\]
+De plus, sur $D(z_0,R)$ on a convergence absolue, et convergence uniforme sur $\overline{D(z_0, r)}$ pour tout $r < R$.
+\end{proposition}
+
+\begin{proof}
+Soit $z \in D(z_0, R)$. Montrons que $\sum_{n=0}^{+\infty} a_n (z-z_0)^n$ converge absolument, c'est-à-dire que
+$\sum_{n=0}^{+\infty} |a_n|\,|z-z_0|^n$ converge.
+Par le critère de Cauchy, si $\limsup_n \sqrt[n]{|a_n|\,|z-z_0|^n} < 1$ alors on aura convergence de la série. Or
+\[
+\limsup_n \sqrt[n]{|a_n|\,|z-z_0|^n} < 1
+\iff \Big( \limsup_n \sqrt[n]{|a_n|} \Big)\,|z-z_0| < 1
+\iff |z-z_0| < \frac{1}{\limsup_n \sqrt[n]{|a_n|}} = R
+\]
+(si $\limsup_n \sqrt[n]{|a_n|} \neq 0, +\infty$ ; les cas limites se traitent de même).
+
+De même, si $z \notin \overline{D(z_0,R)}$ alors $|z-z_0| > R$, et par le critère de Cauchy on peut conclure que
+$\sum_{n=0}^{+\infty} a_n (z-z_0)^n$ diverge.
+
+Pour finir, si on considère $r < R$, on aura convergence uniforme sur $\overline{D(z_0,r)}$ car
+\[
+\sum_{n=0}^{+\infty} \sup_{z \in \overline{D(z_0,r)}} \big( |a_n|\,|z-z_0|^n \big) = \sum_{n=0}^{+\infty} |a_n|\, r^n ,
+\]
+qui converge puisque $\limsup_n \sqrt[n]{|a_n|\, r^n} = r \cdot \limsup_n \sqrt[n]{|a_n|} = \dfrac{r}{R} < 1$.
+\end{proof}
+
+On peut en fait montrer que toute série entière $f(z) = \sum_{n=0}^{+\infty} a_n (z-z_0)^n$ est holomorphe sur $D(z_0,R)$.
+
+\begin{theoreme}\label{thm:derivation}
+Soit $f(z) = \displaystyle\sum_{n=0}^{+\infty} a_n (z-z_0)^n$ et soit $R$ le rayon de convergence.
+Alors $f$ est holomorphe sur $D(z_0,R)$ et, pour tout $z \in D(z_0,R)$,
+\[
+f'(z) = \sum_{n=1}^{+\infty} n\, a_n (z-z_0)^{n-1} = \sum_{n=0}^{+\infty} (n+1)\, a_{n+1} (z-z_0)^n .
+\]
+De plus, le rayon de convergence de $f'$ vaut $R$.
+\end{theoreme}
+
+\begin{proof}
+\textbf{Étape 1 : rayon de convergence.}
+Montrons que $\sum_{n=0}^{+\infty} (n+1)\, a_{n+1} (z-z_0)^n$ a un rayon de convergence égal à $R$.
+Remarquons que cette série converge ssi $\sum_{n=0}^{+\infty} (n+1)\, a_{n+1} (z-z_0)^{n+1}$ converge. Or
+\[
+\limsup_n \sqrt[n+1]{(n+1)\,|a_{n+1}|}
+= \limsup_n \underbrace{\sqrt[n+1]{n+1}}_{\to 1} \cdot \sqrt[n+1]{|a_{n+1}|}
+= \limsup_n \sqrt[n]{|a_n|} = \frac{1}{R} .
+\]
+
+\textbf{Étape 2 : dérivabilité.}
+Il reste à montrer que pour $z \in D(z_0,R)$,
+\[
+(\ast)\qquad \lim_{h \to 0} \left| \frac{f(z+h) - f(z)}{h} - \sum_{n=0}^{+\infty} (n+1)\, a_{n+1} (z-z_0)^n \right| = 0 .
+\]
+Soit $z \in D(z_0,R)$. Quitte à travailler avec des $h$ très petits, on peut considérer $r < R$ tel que
+$z$ et $z+h$ appartiennent à $D(z_0,r)$. On a
+\[
+(\ast) = \lim_{h \to 0} \left|
+\frac{\displaystyle\sum_{n=0}^{+\infty} a_n (z+h-z_0)^n - \sum_{n=0}^{+\infty} a_n (z-z_0)^n}{h}
+- \sum_{n=0}^{+\infty} (n+1)\, a_{n+1} (z-z_0)^n \right| ,
+\]
+et, pour n'importe quel choix de $N$,
+\begin{multline*}
+(\ast) = \lim_{h \to 0} \Bigg|
+\frac{\displaystyle\sum_{n=0}^{N} a_n (z+h-z_0)^n - \sum_{n=0}^{N} a_n (z-z_0)^n}{h}
+- \sum_{n=0}^{N-1} (n+1)\, a_{n+1} (z-z_0)^n \\
++ \underbrace{\frac{\displaystyle\sum_{n=N+1}^{+\infty} a_n (z+h-z_0)^n - \sum_{n=N+1}^{+\infty} a_n (z-z_0)^n}{h}}_{(1)}
+- \underbrace{\sum_{n=N}^{+\infty} (n+1)\, a_{n+1} (z-z_0)^n}_{(2)}
+\Bigg| .
+\end{multline*}
+Les deux premiers termes forment une somme finie dont la différence tend vers $0$ quand $h \to 0$
+(dérivation terme à terme d'un polynôme). Remarquons de plus que :
+\begin{itemize}
+  \item $(2)$ est arbitrairement petit si $N$ est choisi suffisamment grand (reste d'une série convergente, par l'étape 1) ;
+  \item $(1) = \displaystyle\sum_{n=N+1}^{+\infty} a_n \, \frac{(z+h-z_0)^n - (z-z_0)^n}{h}$.
+  Cependant, en posant $b = z+h-z_0$ et $c = z-z_0$,
+  \[
+  b^n - c^n = (b-c)\big( b^{n-1} + c\,b^{n-2} + c^2 b^{n-3} + \dots + c^{n-2} b + c^{n-1} \big),
+  \]
+  et donc
+  \[
+  (1) = \sum_{n=N+1}^{+\infty} a_n \cdot \frac{h \cdot \overbrace{\big( (z+h-z_0)^{n-1} + \dots + (z-z_0)^{n-1} \big)}^{|\cdot| \,\leq\, n\, r^{n-1}}}{h} .
+  \]
+  Or $\displaystyle\sum_{n=0}^{+\infty} |a_n|\, n\, r^{n-1}$ converge (car $r < R$ et le rayon de la série dérivée vaut $R$),
+  et donc $(1)$ est arbitrairement petit si $N$ est choisi suffisamment grand, uniformément en $h$.
+\end{itemize}
+Ceci conclut la preuve de $(\ast)$.
+\end{proof}
+
+\begin{corollaire}
+Soit $f(z) = \displaystyle\sum_{n=0}^{+\infty} a_n (z-z_0)^n$ avec $R$ son rayon de convergence.
+Alors $f$ est holomorphe à tout ordre sur $D(z_0,R)$ et, pour tout $k \geq 1$,
+\[
+f^{(k)}(z) = \sum_{n=k}^{+\infty} n(n-1)\cdots(n-k+1)\, a_n (z-z_0)^{n-k}
+= \sum_{n=0}^{+\infty} (n+k)\cdots(n+1)\, a_{n+k} (z-z_0)^n .
+\]
+De plus, on a
+\[
+a_k = \frac{f^{(k)}(z_0)}{k!} .
+\]
+\end{corollaire}
+
+\begin{proof}
+Le fait que $f$ est holomorphe à tout ordre sur $D(z_0,R)$ découle du Théorème~\ref{thm:derivation} :
+la dérivée d'une série entière de rayon $R$ redonne une série entière de rayon $R$, et on itère.
+De plus, comme
+\[
+f^{(k)}(z) = \sum_{n=0}^{+\infty} (n+k)\cdots(n+1)\, a_{n+k} (z-z_0)^n ,
+\]
+en évaluant en $z = z_0$ seul le terme $n = 0$ subsiste :
+\[
+f^{(k)}(z_0) = \underbrace{k \cdot (k-1) \cdots 1}_{k!}\ a_k .
+\qedhere
+\]
+\end{proof}
