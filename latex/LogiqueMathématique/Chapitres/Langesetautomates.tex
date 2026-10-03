@@ -980,7 +980,189 @@ DFA -> RegExp
 
 Soit $\mathcal{A}=(Q, \Sigma, \delta, q_0, F)$ un automate en forme spéciale. 
 
-Machin machin
-\section{Congruence de Nerode}
-Ensuite plus machin mais des machin sur forme canoninique DFA ? ok merci machinman
-relation d'équivalence  thm mill chain nerode
+*avant ça à retravailler sur les notes c'est un peu brouillon*
+
+%====================================================================
+\section*{V. Forme canonique et minimisation}
+%====================================================================
+
+Nous avons vu que les expressions régulières (RegExp) n'ont pas de forme canonique, ce qui rend leur comparaison difficile.
+
+Mais, grâce au théorème de Kleene, nous savons qu'une RegExp n'est qu'une des représentations possibles d'un langage régulier : nous avons aussi accès aux automates. Nous allons voir que \emph{ces derniers admettent une forme canonique}. Ils seront donc à privilégier pour comparer (et, plus généralement, manipuler) des langages.
+
+\paragraph{Idée.}
+Pour un langage $\mathcal{L}$, on va classer les mots $w \in \Sigma^*$ en fonction des continuations possibles et de leur impact sur l'appartenance à $\mathcal{L}$. Deux mots $w_1$ et $w_2$ qui sont équivalents vis-à-vis des continuations seront dans la même classe.
+
+\begin{quote}
+\small\itshape
+Anil Nerode (1932--), logicien américain : logique, langages, complexité, etc.
+\end{quote}
+
+\begin{definition}[Congruence de Nerode]
+Pour un mot $w \in \Sigma^*$ et un langage $\mathcal{L} \subseteq \Sigma^*$, on définit
+\[
+w^{-1}\mathcal{L} = \{\, w' \in \Sigma^* \mid ww' \in \mathcal{L} \,\},
+\]
+l'ensemble des continuations $w'$ de $w$ telles que $ww' \in \mathcal{L}$.
+
+On définit la relation d'équivalence ${\sim_{\mathcal{L}}} \subseteq \Sigma^* \times \Sigma^*$ par
+\[
+w_1 \sim_{\mathcal{L}} w_2 \iff w_1^{-1}\mathcal{L} = w_2^{-1}\mathcal{L}.
+\]
+\end{definition}
+
+% (Un exemple suivait au tableau : à compléter.)
+
+On va en tirer une caractérisation de l'automate \emph{minimal} pour un langage $\mathcal{L}$. C'est important quand on utilise les automates comme structure de données.
+
+\begin{quote}
+\small\itshape
+John Myhill (1923--1987), mathématicien anglais. Pionnier en théorie des langages, théorie des ensembles, calculabilité, etc.
+\end{quote}
+
+\begin{theoreme}[Myhill--Nerode]
+\leavevmode
+\begin{enumerate}
+  \item Un langage $\mathcal{L}$ est régulier ssi $\sim_{\mathcal{L}}$ a un nombre fini de classes d'équivalence.
+  \item Ce nombre est égal au nombre minimal d'états d'un DFA reconnaissant $\mathcal{L}$.
+  \item Ce DFA minimal est unique à isomorphisme près.
+\end{enumerate}
+\end{theoreme}
+
+\begin{remarque}
+On obtient ainsi une \emph{troisième caractérisation} de la régularité d'un langage.
+\end{remarque}
+
+\begin{exemple}
+Considérons l'automate $\mathcal{A}$ suivant :
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2.2cm, on grid, auto, >={Stealth}]
+  \node[state, initial, initial text={}] (q1) {$q_1$};
+  \node[state] (q2) [right=of q1] {$q_2$};
+  \node[state] (q3) [right=of q2] {$q_3$};
+  \node[state, accepting] (q4) [right=of q3] {$q_4$};
+  \path[->]
+    (q1) edge [loop above] node {$0$} ()
+         edge node {$1$} (q2)
+    (q2) edge [loop above] node {$1$} ()
+         edge node {$0$} (q3)
+    (q3) edge [bend left=40] node {$0$} (q1)
+         edge node {$1$} (q4)
+    (q4) edge [loop above] node {$0,1$} ();
+\end{tikzpicture}
+\end{center}
+Notre automate pour $(0|1)^*\,101\,(0|1)^*$ est-il minimal ?
+
+Considérons
+\[
+w_1 = \varepsilon, \qquad w_2 = 1, \qquad w_3 = 10, \qquad w_4 = 101.
+\]
+Chaque $w_i$ est celui qui nous a inspiré pour créer $q_i$. On a bien $w_i \not\sim_{\mathcal{L}} w_j$ pour tout $i \neq j$ :
+\begin{itemize}
+  \item $w_1 \not\sim_{\mathcal{L}} w_2$ car $w_1 01 \notin \mathcal{L}$ et $w_2 01 \in \mathcal{L}$ ;
+  \item $w_2 \not\sim_{\mathcal{L}} w_3$ car $w_2 1 \notin \mathcal{L}$ et $w_3 1 \in \mathcal{L}$ ;
+  \item $w_3 \not\sim_{\mathcal{L}} w_4$ car $w_3 \varepsilon \notin \mathcal{L}$ et $w_4 \varepsilon \in \mathcal{L}$ ;
+  \item $w_1 \not\sim_{\mathcal{L}} w_3$ car $w_1 1 \notin \mathcal{L}$ et $w_3 1 \in \mathcal{L}$ ;
+  \item $w_1 \not\sim_{\mathcal{L}} w_4$ car $w_1 \varepsilon \notin \mathcal{L}$ et $w_4 \varepsilon \in \mathcal{L}$ ;
+  \item $w_2 \not\sim_{\mathcal{L}} w_4$ car $w_2 \varepsilon \notin \mathcal{L}$ et $w_4 \varepsilon \in \mathcal{L}$.
+\end{itemize}
+Nous avions donc déjà l'automate minimal.
+\end{exemple}
+
+\begin{remarque}
+Les états de l'automate minimal correspondent aux classes de $\sim_{\mathcal{L}}$.
+L'existence d'un automate minimal (à isomorphisme près) est intéressante, mais on voudrait aussi pouvoir le calculer.
+\end{remarque}
+
+\subsection*{Minimisation de DFA}
+
+\begin{proposition}
+Étant donné un DFA $\mathcal{A}$, on peut construire un DFA minimal $\mathcal{A}'$ tel que $\mathcal{L}(\mathcal{A}') = \mathcal{L}(\mathcal{A})$ en \emph{temps polynomial}.
+\end{proposition}
+
+\begin{remarque}
+Cela deviendra plus clair dans le chapitre « Complexité », mais c'est une bonne nouvelle.
+On ne verra pas l'algorithme ; allez voir Esparza et Blondin si cela vous intéresse.
+\end{remarque}
+
+\subsection*{Quid des NFA ?}
+
+Malheureusement, il n'y a pas d'unicité de l'automate minimal. Considérons $\mathcal{L} = \mathcal{L}(aa^*)$.
+\begin{center}
+\begin{tikzpicture}[shorten >=1pt, node distance=2cm, on grid, auto, >={Stealth}]
+  \node at (-1.2,0) {$\mathcal{A}_1$};
+  \node[state, initial, initial text={}] (p0) at (0,0) {};
+  \node[state, accepting] (p1) [right=of p0] {};
+  \path[->]
+    (p0) edge node {$a$} (p1)
+    (p1) edge [loop above] node {$a$} ();
+
+  \node at (5.3,0) {$\mathcal{A}_2$};
+  \node[state, initial, initial text={}] (r0) at (6.5,0) {};
+  \node[state, accepting] (r1) [right=of r0] {};
+  \path[->]
+    (r0) edge [loop above] node {$a$} ()
+         edge node {$a$} (r1);
+\end{tikzpicture}
+\end{center}
+Nous avons deux automates minimaux qui ne sont pas isomorphes ! Cela rend les choses beaucoup plus compliquées.
+
+\begin{theoreme}[Complexité de la minimisation de NFA]
+Soient $\mathcal{A}$ un NFA et $k \geq 1$. Décider s'il existe un NFA $\mathcal{A}'$ avec au plus $k$ états tel que $\mathcal{L}(\mathcal{A}') = \mathcal{L}(\mathcal{A})$ est un problème \emph{PSPACE-complet}.
+\end{theoreme}
+
+\begin{remarque}
+Ça, par contre, c'est une mauvaise nouvelle ! En pratique, cela demande un temps exponentiel ; on ne sait pas si un algorithme polynomial existe (et on pense que non, sinon $\mathrm{P} = \mathrm{PSPACE}$).
+\end{remarque}
+
+%====================================================================
+\section*{VI. Caractérisation logique}
+%====================================================================
+
+Pour faire le lien avec IntLog, considérons une dernière caractérisation des langages réguliers, via la logique. Il existe deux philosophies de description des langages :
+
+\begin{center}
+\begin{tabular}{p{0.42\textwidth}|p{0.42\textwidth}}
+\multicolumn{1}{c|}{\textbf{RegExp}} & \multicolumn{1}{c}{\textbf{Logique}} \\
+\hline
+Description \emph{générationnelle} : « comment créer un mot du langage ». &
+Description \emph{déclarative} : « propriété à satisfaire pour appartenir au langage ». \\
+\end{tabular}
+\end{center}
+
+En fonction du langage, l'une ou l'autre description peut être plus facile à comprendre.
+
+\begin{exemple}
+Le langage des mots ayant un nombre pair de $a$ et un nombre pair de $b$ :
+\[
+\mathcal{L} = \{\, w \in \{a,b\}^* \mid \#a \bmod 2 = 0 \ \wedge\ \#b \bmod 2 = 0 \,\}
+\]
+versus
+\[
+\mathcal{L}\Big( \big[\, aa \mid bb \mid (ab \mid ba)(aa \mid bb)^*(ba \mid ab) \,\big]^* \Big).
+\]
+\end{exemple}
+
+Nous allons utiliser la \emph{logique des prédicats sur les mots}, qui est la logique du \emph{premier ordre} : les quantificateurs ne portent que sur les « variables d'individus », jamais sur des propriétés, des prédicats ou des fonctions.
+
+Fixons un alphabet $\Sigma = \{a, b\}$. On distingue deux types de propriétés atomiques :
+\begin{enumerate}
+  \item $P_a(x)$ ou $P_b(x)$, où $x$ est une variable désignant une position au sein du mot.
+  Par exemple, $P_b(7)$ est le prédicat qui est vrai si la lettre à la $7^{\text{e}}$ position est « $b$ ».
+  \item $x < y$, où $x$ et $y$ sont deux variables de position.
+\end{enumerate}
+
+\begin{exemple}
+$\mathcal{L}(a^*b^*)$ : si on a un « $b$ » dans une position, alors on en a aussi dans toutes les suivantes.
+En logique des prédicats :
+\[
+\forall x\, \forall y\, \big[\, (P_b(x) \wedge x < y) \rightarrow P_b(y) \,\big].
+\]
+\end{exemple}
+
+\begin{exemple}
+\[
+\forall x\, \forall y\, \Big[\, \big(P_a(x) \wedge x < y \wedge P_a(y)\big) \rightarrow \exists z\, \big(x < z \wedge z < y \wedge P_b(z)\big) \Big]
+\]
+signifie : entre deux « $a$ », il y a au moins un « $b$ ».
+\end{exemple}
