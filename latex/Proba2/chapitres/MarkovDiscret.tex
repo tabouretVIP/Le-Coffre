@@ -736,3 +736,237 @@ Enfin, $P(X_n=j\mid X_0=i)=(P^n)_{ij}$ (probabilité de transition en $n$ pas), 
 R_{ij}=\sum_{n=0}^{\infty}(P^n)_{ij}.
 \]
 \end{proof}
+
+\section{Classification des états}
+
+On sait que, conditionnellement à $X_0 = j$, le nombre de visites $V_j$ en $j$ suit une loi
+\[
+V_j \,\big|\, X_0 = j \ \sim\ \mathrm{Geom}(1 - f_{jj}),
+\]
+donc
+\[
+P(V_j = +\infty \mid X_0 = j) =
+\begin{cases}
+1 & \text{si } f_{jj} = 1,\\
+0 & \text{si } f_{jj} < 1.
+\end{cases}
+\]
+Il n'y a donc que deux types d'états.
+
+\begin{definition}
+Soit $j \in E$.
+\begin{itemize}
+  \item $j$ est un état \emph{persistant} (ou récurrent) ssi $f_{jj} = 1$, \\
+  ssi $P(V_j = +\infty \mid X_0 = j) = 1$, \\
+  ssi $R_{jj} = +\infty$.
+  \item $j$ est un état \emph{transitoire} ssi $f_{jj} < 1$, \\
+  ssi $V_j < +\infty$ p.s., \\
+  ssi $R_{jj} < +\infty$.
+\end{itemize}
+\end{definition}
+
+\paragraph{Graphe de transition.}
+À une chaîne de Markov on associe un graphe dirigé et pondéré :
+\begin{itemize}
+  \item sommets $=$ états ;
+  \item arc de $i$ vers $j$ ssi $P_{ij} > 0$ (noté $i \to j$) ;
+  \item pondération par les $P_{ij}$.
+\end{itemize}
+
+\begin{definition}
+On note $i \leadsto j$ (« il existe un chemin de $i$ vers $j$ ») s'il existe $k_1, \dots, k_m \in E$ tels que
+\[
+P_{ik_1} P_{k_1 k_2} \cdots P_{k_m j} > 0, \qquad
+\text{i.e. } i \to k_1 \to k_2 \to \cdots \to k_m \to j .
+\]
+\end{definition}
+
+On peut partitionner les états d'une chaîne de Markov en différentes classes via la relation
+\[
+i \sim j \iff i \leadsto j \ \text{ et } \ j \leadsto i .
+\]
+Par convention, $i$ est dans sa propre classe (relation réflexive).
+
+\begin{definition}[Classes finales et classes de passage]
+Soit $C$ une classe.
+\begin{itemize}
+  \item $C$ est une \emph{classe finale} si
+  $\forall i \in C,\ \forall j \notin C : \ i \not\leadsto j$.
+  \item $C$ est une \emph{classe de passage} si
+  $\forall i \in C,\ \exists j \notin C : \ i \leadsto j$.
+\end{itemize}
+\end{definition}
+
+\begin{proposition}\label{prop:classes}
+\begin{enumerate}
+  \item[(i)] Dans une classe de passage, tous les états sont transitoires.
+  \item[(ii)] Dans une classe finale, tous les états sont du même type.
+  \item[(iii)] Dans une classe finale \emph{finie}, tous les états sont persistants.
+\end{enumerate}
+\end{proposition}
+
+\begin{proof}
+\textbf{(i)} Soit $C$ une classe de passage et $i \in C$. Montrons que $i$ est transitoire, i.e. $f_{ii} < 1$.
+On sait qu'il existe $j \notin C$ tel que $i \leadsto j$, c'est-à-dire
+\[
+\exists n,\ \exists k_1, \dots, k_n \in E \quad \text{tels que} \quad P_{ik_1} \cdots P_{k_n j} > 0 .
+\]
+Alors
+\begin{align*}
+P(T_i = \infty \mid X_0 = i)
+&\geq P\big( i \to k_1 \to k_2 \to \cdots \to k_n \to j,\ \text{ensuite ne pas revenir en } i \big) \\
+&= P\big( X_1 = k_1, \dots, X_{n+1} = j,\ T_i = \infty \mid X_0 = i \big) \\
+&= P\big( T_i = \infty \mid X_0 = i, X_1 = k_1, \dots, X_{n+1} = j \big)\,
+   P\big( X_1 = k_1, \dots, X_{n+1} = j \mid X_0 = i \big) \\
+&= \underbrace{P(T_i = \infty \mid X_0 = j)}_{=\,1}\;
+   P_{ik_1} P_{k_1 k_2} \cdots P_{k_n j} \ > 0 ,
+\end{align*}
+où $P(T_i = \infty \mid X_0 = j) = 1$ car $j \notin C$ donc $j \not\leadsto i$.
+Ainsi $f_{ii} = 1 - P(T_i = \infty \mid X_0 = i) < 1$.
+
+\medskip
+\textbf{(ii)} Soit $C$ une classe finale et $i \in C$ persistant. Montrons que tout $j \in C$ est persistant.
+Si $C = \{i\}$, c'est immédiat. Sinon, soit $j \in C$, $j \neq i$. On sait que $i \leadsto j$ et $j \leadsto i$, c'est-à-dire
+\[
+\exists n, s \quad \text{tels que} \quad (P^n)_{ij} > 0 \ \text{ et } \ (P^s)_{ji} > 0 .
+\]
+Alors
+\begin{align*}
+R_{jj} = \sum_{m=0}^{\infty} (P^m)_{jj}
+&\geq \sum_{m=n+s}^{\infty} (P^m)_{jj}
+ = \sum_{m=n+s}^{\infty} \big(P^{\,s + (m-n-s) + n}\big)_{jj} \\
+&\geq \sum_{m=n+s}^{\infty} (P^s)_{ji}\,(P^{m-n-s})_{ii}\,(P^n)_{ij}
+\qquad \Big(\text{car } (AB)_{jj} = \sum_k A_{jk} B_{kj} \geq A_{ji} B_{ij}\Big) \\
+&= (P^s)_{ji} \Big( \sum_{m=n+s}^{\infty} (P^{m-n-s})_{ii} \Big) (P^n)_{ij} \\
+&= \underbrace{(P^s)_{ji}}_{>0}\ \underbrace{R_{ii}}_{+\infty}\ \underbrace{(P^n)_{ij}}_{>0} = +\infty .
+\end{align*}
+Donc $j$ est persistant.
+
+\medskip
+\textbf{(iii)} Soit $C$ une classe finale finie. Supposons par l'absurde qu'il existe $i \in C$ transitoire.
+Par (ii), tous les états de $C$ sont transitoires, donc $V_j < \infty$ p.s. pour tout $j \in C$, et comme $C$ est finie,
+\[
+\sum_{j \in C} V_j < \infty \quad \text{p.s.}
+\]
+Mais, la classe étant finale, la chaîne partie de $C$ reste dans $C$ :
+\[
+\sum_{j \in C} V_j = \sum_{j \in C} \sum_{m=0}^{\infty} \mathbb{1}_{\{X_m = j\}}
+= \sum_{m=0}^{\infty} \underbrace{\sum_{j \in C} \mathbb{1}_{\{X_m = j\}}}_{=\,1} = +\infty .
+\]
+Contradiction.
+\end{proof}
+
+\begin{proposition}
+Dans une classe finale $C$ d'états persistants, on a
+\[
+f_{ij} = 1 \qquad \forall\, i, j \in C .
+\]
+\end{proposition}
+
+\begin{proof}
+Soient $i \neq j \in C$. On a $i \leadsto j$ et $j \leadsto i$. En particulier il existe $k_1, \dots, k_n$ tels que
+$i \to k_1 \to \cdots \to k_n \to j$. Alors
+\begin{align*}
+\underbrace{P(T_i = \infty \mid X_0 = i)}_{=\,0\ (i \text{ persistant})}
+&\geq P\big( i \to k_1 \to \cdots \to k_n \to j,\ \text{puis ne plus revenir en } i \big) \\
+&\geq \underbrace{P_{ik_1} \cdots P_{k_n j}}_{>0}\ \underbrace{P(T_i = \infty \mid X_0 = j)}_{=\,1 - f_{ji}} .
+\end{align*}
+Donc $1 - f_{ji} = 0$, i.e. $f_{ji} = 1$.
+\end{proof}
+
+\subsection*{Calcul des matrices $F = (f_{ij})$ et $R = (R_{ij})$}
+
+En conditionnant par la première transition (propriété de Markov) :
+\begin{align*}
+f_{ij} = P(T_j < \infty \mid X_0 = i)
+&= \sum_{k \in E} P(T_j < \infty \mid X_0 = i, X_1 = k)\, P(X_1 = k \mid X_0 = i) \\
+&= P_{ij} + \sum_{\substack{k \in E \\ k \neq j}} P(T_j < \infty \mid X_0 = i, X_1 = k)\, P_{ik}
+\qquad (\text{le terme } k = j \text{ vaut } 1) \\
+&= P_{ij} + \sum_{\substack{k \in E \\ k \neq j}} P_{ik}\, f_{kj} .
+\end{align*}
+
+\begin{exemple}[graphe de la chaîne de Markov sur Moodle, $E = \{1, \dots, 10\}$]
+Avec les notations $a = f_{12}$, $b = f_{32}$, $c = f_{42}$, $d = f_{44}$, $x = f_{16}$, $y = f_{46}$, la matrice $F$ a la forme
+\[
+F =
+\begin{pmatrix}
+0{,}3 & a & a & a & x & x & x & 1-x & 1-x & 1-x \\
+0 & b & 1 & 1 & y & y & y & 1-y & 1-y & 1-y \\
+0 & b & b & 1 & y & y & y & 1-y & 1-y & 1-y \\
+0 & c & c & d & y & y & y & 1-y & 1-y & 1-y \\
+0 & 0 & 0 & 0 & 0 & 1 & 1 & 0 & 0 & 0 \\
+\hline
+ & & & & & 1 & 1 & & & \\
+ & & 0 & & & 1 & 1 & & 0 & \\
+\hline
+ & & & & & & & 1 & 1 & 1 \\
+ & & 0 & & & 0 & & 1 & 1 & 1 \\
+ & & & & & & & 1 & 1 & 1
+\end{pmatrix}
+\]
+Calcul des coefficients :
+\begin{align*}
+a &: \ f_{12} = 0{,}3 + 0{,}3\, f_{12} + 0{,}4 \cdot 0
+   \ \Longrightarrow\ a = f_{12} = \tfrac{3}{7} \quad (\text{noté } \tfrac34 \text{ sur le brouillon, à vérifier}) \\
+b, c &: \
+\begin{cases}
+f_{32} = 0{,}5 + 0{,}5\, f_{42} \\
+f_{42} = 0{,}4 + 0{,}1\, f_{42}
+\end{cases}
+\ \Longrightarrow\ f_{42} = \tfrac{4}{9},\quad f_{32} = \tfrac12 + \tfrac12 \cdot \tfrac49 = \tfrac{13}{18},
+\quad \text{donc } c = \tfrac49,\ b = \tfrac{13}{18} \\
+d &: \ f_{44} = 0{,}1 + 0{,}4\, \underbrace{f_{14}}_{=1} = \tfrac12 \ \Longrightarrow\ d = \tfrac12 \\
+x, y &: \
+\begin{cases}
+f_{16} = 0{,}3\, f_{26} + 0{,}3\, f_{16} \\
+f_{46} = 0{,}3 + 0{,}1\, f_{46} + 0{,}4\, f_{26}
+\end{cases}
+\ \text{avec } f_{26} = f_{46} = y :\quad
+y = 0{,}3 + 0{,}1 y + 0{,}4 y \Rightarrow y = \tfrac35,\quad
+x = 0{,}3 y + 0{,}3 x \Rightarrow x = \tfrac{9}{35}.
+\end{align*}
+La matrice $R$ a la forme
+\[
+R =
+\begin{pmatrix}
+ & & & & & \infty & \infty & \infty & \infty & \infty \\
+ & & R_T & & & \infty & \infty & \infty & \infty & \infty \\
+ & & \text{(calculs)} & & & \infty & \infty & \infty & \infty & \infty \\
+ & & & & & \infty & \infty & \infty & \infty & \infty \\
+ & & & & & \infty & \infty & 0 & 0 & 0 \\
+\hline
+ & & & & & \infty & \infty & & & \\
+ & & 0 & & & \infty & \infty & & 0 & \\
+\hline
+ & & & & & & & \infty & \infty & \infty \\
+ & & 0 & & & 0 & & \infty & \infty & \infty \\
+ & & & & & & & \infty & \infty & \infty
+\end{pmatrix}
+\]
+où $R_T$ est le bloc (fini) correspondant aux états transitoires $\{1, \dots, 5\}$.
+Les classes $\{6, 7\}$ et $\{8, 9, 10\}$ sont finales finies, donc persistantes (Prop.~\ref{prop:classes} (iii)).
+\end{exemple}
+
+\section{Propriétés asymptotiques}
+
+Soit $\{X_n\}$ une chaîne de Markov. On s'intéresse à
+\[
+\lim_{n \to \infty} P(X_n = j \mid X_0 = i) = \ ?
+\]
+
+\begin{proposition}
+Si $j$ est transitoire, alors
+\[
+\lim_{n \to +\infty} P(X_n = j \mid X_0 = i) = 0 \qquad \forall\, i \in E .
+\]
+\end{proposition}
+
+\begin{proof}
+Si $j$ est transitoire, alors $R_{ij} < \infty$. Or
+\[
+R_{ij} = \sum_{m=0}^{\infty} (P^m)_{ij} = \sum_{m=0}^{\infty} P(X_m = j \mid X_0 = i) < \infty ,
+\]
+donc le terme général de cette série convergente tend vers $0$ :
+$P(X_m = j \mid X_0 = i) \xrightarrow[m \to \infty]{} 0$.
+\end{proof}
+
